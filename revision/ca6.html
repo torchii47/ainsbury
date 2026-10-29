@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CA6 Data | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev ca6" data-page="ca6">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 6 · CORE PAPER 2</p>
+            <h1>Content Area 6: Data</h1>
+            <p>Content area 6 covers what data is, where it comes from, how it is categorised, stored, formatted, checked, transformed, accessed and analysed. Many questions ask you to choose a format, model, data type or method for a scenario and justify it, so learn the benefits and drawbacks as well as the definitions.</p>
+            <p class="links"><strong>Links to other content areas:</strong> Python data types and file handling are in <a href="ca2.html">Content area 2</a>. Data protection law is in <a href="ca4.html#s4-1-3">Content area 4</a>. Access control and APIs link to <a href="ca8.html">Content area 8</a> (IAAA, insecure APIs).</p>
+            <span class="big-num" aria-hidden="true">6</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>6.1.1</td><td>Explain the differences and relationships between data, information and knowledge</td></tr>
+                            <tr><td>6.1.2</td><td>Describe sources of data: humans, AI/machine learning (feedback loops), sensors, IoT, transactions</td></tr>
+                            <tr><td>6.1.3</td><td>Explain ethical data practices and the metrics for the value of data: quantity, timeframe, source, veracity</td></tr>
+                            <tr><td>6.1.4–5</td><td>Explain how organisations use data and information; judge the suitability of data and how it is generated</td></tr>
+                            <tr><td>6.2.1</td><td>Explain manipulating, analysing and processing data</td></tr>
+                            <tr><td>6.3.1–6</td><td>Define quantitative/qualitative, structured/unstructured, discrete/continuous/categorical data and the properties of qualitative data</td></tr>
+                            <tr><td>6.4.1–4</td><td>Define integer, real, character, string, Boolean, date and Blob; judge suitability of data types</td></tr>
+                            <tr><td>6.5.1–2</td><td>Define JSON, text file, CSV, UTF-8, ASCII and XML, and when each is used</td></tr>
+                            <tr><td>6.6.1–4</td><td>Explain metadata, file-based, directory-based and hierarchy-based storage structures</td></tr>
+                            <tr><td>6.7.1–3</td><td>Explain Big Data and the six Vs: volume, variety, variability, velocity, veracity, value</td></tr>
+                            <tr><td>6.7.4–6</td><td>Explain data quality assurance (validation, verification, reliability, consistency, integrity, redundancy) and factors affecting maintenance (time, skills, cost)</td></tr>
+                            <tr><td>6.8.1–2</td><td>Explain data wrangling and its steps: structure, clean, validate, enrich, output</td></tr>
+                            <tr><td>6.8.3</td><td>Explain the core functions of a data system: input, search, save, integrate, organise, output, feedback loop</td></tr>
+                            <tr><td>6.8.4–8</td><td>Explain transcription and transposition errors, methods to avoid them and factors that affect data entry</td></tr>
+                            <tr><td>6.9.1–2</td><td>Choose data visualisation formats based on type of data, audience and brief</td></tr>
+                            <tr><td>6.10.1–4</td><td>Explain and draw hierarchical, network and relational data models; judge which to use</td></tr>
+                            <tr><td>6.11.1–3</td><td>Explain permissions, RBAC, RuBAC and APIs for accessing data across platforms</td></tr>
+                            <tr><td>6.12.1–2</td><td>Explain data warehouse, data lake, data mart, data mining, reporting, financial planning and CRM</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-1">
+                    <h2>6.1 Data, information and knowledge</h2>
+                    <div class="window-body">
+                        <figure class="fig">
+                            <div class="flow">
+                                <div><strong>DATA</strong>18, 22, 25, 21</div>
+                                <span class="arrow">context →</span>
+                                <div><strong>INFORMATION</strong>Daily highs in Leeds (°C)</div>
+                                <span class="arrow">applied →</span>
+                                <div><strong>KNOWLEDGE</strong>Above 20°C ice cream sales double: order extra stock</div>
+                            </div>
+                            <figcaption>Data becomes information when it is given context; information becomes knowledge when it is applied</figcaption>
+                        </figure>
+
+                        <h3>Sources of data (6.1.2)</h3>
+                        <table>
+                            <tr><th>Source</th><th>Examples</th><th>Points to note</th></tr>
+                            <tr><td>Humans</td><td>Surveys, online forms, feedback</td><td>Subject to errors, bias and dishonesty; can capture opinions</td></tr>
+                            <tr><td>AI / machine learning</td><td>Predictions, recommendations, generated content</td><td><strong>Danger of feedback loops:</strong> if AI outputs are fed back as training data, errors and bias are reinforced (e.g. predictive policing sending officers to the same areas, which produces more recorded crime there)</td></tr>
+                            <tr><td>Sensors</td><td>Temperature, accelerometer, vibration, sound, light, pressure</td><td>Continuous, automatic, accurate if calibrated; huge volumes</td></tr>
+                            <tr><td>Internet of Things</td><td>Smart thermostats, lights, security cameras, trackers</td><td>Real-time data from many devices; privacy and security concerns</td></tr>
+                            <tr><td>Transactions</td><td>Customer data, membership, timing, basket contents</td><td>Shows real behaviour; used for stock control and marketing</td></tr>
+                        </table>
+
+                        <h3>Ethical data practices and the value of data (6.1.3)</h3>
+                        <p>Ethical practice means collecting only what is needed, being transparent, getting consent, keeping data secure, avoiding bias, and following data protection law. The <strong>value</strong> of data is judged by:</p>
+                        <table>
+                            <tr><th>Metric</th><th>Question to ask</th></tr>
+                            <tr><td>Quantity</td><td>Is there enough data to draw reliable conclusions? (More is not always better if it is poor quality.)</td></tr>
+                            <tr><td>Timeframe</td><td>Is it recent enough? Last year's prices may be useless today.</td></tr>
+                            <tr><td>Source</td><td>Where did it come from? Is the source reliable and was it collected ethically?</td></tr>
+                            <tr><td>Veracity</td><td>Is it accurate and trustworthy?</td></tr>
+                        </table>
+
+                        <h3>How organisations use data (6.1.4)</h3>
+                        <table>
+                            <tr><th>Use</th><th>Example</th></tr>
+                            <tr><td>Analysis to identify patterns</td><td>Supermarket sees barbecue food sells out when the forecast is sunny</td></tr>
+                            <tr><td>System performance analysis: load, outage, throughput, status</td><td>IT team monitors server load and outages to plan upgrades</td></tr>
+                            <tr><td>User monitoring: login/logout, resources accessed</td><td>Spot unusual logins at 3am; check who opened a sensitive file</td></tr>
+                            <tr><td>Targeted marketing: discounts, upselling</td><td>'Customers who bought this also bought...'; personalised vouchers</td></tr>
+                            <tr><td>Threat/opportunity assessment: competitors, security, compliance</td><td>Monitor competitor prices; detect attacks; check data retention rules are met</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Data</dt><dd>Raw facts and figures with no context, e.g. 18, 22, 25.</dd>
+                            <dt>Information</dt><dd>Data that has been processed and given context so it has meaning, e.g. 'Temperatures in Leeds this week: 18–25°C'.</dd>
+                            <dt>Knowledge</dt><dd>Understanding gained from information that can be applied to make decisions, e.g. 'Ice cream sales rise above 20°C, so order more stock'.</dd>
+                            <dt>Feedback loop (AI)</dt><dd>When an AI system's outputs influence the data it is later trained on, which can reinforce errors or bias.</dd>
+                            <dt>Veracity</dt><dd>How accurate and trustworthy data is.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-2">
+                    <h2>6.2–6.4 Transforming data, taxonomy and data types</h2>
+                    <div class="window-body">
+                        <h3>Methods of transforming data (6.2.1)</h3>
+                        <table>
+                            <tr><th>Method</th><th>Meaning</th><th>Example</th></tr>
+                            <tr><td>Manipulating</td><td>Changing data's form or arrangement: sorting, filtering, merging, reformatting</td><td>Sort customers by surname; convert dates to DD/MM/YYYY</td></tr>
+                            <tr><td>Analysing</td><td>Examining data to find patterns, trends and meaning</td><td>Calculate average spend by age group</td></tr>
+                            <tr><td>Processing</td><td>Performing operations to produce an output</td><td>Calculate payroll from hours worked; generate invoices</td></tr>
+                        </table>
+
+                        <h3>Data taxonomy (6.3)</h3>
+                        <table>
+                            <tr><th></th><th>Quantitative</th><th>Qualitative</th></tr>
+                            <tr><td>Definition</td><td>Measurable or countable numeric data</td><td>Descriptive, non-numeric data</td></tr>
+                            <tr><td>Structure</td><td><strong>Structured</strong>: fits neatly into rows and columns</td><td><strong>Unstructured</strong>: no fixed format</td></tr>
+                            <tr><td>Examples</td><td>Sales figures, temperatures, ages</td><td>Customer reviews, emails, photos, videos, voice recordings</td></tr>
+                            <tr><td>Purpose</td><td>Statistical analysis, calculations, charts</td><td>Understanding opinions, reasons and experiences</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Representation of quantitative data</th><th>Meaning</th><th>Example</th></tr>
+                            <tr><td>Discrete</td><td>Specific separate values, counted</td><td>Number of items in a basket (3, not 3.5)</td></tr>
+                            <tr><td>Continuous</td><td>Any value in a range, measured</td><td>Delivery time 23.7 minutes; weight 1.42 kg</td></tr>
+                            <tr><td>Categorical</td><td>Values in a fixed set of groups</td><td>Membership level: bronze, silver, gold</td></tr>
+                        </table>
+                        <p><strong>Properties of qualitative data (6.3.5):</strong> it is <strong>stored and retrieved only as a single object</strong> (a photo or a review is saved and loaded whole; you can't query part of it like a database field), and it can be <strong>codified into structured data</strong>, e.g. tagging reviews as positive/negative, or rating comments on a 1–5 scale, so it can be analysed.</p>
+
+                        <h4>Practise: discrete, continuous or categorical?</h4>
+                        <div class="sorter" data-options="Discrete|Continuous|Categorical">
+                            <p data-a="Continuous">The temperature inside a server room.</p>
+                            <p data-a="Discrete">The number of tickets a customer books.</p>
+                            <p data-a="Categorical">A customer's preferred contact method: email, phone or post.</p>
+                            <p data-a="Continuous">How long a web page takes to load.</p>
+                            <p data-a="Discrete">The number of failed login attempts.</p>
+                            <p data-a="Categorical">A hotel room type: single, double or suite.</p>
+                        </div>
+
+                        <h3>Data types (6.4)</h3>
+                        <table>
+                            <tr><th>Data type</th><th>Stores</th><th>Example</th><th>Use</th></tr>
+                            <tr><td>Integer</td><td>Whole numbers</td><td>42</td><td>Quantities, IDs, counts</td></tr>
+                            <tr><td>Real</td><td>Numbers with a decimal part</td><td>19.99</td><td>Prices, measurements</td></tr>
+                            <tr><td>Character</td><td>A single character</td><td>'M'</td><td>Codes, initials, single-key menu choices</td></tr>
+                            <tr><td>String</td><td>Text</td><td>"WF1 2DH"</td><td>Names, postcodes, phone numbers</td></tr>
+                            <tr><td>Boolean</td><td>True or false</td><td>True</td><td>Flags: paid, active, subscribed</td></tr>
+                            <tr><td>Date</td><td>A calendar date (and possibly time)</td><td>2026-11-03</td><td>Dates of birth, order dates; allows date calculations and sorting</td></tr>
+                            <tr><td>Blob</td><td>Binary large object</td><td>A JPEG photo or PDF</td><td>Storing images, audio or documents inside a database</td></tr>
+                        </table>
+                        <div class="box">
+                            <h4>■ INTERRELATIONSHIPS (6.4.2–6.4.4)</h4>
+                            <ul>
+                                <li>Structured data uses specific data types (integer, date) so it can be calculated, sorted and validated. Unstructured data is often stored as a Blob or long string.</li>
+                                <li>The data type controls what transformations are possible: you can average integers but not strings; you can sort dates chronologically only if stored as a date, not as text.</li>
+                                <li>Choosing the wrong type causes problems: phone numbers stored as integers lose the leading 0.</li>
+                            </ul>
+                        </div>
+                        <dl class="recall">
+                            <dt>Quantitative data</dt><dd>Data that can be measured or counted as numbers.</dd>
+                            <dt>Qualitative data</dt><dd>Descriptive data such as opinions, text, images or video.</dd>
+                            <dt>Structured data</dt><dd>Data organised in a fixed format, such as rows and columns in a table.</dd>
+                            <dt>Unstructured data</dt><dd>Data with no predefined format, such as emails, images and audio.</dd>
+                            <dt>Discrete data</dt><dd>Numeric data that can only take specific values, usually counted, e.g. number of tickets.</dd>
+                            <dt>Continuous data</dt><dd>Numeric data that can take any value in a range, usually measured, e.g. height.</dd>
+                            <dt>Categorical data</dt><dd>Data that falls into a limited set of groups, e.g. T-shirt size S/M/L.</dd>
+                            <dt>Real</dt><dd>A data type for numbers with a fractional part (float in Python).</dd>
+                            <dt>Character</dt><dd>A data type holding a single letter, digit or symbol.</dd>
+                            <dt>Blob</dt><dd>Binary large object: a data type for storing large binary data such as images, audio or files in a database.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-5">
+                    <h2>6.5–6.6 Data formats and storage structures</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Format</th><th>What it is</th><th>When used</th><th>Benefits / drawbacks</th></tr>
+                            <tr><td>JSON</td><td>Text format of key–value pairs and arrays</td><td>Web APIs, config files, app data</td><td>Lightweight, human-readable, maps directly to Python dictionaries / less descriptive than XML, no comments</td></tr>
+                            <tr><td>Text file</td><td>Plain unformatted text</td><td>Logs, notes, simple data</td><td>Simple, opened by anything / no structure, hard to query</td></tr>
+                            <tr><td>CSV</td><td>Records on lines, fields separated by commas</td><td>Spreadsheets, data import/export, data analysis</td><td>Simple, small, works with Excel and pandas / no data types, commas inside fields need quotes, flat only</td></tr>
+                            <tr><td>UTF-8</td><td>Unicode character encoding, 1–4 bytes per character</td><td>Almost all web pages and modern files</td><td>Every language and emoji, ASCII compatible / non-English characters take more bytes</td></tr>
+                            <tr><td>ASCII</td><td>7-bit character set, 128 characters</td><td>Older systems, simple English text</td><td>Small, universal / no accented letters, other alphabets or emoji</td></tr>
+                            <tr><td>XML</td><td>Text with custom tags describing the data</td><td>Document formats (.docx), RSS feeds, older APIs, data exchange between systems</td><td>Self-describing, supports nesting and validation against a schema / verbose, larger files, slower to parse</td></tr>
+                        </table>
+
+                        <h3>JSON and CSV in Python</h3>
+<pre class="code">
+import json
+import csv
+
+order = {"id": 1042, "customer": "Asha",
+         "items": ["latte", "scone"], "paid": True}
+
+text = json.dumps(order)              # Python dictionary -> JSON string
+print(text)
+back = json.loads(text)               # JSON string -> dictionary
+print(back["items"][1])
+
+with open("orders.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["order_id", "customer", "total"])
+    writer.writerow([1042, "Asha Patel", 5.40])
+
+with open("orders.csv") as f:
+    for row in csv.reader(f):
+        print(row)
+</pre>
+<pre class="out">
+{"id": 1042, "customer": "Asha", "items": ["latte", "scone"], "paid": true}
+scone
+['order_id', 'customer', 'total']
+['1042', 'Asha Patel', '5.4']
+</pre>
+                        <p>Notice the CSV reader returns every field as a <strong>string</strong>: CSV has no data types, so values must be converted after reading.</p>
+
+                        <h4>The same order in XML</h4>
+<pre class="code no-run">
+&lt;order id="1042">
+  &lt;customer>Asha Patel&lt;/customer>
+  &lt;item>latte&lt;/item>
+  &lt;item>croissant&lt;/item>
+  &lt;paid>true&lt;/paid>
+&lt;/order>
+</pre>
+
+                        <h4>Try it: is this valid JSON?</h4>
+                        <p>Edit the text, then check it. Try removing a quote mark or adding a comma after the last item.</p>
+                        <textarea id="json-in" class="q-answer" rows="5" aria-label="JSON to check">{"id": 1042, "customer": "Asha", "items": ["latte", "scone"], "paid": true}</textarea>
+                        <div class="button-row">
+                            <button type="button" class="button" id="json-check">Check JSON</button>
+                            <strong id="json-out" aria-live="polite"></strong>
+                        </div>
+
+                        <h4>ASCII and UTF-8</h4>
+<pre class="code">
+print(ord("A"), "A".encode("ascii"))
+print(len("café".encode("utf-8")), "bytes in UTF-8")
+try:
+    "café".encode("ascii")
+except UnicodeEncodeError:
+    print("é cannot be stored in ASCII")
+</pre>
+<pre class="out">
+65 b'A'
+5 bytes in UTF-8
+é cannot be stored in ASCII
+</pre>
+
+                        <h3>Structures for storing data (6.6)</h3>
+                        <table>
+                            <tr><th>Structure</th><th>Definition</th><th>When used</th></tr>
+                            <tr><td>Metadata</td><td>Data about data: describes and gives context, e.g. author, date created, file size, GPS location, column names and types.</td><td>Searching and organising files; understanding what a data set contains; but can leak private information (photo location)</td></tr>
+                            <tr><td>File-based</td><td>Data stored in individual separate files, each managed by the program that uses it.</td><td>Small systems, single-user apps, logs. Simple but leads to duplication and inconsistency across files.</td></tr>
+                            <tr><td>Directory-based</td><td>Files organised into folders (directories) by category.</td><td>Organising documents on a shared drive or project folder; easy to navigate and set permissions per folder.</td></tr>
+                            <tr><td>Hierarchy-based</td><td>Data organised as a tree of parent–child levels, each item with one parent (folders within folders, XML, organisation charts).</td><td>Data with a natural one-to-many structure; fast to navigate down a known path; awkward for many-to-many relationships.</td></tr>
+                        </table>
+                        <p><strong>Interrelationship (6.6.4):</strong> the storage structure affects how easily data can be transformed. Data scattered across separate files must be merged before analysis; hierarchical data may need flattening into rows before it can go in a CSV or spreadsheet.</p>
+                        <dl class="recall">
+                            <dt>JSON</dt><dd>JavaScript Object Notation: a lightweight text format storing data as key–value pairs and arrays, widely used by web APIs.</dd>
+                            <dt>CSV</dt><dd>Comma-separated values: a plain text format where each line is a record and fields are separated by commas.</dd>
+                            <dt>XML</dt><dd>Extensible Markup Language: a text format that uses custom tags to describe and structure data.</dd>
+                            <dt>ASCII</dt><dd>A character set using 7 bits to represent 128 characters (English letters, digits, symbols, control codes).</dd>
+                            <dt>UTF-8</dt><dd>A variable-length Unicode encoding (1–4 bytes per character) that can represent characters from every language and emoji, and is backwards compatible with ASCII.</dd>
+                            <dt>Metadata</dt><dd>Data about data, e.g. a photo's date, location, file size and camera model.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-7">
+                    <h2>6.7 Big Data, quality and maintenance</h2>
+                    <div class="window-body">
+                        <p><strong>Big Data</strong> is data that is too large, fast or varied for traditional tools to handle. It has multiple dimensions, the six Vs:</p>
+                        <table>
+                            <tr><th>V</th><th>Meaning</th><th>Impact on gathering, storing, maintaining and processing</th></tr>
+                            <tr><td>Volume</td><td>The amount of data</td><td>Needs scalable storage (cloud, data lakes) and distributed processing</td></tr>
+                            <tr><td>Variety</td><td>Different types and formats: structured, unstructured, images, sensor readings</td><td>Needs flexible storage; harder to combine and analyse</td></tr>
+                            <tr><td>Variability</td><td>Data flow and meaning change over time (seasonal peaks; words changing meaning)</td><td>Systems must handle peaks; analysis must account for changing context</td></tr>
+                            <tr><td>Velocity</td><td>The speed data arrives and must be processed</td><td>Needs real-time processing and fast networks (e.g. fraud detection)</td></tr>
+                            <tr><td>Veracity</td><td>Accuracy and trustworthiness</td><td>Needs cleaning and validation; poor data leads to poor decisions</td></tr>
+                            <tr><td>Value</td><td>How useful the data is to the organisation</td><td>Storing data costs money; only worth keeping if it delivers insight</td></tr>
+                        </table>
+
+                        <h3>Data quality assurance methods (6.7.4)</h3>
+                        <table>
+                            <tr><th>Method</th><th>Meaning</th><th>Example</th></tr>
+                            <tr><td>Validation</td><td>Automatic check that data is sensible and follows rules</td><td>Age must be 16–99; email must contain @</td></tr>
+                            <tr><td>Verification</td><td>Check that data has been entered or copied accurately</td><td>Enter password twice; proofread against the original form</td></tr>
+                            <tr><td>Reliability</td><td>Data comes from a trustworthy source and gives consistent results when collected again</td><td>Calibrated sensors; reputable data suppliers</td></tr>
+                            <tr><td>Consistency</td><td>Data is the same across systems and uses the same formats</td><td>Dates all in DD/MM/YYYY; customer address the same in sales and delivery systems</td></tr>
+                            <tr><td>Integrity</td><td>Data stays accurate and complete and isn't corrupted or altered without authorisation</td><td>Foreign keys must match an existing record; checksums; access control</td></tr>
+                            <tr><td>Redundancy</td><td>Control of duplicate data: remove unplanned duplicates; plan duplicates for backup</td><td>Remove duplicate customer records; keep a replicated copy for disaster recovery</td></tr>
+                        </table>
+                        <p><strong>Factors that affect maintenance (6.7.5):</strong> <strong>time</strong> (cleaning and updating data takes staff time), <strong>skills</strong> (specialists such as data engineers are needed for large data sets), <strong>cost</strong> (storage, software, staff, training).</p>
+                        <dl class="recall">
+                            <dt>Big Data</dt><dd>Data sets so large, fast-moving or varied that traditional tools can't process them; described by the six Vs.</dd>
+                            <dt>Verification</dt><dd>Checking data has been entered or transferred accurately, e.g. double entry or proofreading.</dd>
+                            <dt>Data integrity</dt><dd>Data remains accurate, complete and consistent throughout its life.</dd>
+                            <dt>Data redundancy</dt><dd>The same data stored in more than one place. Unplanned redundancy causes inconsistency; planned redundancy (backups) improves resilience.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-8">
+                    <h2>6.8 Data systems</h2>
+                    <div class="window-body">
+                        <h3>Data wrangling (6.8.1–6.8.2)</h3>
+                        <p><strong>Data wrangling</strong> transforms raw data from different sources into a clean, consistent format ready for analysis. It is used before analysis, when combining data sets, or importing data into a new system.</p>
+                        <div class="flow">
+                            <div><strong>1</strong>Structure</div><span class="arrow">→</span>
+                            <div><strong>2</strong>Clean</div><span class="arrow">→</span>
+                            <div><strong>3</strong>Validate</div><span class="arrow">→</span>
+                            <div><strong>4</strong>Enrich</div><span class="arrow">→</span>
+                            <div><strong>5</strong>Output</div>
+                        </div>
+                        <table>
+                            <tr><th>Step</th><th>Purpose</th><th>Example: combining shop sales spreadsheets from 5 branches</th></tr>
+                            <tr><td>Structure</td><td>Organise the raw data into a consistent layout</td><td>Make all files use the same columns in the same order</td></tr>
+                            <tr><td>Clean</td><td>Fix or remove errors, duplicates, missing values and inconsistent formats</td><td>Remove duplicate rows; change '£5' and '5.00' to 5.00; fill or flag blanks</td></tr>
+                            <tr><td>Validate</td><td>Check the data meets rules and is accurate</td><td>Check no negative quantities; dates within the right month</td></tr>
+                            <tr><td>Enrich</td><td>Add useful data from other sources</td><td>Add product category and branch region from other tables</td></tr>
+                            <tr><td>Output</td><td>Save or publish the data in the format needed</td><td>Export to one CSV or load into the data warehouse</td></tr>
+                        </table>
+
+                        <h3>Core functions of a data system (6.8.3)</h3>
+                        <table>
+                            <tr><th>Function</th><th>Purpose</th></tr>
+                            <tr><td>Input</td><td>Capture data into the system (forms, sensors, imports)</td></tr>
+                            <tr><td>Search</td><td>Find specific records quickly</td></tr>
+                            <tr><td>Save</td><td>Store data permanently</td></tr>
+                            <tr><td>Integrate</td><td>Combine data from or share data with other systems</td></tr>
+                            <tr><td>Organise (index)</td><td>Arrange data and create indexes so it can be found and sorted efficiently</td></tr>
+                            <tr><td>Output</td><td>Present results: screens, reports, exports</td></tr>
+                            <tr><td>Feedback loop</td><td>Use outputs to improve inputs or the system itself, e.g. users report errors, results refine future data collection</td></tr>
+                        </table>
+
+                        <h3>Data entry errors (6.8.4–6.8.8)</h3>
+                        <table>
+                            <tr><th>Error</th><th>What happens</th><th>Why it occurs</th></tr>
+                            <tr><td>Transcription</td><td>Data copied incorrectly: wrong character, missing or extra characters</td><td>Misreading handwriting, typing fast, mishearing on the phone, tiredness</td></tr>
+                            <tr><td>Transposition</td><td>Two characters swapped: 56 becomes 65</td><td>Typing quickly; common with long numbers</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Method to avoid errors</th><th>How it helps</th><th>Limitation</th></tr>
+                            <tr><td>Validation of user input</td><td>Rejects impossible values automatically</td><td>Can't spot valid but wrong data</td></tr>
+                            <tr><td>Verification by double entry</td><td>Data typed twice and compared</td><td>Takes longer; both entries could share the same mistake</td></tr>
+                            <tr><td>Drop-down menus</td><td>User picks from fixed valid options, so no typing errors</td><td>Only for limited sets of options; long lists slow to scroll</td></tr>
+                            <tr><td>Pre-filled data entry boxes</td><td>Known data (e.g. today's date, address from postcode lookup) filled in automatically</td><td>Users may not check pre-filled data that is wrong</td></tr>
+                        </table>
+                        <p><strong>Factors that impact data entry (6.8.6):</strong> time needed to create the screens; expertise needed to create the screens; time needed to enter the data. Better screens (drop-downs, lookups, validation) reduce errors and entry time, but cost more time and expertise to build, so the choice depends on how much data will be entered and how costly errors are.</p>
+                        <dl class="recall">
+                            <dt>Data wrangling</dt><dd>Transforming raw data into a clean, structured format ready for analysis.</dd>
+                            <dt>Transcription error</dt><dd>A mistake made when copying data, e.g. typing 'Smtih' for 'Smith' or a wrong digit.</dd>
+                            <dt>Transposition error</dt><dd>Two characters swapped, e.g. 1243 instead of 1234.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-9">
+                    <h2>6.9–6.10 Data visualisation and data models</h2>
+                    <div class="window-body">
+                        <h3>Visualisation formats (6.9)</h3>
+                        <table>
+                            <tr><th>Format</th><th>Best for</th><th>Drawbacks</th></tr>
+                            <tr><td>Graphs (line, scatter)</td><td>Trends over time; relationships between two variables</td><td>Can mislead with scaled axes; need some numeracy</td></tr>
+                            <tr><td>Charts (bar, pie)</td><td>Comparing categories; proportions of a whole (pie)</td><td>Pie charts poor with many categories; colour alone may not be distinguishable</td></tr>
+                            <tr><td>Tables</td><td>Exact values; looking up specific figures</td><td>Hard to spot trends at a glance</td></tr>
+                            <tr><td>Reports</td><td>Detailed written analysis with figures, for formal decisions</td><td>Long; take time to produce and read</td></tr>
+                            <tr><td>Dashboards</td><td>Real-time KPIs on one screen for managers</td><td>Can oversimplify; costly to build and maintain</td></tr>
+                            <tr><td>Infographics</td><td>Communicating key points to the public or non-specialists</td><td>Little detail; time-consuming to design; risk of style over accuracy</td></tr>
+                        </table>
+                        <p>Choose based on the <strong>type of data</strong> (categories → bar chart; time series → line graph), the <strong>intended audience</strong> (directors → dashboard; public → infographic; analysts → tables) and the <strong>brief</strong> (what decision is it for?).</p>
+
+                        <h3>Data models (6.10)</h3>
+                        <h4>Hierarchical model</h4>
+                        <figure class="fig">
+                            <div class="tree">
+                                <div class="tree-root">College</div>
+                                <div class="tree-kids">
+                                    <div><strong>Computing</strong><ul><li>T Level DSD</li><li>Level 2 IT</li></ul></div>
+                                    <div><strong>Business</strong><ul><li>T Level Management</li></ul></div>
+                                    <div><strong>Engineering</strong><ul><li>Level 3 Electrical</li></ul></div>
+                                </div>
+                            </div>
+                            <figcaption>Hierarchical: each record has exactly one parent (one-to-many)</figcaption>
+                        </figure>
+
+                        <h4>Network model</h4>
+                        <figure class="fig">
+                            <svg viewBox="0 0 520 250" role="img" aria-label="Network model. Student records Asha, Ben and Chloe each link to more than one module record (Python, Networks, Security), and each module links to more than one student.">
+                                <text x="80" y="18" text-anchor="middle" class="label">STUDENT records</text>
+                                <text x="440" y="18" text-anchor="middle" class="label">MODULE records</text>
+                                <rect class="shape" x="20" y="35" width="120" height="36"/><text x="80" y="58" text-anchor="middle">Asha</text>
+                                <rect class="shape" x="20" y="105" width="120" height="36"/><text x="80" y="128" text-anchor="middle">Ben</text>
+                                <rect class="shape" x="20" y="175" width="120" height="36"/><text x="80" y="198" text-anchor="middle">Chloe</text>
+                                <rect class="shape" x="380" y="35" width="120" height="36"/><text x="440" y="58" text-anchor="middle">Python</text>
+                                <rect class="shape" x="380" y="105" width="120" height="36"/><text x="440" y="128" text-anchor="middle">Networks</text>
+                                <rect class="shape" x="380" y="175" width="120" height="36"/><text x="440" y="198" text-anchor="middle">Security</text>
+                                <path class="line" d="M140,53 L380,53 M140,53 L380,123 M140,123 L380,53 M140,123 L380,193 M140,193 L380,123 M140,193 L380,193"/>
+                                <text x="260" y="238" text-anchor="middle" style="font-size: 11px">Each student links to many modules; each module to many students</text>
+                            </svg>
+                            <figcaption>Network: records can link to many others (many-to-many)</figcaption>
+                        </figure>
+
+                        <h4>Relational model</h4>
+                        <p>Data stored in tables (relations) of rows (records) and columns (fields), linked by keys.</p>
+                        <table>
+                            <tr><th>StudentID (PK)</th><th>Name</th><th>Course</th></tr>
+                            <tr><td>S01</td><td>Asha</td><td>DSD</td></tr>
+                            <tr><td>S02</td><td>Ben</td><td>DSD</td></tr>
+                            <tr><td>S03</td><td>Chloe</td><td>Business</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>EnrolmentID (PK)</th><th>StudentID (FK)</th><th>Module</th></tr>
+                            <tr><td>E1</td><td>S01</td><td>Python</td></tr>
+                            <tr><td>E2</td><td>S01</td><td>Networks</td></tr>
+                            <tr><td>E3</td><td>S02</td><td>Python</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Model</th><th>Access to individual items</th><th>Storage efficiency</th><th>Complexity</th><th>Suits</th></tr>
+                            <tr><td>Hierarchical</td><td>Fast down a known path; slow otherwise</td><td>Duplication if an item belongs to two parents</td><td>Simple</td><td>Org charts, file systems, XML</td></tr>
+                            <tr><td>Network</td><td>Fast following links</td><td>Efficient: no duplication for many-to-many</td><td>Complex to design and change</td><td>Transport routes, social networks</td></tr>
+                            <tr><td>Relational</td><td>Flexible: any query using SQL</td><td>Efficient: normalised tables avoid duplication</td><td>Moderate; joins can be slow on huge data</td><td>Most business systems: orders, customers, stock</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Hierarchical model</dt><dd>Data organised as a tree: each child record has one parent.</dd>
+                            <dt>Network model</dt><dd>Data organised as a graph: records can have many parents and many children (many-to-many).</dd>
+                            <dt>Relational model</dt><dd>Data organised in tables linked by primary and foreign keys.</dd>
+                            <dt>Primary key</dt><dd>A field that uniquely identifies each record in a table.</dd>
+                            <dt>Foreign key</dt><dd>A field in one table that is the primary key of another table, creating a link.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s6-11">
+                    <h2>6.11–6.12 Data access and analysis tools</h2>
+                    <div class="window-body">
+                        <h3>Accessing data across platforms (6.11)</h3>
+                        <table>
+                            <tr><th>Concept</th><th>Meaning</th></tr>
+                            <tr><td>Permissions: authorisation</td><td>Confirming a user is allowed to access a resource</td></tr>
+                            <tr><td>Permissions: privileges</td><td>The actions a user can perform (read, write, delete, administer)</td></tr>
+                            <tr><td>Permissions: access rights</td><td>The specific resources a user or group can access</td></tr>
+                            <tr><td>Permissions: rules</td><td>Conditions that decide access, e.g. only during working hours</td></tr>
+                            <tr><td>Role-based access control (RBAC)</td><td>Permissions attached to roles (nurse, receptionist, manager); users get the permissions of their role. Easy to manage; roles can become too broad.</td></tr>
+                            <tr><td>Rule-based access control (RuBAC)</td><td>Access decided by rules set by an administrator, e.g. only from the office network, only 08:00–18:00. Flexible and context-aware; rules can become complex.</td></tr>
+                            <tr><td>APIs</td><td>Defined interface that lets other platforms request data (e.g. a weather app requesting forecast data). Controlled, secure sharing with authentication and rate limits; depends on the provider and must be secured.</td></tr>
+                        </table>
+
+                        <h3>Data analysis tools (6.12)</h3>
+                        <table>
+                            <tr><th>Tool</th><th>Purpose</th><th>Example</th></tr>
+                            <tr><td>Data warehouse</td><td>Central store of cleaned, structured data from many systems, for reporting</td><td>A retailer combines sales, stock and web data for company-wide reports</td></tr>
+                            <tr><td>Data lake</td><td>Stores huge amounts of raw data in any format until needed</td><td>Streaming service stores all viewing logs, clicks and video files</td></tr>
+                            <tr><td>Data mart</td><td>Subset of a warehouse for one department</td><td>Marketing team's data mart of campaign and customer data</td></tr>
+                            <tr><td>Data mining</td><td>Algorithms find hidden patterns and relationships</td><td>Bank finds spending patterns that indicate fraud</td></tr>
+                            <tr><td>Reporting</td><td>Presents data as summaries, charts and dashboards</td><td>Weekly sales report to directors</td></tr>
+                            <tr><td>Financial planning and analysis</td><td>Uses business intelligence to forecast, budget and track performance</td><td>Forecast next quarter's revenue from trends</td></tr>
+                            <tr><td>CRM: customer data analytics</td><td>Analyse customer behaviour, value and churn</td><td>Identify customers likely to cancel</td></tr>
+                            <tr><td>CRM: communications</td><td>Manage and personalise contact with customers</td><td>Automated, personalised email campaigns</td></tr>
+                        </table>
+                        <p><strong>Scale (6.12.2):</strong> a small business can analyse data in a spreadsheet; as volume and variety grow, a database and reporting tool are needed; with Big Data, warehouses, lakes and mining tools become necessary.</p>
+                        <dl class="recall">
+                            <dt>RBAC</dt><dd>Role-based access control: permissions given according to the user's role.</dd>
+                            <dt>RuBAC</dt><dd>Rule-based access control: access decided by rules, e.g. time of day or location.</dd>
+                            <dt>API</dt><dd>Application programming interface: a defined way for one program to request data or services from another.</dd>
+                            <dt>Data warehouse</dt><dd>A central store of structured, cleaned data from many sources, organised for reporting and analysis.</dd>
+                            <dt>Data lake</dt><dd>A store holding large amounts of raw data in any format until it is needed.</dd>
+                            <dt>Data mart</dt><dd>A smaller subset of a data warehouse focused on one department or topic.</dd>
+                            <dt>Data mining</dt><dd>Using algorithms to find hidden patterns and relationships in large data sets.</dd>
+                            <dt>CRM</dt><dd>Customer relationship management: systems that store and analyse customer data and manage communications.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>DATA, INFORMATION, KNOWLEDGE</h4><ul><li>Data: raw facts</li><li>Information: data with context</li><li>Knowledge: information applied</li><li>Sources: humans, AI (feedback loops), sensors, IoT, transactions</li></ul></div>
+                            <div><h4>VALUE AND USE</h4><ul><li>Quantity, timeframe, source, veracity</li><li>Patterns, system performance, user monitoring</li><li>Targeted marketing, threat assessment</li></ul></div>
+                            <div><h4>TAXONOMY AND TYPES</h4><ul><li>Quantitative = structured; qualitative = unstructured</li><li>Discrete, continuous, categorical</li><li>Integer, real, character, string, Boolean, date, Blob</li></ul></div>
+                            <div><h4>FORMATS AND STORAGE</h4><ul><li>JSON: key–value, APIs</li><li>CSV: rows, no data types</li><li>XML: tags</li><li>ASCII 128 chars; UTF-8 all languages</li><li>Metadata; file, directory and hierarchy structures</li></ul></div>
+                            <div><h4>BIG DATA: SIX VS</h4><ul><li>Volume, variety, variability</li><li>Velocity, veracity, value</li><li>Quality: validation, verification, reliability, consistency, integrity, redundancy</li><li>Maintenance: time, skills, cost</li></ul></div>
+                            <div><h4>DATA SYSTEMS</h4><ul><li>Wrangling: structure, clean, validate, enrich, output</li><li>Input, search, save, integrate, organise, output, feedback</li><li>Transcription and transposition errors</li><li>Prevent: validation, double entry, drop-downs, pre-filled boxes</li></ul></div>
+                            <div><h4>VISUALISATION AND MODELS</h4><ul><li>Graphs, charts, tables, reports, dashboards, infographics</li><li>Choose by data type, audience, brief</li><li>Hierarchical (one parent), network (many-to-many), relational (tables + keys)</li></ul></div>
+                            <div><h4>ACCESS AND ANALYSIS</h4><ul><li>Permissions: authorisation, privileges, rights, rules</li><li>RBAC, RuBAC, APIs</li><li>Data warehouse, lake, mart</li><li>Data mining, reporting, financial planning, CRM</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on CA6 from the course question bank. Pick a topic or question type, answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-area="6"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 90 minutes.</p>
+                        <div class="qset" data-set="ca6">
+                            <div class="q" data-m="3">
+                                <p>Explain the difference between data and information, using an example.</p>
+                                <div class="ms"><ul><li>Data is raw facts with no context (1); information is data that has been processed / given context so it has meaning (1); valid example showing both (1), e.g. '07:45' vs 'the next train to Leeds leaves at 07:45'.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain the danger of a feedback loop when AI is used to generate data.</p>
+                                <div class="ms"><ul><li>The AI's outputs are used as future training data / influence the data collected (1) so errors or bias are reinforced and amplified over time (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>State whether each is discrete, continuous or categorical: (a) shoe size category S/M/L (b) time to run 100 m (c) number of goals scored.</p>
+                                <div class="ms"><ul><li>(a) Categorical (b) Continuous (c) Discrete</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>State the most suitable data type for: (a) a product photo stored in a database (b) a delivery date (c) a customer's middle initial.</p>
+                                <div class="ms"><ul><li>(a) Blob (b) Date (c) Character</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A weather app requests forecast data from a server. Explain why JSON is suitable for transferring the data.</p>
+                                <div class="ms"><ul><li>Lightweight / small, so quick to transfer to a phone (1); human-readable key–value structure (1); easily converted into objects/dictionaries in most programming languages / widely supported by APIs (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain one reason why UTF-8 is used instead of ASCII for a social media platform.</p>
+                                <div class="ms"><ul><li>Users post in many languages and use emoji (1); ASCII only has 128 characters / English characters, while UTF-8 can represent all Unicode characters (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the difference between a transcription error and a transposition error.</p>
+                                <div class="ms"><ul><li>Transcription: data copied incorrectly, e.g. wrong/missing character (1). Transposition: two characters swapped in order, e.g. 12 → 21 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A GP surgery's receptionists enter patient details by phone. Explain two methods to reduce data entry errors.</p>
+                                <div class="ms"><ul><li>Method (1) + explanation (1), twice. E.g. postcode lookup to pre-fill address (1) avoids mistyping addresses heard over the phone (1); validation of date of birth / NHS number format (1) rejects impossible values (1); read details back to the patient to verify (1); drop-downs for titles/GP names (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="5">
+                                <p>Describe the steps of data wrangling a company would follow to combine customer lists from two systems.</p>
+                                <div class="ms"><ul><li>Structure: put both lists into the same fields/layout (1)</li><li>Clean: remove duplicates, fix formats, handle missing values (1)</li><li>Validate: check data meets rules, e.g. valid emails/postcodes (1)</li><li>Enrich: add extra data, e.g. region or purchase history (1)</li><li>Output: save as a single combined file / load into the target system (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain two of the six Vs of Big Data in the context of a ride-sharing app.</p>
+                                <div class="ms"><ul><li>V (1) + context (1), twice. E.g. velocity: thousands of GPS locations per second must be processed in real time to match drivers (1)(1); volume: millions of journeys stored (1) requiring scalable cloud storage (1); veracity: GPS errors in city centres (1) give inaccurate fares (1); variety: GPS, payments, ratings text (1)(1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="5">
+                                <p>Draw a relational model for a library showing members, books and loans. Include table names, fields and keys.</p>
+                                <div class="ms"><ul><li>Member table with MemberID as primary key (1)</li><li>Book table with BookID/ISBN as primary key (1)</li><li>Loan table (1)</li><li>Loan includes MemberID and BookID as foreign keys (1)</li><li>Sensible additional fields, e.g. name, title, loan date, due date (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain the difference between RBAC and RuBAC.</p>
+                                <div class="ms"><ul><li>RBAC grants permissions based on the user's role (1), e.g. all receptionists can view appointments (1).</li><li>RuBAC grants access based on rules/conditions set by an administrator (1), e.g. access only from the office network or during working hours (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>A chain of gyms wants to analyse membership, attendance and payment data from 40 sites. Discuss the suitability of a data warehouse and a data lake.</p>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Warehouse: structured, cleaned data from all sites; consistent reporting for managers (attendance trends, revenue); data must be wrangled first, which takes time and skill; good fit because the data is mostly structured.</li>
+                                        <li>Lake: stores raw data cheaply in any format, including CCTV or app logs; flexible for future analysis; but harder to query, risk of becoming a 'data swamp', needs specialist skills.</li>
+                                        <li>Could use both: lake for raw data, warehouse/marts for reporting.</li>
+                                    </ul>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="9">
+                                <p>A hospital is choosing between a hierarchical and a relational data model for patient, ward, doctor and appointment data. Evaluate which model is more suitable.</p>
+                                <div class="box support">
+                                    <h4>◆ SUPPORT: SENTENCE STARTERS</h4>
+                                    <ul>
+                                        <li>A data warehouse would suit the gym chain because the data is ... However, ...</li>
+                                        <li>In a hierarchical model each patient would have only one ... which is a problem because ...</li>
+                                        <li>A relational model links tables using ...</li>
+                                    </ul>
+                                </div>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Hierarchical: simple; fast for one-to-many paths, e.g. ward → patients; but a patient may see many doctors and a doctor has many patients (many-to-many), forcing duplication; changes are difficult; inconsistent data risk.</li>
+                                        <li>Relational: tables for patients, doctors, wards, appointments linked by keys; appointments resolve the many-to-many relationship; reduces duplication and inconsistency; flexible queries (e.g. all appointments for a doctor this week); integrity enforced by foreign keys; more complex to design; joins on very large data can be slower.</li>
+                                        <li>Judgement: relational is more suitable because hospital data has many-to-many relationships and needs accuracy and flexible querying; integrity is critical for patient safety.</li>
+                                    </ul>
+                                    <div class="levels" data-max="9"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Write Python that reads a CSV of temperatures, validates each reading (−50 to 60) and writes the valid readings to a JSON file.</li>
+                                <li>Explain how metadata attached to photos uploaded to a website could create a privacy risk, and how the developer should handle it.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-ca6" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-ca6" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · CA6 Data · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+    <script>
+        // JSON checker: JSON.parse throws an error if the text isn't valid JSON
+        document.getElementById('json-check').addEventListener('click', () => {
+            const out = document.getElementById('json-out');
+            try {
+                const data = JSON.parse(document.getElementById('json-in').value);
+                const keys = data && typeof data === 'object' && !Array.isArray(data) ? Object.keys(data) : [];
+                out.textContent = '✔ Valid JSON' + (keys.length ? ` with keys: ${keys.join(', ')}` : '');
+            } catch (error) {
+                out.textContent = '✘ Not valid JSON: ' + error.message;
+            }
+        });
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

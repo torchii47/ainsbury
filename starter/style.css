@@ -1,0 +1,75 @@
+/* ==========================================
+   Starter stylesheet
+   Change the colours and fonts to make it yours!
+   ========================================== */
+
+/* Colour variables: change these to re-theme the whole site */
+:root {
+    --background: #f4f4f4;
+    --text: #222222;
+    --accent: #860c5d;
+    --card: #ffffff;
+}
+
+/* Base styles for the whole page */
+body {
+    margin: 0;
+    padding: 0 16px;
+    background-color: var(--background);
+    color: var(--text);
+    font-family: Verdana, Tahoma, sans-serif;
+    line-height: 1.5;
+}
+
+/* Keep content from stretching too wide on big screens */
+header,
+main,
+footer {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+    color: var(--accent);
+}
+
+/* Navigation links laid out in a row */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+nav a {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Card style for projects */
+.card {
+    background-color: var(--card);
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 2px solid var(--accent);
+}
+
+/* Stop images overflowing on small screens */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Styles that only apply on screens 600px wide or smaller */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+}

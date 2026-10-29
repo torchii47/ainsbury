@@ -1,0 +1,1243 @@
+/* ==========================================================
+   Rowan's Website — 90s Neocities style, built for 2026
+   Feel free to borrow any of this for your own portfolio!
+   ========================================================== */
+
+/* Retro fonts from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+/* Colour palette — change these to re-theme the whole site */
+:root {
+    --pink: #ffc4db;
+    --hot-pink: #ff5fa2;
+    --magenta: #860c5d;
+    --ink: #2b031d;
+    --grey: #c0c0c0;
+    --grey-light: #dfdfdf;
+    --grey-dark: #808080;
+    --white: #ffffff;
+    --yellow: #fff36b;
+}
+
+/* Background & Base Setup */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px 16px;
+    color: var(--ink);
+    font-family: Verdana, Tahoma, "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    /* Tiled starry background, made with gradients instead of a .gif */
+    background-color: var(--pink);
+    background-image:
+        radial-gradient(var(--white) 1.5px, transparent 1.6px),
+        radial-gradient(var(--hot-pink) 1px, transparent 1.1px);
+    background-size: 40px 40px, 24px 24px;
+    background-position: 0 0, 12px 12px;
+}
+
+/* Keeps everything centred, like the good old 800px days */
+.site {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+    color: var(--magenta);
+    line-height: 1.2;
+}
+
+h3 {
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+/* Paragraphs & Text */
+p {
+    margin: 0 0 10px;
+}
+
+/* Neocities Retro Links */
+a {
+    color: var(--magenta);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #5a1a8c;
+}
+
+a:hover,
+a:focus-visible {
+    background-color: var(--magenta);
+    color: var(--white);
+    text-decoration: none;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+/* Skip link for keyboard users (hidden until focused) */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+}
+
+.skip-link:focus {
+    left: 16px;
+    top: 16px;
+    z-index: 10;
+    padding: 6px 10px;
+    background: var(--yellow);
+}
+
+/* ----------------------------------------------------------
+   Header
+   ---------------------------------------------------------- */
+.site-header {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* WordArt-style rainbow title */
+.site-title {
+    margin: 10px 0;
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(1.4rem, 5vw, 2.6rem);
+    color: var(--magenta);
+    text-shadow:
+        3px 3px 0 var(--white),
+        6px 6px 0 var(--hot-pink);
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    display: inline-block;
+    margin: 6px 0 0;
+    padding: 4px 12px;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.4rem;
+    background: var(--white);
+    border: 2px dashed var(--magenta);
+}
+
+/* Little blinking "NEW!" style label */
+.blink {
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        visibility: hidden;
+    }
+}
+
+.new-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 4px;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    color: var(--white);
+    background: red;
+    vertical-align: middle;
+}
+
+/* ----------------------------------------------------------
+   Marquee — the modern way (the <marquee> tag is obsolete!)
+   ---------------------------------------------------------- */
+.marquee {
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: var(--ink);
+    color: var(--yellow);
+    border: 3px ridge var(--hot-pink);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.4rem;
+    white-space: nowrap;
+}
+
+.marquee-track {
+    display: inline-block;
+    padding: 4px 0;
+    animation: scroll-left 30s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* ----------------------------------------------------------
+   Under construction banner
+   ---------------------------------------------------------- */
+.construction {
+    margin: 0 0 16px;
+    padding: 8px 12px;
+    text-align: center;
+    font-weight: bold;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--yellow) 0 16px,
+        #111 16px 32px
+    );
+}
+
+.construction span {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--yellow);
+    border: 2px solid #111;
+}
+
+/* ----------------------------------------------------------
+   Navigation buttons
+   ---------------------------------------------------------- */
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* A chunky Windows 95 style button */
+.button,
+.nav a {
+    display: inline-block;
+    padding: 6px 14px;
+    color: var(--ink);
+    background: var(--grey);
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 1px 1px 0 #000;
+}
+
+.button:visited,
+.nav a:visited {
+    color: var(--ink);
+}
+
+.button:hover,
+.nav a:hover,
+.button:focus-visible,
+.nav a:focus-visible {
+    background: var(--yellow);
+    color: var(--ink);
+}
+
+/* Pressed-in look when clicked */
+.button:active,
+.nav a:active {
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}
+
+/* Revision Guide button stands out from the rest of the nav */
+.nav a.nav-featured {
+    color: var(--yellow);
+    background: var(--magenta);
+}
+
+.nav a.nav-featured:visited {
+    color: var(--yellow);
+}
+
+.nav a.nav-featured:hover,
+.nav a.nav-featured:focus-visible {
+    color: var(--ink);
+    background: var(--yellow);
+}
+
+/* ----------------------------------------------------------
+   Featured window: Core Revision Guide
+   ---------------------------------------------------------- */
+.featured-guide {
+    border-width: 3px;
+    box-shadow: 6px 6px 0 var(--ink);
+}
+
+.featured-guide .title-bar {
+    background: linear-gradient(90deg, #14213d, var(--magenta), var(--hot-pink));
+}
+
+.featured-guide .window-body {
+    background: #fff8d6;
+}
+
+.guide-hero {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 24px;
+    align-items: center;
+}
+
+.guide-hero > div {
+    flex: 2 1 300px;
+}
+
+.guide-kicker {
+    margin: 0;
+    font-weight: bold;
+    color: var(--magenta);
+}
+
+.guide-title {
+    margin: 6px 0 10px;
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(1.1rem, 3.5vw, 1.7rem);
+    line-height: 1.4;
+    color: #14213d;
+    text-shadow: 3px 3px 0 var(--pink);
+}
+
+.guide-button {
+    margin-top: 4px;
+    padding: 10px 18px;
+    font-size: 1.05rem;
+    color: var(--yellow);
+    background: #14213d;
+}
+
+.guide-button:visited {
+    color: var(--yellow);
+}
+
+.guide-features {
+    flex: 1 1 220px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    background: var(--white);
+    border: 2px dashed var(--magenta);
+}
+
+.guide-features li {
+    margin-bottom: 4px;
+}
+
+.guide-jump {
+    margin: 16px 0 6px;
+    font-weight: bold;
+}
+
+/* Exam countdown (js/countdown.js): dark text on a light panel so it reads well anywhere */
+.countdown-box {
+    margin-top: 12px;
+    padding: 8px 12px;
+    color: var(--ink);
+    background: var(--white);
+    border: 2px dashed var(--magenta);
+}
+
+.countdown-box .guide-jump {
+    margin: 0 0 4px;
+}
+
+.countdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.countdown-list li {
+    margin-bottom: 2px;
+}
+
+.countdown-days {
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.6rem;
+    color: var(--magenta);
+}
+
+.countdown-list .post-date {
+    color: #5c4654;
+}
+
+.countdown-plan {
+    margin: 8px 0 0;
+    padding-top: 8px;
+    border-top: 1px dotted var(--magenta);
+}
+
+/* Question of the day */
+.qotd-question {
+    font-weight: bold;
+}
+
+/* Coloured tabs, one per part of the guide (colour set inline with --tab) */
+.guide-tabs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 6px;
+}
+
+.guide-tabs a {
+    display: block;
+    padding: 8px 10px;
+    color: var(--white);
+    background: var(--tab);
+    font-weight: normal;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border: 2px solid;
+    border-color: var(--white) #222 #222 var(--white);
+}
+
+.guide-tabs a:visited {
+    color: var(--white);
+}
+
+.guide-tabs a strong {
+    display: block;
+    color: var(--yellow);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.4rem;
+    font-weight: normal;
+    line-height: 1;
+}
+
+.guide-tabs a:hover,
+.guide-tabs a:focus-visible {
+    color: var(--ink);
+    background: var(--yellow);
+}
+
+.guide-tabs a:hover strong,
+.guide-tabs a:focus-visible strong {
+    color: var(--ink);
+}
+
+/* ----------------------------------------------------------
+   Layout Wrapper
+   ---------------------------------------------------------- */
+.page-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+/* Main Content takes up remaining space */
+.container {
+    flex: 3;
+    min-width: 0; /* Prevents overflow issues */
+}
+
+/* Sidebar styling */
+.sidebar {
+    flex: 1;
+    min-width: 240px;
+}
+
+/* ----------------------------------------------------------
+   Windows — every box on the site looks like a 90s window
+   ---------------------------------------------------------- */
+.window {
+    margin-bottom: 20px;
+    background: var(--grey);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 4px 4px 0 var(--magenta);
+}
+
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 4px 3px 8px;
+    background: linear-gradient(90deg, var(--magenta), var(--hot-pink));
+    color: var(--white);
+}
+
+.title-bar h2,
+.title-bar .title-bar-text {
+    /* Long titles with no spaces (like file names) wrap instead of squashing the buttons */
+    min-width: 0;
+    overflow-wrap: anywhere;
+    margin: 0;
+    color: var(--white);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.5rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+/* The _ □ × buttons: js/windows.js swaps the spans for working buttons */
+.title-bar-controls {
+    display: flex;
+    align-self: flex-start;
+    gap: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.title-bar-controls span,
+.title-bar-controls button {
+    width: 20px;
+    height: 18px;
+    padding: 0;
+    line-height: 14px;
+    text-align: center;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    background: var(--grey);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    border-radius: 0;
+}
+
+.title-bar-controls button {
+    cursor: pointer;
+}
+
+.title-bar-controls button:active,
+.title-bar-controls button[aria-pressed="true"] {
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+.title-bar-controls button:focus-visible {
+    outline: 1px dotted #000;
+    outline-offset: -5px;
+}
+
+/* Minimised: only the title bar shows */
+.window.win-minimised > :not(.title-bar, h2, .title-bar-controls) {
+    display: none !important;
+}
+
+/* Closed: hidden until it's reopened from the taskbar */
+.window.win-closed {
+    display: none !important;
+}
+
+/* Maximised: fills the screen over the page, and its contents scroll */
+.window.win-maximised {
+    position: fixed;
+    top: calc(12px + env(safe-area-inset-top, 0px));
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    left: 12px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    box-shadow: 0 0 0 100vmax rgba(43, 3, 29, 0.6);
+}
+
+.window.win-maximised > .window-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+}
+
+body.win-has-maximised {
+    overflow: hidden;
+}
+
+/* Taskbar of closed windows, always at the bottom of the screen */
+.win-dock {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 90;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    overflow-x: auto;
+    padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px));
+    background: var(--grey);
+    border-top: 2px solid var(--white);
+    box-shadow: 0 -1px 0 var(--grey-light), 0 -3px 6px rgba(0, 0, 0, 0.25);
+    font-size: 0.85rem;
+}
+
+.win-dock-label {
+    flex: none;
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+.win-dock-item {
+    flex: none;
+    max-width: 220px;
+    overflow: hidden;
+    padding: 4px 10px;
+    color: var(--ink);
+    background: var(--grey);
+    font: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+}
+
+.win-dock-item:hover,
+.win-dock-item:focus-visible {
+    background: var(--yellow);
+}
+
+.win-dock-item:active {
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+/* Room so the taskbar doesn't cover the end of the page */
+body.win-dock-open {
+    padding-bottom: 48px;
+}
+
+@media print {
+    .win-dock,
+    .title-bar-controls {
+        display: none !important;
+    }
+}
+
+/* The white "page" inside a window */
+.window-body {
+    margin: 6px;
+    padding: 14px 16px;
+    background: var(--white);
+    border: 2px solid;
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+.window-body > :last-child {
+    margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------
+   Content bits
+   ---------------------------------------------------------- */
+.guidelines-box {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #fff8d6;
+    border: 2px dashed var(--magenta);
+}
+
+.guidelines-box h3 {
+    margin-top: 0;
+}
+
+.demo-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+}
+
+.demo-item h3 {
+    margin: 0;
+}
+
+/* Lists with custom bullets */
+#post-list,
+.external-links {
+    list-style: none;
+    padding-left: 0;
+}
+
+#post-list li::before {
+    content: "💾 ";
+}
+
+.external-links li::before {
+    content: "🔗 ";
+}
+
+.info-list li::marker {
+    content: "★ ";
+    color: var(--hot-pink);
+}
+
+/* Inline code snippets */
+code {
+    padding: 1px 4px;
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    background: #fbe3ee;
+    border: 1px solid #f0b6cf;
+}
+
+/* Useful links, split into categories */
+.link-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 4px 20px;
+}
+
+.link-groups h3 {
+    border-bottom: 2px dashed var(--hot-pink);
+}
+
+.link-groups ul {
+    margin: 0 0 8px;
+}
+
+.more-info {
+    margin-top: 12px;
+}
+
+.post-date {
+    color: #8a3a69;
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+}
+
+/* T Level component cards */
+.component-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.component-list li {
+    margin: 0;
+    padding: 10px 12px;
+    background: var(--ink);
+    color: var(--white);
+    border: 3px double var(--hot-pink);
+}
+
+.component-list strong {
+    display: block;
+    color: var(--yellow);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+/* ----------------------------------------------------------
+   Sidebar widgets
+   ---------------------------------------------------------- */
+.student-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0;
+}
+
+.student-list a {
+    display: block;
+    padding: 4px 8px;
+    color: var(--magenta);
+    background: var(--white);
+    border: 1px solid var(--magenta);
+    box-shadow: 2px 2px 0 var(--magenta);
+    text-decoration: none;
+}
+
+.student-list a::before {
+    content: "★ ";
+    color: var(--hot-pink);
+}
+
+.student-list a:hover,
+.student-list a:focus-visible {
+    background: var(--magenta);
+    color: var(--white);
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+
+.webring-random {
+    width: 100%;
+    text-align: center;
+}
+
+/* Old-school LCD visit counter */
+.counter {
+    text-align: center;
+}
+
+.counter p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.counter-digits {
+    display: inline-block;
+    margin: 6px 0;
+    padding: 2px 8px;
+    background: #000;
+    color: #39ff14;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    line-height: 1;
+    border: 2px inset var(--grey);
+}
+
+/* 88x31 buttons — the classic web badge size */
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 31px;
+    padding: 0 4px;
+    text-align: center;
+    font-family: "Press Start 2P", monospace;
+    font-size: 6px;
+    line-height: 1.4;
+    border: 2px outset var(--grey);
+}
+
+.badge-tlevel   { background: var(--magenta); color: var(--yellow); }
+.badge-neo      { background: #f3f3f3; color: #e04c8b; }
+.badge-html     { background: #e44d26; color: var(--white); }
+.badge-css      { background: #264de4; color: var(--white); }
+
+/* ----------------------------------------------------------
+   Footer — a Windows 95 taskbar
+   ---------------------------------------------------------- */
+.taskbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-top: 10px;
+    padding: 4px;
+    background: var(--grey);
+    border-top: 2px solid var(--white);
+    box-shadow: 0 -1px 0 var(--grey-light);
+    font-size: 0.85rem;
+}
+
+.taskbar p {
+    flex: 1;
+    margin: 0 0 0 6px;
+    min-width: 200px;
+}
+
+.clock {
+    padding: 2px 10px;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.2rem;
+    border: 2px solid;
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+/* Key dates list */
+.dates-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dates-list li {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--grey);
+}
+
+.dates-list li:last-child {
+    border-bottom: none;
+}
+
+.dates-list .post-date {
+    display: block;
+}
+
+/* Tip of the day */
+.tip-text {
+    min-height: 4.5em;
+}
+
+/* Keyboard keys */
+kbd {
+    display: inline-block;
+    padding: 0 5px;
+    font-family: "Courier New", monospace;
+    font-size: 0.85em;
+    font-weight: bold;
+    background: var(--grey-light);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+}
+
+.shortcut-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.shortcut-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.shortcut-group {
+    margin: 10px 0 4px;
+    font-weight: bold;
+    color: var(--magenta);
+}
+
+.shortcut-group:first-child {
+    margin-top: 0;
+}
+
+/* ----------------------------------------------------------
+   Toolkit "desktop icons"
+   ---------------------------------------------------------- */
+.desktop-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+    background: #008080;
+}
+
+.desktop-icons a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    color: var(--white);
+    font-weight: normal;
+    font-size: 0.85rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.desktop-icons a:visited {
+    color: var(--white);
+}
+
+.desktop-icons .icon {
+    font-size: 2.2rem;
+    line-height: 1;
+}
+
+.desktop-icons a:hover .label,
+.desktop-icons a:focus-visible .label {
+    background: var(--magenta);
+    outline: 1px dotted var(--white);
+}
+
+.desktop-icons a:hover,
+.desktop-icons a:focus-visible {
+    background: transparent;
+}
+
+/* ----------------------------------------------------------
+   Toolkit pages
+   ---------------------------------------------------------- */
+
+/* Current page in the nav looks pressed in */
+.nav a[aria-current="page"] {
+    background: var(--grey-light);
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+    box-shadow: none;
+}
+
+.page-intro {
+    font-size: 1.05rem;
+}
+
+/* Code blocks */
+pre {
+    overflow-x: auto;
+    margin: 8px 0 14px;
+    padding: 10px 12px;
+    background: var(--ink);
+    color: #ffd6e8;
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border: 2px inset var(--grey);
+}
+
+pre code {
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: inherit;
+}
+
+/* Tables */
+.table-wrap {
+    overflow-x: auto;
+    margin-bottom: 14px;
+}
+
+.retro-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.retro-table th,
+.retro-table td {
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid var(--grey-dark);
+}
+
+.retro-table th {
+    background: var(--magenta);
+    color: var(--white);
+}
+
+.retro-table tr:nth-child(even) td {
+    background: #fdf0f6;
+}
+
+/* Common mistakes */
+.mistake {
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed var(--hot-pink);
+}
+
+.mistake:last-child {
+    border-bottom: none;
+}
+
+.mistake h3 {
+    margin-top: 0;
+}
+
+.label-wrong,
+.label-right {
+    display: inline-block;
+    padding: 0 6px;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    color: var(--white);
+}
+
+.label-wrong { background: #c0001a; }
+.label-right { background: #137a2f; }
+
+/* Glossary */
+.glossary dt {
+    margin-top: 12px;
+    font-weight: bold;
+    color: var(--magenta);
+}
+
+.glossary dd {
+    margin: 2px 0 0 20px;
+}
+
+.letter-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* Checklist */
+.checklist {
+    list-style: none;
+    padding: 0;
+}
+
+.checklist label {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.checklist input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    accent-color: var(--magenta);
+}
+
+.checklist input:checked + span {
+    text-decoration: line-through;
+    color: #595959;
+}
+
+.progress {
+    height: 22px;
+    margin: 6px 0 14px;
+    background: var(--white);
+    border: 2px inset var(--grey);
+}
+
+/* Chunky blocks, like a Windows 95 progress bar */
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--magenta) 0 14px,
+        transparent 14px 17px
+    );
+    transition: width 0.2s;
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Random question */
+.button[hidden] {
+    display: none;
+}
+
+.quiz-select {
+    padding: 4px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 0.9rem;
+    border: 2px inset var(--grey);
+    max-width: 100%;
+}
+
+.quiz-meta {
+    font-family: "Courier New", monospace;
+    color: #8a3a69;
+}
+
+.quiz-question {
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.quiz-options {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+}
+
+.quiz-options li {
+    margin-bottom: 6px;
+}
+
+.quiz-option {
+    width: 100%;
+    text-align: left;
+}
+
+.quiz-option:disabled {
+    cursor: default;
+}
+
+.quiz-option.correct,
+.quiz-option.correct:hover {
+    background: #137a2f;
+    color: var(--white);
+}
+
+.quiz-option.wrong,
+.quiz-option.wrong:hover {
+    background: #c0001a;
+    color: var(--white);
+}
+
+.quiz-answer {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: #fdf0f6;
+    border: 2px dashed var(--hot-pink);
+}
+
+.quiz-answer h3 {
+    margin-top: 0;
+}
+
+/* ----------------------------------------------------------
+   Post pages
+   ---------------------------------------------------------- */
+.post-page {
+    max-width: 900px;
+}
+
+.post-page .site-title {
+    font-size: clamp(1.1rem, 4vw, 1.8rem);
+}
+
+.post-meta {
+    font-family: "Courier New", monospace;
+    color: #8a3a69;
+}
+
+/* ----------------------------------------------------------
+   Mobile responsiveness: stack vertically on smaller screens
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+    .page-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Turn off the wiggly stuff for anyone who prefers less motion */
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track,
+    .blink {
+        animation: none;
+    }
+
+    .marquee {
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* Hide the duplicate copy that makes the loop seamless */
+    .marquee-track [aria-hidden="true"] {
+        display: none;
+    }
+}

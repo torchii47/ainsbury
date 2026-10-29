@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CA1 Problem Solving | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev ca1" data-page="ca1">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 1 · CORE PAPER 1</p>
+            <h1>Content Area 1: Problem Solving</h1>
+            <p>Content area 1 is about how developers think through a problem before and while they write code. You need to know the techniques of computational thinking, read and write algorithms as flowcharts, written descriptions and Python, and choose a suitable problem-solving or root cause analysis strategy for a situation.</p>
+            <p class="links"><strong>Links to other content areas:</strong> algorithms in code use the Python covered in <a href="ca2.html">Content area 2</a>. Searching and sorting algorithms are in <a href="ca2.html#s2-11">2.11</a>.</p>
+            <span class="big-num" aria-hidden="true">1</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>1.1.1–3</td><td>Define computational thinking, say when it is used, and give its benefits and drawbacks</td></tr>
+                            <tr><td>1.1.4–5</td><td>Name the four components (decomposition, pattern recognition, abstraction, algorithmic design) and give benefits and drawbacks of each</td></tr>
+                            <tr><td>1.1.6–8</td><td>Explain the purpose and tasks of decomposition and use it to break down a problem</td></tr>
+                            <tr><td>1.1.9–10</td><td>Represent decomposition with block diagrams, information flow diagrams, flowcharts, code and written descriptions</td></tr>
+                            <tr><td>1.1.11–12</td><td>Explain and use pattern recognition: trends, similarities, common features, predictions</td></tr>
+                            <tr><td>1.1.13–16</td><td>Explain the tasks of abstraction and use it: inputs, outputs, variables, constants, key actions, repeated processes</td></tr>
+                            <tr><td>1.1.17</td><td>Judge how the components of computational thinking relate and when to use them</td></tr>
+                            <tr><td>1.2.1</td><td>Define an algorithm and describe its characteristics and purpose</td></tr>
+                            <tr><td>1.2.2–5</td><td>Express algorithms as flowcharts, written descriptions and code; give benefits and drawbacks of each</td></tr>
+                            <tr><td>1.2.6</td><td>Use sequence, selection and iteration to control the order of steps</td></tr>
+                            <tr><td>1.2.7–10</td><td>Work out what an algorithm does and its output; identify and correct errors</td></tr>
+                            <tr><td>1.2.11–12</td><td>Translate between notations; design algorithms</td></tr>
+                            <tr><td>1.3.1–2</td><td>Explain top-down, bottom-up and modularisation, with benefits and drawbacks</td></tr>
+                            <tr><td>1.3.3–4</td><td>Explain root cause analysis: five whys, FMEA, event tree analysis; log, close, escalate</td></tr>
+                            <tr><td>1.3.5</td><td>Describe the high-level problem-solving strategy</td></tr>
+                            <tr><td>1.3.6</td><td>Judge which strategy suits a problem</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-1">
+                    <h2>1.1 Computational thinking</h2>
+                    <div class="window-body">
+                        <p><strong>Computational thinking</strong> is a way of approaching a problem so that the solution can be expressed clearly enough for a computer, or another person, to carry it out. It is used at the start of any development task, when a problem is complex or unfamiliar, and when a solution needs to be explained to a team.</p>
+                        <table>
+                            <tr><th>Benefits (1.1.3)</th><th>Drawbacks</th></tr>
+                            <tr>
+                                <td><ul><li>Complex problems become manageable</li><li>Solutions are logical and repeatable</li><li>Parts of a problem can be shared out across a team</li><li>Reuse of existing solutions saves time</li><li>Errors are easier to find in small parts</li></ul></td>
+                                <td><ul><li>Takes time up front before any code is written</li><li>Over-simplifying (too much abstraction) can miss important detail</li><li>Not every problem suits a step-by-step approach, e.g. creative design decisions</li><li>Needs practice and skill to do well</li></ul></td>
+                            </tr>
+                        </table>
+
+                        <h3>The four components (1.1.4–1.1.5)</h3>
+                        <table>
+                            <tr><th>Component</th><th>What it means</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Decomposition</td><td>Breaking a problem down into smaller parts</td><td>Each part is easier to solve, test and assign</td><td>Parts must be recombined; interfaces between parts can be missed</td></tr>
+                            <tr><td>Pattern recognition</td><td>Spotting similarities within and between problems</td><td>Reuse existing solutions; make predictions</td><td>False patterns lead to wrong assumptions</td></tr>
+                            <tr><td>Abstraction</td><td>Keeping what matters and removing unnecessary detail</td><td>Focus on the essentials; simpler models</td><td>Removing too much makes the solution unrealistic</td></tr>
+                            <tr><td>Algorithmic design</td><td>Writing the step-by-step solution</td><td>Clear, testable instructions that can become code</td><td>Time-consuming; errors in logic carry through to code</td></tr>
+                        </table>
+
+                        <h3>Decomposition (1.1.6–1.1.10)</h3>
+                        <p><strong>Purpose:</strong> to make a large problem manageable, so each part can be understood, built and tested on its own and shared across a team.</p>
+                        <p><strong>Tasks of decomposition:</strong></p>
+                        <ol>
+                            <li>Identify the main features of the problem.</li>
+                            <li>Characterise each feature: what does it need to do?</li>
+                            <li>Break the problem down into smaller, more manageable parts.</li>
+                            <li>Break the solution down into smaller, more manageable parts (modules, functions).</li>
+                        </ol>
+
+                        <dl class="recall">
+                            <dt>Computational thinking</dt><dd>A set of problem-solving techniques for breaking a problem down and expressing a solution so that a computer (or person) could carry it out.</dd>
+                            <dt>Decomposition</dt><dd>Breaking a problem or solution down into smaller, more manageable parts.</dd>
+                            <dt>Abstraction</dt><dd>Identifying the information that is needed and filtering out or hiding unnecessary detail.</dd>
+                            <dt>Algorithmic design</dt><dd>Producing a step-by-step set of instructions to solve the problem.</dd>
+                        </dl>
+
+                        <figure class="fig">
+                            <div class="tree">
+                                <div class="tree-root">Takeaway ordering app</div>
+                                <div class="tree-kids">
+                                    <div><strong>Accounts</strong><ul><li>Register</li><li>Log in</li><li>Reset password</li></ul></div>
+                                    <div><strong>Menu</strong><ul><li>Browse</li><li>Search</li><li>Filter allergens</li></ul></div>
+                                    <div><strong>Basket and checkout</strong><ul><li>Add / remove</li><li>Calculate total</li><li>Take payment</li></ul></div>
+                                    <div><strong>Delivery tracking</strong><ul><li>Assign driver</li><li>Live map</li><li>Notify customer</li></ul></div>
+                                </div>
+                            </div>
+                            <figcaption>Block diagram: decomposition of a takeaway ordering app</figcaption>
+                        </figure>
+
+                        <table>
+                            <tr><th>Method of representation</th><th>Use it to show</th><th>Example</th></tr>
+                            <tr><td>Block diagram</td><td>The parts of a system and how they break down</td><td>Diagram above</td></tr>
+                            <tr><td>Information flow diagram</td><td>How information moves between people and systems</td><td>Diagram below</td></tr>
+                            <tr><td>Flowchart</td><td>The steps and decisions of one part</td><td>See <a href="#s1-2">1.2</a></td></tr>
+                            <tr><td>Code</td><td>Each part as a function or module</td><td><code>def calculate_total(basket):</code></td></tr>
+                            <tr><td>Written description</td><td>Each part described in numbered steps</td><td>1. Accounts 1.1 Register 1.2 Log in</td></tr>
+                        </table>
+
+                        <figure class="fig">
+                            <svg viewBox="0 0 690 200" role="img" aria-label="Information flow diagram. Customer sends order and payment to the ordering app; the app sends ETA and updates back to the customer. The app sends order details to the restaurant. The restaurant sends a collection request to the driver; the driver sends pickup confirmed back to the restaurant. The driver sends live location to the ordering app.">
+                                <defs><marker id="arr-if" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b031d"/></marker></defs>
+                                <rect class="shape" x="10" y="70" width="120" height="44"/><text x="70" y="97" text-anchor="middle" class="label">Customer</text>
+                                <rect class="shape" x="190" y="70" width="130" height="44"/><text x="255" y="97" text-anchor="middle" class="label">Ordering app</text>
+                                <rect class="shape" x="380" y="70" width="120" height="44"/><text x="440" y="97" text-anchor="middle" class="label">Restaurant</text>
+                                <rect class="shape" x="560" y="70" width="120" height="44"/><text x="620" y="97" text-anchor="middle" class="label">Driver</text>
+                                <line class="line" x1="130" y1="82" x2="188" y2="82" marker-end="url(#arr-if)"/>
+                                <text x="160" y="60" text-anchor="middle" class="label">Order + payment</text>
+                                <line class="line" x1="190" y1="102" x2="132" y2="102" marker-end="url(#arr-if)"/>
+                                <text x="160" y="134" text-anchor="middle" class="label">ETA + updates</text>
+                                <line class="line" x1="320" y1="92" x2="378" y2="92" marker-end="url(#arr-if)"/>
+                                <text x="350" y="60" text-anchor="middle" class="label">Order details</text>
+                                <line class="line" x1="500" y1="82" x2="558" y2="82" marker-end="url(#arr-if)"/>
+                                <text x="530" y="60" text-anchor="middle" class="label">Collection request</text>
+                                <line class="line" x1="560" y1="102" x2="502" y2="102" marker-end="url(#arr-if)"/>
+                                <text x="530" y="134" text-anchor="middle" class="label">Pickup confirmed</text>
+                                <path class="line" d="M620,114 V170 H255 V116" marker-end="url(#arr-if)"/>
+                                <text x="437" y="188" text-anchor="middle" class="label">Live location</text>
+                            </svg>
+                            <figcaption>Information flow diagram for the same app</figcaption>
+                        </figure>
+
+                        <dl class="recall">
+                            <dt>Flowchart</dt><dd>A diagram that shows an algorithm using standard symbols joined by arrows.</dd>
+                            <dt>Decision</dt><dd>Flowchart symbol (diamond) for a question with two or more outcomes, such as Yes/No.</dd>
+                            <dt>Block diagram</dt><dd>A diagram of boxes showing how a system is broken down into parts.</dd>
+                            <dt>Information flow diagram</dt><dd>A diagram showing how information moves between people, systems and processes.</dd>
+                            <dt>Pattern recognition</dt><dd>Finding similarities and trends within and between problems so existing solutions can be reused.</dd>
+                        </dl>
+
+                        <h3>Pattern recognition (1.1.11–1.1.12)</h3>
+                        <p><strong>Purpose:</strong> to spot what is the same so effort isn't repeated, and to use patterns to make predictions.</p>
+                        <table>
+                            <tr><th>Use</th><th>Example</th></tr>
+                            <tr><td>Find and interpret trends and similarities within and between problems and processes</td><td>Registering for a gym app and a library app both need: enter details, validate, confirm email.</td></tr>
+                            <tr><td>Find common features between a given problem and existing solutions</td><td>A new booking system for a barber's is similar to an existing restaurant booking system, so its design can be adapted.</td></tr>
+                            <tr><td>Make predictions and assumptions based on identified patterns</td><td>Website traffic rises every Friday evening, so add server capacity on Fridays.</td></tr>
+                        </table>
+
+                        <h3>Abstraction (1.1.13–1.1.16)</h3>
+                        <p><strong>Purpose:</strong> to focus only on what matters for the problem. The London Underground map is the classic example: it keeps stations, lines and connections and removes real distances and geography.</p>
+                        <p><strong>Tasks:</strong> identify information that is needed; filter out unnecessary details; hide details of internal workings (e.g. you call <code>sort()</code> without needing to know how it works).</p>
+                        <table>
+                            <tr><th>Using abstraction: ask...</th><th>Example: parking charge machine</th></tr>
+                            <tr><td>What inputs are needed?</td><td>Number plate, arrival time, departure time</td></tr>
+                            <tr><td>What are the expected outputs and outcomes?</td><td>Charge displayed; ticket/receipt; barrier opens after payment</td></tr>
+                            <tr><td>What will vary?</td><td>Length of stay, number plate, payment method</td></tr>
+                            <tr><td>What will remain constant?</td><td>Hourly rate, maximum daily charge, free period of 20 minutes</td></tr>
+                            <tr><td>What key actions must the solution perform?</td><td>Calculate time parked, calculate charge, take payment</td></tr>
+                            <tr><td>What processes are repeated?</td><td>Calculating the charge for every car; reading plates at entry and exit</td></tr>
+                            <tr><td>What is filtered out?</td><td>Car colour, driver's name, make of car</td></tr>
+                        </table>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: INTERRELATIONSHIPS (1.1.17)</h4>
+                            <ul>
+                                <li>The components feed into each other: decomposition produces small parts; pattern recognition spots which parts are similar; abstraction strips each part to its essentials; algorithmic design writes the steps.</li>
+                                <li>Judge suitability: a small, familiar problem may need little decomposition; a large new system needs all four.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Algorithm</dt><dd>A finite, ordered set of unambiguous instructions that solves a problem.</dd>
+                            <dt>Terminator</dt><dd>Flowchart symbol (rounded rectangle) for the start or end of an algorithm.</dd>
+                            <dt>Sub-process</dt><dd>Flowchart symbol (rectangle with double sides) for a predefined process described elsewhere, such as a function.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2">
+                    <h2>1.2 Algorithmic design</h2>
+                    <div class="window-body">
+                        <p>An <strong>algorithm</strong> is a finite, ordered set of unambiguous instructions that solves a problem. <strong>Characteristics:</strong> clear and unambiguous steps; a defined start and end; inputs and outputs; finite (it stops); correct (it solves the problem). <strong>Purpose:</strong> to plan a solution before coding, communicate it to others, and check the logic.</p>
+
+                        <h3>Flowcharts (1.2.2)</h3>
+                        <figure class="fig">
+                            <svg viewBox="0 0 720 150" role="img" aria-label="Flowchart symbols: terminator is a rounded rectangle, process is a rectangle, sub-process is a rectangle with double sides, decision is a diamond, input/output is a parallelogram. Arrows show the direction of flow.">
+                                <defs><marker id="arr-sym" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b031d"/></marker></defs>
+                                <rect class="shape" x="10" y="20" width="110" height="44" rx="22"/>
+                                <text x="65" y="47" text-anchor="middle">Start / End</text>
+                                <text x="65" y="95" text-anchor="middle" class="label">Terminator</text>
+                                <rect class="shape" x="150" y="20" width="110" height="44"/>
+                                <text x="205" y="47" text-anchor="middle">Process</text>
+                                <text x="205" y="95" text-anchor="middle" class="label">Process</text>
+                                <rect class="shape" x="290" y="20" width="120" height="44"/>
+                                <line class="line" x1="302" y1="20" x2="302" y2="64"/>
+                                <line class="line" x1="398" y1="20" x2="398" y2="64"/>
+                                <text x="350" y="47" text-anchor="middle">Sub-process</text>
+                                <text x="350" y="95" text-anchor="middle" class="label">Sub-process</text>
+                                <polygon class="shape" points="510,8 580,42 510,76 440,42"/>
+                                <text x="510" y="46" text-anchor="middle">Decision?</text>
+                                <text x="510" y="95" text-anchor="middle" class="label">Decision</text>
+                                <polygon class="shape" points="625,20 712,20 692,64 605,64"/>
+                                <text x="658" y="46" text-anchor="middle" style="font-size: 11px">Input / Output</text>
+                                <text x="658" y="95" text-anchor="middle" class="label">Input/output</text>
+                                <line class="line" x1="150" y1="130" x2="250" y2="130" marker-end="url(#arr-sym)"/>
+                                <text x="262" y="134" style="font-size: 12px">Arrow: shows the direction of flow. Labels (Yes/No) go on arrows.</text>
+                            </svg>
+                            <figcaption>Flowchart symbols you must know</figcaption>
+                        </figure>
+
+                        <h3>Worked example: one algorithm in three notations</h3>
+                        <p>A login allows three attempts at a password before locking the account.</p>
+                        <figure class="fig">
+                            <svg viewBox="0 0 560 580" style="max-width: 520px" role="img" aria-label="Flowchart: Start. Set attempts to 0. Input password. Decision: password correct? If yes, output Welcome and end. If no, add 1 to attempts. Decision: attempts equals 3? If no, loop back to input password. If yes, output Account locked and end.">
+                                <defs><marker id="arr-fc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b031d"/></marker></defs>
+                                <rect class="shape" x="180" y="10" width="140" height="36" rx="18"/><text x="250" y="33" text-anchor="middle">Start</text>
+                                <line class="line" x1="250" y1="46" x2="250" y2="68" marker-end="url(#arr-fc)"/>
+                                <rect class="shape" x="170" y="70" width="160" height="36"/><text x="250" y="93" text-anchor="middle">attempts = 0</text>
+                                <line class="line" x1="250" y1="106" x2="250" y2="128" marker-end="url(#arr-fc)"/>
+                                <polygon class="shape" points="185,130 345,130 315,166 155,166"/><text x="250" y="153" text-anchor="middle">INPUT password</text>
+                                <line class="line" x1="250" y1="166" x2="250" y2="188" marker-end="url(#arr-fc)"/>
+                                <polygon class="shape" points="250,190 345,230 250,270 155,230"/><text x="250" y="234" text-anchor="middle" style="font-size: 12px">password correct?</text>
+                                <line class="line" x1="345" y1="230" x2="394" y2="230" marker-end="url(#arr-fc)"/><text x="368" y="222" text-anchor="middle" class="label">Yes</text>
+                                <polygon class="shape" points="410,212 548,212 528,248 390,248"/><text x="469" y="235" text-anchor="middle" style="font-size: 12px">OUTPUT "Welcome"</text>
+                                <line class="line" x1="469" y1="248" x2="469" y2="278" marker-end="url(#arr-fc)"/>
+                                <rect class="shape" x="409" y="280" width="120" height="34" rx="17"/><text x="469" y="302" text-anchor="middle">End</text>
+                                <line class="line" x1="250" y1="270" x2="250" y2="298" marker-end="url(#arr-fc)"/><text x="264" y="290" class="label">No</text>
+                                <rect class="shape" x="155" y="300" width="190" height="36"/><text x="250" y="323" text-anchor="middle" style="font-size: 12px">attempts = attempts + 1</text>
+                                <line class="line" x1="250" y1="336" x2="250" y2="358" marker-end="url(#arr-fc)"/>
+                                <polygon class="shape" points="250,360 335,400 250,440 165,400"/><text x="250" y="404" text-anchor="middle">attempts = 3?</text>
+                                <path class="line" d="M165,400 H60 V148 H168" marker-end="url(#arr-fc)"/><text x="105" y="392" text-anchor="middle" class="label">No</text>
+                                <line class="line" x1="250" y1="440" x2="250" y2="468" marker-end="url(#arr-fc)"/><text x="264" y="460" class="label">Yes</text>
+                                <polygon class="shape" points="170,470 350,470 330,506 150,506"/><text x="250" y="493" text-anchor="middle" style="font-size: 12px">OUTPUT "Account locked"</text>
+                                <line class="line" x1="250" y1="506" x2="250" y2="528" marker-end="url(#arr-fc)"/>
+                                <rect class="shape" x="190" y="530" width="120" height="34" rx="17"/><text x="250" y="552" text-anchor="middle">End</text>
+                            </svg>
+                            <figcaption>Flowchart</figcaption>
+                        </figure>
+
+                        <h4>Written description with hierarchical markers</h4>
+                        <table>
+                            <tr><th>Step</th><th>Instruction</th></tr>
+                            <tr><td>1</td><td>Set attempts to 0</td></tr>
+                            <tr><td>2</td><td>Repeat:</td></tr>
+                            <tr><td>2.1</td><td>Input password</td></tr>
+                            <tr><td>2.2</td><td>If password is correct:</td></tr>
+                            <tr><td>2.2.1</td><td>Output "Welcome" and stop</td></tr>
+                            <tr><td>2.3</td><td>Otherwise add 1 to attempts</td></tr>
+                            <tr><td>2.4</td><td>If attempts equals 3:</td></tr>
+                            <tr><td>2.4.1</td><td>Output "Account locked" and stop</td></tr>
+                        </table>
+
+                        <h4>Code</h4>
+<pre class="code">
+PASSWORD = "Leeds2026"
+attempts = 0
+while True:
+    password = input("Password: ")
+    if password == PASSWORD:
+        print("Welcome")
+        break
+    attempts = attempts + 1
+    if attempts == 3:
+        print("Account locked")
+        break
+</pre>
+<pre class="out">
+Password: leeds
+Password: Leeds2025
+Password: Leeds2026
+Welcome
+</pre>
+
+                        <h3>Benefits and drawbacks of each notation (1.2.3–1.2.5)</h3>
+                        <table>
+                            <tr><th>Notation</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Flowchart</td><td>Visual; easy to follow decisions and loops; understood by non-programmers; language independent</td><td>Large algorithms become huge and messy; slow to draw and edit; hard to show complex data processing</td></tr>
+                            <tr><td>Written description</td><td>Quick to write; no special knowledge needed; good for explaining to clients</td><td>Can be ambiguous; long descriptions hard to follow; can't be run or tested directly</td></tr>
+                            <tr><td>Code</td><td>Precise and unambiguous; can be run and tested; becomes the final product</td><td>Needs programming knowledge to read; tied to one language; syntax distracts from logic</td></tr>
+                        </table>
+
+                        <h3>Controlling the order of steps (1.2.6)</h3>
+                        <table>
+                            <tr><th>Action</th><th>Flowchart</th><th>Python</th></tr>
+                            <tr><td>Sequence</td><td>Symbols follow one after another</td><td>Lines run top to bottom</td></tr>
+                            <tr><td>Selection</td><td>Decision diamond with labelled Yes/No arrows</td><td><code>if</code>, <code>elif</code>, <code>else</code>, <code>match/case</code></td></tr>
+                            <tr><td>Iteration</td><td>An arrow loops back to an earlier step</td><td><code>for</code>, <code>while</code></td></tr>
+                        </table>
+
+                        <h3>Tracing, finding and correcting errors (1.2.7–1.2.10)</h3>
+                        <p>To find the purpose and output of an algorithm, trace it with sample input. This algorithm should output the largest number entered, stopping when 0 is entered.</p>
+                        <table>
+                            <tr><th>Step</th><th>Instruction</th></tr>
+                            <tr><td>1</td><td>Set largest to 0</td></tr>
+                            <tr><td>2</td><td>Input number</td></tr>
+                            <tr><td>3</td><td>While number is not 0:</td></tr>
+                            <tr><td>3.1</td><td>If number &lt; largest, set largest to number</td></tr>
+                            <tr><td>3.2</td><td>Input number</td></tr>
+                            <tr><td>4</td><td>Output largest</td></tr>
+                        </table>
+                        <details class="box worked">
+                            <summary><strong>Trace it with inputs 4, 9, 2, 0 yourself, then click to check.</strong></summary>
+                            <p><strong>Trace with inputs 4, 9, 2, 0:</strong> largest stays 0 every time because no number is less than 0. Output: 0. <strong>Error:</strong> step 3.1 uses &lt; instead of &gt;. <strong>Correction:</strong> 'If number &gt; largest, set largest to number'. A further problem: if every number is negative, largest stays 0. Better: set largest to the first number entered.</p>
+                        </details>
+                        <h4>Corrected in Python</h4>
+<pre class="code">
+number = int(input("Number (0 to stop): "))
+largest = number
+while number != 0:
+    if number > largest:
+        largest = number
+    number = int(input("Number (0 to stop): "))
+print("Largest:", largest)
+</pre>
+<pre class="out">
+Number (0 to stop): 4
+Number (0 to stop): 9
+Number (0 to stop): 2
+Number (0 to stop): 0
+Largest: 9
+</pre>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: DRAWING FLOWCHARTS</h4>
+                            <ul>
+                                <li>Use the correct symbol for every step: inputs and outputs go in parallelograms, decisions in diamonds.</li>
+                                <li>Every decision needs two labelled exits (Yes/No or True/False).</li>
+                                <li>Start and end with terminators. Use arrows on every line.</li>
+                                <li>A loop in a flowchart is an arrow back up to an earlier step; check it can actually end.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-3">
+                    <h2>1.3 Strategies</h2>
+                    <div class="window-body">
+                        <h3>Approaches to solving problems (1.3.1–1.3.2)</h3>
+                        <table>
+                            <tr><th>Approach</th><th>What it is</th><th>When used</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Top-down</td><td>Start with the whole problem and break it into smaller sub-problems until each is simple.</td><td>New systems where the overall goal is clear</td><td>Clear overview; work easy to divide; matches decomposition</td><td>Low-level problems found late; detail may be wrong until built</td></tr>
+                            <tr><td>Bottom-up</td><td>Build and test small components first, then combine them into bigger parts.</td><td>When reliable components or libraries already exist; hardware-led projects</td><td>Components tested early; reuse encouraged</td><td>Overall design may not fit together; easy to lose sight of the goal</td></tr>
+                            <tr><td>Modularisation</td><td>Split the solution into self-contained modules with clear interfaces.</td><td>Team projects; large systems</td><td>Modules developed and tested in parallel; reusable; easier maintenance</td><td>Interfaces between modules must be agreed; integration testing needed</td></tr>
+                        </table>
+
+                        <h3>Root cause analysis (1.3.3–1.3.4)</h3>
+                        <p><strong>Purpose:</strong> to find and fix the real cause of a problem so it does not happen again, instead of repeatedly treating symptoms. Used after incidents, repeated faults, outages, or failed releases.</p>
+
+                        <h4>Five whys</h4>
+                        <table>
+                            <tr><th>Question</th><th>Answer</th></tr>
+                            <tr><td>Why did customers get charged twice?</td><td>The payment request was sent twice.</td></tr>
+                            <tr><td>Why was it sent twice?</td><td>Users pressed 'Pay' again because nothing appeared to happen.</td></tr>
+                            <tr><td>Why did nothing appear to happen?</td><td>The page took 12 seconds to respond with no loading message.</td></tr>
+                            <tr><td>Why did it take 12 seconds?</td><td>The payment API call waits for a slow fraud check.</td></tr>
+                            <tr><td>Why is there no protection against double submission?</td><td>The button isn't disabled after the first click. <strong>Root cause.</strong></td></tr>
+                        </table>
+                        <p>Benefits: quick, simple, no special tools. Drawbacks: can stop at a symptom; depends on the knowledge of the people asking; may miss multiple causes.</p>
+
+                        <dl class="recall">
+                            <dt>Top-down</dt><dd>Starting with the whole problem and breaking it into smaller sub-problems.</dd>
+                            <dt>Bottom-up</dt><dd>Starting with small, detailed components and combining them into a larger solution.</dd>
+                            <dt>Modularisation</dt><dd>Splitting a solution into self-contained modules that can be developed and tested separately.</dd>
+                            <dt>Root cause analysis</dt><dd>A process for finding the underlying cause of a problem, rather than just treating the symptoms.</dd>
+                        </dl>
+
+                        <h4>Failure mode and effects analysis (FMEA)</h4>
+                        <p>FMEA lists each way a part could fail, the effect, and scores <strong>severity</strong>, <strong>occurrence</strong> (likelihood) and <strong>detection</strong> (how hard to spot) from 1–10. Multiplying them gives a risk priority number (RPN) to rank what to fix first. It is usually done <strong>before</strong> problems happen.</p>
+                        <table>
+                            <tr><th>Component</th><th>Failure mode</th><th>Effect</th><th>S</th><th>O</th><th>D</th><th>RPN</th><th>Action</th></tr>
+                            <tr><td>Login service</td><td>Database unavailable</td><td>No one can log in</td><td>9</td><td>3</td><td>2</td><td>54</td><td>Add replica database</td></tr>
+                            <tr><td>Payment form</td><td>Double submission</td><td>Customer charged twice</td><td>7</td><td>5</td><td>6</td><td>210</td><td>Disable button after click</td></tr>
+                            <tr><td>Image upload</td><td>File too large</td><td>Upload fails with no message</td><td>4</td><td>6</td><td>3</td><td>72</td><td>Validate size and show error</td></tr>
+                        </table>
+
+                        <h4>Try it: RPN calculator</h4>
+                        <div class="button-row">
+                            <label>S <select class="quiz-select" id="rpn-s"></select></label>
+                            <label>O <select class="quiz-select" id="rpn-o"></select></label>
+                            <label>D <select class="quiz-select" id="rpn-d"></select></label>
+                            <strong id="rpn-out" aria-live="polite"></strong>
+                        </div>
+
+                        <h4>Event tree analysis (ETA)</h4>
+                        <p>ETA starts from a single <strong>initiating event</strong> and branches at each safeguard into success or failure, showing every possible outcome. It shows whether safeguards are enough.</p>
+                        <figure class="fig">
+                            <svg viewBox="0 0 650 250" role="img" aria-label="Event tree. Initiating event: mains power fails. If the UPS takes over (success): if the generator starts, outcome A, service continues; if the generator fails, outcome B, controlled shutdown before battery runs out. If the UPS fails: outcome C, servers crash, risk of data loss.">
+                                <rect class="shape" x="5" y="100" width="150" height="50"/>
+                                <text x="80" y="121" text-anchor="middle" class="label">Initiating event:</text>
+                                <text x="80" y="138" text-anchor="middle" class="label">mains power fails</text>
+                                <path class="line" d="M155,125 H200 M200,60 V210 M200,60 H340 M340,30 V100 M340,30 H440 M340,100 H440 M200,210 H440"/>
+                                <text x="208" y="52" style="font-size: 11px">UPS takes over (success)</text>
+                                <text x="348" y="22" style="font-size: 11px">Generator starts</text>
+                                <text x="348" y="92" style="font-size: 11px">Generator fails</text>
+                                <text x="208" y="202" style="font-size: 11px">UPS fails (failure)</text>
+                                <rect class="shape" x="440" y="12" width="205" height="36"/><text x="542" y="35" text-anchor="middle" style="font-size: 11px">Outcome A: service continues</text>
+                                <rect class="shape" x="440" y="80" width="205" height="40"/><text x="542" y="96" text-anchor="middle" style="font-size: 11px">Outcome B: controlled shutdown</text><text x="542" y="112" text-anchor="middle" style="font-size: 11px">before battery runs out</text>
+                                <rect class="shape" x="440" y="190" width="205" height="40"/><text x="542" y="206" text-anchor="middle" style="font-size: 11px">Outcome C: servers crash,</text><text x="542" y="222" text-anchor="middle" style="font-size: 11px">risk of data loss</text>
+                            </svg>
+                            <figcaption>Event tree: power failure in a server room</figcaption>
+                        </figure>
+
+                        <h4>Actions after root cause analysis</h4>
+                        <table>
+                            <tr><th>Action</th><th>When</th></tr>
+                            <tr><td>Log</td><td>Record the problem, cause and fix in an incident or fault log so trends can be spotted and the knowledge kept.</td></tr>
+                            <tr><td>Close</td><td>The cause is fixed and tested; the ticket is closed and the user informed.</td></tr>
+                            <tr><td>Escalate</td><td>The problem is beyond your authority or skill: pass to a manager, a specialist (e.g. the network team) or an external third party (e.g. the software vendor).</td></tr>
+                        </table>
+
+                        <dl class="recall">
+                            <dt>FMEA</dt><dd>Failure mode and effects analysis: listing how each part could fail, the effect, and rating severity, likelihood and detection to prioritise action.</dd>
+                            <dt>Event tree analysis</dt><dd>A diagram that starts from one initiating event and branches through success/failure of each safeguard to show possible outcomes.</dd>
+                            <dt>Escalate</dt><dd>Pass a problem to someone with more authority or expertise: a manager, specialist or external third party.</dd>
+                        </dl>
+
+                        <h3>The high-level problem-solving strategy (1.3.5)</h3>
+                        <table>
+                            <tr><th>Step</th><th>What happens</th><th>Example: staff can't access shared drive</th></tr>
+                            <tr><td>1 Define the problem</td><td>State clearly what is wrong and its scope</td><td>Since Monday, the sales team can't open the S: drive</td></tr>
+                            <tr><td>2 Gather information</td><td>Collect facts: logs, error messages, who is affected, what changed</td><td>Only sales affected; error 'access denied'; permissions update on Monday</td></tr>
+                            <tr><td>3 Analyse the information</td><td>Look for patterns and the likely cause</td><td>The update removed the sales group from the folder's permissions</td></tr>
+                            <tr><td>4 Make a plan of action</td><td>Decide the fix, who does it, when, and how to test it</td><td>Re-add the group at lunchtime; test with two users</td></tr>
+                            <tr><td>5 Implement the solution</td><td>Carry out the plan</td><td>Permissions restored</td></tr>
+                            <tr><td>6 Review the solution</td><td>Check it worked and prevent it recurring</td><td>All sales staff can access; add permissions check to the update checklist</td></tr>
+                        </table>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP (1.3.6)</h4>
+                            <p>When asked to judge a strategy, link it to the problem: five whys for a single, simple incident; FMEA to prevent failures in a new system before launch; event tree to check whether safeguards are enough for one serious event; top-down for designing a new system; bottom-up when reusing existing modules.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Five whys</dt><dd>Asking 'why?' repeatedly (often five times) to move from a symptom to the root cause.</dd>
+                            <dt>Hierarchical markers</dt><dd>Numbering such as 1, 1.1, 1.2, 2 used in written descriptions to show the order and nesting of steps.</dd>
+                            <dt>Trace table</dt><dd>A table used to record variable values line by line as an algorithm runs.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>COMPUTATIONAL THINKING</h4><ul><li>Decomposition: break into smaller parts</li><li>Pattern recognition: spot similarities, reuse solutions</li><li>Abstraction: keep what's needed, filter out detail</li><li>Algorithmic design: write the steps</li></ul></div>
+                            <div><h4>DECOMPOSITION TASKS</h4><ul><li>Identify main features</li><li>Characterise each feature</li><li>Break down the problem</li><li>Break down the solution</li><li>Show it with block diagrams, information flow diagrams, flowcharts, code, written descriptions</li></ul></div>
+                            <div><h4>ABSTRACTION: ASK</h4><ul><li>What inputs? What outputs?</li><li>What varies? What stays constant?</li><li>Key actions? Repeated processes?</li><li>Hide internal workings</li></ul></div>
+                            <div><h4>FLOWCHART SYMBOLS</h4><ul><li>Terminator (rounded): start / end</li><li>Process (rectangle)</li><li>Sub-process (double-sided rectangle)</li><li>Decision (diamond) with labelled exits</li><li>Input/output (parallelogram); arrows show flow</li></ul></div>
+                            <div><h4>ALGORITHM NOTATIONS</h4><ul><li>Flowchart: visual, but large ones get messy</li><li>Written description: hierarchical markers 1, 1.1, 1.1.1; can be ambiguous</li><li>Code: precise and testable; needs programming knowledge</li></ul></div>
+                            <div><h4>PROBLEM-SOLVING APPROACHES</h4><ul><li>Top-down: whole → parts</li><li>Bottom-up: parts → whole</li><li>Modularisation: self-contained modules, built in parallel</li></ul></div>
+                            <div><h4>ROOT CAUSE ANALYSIS</h4><ul><li>Five whys: quick, may stop at a symptom</li><li>FMEA: severity × occurrence × detection = RPN; done before failure</li><li>Event tree: one event, branches for each safeguard</li><li>Then: log, close or escalate</li></ul></div>
+                            <div><h4>HIGH-LEVEL STRATEGY</h4><ul><li>1 Define the problem</li><li>2 Gather information</li><li>3 Analyse</li><li>4 Plan</li><li>5 Implement</li><li>6 Review</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on CA1 from the course question bank. Pick a topic or question type, answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-area="1"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 80 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="ca1">
+                            <div class="q" data-m="1">
+                                <p>Define the term 'abstraction'.</p>
+                                <div class="ms"><ul><li>Removing/filtering out unnecessary detail to focus on what is needed / hiding internal workings (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>State the four components of computational thinking.</p>
+                                <div class="ms"><ul><li>Decomposition, pattern recognition, abstraction, algorithmic design. All four = 2 marks; two or three = 1 mark.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A cinema wants an app that lets customers book seats. Use decomposition to identify four main parts of the app.</p>
+                                <div class="ms"><ul><li>Any four relevant parts, e.g. user accounts/login; view films and showtimes; choose seats / seat map; payment; booking confirmation / e-ticket; manage/cancel bookings; admin to add showings. One mark each.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Draw the flowchart symbol used for each: (a) a decision (b) an input or output (c) the start of an algorithm.</p>
+                                <p>Draw on paper, or name the shape in the box.</p>
+                                <div class="ms"><ul><li>(a) Diamond (1) (b) Parallelogram (1) (c) Rounded rectangle / terminator (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Give one benefit and one drawback of expressing an algorithm as a flowchart rather than in code.</p>
+                                <div class="ms"><ul><li>Benefit: visual / easier for non-programmers to follow / language independent (1).</li><li>Drawback: large algorithms become unwieldy / slow to draw and edit / can't be run (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="5">
+                                <p>A sports club charges £5 per session, or £4 per session for members. A customer can book up to 10 sessions. Using abstraction, identify: two inputs, one output, one constant, one thing that varies.</p>
+                                <div class="ms"><ul><li>Inputs (any two, 1 each): number of sessions; membership status.</li><li>Output (1): total cost.</li><li>Constant (1): £5, £4, or maximum of 10 sessions.</li><li>Varies (1): number of sessions / member or not / total.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe how pattern recognition could help a developer who has been asked to build an online booking system for a dental practice.</p>
+                                <div class="ms"><ul><li>Identify similarities with existing booking systems (e.g. restaurants, hairdressers) (1)</li><li>so existing designs or code for calendars, time slots and confirmations can be reused (1)</li><li>saving development time / reducing errors because the solution is already tested (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>Draw a flowchart for an algorithm that asks for a test mark (0–100), keeps asking until a valid mark is entered, then outputs "Pass" for 40 or more and "Fail" otherwise.</p>
+                                <p>Draw it on paper, then describe it here if you like.</p>
+                                <div class="ms"><ul><li>Start and end terminators (1)</li><li>Input mark in parallelogram (1)</li><li>Decision checking range 0–100 (1)</li><li>Loop back to input if invalid (1)</li><li>Decision mark &gt;= 40 with labelled Yes/No (1)</li><li>Outputs "Pass" and "Fail" in parallelograms (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>The written algorithm below should output the total of five numbers entered by the user. Identify two errors and give the correction for each.</p>
+                                <table>
+                                    <tr><td>1</td><td>Set total to 1</td></tr>
+                                    <tr><td>2</td><td>Repeat 4 times:</td></tr>
+                                    <tr><td>2.1</td><td>Input number</td></tr>
+                                    <tr><td>2.2</td><td>Add number to total</td></tr>
+                                    <tr><td>3</td><td>Output total</td></tr>
+                                </table>
+                                <div class="ms"><ul><li>Total initialised to 1 (1); should be set to 0 (1).</li><li>Loop repeats 4 times (1); should repeat 5 times (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain the difference between top-down and bottom-up approaches to problem solving.</p>
+                                <div class="ms"><ul><li>Top-down starts with the whole problem (1) and breaks it into smaller sub-problems (1).</li><li>Bottom-up starts with small detailed components (1) and combines them into a complete solution (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="5">
+                                <p>A school's Wi-Fi drops every day at 12:30. Show how the five whys technique could be used to find the root cause. You may invent reasonable answers.</p>
+                                <div class="ms"><ul><li>One mark per logical 'why' step leading to a plausible root cause (max 4), plus 1 for identifying the root cause. E.g.: Why does Wi-Fi drop? Access points overload. Why? 900 students connect at once. Why? Lunch starts at 12:30 and students stream video. Why does that overload it? Bandwidth limit not set per device. Root cause: no bandwidth management policy.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>After root cause analysis, a technician finds that the fault is caused by a bug in third-party firewall software. State which action they should take and justify it.</p>
+                                <div class="ms"><ul><li>Escalate to the external third party / vendor (1) because the technician cannot fix a bug in someone else's software (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="9">
+                                <p>A bank is launching a new mobile app. Evaluate the use of FMEA and the five whys for managing problems with the app.</p>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>FMEA: done before launch; systematically lists failure modes (login fails, payment errors, data exposure); prioritises by severity, occurrence, detection; important for a bank where failures affect money and regulation. But time-consuming, needs expertise, scores can be subjective, may miss unforeseen failures.</li>
+                                        <li>Five whys: quick and cheap after a problem occurs; good for individual incidents reported by customers. But may stop at a symptom; relies on staff knowledge; not suited to complex problems with several causes; reactive.</li>
+                                        <li>Interrelationship: FMEA reduces likely failures before launch; five whys handles problems that still occur.</li>
+                                        <li>Judgement: e.g. both should be used: FMEA before launch because of the high stakes for a bank, five whys for incidents after launch.</li>
+                                    </ul>
+                                    <div class="levels" data-max="9"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>Discuss the benefits and drawbacks of modularisation for a team of six developers building an online shop.</p>
+                                <div class="box support">
+                                    <h4>◆ SUPPORT: SENTENCE STARTERS</h4>
+                                    <ul>
+                                        <li>FMEA would help the bank before launch because ...</li>
+                                        <li>The five whys is quicker because ... but it may ...</li>
+                                        <li>Modularisation means each developer can ... However, the modules must ...</li>
+                                    </ul>
+                                </div>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Benefits: developers build modules (basket, payments, accounts, catalogue) at the same time; faster delivery; each module unit tested separately; easier maintenance and reuse; faults easier to locate.</li>
+                                        <li>Drawbacks: interfaces must be agreed and documented; integration problems if modules don't fit; needs coordination and version control; duplication if teams don't communicate.</li>
+                                    </ul>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Write the Python code for question 8 and test it with valid, invalid, boundary and erroneous data.</li>
+                                <li>Draw an event tree for a fire in the bank's data centre with two safeguards: fire suppression and an offsite backup.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-ca1" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-ca1" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · CA1 Problem Solving · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+    <script>
+        // FMEA risk priority number calculator
+        const rpnSelects = ['rpn-s', 'rpn-o', 'rpn-d'].map(id => document.getElementById(id));
+        const rpnOut = document.getElementById('rpn-out');
+
+        rpnSelects.forEach(select => {
+            for (let i = 1; i <= 10; i++) select.append(new Option(i, i));
+            select.value = '5';
+            select.addEventListener('change', showRpn);
+        });
+
+        function showRpn() {
+            const [s, o, d] = rpnSelects.map(select => Number(select.value));
+            rpnOut.textContent = `RPN = ${s} × ${o} × ${d} = ${s * o * d}`;
+        }
+
+        showRpn();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

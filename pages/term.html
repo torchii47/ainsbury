@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Term Planner | Rowan's Website</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+</head>
+<body>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Toolkit">
+            <a href="../index.html">&larr; Home</a>
+            <a href="../revision/index.html" class="nav-featured">📚 Revision Guide</a>
+            <a href="starter.html">Starter</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="cheatsheet.html">Cheat Sheet</a>
+            <a href="mistakes.html">Mistakes</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="term.html" aria-current="page">Term Planner</a>
+            <a href="placement.html">Placement</a>
+            <a href="question.html">Random Question</a>
+        </nav>
+
+        <main>
+        <section class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">term_planner.cal</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Term Planner</h1>
+                <p class="page-intro">What we're covering and when. Missed a lesson? Find the week here and catch up with the resources.</p>
+            </div>
+        </section>
+
+        <!-- Key dates come from js/dates.js -->
+        <section class="window" id="key-dates">
+            <div class="title-bar">
+                <h2>Key dates &amp; deadlines</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <div class="table-wrap">
+                    <table class="retro-table">
+                        <thead>
+                            <tr><th>Date</th><th>What</th><th>Details</th></tr>
+                        </thead>
+                        <tbody id="dates-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- To update the schedule, edit the rows in this table -->
+        <section class="window" id="schedule">
+            <div class="title-bar">
+                <h2>Weekly schedule</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <div class="table-wrap">
+                    <table class="retro-table">
+                        <thead>
+                            <tr><th>Week commencing</th><th>Topic</th><th>Resources</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>31 Aug 2026</td>
+                                <td>Course welcome &amp; AI policy</td>
+                                <td><a href="../posts/2026_09_01_Welcome.html">Welcome</a>, <a href="../posts/2026_09_02_AI_Policy.html">AI Policy</a></td>
+                            </tr>
+                            <tr>
+                                <td>21 Sep 2026</td>
+                                <td>Class demo: CargoPulse</td>
+                                <td><a href="../cargopulse.html">CargoPulse</a></td>
+                            </tr>
+                            <tr>
+                                <td>TBC</td>
+                                <td>TBC</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    </div>
+
+    <script src="../js/dates.js?v=2026-10-29"></script>
+    <script>
+        const datesTable = document.getElementById('dates-table');
+        const today = new Date().toISOString().slice(0, 10);
+        const sorted = (typeof keyDates !== 'undefined' ? keyDates : [])
+            .slice()
+            .sort((a, b) => a.date.localeCompare(b.date));
+        const nextIndex = sorted.findIndex(item => item.date >= today);
+
+        if (sorted.length > 0) {
+            datesTable.innerHTML = sorted.map((item, index) => `
+                <tr${item.date < today ? ' style="opacity: 0.55"' : ''}>
+                    <td>${item.date}</td>
+                    <td>
+                        <strong>${item.title}</strong>
+                        ${index === nextIndex ? '<span class="new-tag blink">NEXT!</span>' : ''}
+                    </td>
+                    <td>${item.details || ''}</td>
+                </tr>
+            `).join('');
+        } else {
+            datesTable.innerHTML = '<tr><td colspan="3">No dates added yet.</td></tr>';
+        }
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

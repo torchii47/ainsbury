@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Common Mistakes | Rowan's Website</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+</head>
+<body>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Toolkit">
+            <a href="../index.html">&larr; Home</a>
+            <a href="../revision/index.html" class="nav-featured">📚 Revision Guide</a>
+            <a href="starter.html">Starter</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="cheatsheet.html">Cheat Sheet</a>
+            <a href="mistakes.html" aria-current="page">Mistakes</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="term.html">Term Planner</a>
+            <a href="placement.html">Placement</a>
+            <a href="question.html">Random Question</a>
+        </nav>
+
+        <main class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">error_log.txt</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Common Mistakes</h1>
+                <p class="page-intro">Something not working? It's probably one of these. Check here before asking.</p>
+
+                <div class="mistake">
+                    <h3>1. "My changes aren't showing"</h3>
+                    <p>Either the file isn't saved, or the browser is showing an old copy it remembered (the cache).</p>
+                    <p><span class="label-right">FIX</span> Press <kbd>Ctrl</kbd>+<kbd>S</kbd> in your editor, then <kbd>Ctrl</kbd>+<kbd>F5</kbd> in the browser for a hard refresh. On Neocities, check you uploaded the new version.</p>
+                </div>
+
+                <div class="mistake">
+                    <h3>2. Homepage not called index.html</h3>
+                    <p>Neocities looks for a file called exactly <code>index.html</code> as your homepage.</p>
+                    <p><span class="label-wrong">WRONG</span> <code>Index.html</code>, <code>home.html</code>, <code>index.html.txt</code></p>
+                    <p><span class="label-right">RIGHT</span> <code>index.html</code></p>
+                </div>
+
+                <div class="mistake">
+                    <h3>3. Capital letters and spaces in file names</h3>
+                    <p>Web servers are case sensitive, so <code>Photo.JPG</code> and <code>photo.jpg</code> are different files. Spaces turn into <code>%20</code> and break easily.</p>
+                    <p><span class="label-wrong">WRONG</span> <code>My Photo.JPG</code></p>
+                    <p><span class="label-right">RIGHT</span> <code>my-photo.jpg</code></p>
+                </div>
+
+                <div class="mistake">
+                    <h3>4. Linking to a file on your own computer</h3>
+                    <p>It works on your machine, but nobody else has your C: drive.</p>
+                    <p><span class="label-wrong">WRONG</span></p>
+<pre><code>&lt;img src="C:\Users\student\Desktop\cat.png"&gt;</code></pre>
+                    <p><span class="label-right">RIGHT</span> Put the image in your site folder and use a relative path:</p>
+<pre><code>&lt;img src="images/cat.png" alt="My cat asleep on a keyboard"&gt;</code></pre>
+                </div>
+
+                <div class="mistake">
+                    <h3>5. Unclosed or wrongly nested tags</h3>
+                    <p>Tags close in the reverse order they opened, like brackets in maths.</p>
+                    <p><span class="label-wrong">WRONG</span></p>
+<pre><code>&lt;p&gt;This is &lt;strong&gt;important&lt;/p&gt;&lt;/strong&gt;</code></pre>
+                    <p><span class="label-right">RIGHT</span></p>
+<pre><code>&lt;p&gt;This is &lt;strong&gt;important&lt;/strong&gt;&lt;/p&gt;</code></pre>
+                    <p>The <a href="https://validator.w3.org" target="_blank">W3C validator</a> will find these for you.</p>
+                </div>
+
+                <div class="mistake">
+                    <h3>6. Stylesheet not linked properly</h3>
+                    <p>If your page looks completely unstyled, the browser can't find your CSS file.</p>
+                    <p><span class="label-right">FIX</span> Check the <code>href</code> matches the file name and folder exactly:</p>
+<pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+                    <p>If your page is in a sub-folder, you may need <code>../style.css</code> to go up a level.</p>
+                </div>
+
+                <div class="mistake">
+                    <h3>7. Class name doesn't match</h3>
+                    <p>A class in CSS starts with a dot. In HTML it doesn't. The names must match exactly.</p>
+                    <p><span class="label-wrong">WRONG</span></p>
+<pre><code>HTML:  &lt;div class=".card"&gt;   (no dot needed here)
+CSS:   Card { ... }          (missing dot, wrong case)</code></pre>
+                    <p><span class="label-right">RIGHT</span></p>
+<pre><code>HTML:  &lt;div class="card"&gt;
+CSS:   .card { ... }</code></pre>
+                </div>
+
+                <div class="mistake">
+                    <h3>8. Missing semicolon or curly bracket in CSS</h3>
+                    <p>One missing <code>;</code> or <code>}</code> can break every rule after it.</p>
+                    <p><span class="label-wrong">WRONG</span></p>
+<pre><code>h1 {
+    color: purple
+    font-size: 32px;
+</code></pre>
+                    <p><span class="label-right">RIGHT</span></p>
+<pre><code>h1 {
+    color: purple;
+    font-size: 32px;
+}</code></pre>
+                </div>
+
+                <div class="mistake">
+                    <h3>9. Curly "smart" quotes</h3>
+                    <p>Code copied from Word, Google Docs or some websites can contain curly quotes, which HTML and CSS don't understand.</p>
+                    <p><span class="label-wrong">WRONG</span> <code>&lt;a href=“about.html”&gt;</code></p>
+                    <p><span class="label-right">RIGHT</span> <code>&lt;a href="about.html"&gt;</code></p>
+                </div>
+
+                <div class="mistake">
+                    <h3>10. Using &lt;br&gt; for spacing</h3>
+                    <p>Stacking <code>&lt;br&gt;&lt;br&gt;&lt;br&gt;</code> to push things down is fragile and looks different on every screen.</p>
+                    <p><span class="label-right">FIX</span> Use CSS <code>margin</code> or <code>padding</code> instead.</p>
+                </div>
+
+                <div class="mistake">
+                    <h3>11. Huge images</h3>
+                    <p>A 6 MB photo straight off your phone makes the page crawl, and can overflow the screen.</p>
+                    <p><span class="label-right">FIX</span> Resize and compress it with <a href="https://tinypng.com" target="_blank">TinyPNG</a>, and add this to your CSS:</p>
+<pre><code>img {
+    max-width: 100%;
+    height: auto;
+}</code></pre>
+                </div>
+
+                <div class="mistake">
+                    <h3>12. Images uploaded to the wrong folder</h3>
+                    <p>If your HTML says <code>images/cat.png</code>, then on Neocities there must be a folder called <code>images</code> with <code>cat.png</code> inside it.</p>
+                    <p><span class="label-right">FIX</span> Make your Neocities folders match the folders on your computer.</p>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

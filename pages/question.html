@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Random Question | Rowan's Website</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+</head>
+<body>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Toolkit">
+            <a href="../index.html">&larr; Home</a>
+            <a href="../revision/index.html" class="nav-featured">📚 Revision Guide</a>
+            <a href="starter.html">Starter</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="cheatsheet.html">Cheat Sheet</a>
+            <a href="mistakes.html">Mistakes</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="term.html">Term Planner</a>
+            <a href="placement.html">Placement</a>
+            <a href="question.html" aria-current="page">Random Question</a>
+        </nav>
+
+        <main>
+        <section class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">random_question.exe</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Random Question</h1>
+                <p class="page-intro">A random question from the core exam question bank. Have a go in your head (or on paper), then check the answer.</p>
+
+                <div class="button-row">
+                    <label for="topic-select">Topic:</label>
+                    <select id="topic-select" class="quiz-select">
+                        <option value="">All topics</option>
+                    </select>
+                    <button type="button" class="button" id="new-question">New question</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="window">
+            <div class="title-bar">
+                <h2 id="question-title">question.txt</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <p class="quiz-meta" id="question-meta"></p>
+                <p class="quiz-question" id="question-text">Loading...</p>
+
+                <!-- Multiple choice options go here -->
+                <ul class="quiz-options" id="question-options"></ul>
+
+                <button type="button" class="button" id="show-answer">Show answer</button>
+
+                <div class="quiz-answer" id="answer-box" hidden>
+                    <h3>Answer</h3>
+                    <p id="answer-text"></p>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <!-- Parsing and filtering of the bank lives in question-bank.js -->
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script>
+        const questions = questionBank;
+
+        const topicSelect = document.getElementById('topic-select');
+        const topics = [...new Set(questions.map(q => q.mainTopic))].sort(compareTopics);
+
+        topics.forEach(topic => {
+            const option = document.createElement('option');
+            option.value = topic;
+            option.textContent = topic;
+            topicSelect.appendChild(option);
+        });
+
+        const typeNames = questionTypeNames;
+
+        const questionMeta = document.getElementById('question-meta');
+        const questionText = document.getElementById('question-text');
+        const optionsList = document.getElementById('question-options');
+        const showAnswerButton = document.getElementById('show-answer');
+        const answerBox = document.getElementById('answer-box');
+        const answerText = document.getElementById('answer-text');
+
+        let current = null;
+
+        function pickQuestion() {
+            const pool = questions.filter(q => !topicSelect.value || q.mainTopic === topicSelect.value);
+
+            // Avoid showing the same question twice in a row
+            let pick = pool[Math.floor(Math.random() * pool.length)];
+            if (pool.length > 1) {
+                while (pick === current) {
+                    pick = pool[Math.floor(Math.random() * pool.length)];
+                }
+            }
+
+            current = pick;
+            showQuestion(pick);
+        }
+
+        function showQuestion(q) {
+            const marks = Number(q.marks) || 1;
+            questionMeta.textContent = `${q.mainTopic} · ${typeNames[q.type] || q.type} · ${marks} mark${marks === 1 ? '' : 's'}`;
+            questionText.textContent = q.question;
+            answerText.textContent = q.answer;
+            answerBox.hidden = true;
+            optionsList.innerHTML = '';
+
+            const mcq = questionOptions(q);
+
+            if (mcq) {
+                const options = mcq.options;
+                const correctIndex = mcq.correct;
+
+                options.forEach((text, index) => {
+                    const item = document.createElement('li');
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'button quiz-option';
+                    button.textContent = `${String.fromCharCode(65 + index)}. ${text}`;
+                    button.addEventListener('click', () => checkOption(index, correctIndex));
+                    item.appendChild(button);
+                    optionsList.appendChild(item);
+                });
+
+                showAnswerButton.hidden = true;
+            } else {
+                showAnswerButton.hidden = false;
+            }
+        }
+
+        function checkOption(chosen, correctIndex) {
+            const buttons = optionsList.querySelectorAll('button');
+
+            buttons.forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === chosen) {
+                    button.classList.add('wrong');
+                }
+            });
+
+            answerBox.hidden = false;
+        }
+
+        showAnswerButton.addEventListener('click', () => {
+            answerBox.hidden = false;
+            showAnswerButton.hidden = true;
+        });
+
+        document.getElementById('new-question').addEventListener('click', pickQuestion);
+        topicSelect.addEventListener('change', pickQuestion);
+
+        pickQuestion();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

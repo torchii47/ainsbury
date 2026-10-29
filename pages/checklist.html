@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submission Checklist | Rowan's Website</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+</head>
+<body>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Toolkit">
+            <a href="../index.html">&larr; Home</a>
+            <a href="../revision/index.html" class="nav-featured">📚 Revision Guide</a>
+            <a href="starter.html">Starter</a>
+            <a href="checklist.html" aria-current="page">Checklist</a>
+            <a href="cheatsheet.html">Cheat Sheet</a>
+            <a href="mistakes.html">Mistakes</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="term.html">Term Planner</a>
+            <a href="placement.html">Placement</a>
+            <a href="question.html">Random Question</a>
+        </nav>
+
+        <main class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">checklist.exe</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Submission Checklist</h1>
+                <p class="page-intro">Work through this before you hand anything in. Your ticks are saved in this browser, so you can come back to it.</p>
+
+                <p><strong id="progress-text">0 of 0 done</strong></p>
+                <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+
+                <h3>Files &amp; upload</h3>
+                <ul class="checklist">
+                    <li><label><input type="checkbox" data-id="index"> <span>My homepage is called <code>index.html</code></span></label></li>
+                    <li><label><input type="checkbox" data-id="filenames"> <span>All file names are lowercase with no spaces</span></label></li>
+                    <li><label><input type="checkbox" data-id="uploaded"> <span>Every file and image is uploaded to Neocities in the right folder</span></label></li>
+                    <li><label><input type="checkbox" data-id="backup"> <span>I have a backup copy of my files</span></label></li>
+                </ul>
+
+                <h3>Code quality</h3>
+                <ul class="checklist">
+                    <li><label><input type="checkbox" data-id="html-valid"> <span>Every page passes the <a href="https://validator.w3.org" target="_blank">W3C HTML Validator</a></span></label></li>
+                    <li><label><input type="checkbox" data-id="css-valid"> <span>My CSS passes the <a href="https://jigsaw.w3.org/css-validator/" target="_blank">W3C CSS Validator</a></span></label></li>
+                    <li><label><input type="checkbox" data-id="indent"> <span>My code is indented and easy to read</span></label></li>
+                    <li><label><input type="checkbox" data-id="comments"> <span>I've added comments to explain the main sections</span></label></li>
+                    <li><label><input type="checkbox" data-id="semantic"> <span>I've used semantic tags (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>)</span></label></li>
+                    <li><label><input type="checkbox" data-id="titles"> <span>Every page has its own <code>&lt;title&gt;</code></span></label></li>
+                </ul>
+
+                <h3>Links &amp; images</h3>
+                <ul class="checklist">
+                    <li><label><input type="checkbox" data-id="links"> <span>I've clicked every link on the live site and they all work</span></label></li>
+                    <li><label><input type="checkbox" data-id="images-load"> <span>All images load on the live site (not just on my computer)</span></label></li>
+                    <li><label><input type="checkbox" data-id="alt"> <span>Every image has meaningful <code>alt</code> text</span></label></li>
+                    <li><label><input type="checkbox" data-id="compressed"> <span>Images are compressed and not huge files</span></label></li>
+                    <li><label><input type="checkbox" data-id="home-link"> <span>Every page links back to the homepage</span></label></li>
+                </ul>
+
+                <h3>Design &amp; accessibility</h3>
+                <ul class="checklist">
+                    <li><label><input type="checkbox" data-id="mobile"> <span>I've checked the site on a phone (or with dev tools' device mode)</span></label></li>
+                    <li><label><input type="checkbox" data-id="contrast"> <span>Text has enough contrast with the background</span></label></li>
+                    <li><label><input type="checkbox" data-id="consistent"> <span>Fonts, colours and navigation are consistent across pages</span></label></li>
+                    <li><label><input type="checkbox" data-id="spelling"> <span>I've checked spelling and grammar</span></label></li>
+                </ul>
+
+                <h3>Rules</h3>
+                <ul class="checklist">
+                    <li><label><input type="checkbox" data-id="no-ai"> <span>All the code is written by me, with no AI-generated code</span></label></li>
+                    <li><label><input type="checkbox" data-id="credit"> <span>I've credited any images, fonts or code snippets I didn't make</span></label></li>
+                </ul>
+
+                <div class="button-row">
+                    <button type="button" class="button" id="reset">Clear all ticks</button>
+                    <span id="reset-confirm" hidden>
+                        Are you sure?
+                        <button type="button" class="button" id="reset-yes">Yes, clear</button>
+                        <button type="button" class="button" id="reset-no">Cancel</button>
+                    </span>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll('.checklist input');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+
+        // Load saved ticks (wrapped in try in case storage is blocked)
+        let saved = {};
+        try {
+            saved = JSON.parse(localStorage.getItem('checklist') || '{}');
+        } catch (error) {}
+
+        function updateProgress() {
+            const done = [...boxes].filter(box => box.checked).length;
+            progressText.textContent = `${done} of ${boxes.length} done${done === boxes.length ? ' - ready to submit!' : ''}`;
+            progressBar.style.width = `${(done / boxes.length) * 100}%`;
+        }
+
+        function save() {
+            boxes.forEach(box => saved[box.dataset.id] = box.checked);
+            try {
+                localStorage.setItem('checklist', JSON.stringify(saved));
+            } catch (error) {}
+        }
+
+        boxes.forEach(box => {
+            box.checked = saved[box.dataset.id] === true;
+            box.addEventListener('change', () => {
+                save();
+                updateProgress();
+            });
+        });
+
+        // Reset with an on-page confirmation
+        const resetConfirm = document.getElementById('reset-confirm');
+
+        document.getElementById('reset').addEventListener('click', () => {
+            resetConfirm.hidden = false;
+        });
+
+        document.getElementById('reset-no').addEventListener('click', () => {
+            resetConfirm.hidden = true;
+        });
+
+        document.getElementById('reset-yes').addEventListener('click', () => {
+            boxes.forEach(box => box.checked = false);
+            save();
+            updateProgress();
+            resetConfirm.hidden = true;
+        });
+
+        updateProgress();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CA8 Security | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev ca8" data-page="ca8">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 8 · CORE PAPER 2</p>
+            <h1>Content Area 8: Security</h1>
+            <p>Content area 8 covers what organisations need to protect, the threats and vulnerabilities they face, how to reduce the risk, and the models (CIA and IAAA) that tie security together. Exam questions usually give a scenario and ask you to identify a threat, explain its impact and recommend prevention. Always link the prevention to the specific threat.</p>
+            <p class="links"><strong>Links to other content areas:</strong> data protection and the Computer Misuse Act are in <a href="ca4.html">Content area 4</a>. Security breaches as a business risk are in <a href="ca5.html#s5-3">Content area 5 (5.3)</a>. Device hardening, backups and patching also appear in <a href="ca7.html#s7-6">Content area 7 (7.6)</a>.</p>
+            <span class="big-num" aria-hidden="true">8</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>8.1.1</td><td>Identify the confidential information organisations hold: HR, commercially sensitive, access information</td></tr>
+                            <tr><td>8.1.2</td><td>Explain why each type of information must be kept confidential</td></tr>
+                            <tr><td>8.1.3</td><td>Explain the impact of failing to maintain privacy and confidentiality</td></tr>
+                            <tr><td>8.2.1</td><td>Explain technical threats (botnets, DoS/DDoS, malicious hacking, malware, social engineering, DNS attacks, insecure APIs, man-in-the-middle, open Wi-Fi), their impact, prevention and mitigation</td></tr>
+                            <tr><td>8.2.2</td><td>Explain technical vulnerabilities: inadequate security processes and out-of-date components</td></tr>
+                            <tr><td>8.2.3</td><td>Explain human threats and their prevention: human error, malicious employees, disguised criminals, poor cyber hygiene</td></tr>
+                            <tr><td>8.2.4</td><td>Explain physical vulnerabilities and their prevention: access control, location, robustness, natural disasters</td></tr>
+                            <tr><td>8.2.5</td><td>Explain the potential impact of threats and vulnerabilities</td></tr>
+                            <tr><td>8.3.1</td><td>Explain the purpose, process, benefits and drawbacks of threat mitigation techniques</td></tr>
+                            <tr><td>8.3.2</td><td>Explain firewall configuration, network segregation, network monitoring and port scanning</td></tr>
+                            <tr><td>8.4.1</td><td>Explain how confidentiality, integrity and availability (CIA triad) interrelate</td></tr>
+                            <tr><td>8.4.2</td><td>Explain identification, authentication, authorisation and accountability (IAAA), with techniques, benefits and drawbacks</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s8-1">
+                    <h2>8.1 Security risks</h2>
+                    <div class="window-body">
+                        <h3>Confidential information held by organisations (8.1.1) and why it must be protected (8.1.2)</h3>
+                        <table>
+                            <tr><th>Category</th><th>Information</th><th>Why it must be kept confidential</th></tr>
+                            <tr><td>Human Resources</td><td>Salaries and benefits</td><td>Prevent competitors offering higher wages to poach staff; prevent employees comparing salaries and demanding comparable pay</td></tr>
+                            <tr><td>Human Resources</td><td>Staff personal details</td><td>Protect staff privacy (and comply with data protection law); prevent competitors contacting staff directly</td></tr>
+                            <tr><td>Commercially sensitive</td><td>Client details</td><td>Prevent competitors contacting clients; protect client privacy</td></tr>
+                            <tr><td>Commercially sensitive</td><td>Stakeholder details</td><td>Protect relationships with suppliers, investors and partners</td></tr>
+                            <tr><td>Commercially sensitive</td><td>Intellectual property</td><td>Prevent competitors copying designs, code or inventions</td></tr>
+                            <tr><td>Commercially sensitive</td><td>Sales numbers</td><td>Competitors could use them to undercut prices or target weak areas; could affect share price</td></tr>
+                            <tr><td>Commercially sensitive</td><td>Contracts</td><td>Terms and prices are commercially sensitive</td></tr>
+                            <tr><td>Access information</td><td>Usernames, passwords, MFA details, PINs, access codes, passphrases, biometric data</td><td>Prevent unauthorised access to systems, data and buildings</td></tr>
+                        </table>
+
+                        <h3>Impact of failing to maintain privacy and confidentiality (8.1.3)</h3>
+                        <table>
+                            <tr><th>Impact</th><th>Explanation</th></tr>
+                            <tr><td>Non-compliance with regulations</td><td>Breaches data protection law; regulated businesses (finance, health, legal) can lose their licence to practise.</td></tr>
+                            <tr><td>Loss of trust</td><td>Customers, staff and partners no longer trust the organisation with their data.</td></tr>
+                            <tr><td>Damage to the organisation's image</td><td>Negative media coverage; brand associated with the breach.</td></tr>
+                            <tr><td>Financial loss</td><td>Fines (ICO up to £17.5m or 4% of global turnover); refunds and compensation to customers; loss of earnings and termination of contracts.</td></tr>
+                            <tr><td>Legal action</td><td>Customers or staff sue; regulators prosecute.</td></tr>
+                            <tr><td>Reduced security</td><td>Leaked access information gives attackers a route into systems for further attacks.</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Threat</dt><dd>Something that could cause harm to a system or data, e.g. a hacker or malware.</dd>
+                            <dt>Vulnerability</dt><dd>A weakness that a threat could exploit, e.g. unpatched software or a weak password policy.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s8-2-1">
+                    <h2>8.2.1 Technical threats</h2>
+                    <div class="window-body">
+                        <p>For each threat, know <strong>what it is</strong>, its <strong>impact</strong> and how to <strong>prevent or mitigate</strong> it.</p>
+                        <table>
+                            <tr><th>Threat</th><th>What it is</th><th>Impact</th><th>Prevention / mitigation</th></tr>
+                            <tr><td>Botnets</td><td>Many infected devices (often IoT) controlled by an attacker to send spam, run DDoS attacks or mine cryptocurrency.</td><td>Devices slowed; organisation's network used in crimes; DDoS on targets</td><td>Anti-malware; patching; change default passwords on IoT devices; network monitoring</td></tr>
+                            <tr><td>DoS / DDoS</td><td>Flooding a server or network with requests so genuine users can't get through. DDoS uses thousands of devices.</td><td>Website or service offline; lost sales; reputational damage</td><td>DDoS protection services; firewalls and rate limiting; extra capacity / cloud elasticity; traffic filtering</td></tr>
+                            <tr><td>Malicious hacking: who</td><td>Hacktivists (political or social cause), nation states (espionage, disruption), organised crime (money), individuals (curiosity, revenge, reputation).</td><td>Depends on motive: data theft, defacement, disruption, ransom</td><td>Layered security; threat intelligence; staff awareness</td></tr>
+                            <tr><td>Password cracking / brute force</td><td>Trying many passwords automatically, or using lists of common and leaked passwords.</td><td>Account takeover; data theft</td><td>Strong password policy; lock account after failed attempts; MFA; CAPTCHA; salted hashing of stored passwords</td></tr>
+                            <tr><td>Cross-site scripting (XSS)</td><td>Attacker injects malicious script into a web page (e.g. in a comment) that then runs in other users' browsers.</td><td>Stolen session cookies; account hijacking; redirection to fake sites</td><td>Validate and sanitise input; encode output; content security policy</td></tr>
+                            <tr><td>SQL injection</td><td>SQL code typed into an input field is run by the database.</td><td>Data read, changed or deleted; whole database stolen</td><td>Parameterised queries; input validation; least-privilege database accounts</td></tr>
+                            <tr><td>Buffer overflow</td><td>Input longer than the memory buffer overwrites adjacent memory, crashing the program or running attacker code.</td><td>Crash; attacker takes control</td><td>Check input length; memory-safe languages; patching</td></tr>
+                        </table>
+
+                        <h3>Worked example: SQL injection</h3>
+                        <p>This login check builds the SQL query by joining strings. Entering <code>' OR '1'='1</code> as the password makes the condition always true, so the attacker logs in without knowing the password.</p>
+<pre class="code">
+import sqlite3
+
+db = sqlite3.connect(":memory:")
+db.execute("CREATE TABLE users (name TEXT, password TEXT)")
+db.execute("INSERT INTO users VALUES ('admin', 'S3cret!')")
+
+name = "admin"
+password = "' OR '1'='1"
+
+# Vulnerable: user input joined straight into the SQL
+query = ("SELECT * FROM users WHERE name = '" + name +
+         "' AND password = '" + password + "'")
+print("Vulnerable login:", db.execute(query).fetchone() is not None)
+
+# Safe: parameterised query treats the input as data, not code
+safe = "SELECT * FROM users WHERE name = ? AND password = ?"
+result = db.execute(safe, (name, password)).fetchone()
+print("Safe login:", result is not None)
+</pre>
+<pre class="out">
+Vulnerable login: True
+Safe login: False
+</pre>
+                        <h4>See the query the attacker builds</h4>
+                        <div class="button-row">
+                            <label>Password typed: <input id="sqli-in" class="quiz-select" value="' OR '1'='1" size="22"></label>
+                        </div>
+                        <pre class="sqli-out" id="sqli-out" aria-live="polite"></pre>
+                        <div class="box">
+                            <h4>■ NOTE</h4>
+                            <p>Real systems never store plain-text passwords like this example. They store a salted hash (see <a href="#s8-3-1">8.3.1</a>).</p>
+                        </div>
+
+                        <h3>Malware</h3>
+                        <table>
+                            <tr><th>Type</th><th>How it works</th><th>Impact</th></tr>
+                            <tr><td>Virus</td><td>Attaches to a file or program; spreads when the infected file is run or shared.</td><td>Corrupts or deletes files; slows systems</td></tr>
+                            <tr><td>Worm</td><td>Self-replicating; spreads across networks by exploiting vulnerabilities, without user action.</td><td>Spreads very fast; uses bandwidth; can deliver other malware</td></tr>
+                            <tr><td>Key logger</td><td>Records keystrokes and sends them to the attacker.</td><td>Passwords and card numbers stolen</td></tr>
+                            <tr><td>Ransomware</td><td>Encrypts files and demands payment (often cryptocurrency) for the key.</td><td>Data unavailable; operations stop; ransom cost; data may also be leaked</td></tr>
+                            <tr><td>Spyware</td><td>Secretly monitors activity (browsing, location, messages) and sends data to a third party.</td><td>Privacy breach; stolen credentials</td></tr>
+                            <tr><td>Remote access trojan (RAT)</td><td>Disguised as legitimate software; gives the attacker remote control of the device.</td><td>Full control: files, webcam, use as part of a botnet</td></tr>
+                        </table>
+                        <p><strong>Prevention for all malware:</strong> anti-malware software kept up to date; patching; firewalls; don't open unexpected attachments; restrict admin rights so users can't install software; email filtering; regular, offline backups (essential for recovering from ransomware without paying).</p>
+
+                        <h3>Social engineering</h3>
+                        <table>
+                            <tr><th>Attack</th><th>How it works</th><th>Example</th></tr>
+                            <tr><td>Phishing</td><td>Mass emails pretending to be from a trusted organisation, with links to fake sites or malicious attachments.</td><td>'Your Microsoft 365 password expires today: click here'</td></tr>
+                            <tr><td>Spear phishing</td><td>Targeted at a specific person, using researched details to seem genuine.</td><td>Email to the finance team appearing to come from the CEO asking for an urgent payment</td></tr>
+                            <tr><td>Smishing</td><td>Phishing by SMS.</td><td>'Royal Mail: your parcel is held. Pay £1.45 redelivery fee here'</td></tr>
+                            <tr><td>Vishing</td><td>Phishing by phone call.</td><td>Caller claiming to be from the bank's fraud team asking for a card PIN</td></tr>
+                            <tr><td>Pharming</td><td>Redirects users to a fake website even if they type the correct address, e.g. by poisoning DNS or changing the hosts file.</td><td>User types their bank's address but lands on a copy that steals login details</td></tr>
+                            <tr><td>Watering hole</td><td>Attacker infects a website that the target group regularly visits.</td><td>Compromising an industry forum used by engineers at a target company</td></tr>
+                            <tr><td>USB baiting</td><td>Infected USB sticks left where staff will find and plug them in.</td><td>USB labelled 'Salaries 2026' left in the car park</td></tr>
+                        </table>
+                        <p><strong>Prevention:</strong> staff training and phishing simulations; email filtering; MFA (stolen passwords alone aren't enough); verify requests by a second channel (call back on a known number); policy that the bank or IT will never ask for passwords; disable USB ports or autorun; check URLs and HTTPS certificates.</p>
+
+                        <h4>Practise: name the attack</h4>
+                        <div class="sorter" data-options="Phishing|Spear phishing|Smishing|Vishing|Pharming|Watering hole|USB baiting">
+                            <p data-a="Vishing">A caller says they're from IT support and asks you to read out your login code.</p>
+                            <p data-a="Spear phishing">An email to the payroll manager, using her name and her boss's real signature, asks her to change a supplier's bank details.</p>
+                            <p data-a="Smishing">A text says your bank card is blocked and gives a link to 'unlock' it.</p>
+                            <p data-a="Pharming">You type your bank's correct web address but DNS has been poisoned and you land on a fake copy.</p>
+                            <p data-a="USB baiting">A memory stick marked 'Redundancies' is left in the staff kitchen.</p>
+                            <p data-a="Watering hole">Attackers infect a popular forum for nurses to reach staff at a hospital.</p>
+                            <p data-a="Phishing">Thousands of people get the same email saying their streaming account is suspended.</p>
+                        </div>
+
+                        <h3>Other technical threats</h3>
+                        <table>
+                            <tr><th>Threat</th><th>What it is</th><th>Prevention / mitigation</th></tr>
+                            <tr><td>Domain name server attack / redirection of traffic</td><td>DNS records are poisoned or hijacked so users are sent to malicious sites.</td><td>Secure DNS (DNSSEC); patch DNS servers; monitor DNS records; HTTPS certificates</td></tr>
+                            <tr><td>Insecure APIs</td><td>APIs without proper authentication, encryption or input validation expose data or functions.</td><td>Authentication (API keys, tokens); encryption (HTTPS); validation; rate limiting; certification and security testing of APIs</td></tr>
+                            <tr><td>Man-in-the-middle</td><td>Attacker intercepts communication between two parties to read or alter it, e.g. on public Wi-Fi.</td><td>Encryption (HTTPS, VPN); certificate checks; avoid untrusted networks</td></tr>
+                            <tr><td>Open / unsecured Wi-Fi</td><td>Networks with no password or weak encryption let attackers capture traffic or set up fake 'evil twin' hotspots.</td><td>Use a VPN; WPA3 encryption on company Wi-Fi; avoid sensitive tasks on public Wi-Fi</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Botnet</dt><dd>A network of malware-infected devices (bots) controlled remotely by an attacker.</dd>
+                            <dt>DoS / DDoS</dt><dd>Denial of service: flooding a system with traffic so legitimate users can't access it. Distributed DoS uses many devices at once.</dd>
+                            <dt>Brute force</dt><dd>Trying every possible password combination until the right one is found.</dd>
+                            <dt>Cross-site scripting (XSS)</dt><dd>Injecting malicious script into a website so it runs in other users' browsers.</dd>
+                            <dt>SQL injection</dt><dd>Entering SQL code into an input field so it is run by the database, to read, change or delete data.</dd>
+                            <dt>Buffer overflow</dt><dd>Sending more data than a memory buffer can hold, so it overwrites nearby memory, possibly running attacker code.</dd>
+                            <dt>Malware</dt><dd>Malicious software, e.g. viruses, worms, ransomware, spyware.</dd>
+                            <dt>Virus</dt><dd>Malware that attaches to a file or program and spreads when that file is run or shared.</dd>
+                            <dt>Worm</dt><dd>Malware that replicates itself and spreads across networks without user action.</dd>
+                            <dt>Ransomware</dt><dd>Malware that encrypts files and demands payment for the key.</dd>
+                            <dt>Remote access trojan (RAT)</dt><dd>Malware disguised as legitimate software that gives an attacker remote control of a device.</dd>
+                            <dt>Social engineering</dt><dd>Manipulating people into giving away information or access.</dd>
+                            <dt>Phishing</dt><dd>Fake emails pretending to be from a trusted source, to steal details or spread malware.</dd>
+                            <dt>Spear phishing</dt><dd>Phishing targeted at a specific person or organisation, using personal details to seem genuine.</dd>
+                            <dt>Smishing</dt><dd>Phishing by SMS text message.</dd>
+                            <dt>Vishing</dt><dd>Phishing by voice call.</dd>
+                            <dt>Pharming</dt><dd>Redirecting users from a genuine website to a fake one, e.g. by tampering with DNS.</dd>
+                            <dt>Watering hole attack</dt><dd>Infecting a website that a target group is known to visit.</dd>
+                            <dt>Man-in-the-middle (MitM)</dt><dd>Secretly intercepting and possibly altering communication between two parties.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s8-2-2">
+                    <h2>8.2.2–5 Vulnerabilities, human and physical threats</h2>
+                    <div class="window-body">
+                        <h3>Technical vulnerabilities (8.2.2)</h3>
+                        <table>
+                            <tr><th>Vulnerability</th><th>Why it is a risk</th></tr>
+                            <tr><td>Weak encryption</td><td>Old or weak algorithms (or short keys) can be broken, exposing data in storage or transfer.</td></tr>
+                            <tr><td>Inadequate password policy</td><td>Short, common or reused passwords are easily guessed or cracked.</td></tr>
+                            <tr><td>Failure to use multi-factor authentication</td><td>A single stolen password gives full access.</td></tr>
+                            <tr><td>Out-of-date hardware</td><td>Older devices may not support modern security features or receive firmware updates.</td></tr>
+                            <tr><td>Out-of-date software</td><td>No longer supported, so vulnerabilities are never patched; may only work with legacy systems; zero-day bugs may be exploited before a patch exists.</td></tr>
+                            <tr><td>Out-of-date firmware</td><td>Firmware flaws in routers, IoT devices and BIOS can give attackers deep, hard-to-detect access.</td></tr>
+                        </table>
+
+                        <h3>Human threats and prevention (8.2.3)</h3>
+                        <table>
+                            <tr><th>Threat</th><th>Example</th><th>Prevention / mitigation (from the spec)</th></tr>
+                            <tr><td>Human error</td><td>Deleting a file; sending data to the wrong email address</td><td>File properties (e.g. read-only); confirmation boxes ('Are you sure you want to delete?'); staff training</td></tr>
+                            <tr><td>Malicious employee</td><td>Disgruntled staff member steals client list before leaving</td><td>Immediate removal from premises; suspend user accounts immediately; least-privilege access</td></tr>
+                            <tr><td>Disguised criminal</td><td>Person posing as a delivery driver or engineer to get into the building</td><td>Accompany all visitors; check identification of visitors</td></tr>
+                            <tr><td>Poor cyber hygiene</td><td>Leaving a PC unlocked; passwords on sticky notes; reusing passwords</td><td>Lock all unattended machines; don't write down passwords; good password management (password managers)</td></tr>
+                        </table>
+
+                        <h3>Physical vulnerabilities and prevention (8.2.4)</h3>
+                        <table>
+                            <tr><th>Vulnerability</th><th>Prevention / mitigation</th></tr>
+                            <tr><td>Lack of access control</td><td>Entry control systems: key cards, keypads, biometric locks, reception desks.</td></tr>
+                            <tr><td>Poor access control</td><td>Do not allow tailgating; use complex access codes; change codes regularly; monitor access areas (CCTV); audit staff access to secure areas.</td></tr>
+                            <tr><td>Nature of location: shoulder surfing</td><td>Privacy screens; position screens away from windows and public areas; shield keypads.</td></tr>
+                            <tr><td>Nature of location: environment</td><td>Protect against heat, water, dust and power problems: air conditioning, raised floors, fire suppression, UPS.</td></tr>
+                            <tr><td>Nature of location: vandalism</td><td>Locked server rooms and cabinets; CCTV; security staff; secure building.</td></tr>
+                            <tr><td>Poor system robustness</td><td>Rugged machines for harsh environments (warehouses, outdoor work, construction sites).</td></tr>
+                            <tr><td>Natural disasters</td><td>Floods, fire, storms: offsite/cloud backups, disaster recovery plan, alternative sites, don't put server rooms in basements in flood areas.</td></tr>
+                        </table>
+
+                        <h3>Impact of threats and vulnerabilities (8.2.5)</h3>
+                        <ul>
+                            <li>Loss or leaking of sensitive data</li>
+                            <li>Unauthorised access to digital systems</li>
+                            <li>Data corruption</li>
+                            <li>Disruption of service</li>
+                            <li>Unauthorised access to restricted physical areas</li>
+                        </ul>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: THREAT → IMPACT → PREVENTION</h4>
+                            <p>A full answer chains all three in context: 'A spear phishing email could trick the finance assistant into entering their login on a fake site (threat), giving the attacker access to payroll data (impact). MFA would stop the attacker logging in with the stolen password alone (prevention).'</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Zero-day</dt><dd>A vulnerability unknown to the vendor, with no patch available.</dd>
+                            <dt>Firmware</dt><dd>Software stored on hardware that controls the device at a low level.</dd>
+                            <dt>Tailgating</dt><dd>Following an authorised person through a secure door without using your own access.</dd>
+                            <dt>Shoulder surfing</dt><dd>Watching someone enter a password or PIN, or read their screen.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s8-3-1">
+                    <h2>8.3.1 Threat mitigation techniques</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Technique</th><th>Purpose and process</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Security settings: hardware</td><td>BIOS/UEFI passwords, secure boot, disabling USB ports, TPM chips.</td><td>Protects devices even before the OS loads</td><td>Must be configured on every device; can inconvenience users</td></tr>
+                            <tr><td>Security settings: software</td><td>OS and application settings: screen locks, permissions, automatic updates, privacy settings.</td><td>Cheap; centrally managed via group policy</td><td>Default settings are often insecure; must be maintained</td></tr>
+                            <tr><td>Anti-malware software</td><td><strong>Function:</strong> detects, blocks and removes malware. <strong>Actions:</strong> scans files against signatures and suspicious behaviour (heuristics); quarantines or deletes threats; real-time protection.</td><td>Stops most known malware automatically</td><td>Needs constant updates; may miss new (zero-day) malware; can slow systems; false positives</td></tr>
+                            <tr><td>Intrusion detection</td><td>Monitors network traffic or system activity for suspicious patterns and alerts administrators.</td><td>Early warning of attacks; evidence for investigation</td><td>Detects but doesn't stop (unless it is an IPS); false alarms; needs staff to respond</td></tr>
+                            <tr><td>Encryption: hashing</td><td>One-way function producing a fixed-length value. Used to store passwords (with a salt) and check files haven't changed.</td><td>Cannot be reversed; stolen hashes don't reveal passwords directly</td><td>Weak or unsalted hashes can be cracked by guessing; not for data that must be read back</td></tr>
+                            <tr><td>Encryption: symmetric</td><td>The same key encrypts and decrypts (e.g. AES).</td><td>Fast; good for large amounts of data and disk encryption</td><td>The key must be shared securely; if intercepted, all data is exposed</td></tr>
+                            <tr><td>Encryption: asymmetric</td><td>Public key encrypts; only the matching private key decrypts (e.g. RSA). Used in HTTPS to exchange keys and for digital signatures.</td><td>No need to share a secret key; supports digital signatures</td><td>Slower; usually used to exchange a symmetric key rather than encrypt all data</td></tr>
+                            <tr><td>User access policies</td><td>Rules for who can access what: least privilege, password rules, account reviews.</td><td>Limits damage from compromised accounts</td><td>Needs regular review; can slow down work</td></tr>
+                            <tr><td>Staff vetting</td><td>Background and reference checks (e.g. DBS, previous employers) before giving access to sensitive systems.</td><td>Reduces insider risk</td><td>Costs time and money; doesn't predict future behaviour</td></tr>
+                            <tr><td>Staff training</td><td>Regular training on phishing, passwords, policies and reporting incidents.</td><td>Tackles the most common cause of breaches: people</td><td>Must be repeated; effect fades; takes staff time</td></tr>
+                            <tr><td>Software-based access control</td><td>Permissions, role-based access, ACLs control what each user can do.</td><td>Fine control; auditable</td><td>Complex to manage in large organisations</td></tr>
+                            <tr><td>Device hardening</td><td>Remove unneeded ports, apps, services and accounts; change defaults.</td><td>Reduces attack surface</td><td>Takes time; may remove features someone needs</td></tr>
+                            <tr><td>Backups</td><td><strong>Full:</strong> copies everything. <strong>Incremental:</strong> copies changes since the last backup of any type. <strong>Differential:</strong> copies changes since the last full backup. <strong>Safe storage:</strong> offsite, cloud, offline/air-gapped, encrypted.</td><td>Recover from ransomware, deletion and disasters</td><td>Storage cost; must be tested; restoring takes time</td></tr>
+                            <tr><td>Software updates</td><td>Install patches that fix vulnerabilities.</td><td>Closes known holes quickly</td><td>Updates can break compatibility; need testing; downtime</td></tr>
+                            <tr><td>Firmware / driver updates</td><td>Update the low-level software on devices and hardware.</td><td>Fixes deep vulnerabilities</td><td>Risk of 'bricking' if an update fails; often forgotten</td></tr>
+                            <tr><td>Air gaps</td><td>Physically separate a system from all networks.</td><td>Very hard to attack remotely</td><td>Inconvenient; data transfer by removable media brings its own risk</td></tr>
+                            <tr><td>Certification of APIs</td><td>APIs are tested and certified against security standards before use; strong authentication.</td><td>Trusted, secure integrations</td><td>Time and cost to certify</td></tr>
+                            <tr><td>VPNs</td><td>Encrypted tunnel over the internet to the organisation's network.</td><td>Secure remote working; protects on public Wi-Fi</td><td>Can slow connection; VPN itself must be patched</td></tr>
+                            <tr><td>Multi-factor authentication</td><td>Two or more factors: something you know, have, are.</td><td>Stolen password alone is not enough</td><td>Extra step for users; lost phone can lock users out</td></tr>
+                            <tr><td>Password managers</td><td>Generate and store strong, unique passwords in an encrypted vault.</td><td>No reuse; users only remember one master password</td><td>Master password becomes a single point of failure</td></tr>
+                            <tr><td>Port scanning</td><td>Check which ports are open on your own systems.</td><td>Finds unnecessary open services to close</td><td>Attackers use it too; must have permission</td></tr>
+                            <tr><td>Penetration testing</td><td><strong>Ethical hacking:</strong> authorised testers simulate attacks to find weaknesses, with a written scope. <strong>Unethical hacking:</strong> the same techniques used without permission, which is illegal under the CMA.</td><td>Finds vulnerabilities before criminals do; tests defences realistically</td><td>Expensive; only a snapshot in time; could disrupt systems</td></tr>
+                        </table>
+
+                        <h3>Backup types compared</h3>
+                        <table>
+                            <tr><th>Type</th><th>Backup time and storage</th><th>Restore needs</th><th>Restore speed</th></tr>
+                            <tr><td>Full</td><td>Slowest, most storage</td><td>Just the last full backup</td><td>Fastest</td></tr>
+                            <tr><td>Incremental</td><td>Fastest, least storage</td><td>Last full + every incremental since</td><td>Slowest</td></tr>
+                            <tr><td>Differential</td><td>Grows each day until next full</td><td>Last full + latest differential</td><td>Medium</td></tr>
+                        </table>
+                        <h4>Try it: what do you need to restore?</h4>
+                        <p>A full backup runs every Sunday. Pick the other backups and the day the server fails.</p>
+                        <div class="button-row">
+                            <label>Other days use <select id="bk-type" class="quiz-select"><option value="incremental">incremental</option><option value="differential">differential</option></select> backups</label>
+                            <label>Server fails on <select id="bk-day" class="quiz-select"><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option selected>Thursday</option><option>Friday</option><option>Saturday</option></select></label>
+                        </div>
+                        <p id="bk-out" class="spec-summary" aria-live="polite"></p>
+
+                        <h3>Worked example: salted hashing</h3>
+<pre class="code">
+import hashlib
+import os
+
+def hash_password(password, salt):
+    return hashlib.sha256(salt + password.encode()).hexdigest()
+
+salt = os.urandom(16)                  # random salt, stored with the hash
+stored = hash_password("Summer2026!", salt)
+
+print(len(stored))                                    # always 64 characters
+print(hash_password("Summer2026!", salt) == stored)   # correct
+print(hash_password("summer2026!", salt) == stored)   # one letter wrong
+</pre>
+<pre class="out">
+64
+True
+False
+</pre>
+                        <p>The system never stores the password, only the salt and hash. At login it hashes what the user typed and compares. A random salt means two users with the same password get different hashes, which defeats pre-computed tables of common password hashes. (Real systems use slow hashing algorithms designed for passwords, such as bcrypt or Argon2.)</p>
+                        <h4>Try it: SHA-256 in your browser</h4>
+                        <div class="button-row">
+                            <label>Password <input id="hash-pw" class="quiz-select" value="Summer2026!"></label>
+                            <label>Salt <input id="hash-salt" class="quiz-select" value="x7Qp" size="8"></label>
+                            <button type="button" class="button" id="hash-new-salt">New random salt</button>
+                        </div>
+                        <pre class="sqli-out" id="hash-out" aria-live="polite"></pre>
+                        <p>Change one letter of the password and watch the whole hash change. Same password, new salt: a completely different hash.</p>
+                        <dl class="recall">
+                            <dt>Encryption</dt><dd>Scrambling data with a key so only someone with the correct key can read it.</dd>
+                            <dt>Hashing</dt><dd>A one-way function that turns data into a fixed-length value. It cannot be reversed.</dd>
+                            <dt>Symmetric encryption</dt><dd>Uses the same key to encrypt and decrypt.</dd>
+                            <dt>Asymmetric encryption</dt><dd>Uses a public key to encrypt and a matching private key to decrypt.</dd>
+                            <dt>Intrusion detection system (IDS)</dt><dd>Monitors network or system activity and alerts on suspicious behaviour.</dd>
+                            <dt>Air gap</dt><dd>Physically isolating a computer or network from all other networks, including the internet.</dd>
+                            <dt>Port scanning</dt><dd>Checking which network ports on a device are open and what services are listening.</dd>
+                            <dt>Penetration testing</dt><dd>An authorised, simulated attack to find vulnerabilities before real attackers do.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s8-3-2">
+                    <h2>8.3.2 Internet security processes</h2>
+                    <div class="window-body">
+                        <h3>Firewall configuration</h3>
+                        <p>A firewall checks traffic against rules and allows or blocks it.</p>
+                        <table>
+                            <tr><th>Rule type</th><th>Example</th></tr>
+                            <tr><td>Rules for traffic: inbound and outbound</td><td>Block all inbound traffic except to the web server; block outbound traffic to known malicious sites.</td></tr>
+                            <tr><td>Traffic type rules</td><td>Allow HTTPS (port 443); block Telnet (port 23) and FTP.</td></tr>
+                            <tr><td>Application rules</td><td>Allow Teams; block peer-to-peer file sharing apps.</td></tr>
+                            <tr><td>IP address rules</td><td>Allow admin access only from the office IP range; block IP addresses from known attackers.</td></tr>
+                        </table>
+
+                        <h3>Network segregation</h3>
+                        <table>
+                            <tr><th>Type</th><th>Meaning</th><th>Example</th></tr>
+                            <tr><td>Virtual</td><td>One physical network divided into separate logical networks (VLANs).</td><td>Guest Wi-Fi kept separate from staff network; card payment systems on their own VLAN</td></tr>
+                            <tr><td>Physical</td><td>Completely separate hardware and cabling.</td><td>Factory control systems on their own network</td></tr>
+                            <tr><td>Offline network</td><td>Not connected to the internet at all (air-gapped).</td><td>Classified government systems; backup storage</td></tr>
+                        </table>
+                        <p>Why: if one segment is compromised, the attacker can't easily reach the others; sensitive systems get stronger controls; traffic is easier to monitor.</p>
+
+                        <h3>Network monitoring and port scanning</h3>
+                        <ul>
+                            <li><strong>Network monitoring:</strong> tools watch traffic levels, devices and logs in real time. Unusual activity (a spike in traffic at 3am, logins from abroad, large uploads) is flagged so staff can respond before damage spreads.</li>
+                            <li><strong>Port scanning:</strong> regularly scanning your own network finds open ports and services that should not be there, so they can be closed before an attacker finds them.</li>
+                        </ul>
+                        <dl class="recall">
+                            <dt>Firewall</dt><dd>Hardware or software that controls network traffic in and out using rules.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s8-4">
+                    <h2>8.4 Components of effective security</h2>
+                    <div class="window-body">
+                        <h3>The CIA triad (8.4.1)</h3>
+                        <table>
+                            <tr><th>Element</th><th>Meaning</th><th>How it is achieved</th><th>Example of failure</th></tr>
+                            <tr><td>Confidentiality</td><td>Data is kept private by controlling who has access to it.</td><td>Encryption, access control, authentication</td><td>Hacker reads customer records</td></tr>
+                            <tr><td>Integrity</td><td>Data has not been tampered with and is accurate. Maintaining confidentiality helps protect integrity.</td><td>Hashing, access control, validation, audit logs, backups</td><td>Malware changes prices in a database</td></tr>
+                            <tr><td>Availability</td><td>Data and systems are available and useful when needed. Maintaining integrity helps ensure availability.</td><td>Redundancy, backups, DDoS protection, patching</td><td>Ransomware locks files; DDoS takes site offline</td></tr>
+                        </table>
+                        <p><strong>How they interrelate:</strong> if confidentiality fails (an attacker gets in), integrity is at risk (they can change data); if integrity fails (data is corrupted), the data is no longer useful, so in practice it is not available. Measures can also conflict: very strict access controls protect confidentiality but can reduce availability for genuine users.</p>
+
+                        <h3>The IAAA model (8.4.2)</h3>
+                        <table>
+                            <tr><th>Stage</th><th>Purpose</th><th>Techniques</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Identification</td><td>Recognising the individual within a digital system: who do you claim to be?</td><td>Knowledge-based (username, email); possession-based (ID card, key fob); biometric (fingerprint, face)</td><td>Every user has a unique identity</td><td>Usernames are often easy to guess or find</td></tr>
+                            <tr><td>Authentication</td><td>Verifying the identity claimed during identification: prove it.</td><td>Passwords and passphrases; multi-factor authentication; biometric authentication</td><td>MFA greatly reduces account takeover; biometrics can't be forgotten</td><td>Passwords forgotten, reused or stolen; biometrics can't be changed if compromised and raise privacy concerns</td></tr>
+                            <tr><td>Authorisation</td><td>Ensuring authenticated users can only access resources and perform actions they are permitted to.</td><td>Role-based access control (permissions by job role); access control lists</td><td>Least privilege limits damage; easy to manage by role</td><td>Roles must be kept up to date when people change jobs; complex in large organisations</td></tr>
+                            <tr><td>Accountability</td><td>Ensuring any action can be traced back to the responsible user.</td><td>Audit logs; monitoring user activity</td><td>Deters misuse; evidence for investigations; meets regulations</td><td>Logs need storage and someone to review them; privacy concerns about monitoring</td></tr>
+                        </table>
+                        <div class="box worked">
+                            <h4>✎ WORKED EXAMPLE: IAAA AT A GP SURGERY</h4>
+                            <ul>
+                                <li>Identification: receptionist enters their username.</li>
+                                <li>Authentication: enters password and taps their NHS smartcard (two factors: know + have).</li>
+                                <li>Authorisation: role-based access lets the receptionist book appointments but not read clinical notes; GPs can read notes.</li>
+                                <li>Accountability: every record opened is logged, so if a receptionist looks up a neighbour's record it can be traced.</li>
+                            </ul>
+                        </div>
+                        <h4>Practise: which IAAA stage?</h4>
+                        <div class="sorter" data-options="Identification|Authentication|Authorisation|Accountability">
+                            <p data-a="Authentication">A code is sent to your phone after you type your password.</p>
+                            <p data-a="Accountability">An audit log shows which account deleted a customer record at 16:02.</p>
+                            <p data-a="Identification">You type your staff email address on the login page.</p>
+                            <p data-a="Authorisation">A trainee can view orders but the 'Refund' button is greyed out.</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>CIA triad</dt><dd>Confidentiality, integrity and availability: the three goals of information security.</dd>
+                            <dt>IAAA</dt><dd>Identification, authentication, authorisation, accountability: the stages of controlling access to a system.</dd>
+                            <dt>Access control list (ACL)</dt><dd>A list that states which users or groups can access a resource and what they can do with it.</dd>
+                            <dt>Audit log</dt><dd>A record of who did what, and when, in a system.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>CONFIDENTIAL INFORMATION</h4><ul><li>HR: salaries, staff details</li><li>Commercial: clients, stakeholders, IP, sales, contracts</li><li>Access: passwords, PINs, MFA, biometrics</li><li>Breach → fines, lost trust, legal action, licence loss</li></ul></div>
+                            <div><h4>TECHNICAL THREATS</h4><ul><li>Botnets, DoS / DDoS</li><li>Brute force, XSS, SQL injection, buffer overflow</li><li>DNS attacks, insecure APIs</li><li>Man-in-the-middle, open Wi-Fi</li></ul></div>
+                            <div><h4>MALWARE</h4><ul><li>Virus: attaches to files</li><li>Worm: spreads itself</li><li>Key logger, spyware</li><li>Ransomware: encrypts files</li><li>Remote access trojan</li></ul></div>
+                            <div><h4>SOCIAL ENGINEERING</h4><ul><li>Phishing, spear phishing</li><li>Smishing (SMS), vishing (voice)</li><li>Pharming, watering hole</li><li>USB baiting</li></ul></div>
+                            <div><h4>VULNERABILITIES</h4><ul><li>Weak encryption, weak password policy, no MFA</li><li>Out-of-date hardware, software, firmware</li><li>Human: error, malicious staff, disguised criminals, poor hygiene</li><li>Physical: access control, tailgating, shoulder surfing, disasters</li></ul></div>
+                            <div><h4>MITIGATION</h4><ul><li>Anti-malware, IDS, firewalls, security settings</li><li>Hashing, symmetric, asymmetric encryption</li><li>MFA, password managers, access policies</li><li>Backups: full, incremental, differential</li><li>Patching, hardening, air gaps, VPNs, penetration testing</li></ul></div>
+                            <div><h4>INTERNET SECURITY</h4><ul><li>Firewall rules: inbound and outbound, traffic type, application, IP address</li><li>Network segregation: virtual, physical, offline</li><li>Monitoring and port scanning</li></ul></div>
+                            <div><h4>CIA AND IAAA</h4><ul><li>Confidentiality → integrity → availability</li><li>Identification: who are you?</li><li>Authentication: prove it</li><li>Authorisation: what can you do?</li><li>Accountability: audit logs</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on CA8 from the course question bank. Pick a topic or question type, answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-area="8"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 95 minutes.</p>
+                        <div class="qset" data-set="ca8">
+                            <div class="q" data-m="2">
+                                <p>Give two examples of access information an organisation must keep confidential.</p>
+                                <div class="ms"><ul><li>Any two: usernames; passwords; MFA details; PINs; access codes; passphrases; biometric data.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why a company should keep its sales figures confidential.</p>
+                                <div class="ms"><ul><li>Competitors could use the figures (1) to undercut prices / target weak products or regions / gain advantage (1). Accept: could affect share price or investor confidence (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the difference between a virus and a worm.</p>
+                                <div class="ms"><ul><li>A virus attaches to a file/program and needs the user to run or share it to spread (1); a worm self-replicates and spreads across networks without user action (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="5">
+                                <p>Staff at an accountancy firm receive a text message claiming to be from HMRC with a link to claim a tax refund. (a) Identify this type of attack. (b) Explain two ways the firm could reduce the risk.</p>
+                                <div class="ms"><ul><li>(a) Smishing (1).</li><li>(b) Method (1) + explanation (1), twice. E.g. staff training (1) so staff recognise fake messages and don't click links (1); MFA on accounts (1) so stolen details alone can't be used (1); policy to verify by contacting HMRC through the official website/number (1) rather than the link (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain how SQL injection works and one method to prevent it.</p>
+                                <div class="ms"><ul><li>Attacker enters SQL code into an input field (1)</li><li>which is joined into a query and executed by the database (1)</li><li>allowing data to be read, changed or deleted / login bypassed (1).</li><li>Prevention: parameterised queries / input validation and sanitisation / least-privilege database accounts (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>State three prevention methods for human threats, according to the type of threat.</p>
+                                <div class="ms"><ul><li>Any three from the spec, e.g. confirmation boxes / file properties / staff training (human error); immediate removal from premises / suspend user accounts (malicious employee); accompany visitors / check ID (disguised criminal); lock unattended machines / don't write down passwords / password management (poor cyber hygiene).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain two physical security measures a data centre could use to prevent unauthorised access.</p>
+                                <div class="ms"><ul><li>Measure (1) + explanation (1), twice. E.g. entry control systems with key cards or biometrics (1) so only authorised staff can enter (1); prevent tailgating with turnstiles or mantraps (1) so one person enters per authorisation (1); CCTV monitoring (1) deters and records intruders (1); audit staff access (1) to spot unusual access patterns (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Compare symmetric and asymmetric encryption.</p>
+                                <div class="ms"><ul><li>Symmetric uses the same key to encrypt and decrypt; asymmetric uses a public key to encrypt and a private key to decrypt (1)(1).</li><li>Symmetric is faster / suited to large data (1); asymmetric avoids the problem of sharing a secret key securely / supports digital signatures (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A company makes a full backup every Sunday and an incremental backup every other day. Its server fails on Thursday. State which backups are needed to restore the data and explain why.</p>
+                                <div class="ms"><ul><li>Sunday's full backup (1)</li><li>plus Monday, Tuesday and Wednesday incremental backups (1)</li><li>because each incremental only contains changes since the previous backup, so all are needed in order (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Explain why passwords should be stored as salted hashes rather than encrypted.</p>
+                                <div class="ms"><ul><li>Hashing is one-way so the original password cannot be recovered even if the database is stolen (1); encryption can be reversed if the key is stolen (1).</li><li>A salt makes identical passwords produce different hashes / defeats pre-computed tables of common password hashes (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe two types of firewall rule.</p>
+                                <div class="ms"><ul><li>Rule type (1) + description/example (1), twice: inbound/outbound traffic rules; traffic type (port/protocol) rules; application rules; IP address rules.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain how the elements of the CIA triad interrelate, using an example.</p>
+                                <div class="ms"><ul><li>Confidentiality: data private by controlling access (1); integrity: data not tampered with (1); availability: data accessible and useful (1).</li><li>Linked example (1): e.g. if an attacker gains access (confidentiality lost) they could alter records (integrity lost) so the records can no longer be relied on (availability effectively lost).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="8">
+                                <p>An online retailer's customers log in to view orders. Explain how each stage of the IAAA model applies to this system.</p>
+                                <div class="ms"><ul><li>Two marks per stage: one for describing the stage, one for applying it to the retailer.</li><li>Identification: customer enters their email/username (1) which the system recognises as a customer account (1).</li><li>Authentication: password plus MFA code sent to their phone / app (1) verifies the customer is who they claim (1).</li><li>Authorisation: customer can only view their own orders, not others' / staff roles differ (1) via role-based access or ACLs (1).</li><li>Accountability: logins and actions recorded in audit logs (1) so suspicious activity or disputes can be traced to an account (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>A secondary school has been hit by ransomware that encrypted student records and coursework. Discuss the measures the school should put in place to prevent and recover from a future attack.</p>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Prevention: staff and student training on phishing; email filtering; anti-malware kept updated; regular patching; restrict admin rights; MFA; network segregation so admin systems are separate from student networks; disable USB autorun.</li>
+                                        <li>Recovery: regular backups stored offline/air-gapped or in immutable cloud storage so ransomware cannot encrypt them; test restores; documented recovery procedure; incident response plan.</li>
+                                        <li>Balance: cost and staff time for a school budget; training must be repeated; backups only help if tested; no single measure is enough.</li>
+                                    </ul>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="9">
+                                <p>A regional building society is reviewing its security. Staff currently log in with a password only, servers are patched every six months, and all branches share one flat network. Evaluate the measures the building society could introduce to improve its security.</p>
+                                <div class="box support">
+                                    <h4>◆ SUPPORT: SENTENCE STARTERS</h4>
+                                    <ul>
+                                        <li>The school should keep offline backups because ...</li>
+                                        <li>Staff training would help because ransomware often arrives through ...</li>
+                                        <li>Introducing MFA would mean that ...</li>
+                                        <li>Patching every six months is a risk because ...</li>
+                                        <li>Segregating the network would ... However, ...</li>
+                                        <li>The most important measure is ... because ...</li>
+                                    </ul>
+                                </div>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>MFA: stolen passwords no longer enough; reduces account takeover from phishing; cost and user inconvenience.</li>
+                                        <li>Patching: six-month cycle leaves known vulnerabilities open for months; move to monthly and urgent patches for critical vulnerabilities; requires testing and possible downtime.</li>
+                                        <li>Network segregation: flat network lets an attacker or malware move between branches and systems; VLANs separating branches, staff, ATMs and core banking systems contain attacks; cost and complexity.</li>
+                                        <li>Other: intrusion detection and monitoring; staff training; penetration testing; encryption of data at rest and in transit; audit logs for accountability.</li>
+                                        <li>Links: protects confidentiality, integrity and availability; reduces risk of ICO fines and loss of licence to practise (regulated financial body).</li>
+                                        <li>Judgement: e.g. MFA and patching give the biggest risk reduction for the least cost and should be done first; segregation is more expensive but important for a financial organisation.</li>
+                                    </ul>
+                                    <div class="levels" data-max="9"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>For question 15, link your measures to the CIA triad and to the building society's legal obligations (<a href="ca4.html">CA4</a>) and regulatory risk (<a href="ca5.html#s5-3">CA5</a>).</li>
+                                <li>Explain why penetration testing must be authorised in writing, referring to the Computer Misuse Act.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-ca8" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-ca8" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · CA8 Security · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+    <script>
+        /* ---------- SQL injection: show the query that gets built ---------- */
+        const sqliIn = document.getElementById('sqli-in');
+        const sqliOut = document.getElementById('sqli-out');
+
+        function showQuery() {
+            const typed = sqliIn.value;
+            const query = "SELECT * FROM users WHERE name = 'admin' AND password = '" + typed + "'";
+            const injected = typed.includes("'");
+            sqliOut.textContent = query + '\n\n' + (injected
+                ? "The ' in your input closed the string early, so the rest is treated as SQL code, not data."
+                : 'No quote marks, so the input stays inside the string. A parameterised query keeps it that way whatever is typed.');
+        }
+
+        sqliIn.addEventListener('input', showQuery);
+        showQuery();
+
+        /* ---------- Backup restore helper ---------- */
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const bkType = document.getElementById('bk-type');
+        const bkDay = document.getElementById('bk-day');
+        const bkOut = document.getElementById('bk-out');
+
+        function showRestore() {
+            // Backups run overnight, so the failure day's own backup hasn't happened yet
+            const before = days.slice(0, days.indexOf(bkDay.value));
+            let needed;
+            if (!before.length) {
+                needed = "Sunday's full backup only (nothing has run since).";
+            } else if (bkType.value === 'incremental') {
+                needed = `Sunday's full backup, then every incremental in order: ${before.join(', ')}. Each one only holds the changes since the backup before it.`;
+            } else {
+                needed = `Sunday's full backup, then just ${before[before.length - 1]}'s differential. A differential holds every change since the last full backup.`;
+            }
+            bkOut.textContent = 'You need: ' + needed;
+        }
+
+        [bkType, bkDay].forEach(select => select.addEventListener('change', showRestore));
+        showRestore();
+
+        /* ---------- Salted SHA-256 using the browser's built-in crypto ---------- */
+        const hashPw = document.getElementById('hash-pw');
+        const hashSalt = document.getElementById('hash-salt');
+        const hashOut = document.getElementById('hash-out');
+
+        async function showHash() {
+            if (!window.crypto || !crypto.subtle) {
+                hashOut.textContent = 'Your browser only allows this on a secure (https) page.';
+                return;
+            }
+            const bytes = new TextEncoder().encode(hashSalt.value + hashPw.value);
+            const digest = await crypto.subtle.digest('SHA-256', bytes);
+            const hex = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+            hashOut.textContent = `Stored: salt = ${hashSalt.value}\n        hash = ${hex}\n(${hex.length} characters, whatever the password length)`;
+        }
+
+        document.getElementById('hash-new-salt').addEventListener('click', () => {
+            hashSalt.value = Math.random().toString(36).slice(2, 8);
+            showHash();
+        });
+        [hashPw, hashSalt].forEach(field => field.addEventListener('input', showHash));
+        showHash();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

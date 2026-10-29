@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CA2 Introduction to Programming | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev ca2" data-page="ca2">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 2 · CORE PAPER 1</p>
+            <h1>Content Area 2: Introduction to Programming</h1>
+            <p>Content area 2 is the programming core. In the exam you will be asked to read, write, trace and fix Python 3.10+ code, and to explain programming concepts and make judgements about algorithms and testing. The Employer Set Project also relies on this content.</p>
+            <p class="links"><strong>Links to other content areas:</strong> some exam questions combine this content with <a href="ca1.html">Content area 1</a> (Problem solving), e.g. flowcharts, decomposition and algorithms. Revise those alongside this page.</p>
+            <span class="big-num" aria-hidden="true">2</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>2.1.1</td><td>Define integer, float, string and Boolean and say when each is used</td></tr>
+                            <tr><td>2.2.1–2</td><td>Define variables and constants, their purpose and when they are used</td></tr>
+                            <tr><td>2.2.3</td><td>Explain why data type conversion functions are used</td></tr>
+                            <tr><td>2.2.4–6</td><td>Define scope, explain global and local variables, and use scope in code</td></tr>
+                            <tr><td>2.2.7–9</td><td>Declare and use variables and constants; use int(), float(), str(), bool()</td></tr>
+                            <tr><td>2.3.1</td><td>Describe lists, arrays and dictionaries and when each is used</td></tr>
+                            <tr><td>2.3.2–4</td><td>Interpret, develop and debug code that uses data structures</td></tr>
+                            <tr><td>2.4.1–3</td><td>Explain arithmetic, relational and Boolean operators</td></tr>
+                            <tr><td>2.4.4–7</td><td>Use, interpret, create and debug code using operators</td></tr>
+                            <tr><td>2.5.1–2</td><td>Implement keyboard, screen and text file input and output</td></tr>
+                            <tr><td>2.5.3–5</td><td>Interpret, create and debug input/output code</td></tr>
+                            <tr><td>2.6.1–4</td><td>Explain sequence, selection (if, elif, else, match/case) and iteration (for, while)</td></tr>
+                            <tr><td>2.6.5</td><td>Give benefits and drawbacks of loops</td></tr>
+                            <tr><td>2.6.6–8</td><td>Interpret, develop and debug code using sequence, selection and iteration</td></tr>
+                            <tr><td>2.7.1–2</td><td>Describe the characteristics of functions and procedures</td></tr>
+                            <tr><td>2.7.3–4</td><td>Say where functions and procedures come from; benefits and drawbacks of pre-written code</td></tr>
+                            <tr><td>2.7.5–7</td><td>Interpret, develop and debug user-written and pre-written functions and procedures</td></tr>
+                            <tr><td>2.8.1</td><td>Define validation and explain presence, length, range, type, format and check digit checks</td></tr>
+                            <tr><td>2.8.2–4</td><td>Interpret, develop and debug validation code</td></tr>
+                            <tr><td>2.9.1–4</td><td>Decide the logical order of actions and operations; choose data structures for time and memory efficiency</td></tr>
+                            <tr><td>2.9.5–6</td><td>Explain naming conventions (meaningful names, camelCase, snake_case) and code style</td></tr>
+                            <tr><td>2.9.7</td><td>Judge the suitability of an algorithm</td></tr>
+                            <tr><td>2.10.1</td><td>Describe the characteristics of robust code</td></tr>
+                            <tr><td>2.10.2–5</td><td>Explain debugging; locate and correct errors in code</td></tr>
+                            <tr><td>2.11.1–2</td><td>Explain how linear search, binary search, bubble sort, insertion sort and merge sort work</td></tr>
+                            <tr><td>2.11.3–5</td><td>Compare algorithms using memory, execution time, comparisons, and best/worst/average case</td></tr>
+                            <tr><td>2.11.6–7</td><td>Judge which searching or sorting algorithm suits a situation</td></tr>
+                            <tr><td>2.12.1</td><td>Explain why components are tested separately before being combined</td></tr>
+                            <tr><td>2.12.2</td><td>Define and use the testing methods (concept to open box)</td></tr>
+                            <tr><td>2.12.3</td><td>Explain macros, scripts and functional testing tools for automation</td></tr>
+                            <tr><td>2.12.4</td><td>Create valid, invalid, boundary and erroneous test data and write a test plan</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-1">
+                    <h2>2.1 Standard data types</h2>
+                    <div class="window-body">
+                        <p>Every value in a program has a data type. The data type decides what the value can store and what you can do with it.</p>
+                        <table>
+                            <tr><th>Data type</th><th>Python</th><th>What it stores</th><th>Example values</th><th>Use it for</th></tr>
+                            <tr><td>Integer</td><td><code>int</code></td><td>Whole numbers</td><td><code>42</code>, <code>-7</code>, <code>0</code></td><td>Counting, ages, quantities, scores, loop counters</td></tr>
+                            <tr><td>Float</td><td><code>float</code></td><td>Numbers with a decimal part</td><td><code>3.99</code>, <code>-0.5</code>, <code>2.0</code></td><td>Prices, measurements, averages, temperatures</td></tr>
+                            <tr><td>String</td><td><code>str</code></td><td>Text: letters, digits, symbols</td><td><code>"Leeds"</code>, <code>"07700 900123"</code></td><td>Names, addresses, postcodes, phone numbers</td></tr>
+                            <tr><td>Boolean</td><td><code>bool</code></td><td>One of two values</td><td><code>True</code>, <code>False</code></td><td>Flags and yes/no states: logged_in, in_stock</td></tr>
+                        </table>
+<pre class="code">
+quantity = 3            # int
+price = 4.75            # float
+product = "Meal deal"   # str
+in_stock = True         # bool
+print(type(quantity), type(price), type(product), type(in_stock))
+</pre>
+<pre class="out">
+&lt;class 'int'&gt; &lt;class 'float'&gt; &lt;class 'str'&gt; &lt;class 'bool'&gt;
+</pre>
+
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <ul>
+                                <li>Phone numbers and postcodes are <strong>strings</strong>, not integers. You never do maths on them, and an integer would drop a leading zero (07700 becomes 7700).</li>
+                                <li><code>"42"</code> in quotes is a string. <code>42</code> without quotes is an integer. <code>"4" + "2"</code> gives <code>"42"</code>, not 6.</li>
+                                <li>Money is often stored as a float in exam answers, but floats can give tiny rounding errors: <code>0.1 + 0.2</code> gives <code>0.30000000000000004</code>. Real payment systems often store pence as an integer.</li>
+                            </ul>
+                        </div>
+
+                        <div class="box check">
+                            <h4>? QUICK CHECK</h4>
+                            <ul>
+                                <li>Which data type would you use for: a student's date of birth day number; a bank balance; an email address; whether a user has accepted cookies?</li>
+                                <li>Why is a mobile number stored as a string?</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Integer</dt><dd>A whole number, positive, negative or zero. Python type int.</dd>
+                            <dt>Float</dt><dd>A number with a decimal (fractional) part. Python type float.</dd>
+                            <dt>String</dt><dd>A sequence of characters, written in quotes. Python type str.</dd>
+                            <dt>Boolean</dt><dd>A value that is either True or False. Python type bool.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-2">
+                    <h2>2.2 Variables, constants, conversion and scope</h2>
+                    <div class="window-body">
+                        <h3>Variables and constants</h3>
+                        <table>
+                            <tr><th></th><th>Variable</th><th>Constant</th></tr>
+                            <tr><td>Definition</td><td>A named memory location whose value <strong>can change</strong> while the program runs.</td><td>A named value that <strong>does not change</strong> while the program runs.</td></tr>
+                            <tr><td>Purpose</td><td>Store data the program needs to work with and update, e.g. a running total.</td><td>Store a fixed value once, so it is easy to read and to update in one place.</td></tr>
+                            <tr><td>Python example</td><td><code>score = 0</code> then <code>score = score + 10</code></td><td><code>VAT_RATE = 0.2</code></td></tr>
+                            <tr><td>When used</td><td>User input, totals, counters, results of calculations.</td><td>Tax rates, maximum login attempts, pi, file names.</td></tr>
+                        </table>
+                        <p>Python has no built-in way to lock a constant. By convention, a name in CAPITALS tells other programmers not to change it.</p>
+<pre class="code">
+MAX_ATTEMPTS = 3   # constant
+attempts = 0       # variable
+attempts = attempts + 1
+print(f"Attempt {attempts} of {MAX_ATTEMPTS}")
+</pre>
+<pre class="out">
+Attempt 1 of 3
+</pre>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>Benefit of constants: if the VAT rate changes, you change it on one line and every calculation updates. This avoids missing one copy of 0.2 buried in the code and makes the program easier to maintain.</p>
+                        </div>
+
+                        <h3>Data type conversion (casting)</h3>
+                        <p><code>input()</code> always returns a <strong>string</strong>. To do maths with it, convert it first. Conversion is also needed to join numbers into strings.</p>
+                        <table>
+                            <tr><th>Function</th><th>Converts to</th><th>Example</th><th>Result</th></tr>
+                            <tr><td><code>int()</code></td><td>Integer</td><td><code>int("25")</code> / <code>int(7.9)</code></td><td><code>25</code> / <code>7</code> (decimal part is cut off, not rounded)</td></tr>
+                            <tr><td><code>float()</code></td><td>Float</td><td><code>float("3.5")</code> / <code>float(4)</code></td><td><code>3.5</code> / <code>4.0</code></td></tr>
+                            <tr><td><code>str()</code></td><td>String</td><td><code>str(99)</code></td><td><code>"99"</code></td></tr>
+                            <tr><td><code>bool()</code></td><td>Boolean</td><td><code>bool(0)</code> / <code>bool("hello")</code> / <code>bool("")</code></td><td><code>False</code> / <code>True</code> / <code>False</code></td></tr>
+                        </table>
+<pre class="code">
+age = int(input("Enter your age: "))
+print("Next year you will be " + str(age + 1))
+</pre>
+<pre class="out">
+Enter your age: 17
+Next year you will be 18
+</pre>
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <ul>
+                                <li><code>int("3.5")</code> crashes with a ValueError. Convert to float first: <code>int(float("3.5"))</code> gives 3.</li>
+                                <li><code>bool("False")</code> is <strong>True</strong>. Any non-empty string converts to True.</li>
+                                <li><code>print("Total: " + 10)</code> crashes with a TypeError. Use <code>str(10)</code> or an f-string.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Scope: global and local variables</h3>
+                        <p><strong>Scope</strong> is the part of the program where a variable can be used.</p>
+                        <ul>
+                            <li>A <strong>global</strong> variable is created outside any function. It can be read anywhere in the program.</li>
+                            <li>A <strong>local</strong> variable is created inside a function. It only exists while the function is running and cannot be used outside it.</li>
+                            <li>To change a global variable inside a function, Python needs the <code>global</code> keyword.</li>
+                        </ul>
+<pre class="code">
+basket_total = 0            # global
+
+def add_item(price):
+    global basket_total
+    discount = 0.1          # local: only exists inside add_item
+    basket_total = basket_total + price * (1 - discount)
+
+add_item(20)
+add_item(10)
+print(basket_total)
+</pre>
+<pre class="out">
+27.0
+</pre>
+                        <table>
+                            <tr><th></th><th>Global variables</th><th>Local variables</th></tr>
+                            <tr><td>Benefits</td><td>Available everywhere, so useful for values many parts of the program need (e.g. settings).</td><td>Can't be changed by accident elsewhere. The same name can be reused in different functions. Memory is freed when the function ends. Functions are self-contained and easier to test and reuse.</td></tr>
+                            <tr><td>Drawbacks</td><td>Any function can change them, so bugs are hard to trace. Use memory for the whole run. Make functions depend on outside values.</td><td>Values are lost when the function ends unless returned.</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>Good practice is to use local variables and pass values in as parameters and back out with return. If asked why, say: it reduces side effects, makes code easier to debug, and makes functions reusable.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Variable</dt><dd>A named location in memory that stores a value which can change while the program runs.</dd>
+                            <dt>Constant</dt><dd>A named value that does not change while the program runs. In Python, written in CAPITALS by convention.</dd>
+                            <dt>Casting / type conversion</dt><dd>Changing a value from one data type to another, e.g. int("42").</dd>
+                            <dt>Scope</dt><dd>The part of a program where a variable can be accessed.</dd>
+                            <dt>Global variable</dt><dd>A variable declared outside any function, which can be read anywhere in the program.</dd>
+                            <dt>Local variable</dt><dd>A variable declared inside a function. It only exists while that function runs.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-3">
+                    <h2>2.3 Data structures</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Structure</th><th>Description</th><th>Python</th><th>Use it when</th></tr>
+                            <tr><td>List</td><td>Ordered, changeable, can hold mixed types, grows and shrinks.</td><td><code>orders = ["latte", "tea", 3]</code></td><td>You have a collection that changes size, e.g. a shopping basket.</td></tr>
+                            <tr><td>Array</td><td>Ordered collection where every item is the <strong>same data type</strong>. More memory efficient.</td><td><code>import array</code><br><code>temps = array.array("f", [12.5, 13.0])</code></td><td>You store lots of values of one type, e.g. sensor readings. In exams, a list of one type is often used as an array.</td></tr>
+                            <tr><td>Dictionary</td><td>Unordered by position; stores <strong>key: value</strong> pairs. Keys must be unique.</td><td><code>stock = {"cola": 12, "water": 30}</code></td><td>You need to look something up by a label, e.g. product code to price, username to password hash.</td></tr>
+                        </table>
+
+                        <h3>List and dictionary operations (Appendix 2)</h3>
+<pre class="code">
+queue = ["Asha", "Ben", "Chloe"]
+queue.append("Dev")          # add to end
+queue.insert(0, "Ellie")     # add at index 0
+queue.remove("Ben")          # remove by value
+first = queue.pop(0)         # remove and return item at index 0
+print(first, queue, len(queue))
+print(queue.index("Chloe"), "Dev" in queue, "Ben" not in queue)
+queue.sort()
+print(queue)
+</pre>
+<pre class="out">
+Ellie ['Asha', 'Chloe', 'Dev'] 3
+1 True True
+['Asha', 'Chloe', 'Dev']
+</pre>
+<pre class="code">
+prices = {"latte": 3.20, "tea": 1.80}
+prices["mocha"] = 3.50       # add a new key
+prices["tea"] = 1.95         # update an existing key
+for drink, price in prices.items():
+    print(f"{drink}: £{price:.2f}")
+print("cocoa" in prices)
+</pre>
+<pre class="out">
+latte: £3.20
+tea: £1.95
+mocha: £3.50
+False
+</pre>
+
+                        <h3>2D lists</h3>
+                        <p>A list can hold other lists, which works like a table. Use two indexes: <code>[row][column]</code>.</p>
+<pre class="code">
+seats = [["A1", "A2", "A3"],
+         ["B1", "B2", "B3"]]
+print(seats[1][2])
+for row in seats:
+    print(len(row), row[0])
+</pre>
+<pre class="out">
+B3
+3 A1
+3 B1
+</pre>
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <ul>
+                                <li>Indexes start at 0. In a list of 5 items, the last index is 4. <code>items[5]</code> raises an IndexError.</li>
+                                <li>Looking up a key that does not exist in a dictionary raises a KeyError. Check with <code>if key in my_dict:</code> first.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Worked example: debugging a data structure</h3>
+                        <p>This code should print the total of all marks. It crashes. Find and fix the error.</p>
+<pre class="code">
+marks = [45, 67, 89, 72]
+total = 0
+for i in range(1, len(marks) + 1):
+    total = total + marks[i]
+print(total)
+</pre>
+                        <details class="box worked">
+                            <summary><strong>Found it? Click to check.</strong></summary>
+                            <p><strong>Error:</strong> <code>range(1, len(marks) + 1)</code> produces 1, 2, 3, 4. Index 4 does not exist, so an IndexError occurs on the last loop. It also skips index 0. <strong>Fix:</strong> use <code>range(len(marks))</code> or loop directly over the list:</p>
+<pre class="code">
+marks = [45, 67, 89, 72]
+total = 0
+for mark in marks:
+    total = total + mark
+print(total)
+</pre>
+<pre class="out">
+273
+</pre>
+                        </details>
+
+                        <dl class="recall">
+                            <dt>List</dt><dd>An ordered, changeable collection of items that can hold mixed data types and grow or shrink.</dd>
+                            <dt>Array</dt><dd>An ordered collection of items that are all the same data type.</dd>
+                            <dt>Dictionary</dt><dd>A collection of key–value pairs. Values are looked up by key rather than position.</dd>
+                            <dt>Index</dt><dd>The position of an item in a list, array or string. Python starts counting at 0.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-4">
+                    <h2>2.4 Operators</h2>
+                    <div class="window-body">
+                        <h3>Arithmetic operators</h3>
+                        <table>
+                            <tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th><th>Typical use</th></tr>
+                            <tr><td><code>+</code></td><td>Add</td><td><code>7 + 2</code></td><td><code>9</code></td><td>Totals</td></tr>
+                            <tr><td><code>-</code></td><td>Subtract</td><td><code>7 - 2</code></td><td><code>5</code></td><td>Change given, stock left</td></tr>
+                            <tr><td><code>*</code></td><td>Multiply</td><td><code>7 * 2</code></td><td><code>14</code></td><td>Price × quantity</td></tr>
+                            <tr><td><code>/</code></td><td>Divide</td><td><code>7 / 2</code></td><td><code>3.5</code> (always a float)</td><td>Averages</td></tr>
+                            <tr><td><code>**</code></td><td>Exponentiation</td><td><code>7 ** 2</code></td><td><code>49</code></td><td>Powers, compound interest</td></tr>
+                            <tr><td><code>//</code></td><td>Integer division</td><td><code>7 // 2</code></td><td><code>3</code></td><td>How many full boxes, whole hours from minutes</td></tr>
+                            <tr><td><code>%</code></td><td>Modulus (remainder)</td><td><code>7 % 2</code></td><td><code>1</code></td><td>Odd/even, items left over, wrapping around</td></tr>
+                        </table>
+                        <h4>Worked example: // and %</h4>
+<pre class="code">
+minutes = 135
+hours = minutes // 60
+left_over = minutes % 60
+print(f"{hours} h {left_over} min")
+eggs = 26
+print("Full boxes:", eggs // 6, "Spare eggs:", eggs % 6)
+</pre>
+<pre class="out">
+2 h 15 min
+Full boxes: 4 Spare eggs: 2
+</pre>
+
+                        <h3>Relational operators</h3>
+                        <p>Relational operators compare two values and always give a Boolean result.</p>
+                        <table>
+                            <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+                            <tr><td><code>==</code></td><td>Equal to (equivalence)</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+                            <tr><td><code>!=</code></td><td>Not equal to</td><td><code>5 != 3</code></td><td><code>True</code></td></tr>
+                            <tr><td><code>&lt;</code></td><td>Less than</td><td><code>3 &lt; 5</code></td><td><code>True</code></td></tr>
+                            <tr><td><code>&gt;</code></td><td>Greater than</td><td><code>3 &gt; 5</code></td><td><code>False</code></td></tr>
+                            <tr><td><code>&lt;=</code></td><td>Less than or equal to</td><td><code>5 &lt;= 5</code></td><td><code>True</code></td></tr>
+                            <tr><td><code>&gt;=</code></td><td>Greater than or equal to</td><td><code>4 &gt;= 5</code></td><td><code>False</code></td></tr>
+                        </table>
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <p><code>=</code> assigns a value. <code>==</code> compares. <code>if age = 18:</code> is a syntax error.</p>
+                        </div>
+
+                        <h3>Boolean operators</h3>
+                        <table>
+                            <tr><th>Operator</th><th>True when...</th><th>Example</th></tr>
+                            <tr><td><code>and</code></td><td><strong>both</strong> conditions are True</td><td><code>age &gt;= 18 and has_id</code></td></tr>
+                            <tr><td><code>or</code></td><td><strong>at least one</strong> condition is True</td><td><code>day == "Sat" or day == "Sun"</code></td></tr>
+                            <tr><td><code>not</code></td><td>the condition is False (it reverses it)</td><td><code>not logged_in</code></td></tr>
+                        </table>
+                        <table>
+                            <tr><th>A</th><th>B</th><th>A and B</th><th>A or B</th><th>not A</th></tr>
+                            <tr><td>True</td><td>True</td><td>True</td><td>True</td><td>False</td></tr>
+                            <tr><td>True</td><td>False</td><td>False</td><td>True</td><td>False</td></tr>
+                            <tr><td>False</td><td>True</td><td>False</td><td>True</td><td>True</td></tr>
+                            <tr><td>False</td><td>False</td><td>False</td><td>False</td><td>True</td></tr>
+                        </table>
+
+                        <h3>Order of operations</h3>
+                        <p>Python follows BIDMAS: brackets, then <code>**</code>, then <code>* / // %</code>, then <code>+ -</code>. Then relational operators, then <code>not</code>, <code>and</code>, <code>or</code>.</p>
+<pre class="code">
+print(2 + 3 * 4)
+print((2 + 3) * 4)
+print(10 - 4 / 2)
+mark_a, mark_b = 60, 80
+print(mark_a + mark_b / 2)      # logic error
+print((mark_a + mark_b) / 2)    # correct average
+</pre>
+<pre class="out">
+14
+20
+8.0
+100.0
+70.0
+</pre>
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <p>Explain why <code>(mark_a + mark_b) / 2</code> must use brackets, and why the wrong version does not produce an error message. (It is a logic error: the code is valid Python, so it runs, but the output is wrong.)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-5">
+                    <h2>2.5 Input and output</h2>
+                    <div class="window-body">
+                        <h3>Keyboard and screen</h3>
+                        <ul>
+                            <li><code>input("prompt")</code> displays the prompt, waits for the user to press Enter and returns what they typed <strong>as a string</strong>.</li>
+                            <li><code>print()</code> outputs to the screen. Separate items with commas, join strings with <code>+</code>, or use an f-string.</li>
+                            <li><code>.format()</code> and f-strings can format numbers: <code>{price:.2f}</code> shows 2 decimal places.</li>
+                        </ul>
+<pre class="code">
+name = input("Name: ")
+hours = float(input("Hours worked: "))
+rate = 11.44
+pay = hours * rate
+print(f"{name} earned £{pay:.2f}")
+print("{} earned £{:.2f}".format(name, pay))
+</pre>
+<pre class="out">
+Name: Sam
+Hours worked: 16
+Sam earned £183.04
+Sam earned £183.04
+</pre>
+
+                        <h3>Text files</h3>
+                        <table>
+                            <tr><th>Step</th><th>Code</th><th>Notes</th></tr>
+                            <tr><td>Open for writing</td><td><code>f = open("log.txt", "w")</code></td><td><code>"w"</code> creates the file or <strong>overwrites</strong> it. <code>"a"</code> appends to the end.</td></tr>
+                            <tr><td>Write lines</td><td><code>f.write("Login OK\n")</code></td><td><code>write()</code> does not add a new line. Add <code>\n</code> yourself. Only strings can be written.</td></tr>
+                            <tr><td>Close</td><td><code>f.close()</code></td><td>Saves the data and frees the file. Data may be lost if you forget.</td></tr>
+                            <tr><td>Open for reading</td><td><code>f = open("log.txt", "r")</code></td><td>Raises FileNotFoundError if the file does not exist.</td></tr>
+                            <tr><td>Read</td><td><code>f.read()</code> / <code>f.readline()</code> / <code>f.readlines()</code></td><td>Whole file as one string / one line / list of lines.</td></tr>
+                        </table>
+<pre class="code">
+scores = {"Asha": 18, "Ben": 12, "Chloe": 20}
+
+f = open("scores.txt", "w")
+for name, score in scores.items():
+    f.write(name + "," + str(score) + "\n")
+f.close()
+
+f = open("scores.txt", "r")
+for line in f.readlines():
+    parts = line.strip().split(",")
+    print(parts[0], "scored", int(parts[1]))
+f.close()
+</pre>
+<pre class="out">
+Asha scored 18
+Ben scored 12
+Chloe scored 20
+</pre>
+                        <p><code>line.strip()</code> removes the <code>\n</code> and spaces from each end. <code>line.split(",")</code> breaks the line into a list at every comma.</p>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>You may also see <code>with open("scores.txt", "r") as f:</code>. This closes the file automatically when the indented block ends, even if an error happens. It is good practice, and worth mentioning in a 'robust code' answer.</p>
+                        </div>
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <ul>
+                                <li>Opening an existing file in <code>"w"</code> mode wipes it. Use <code>"a"</code> to add to it.</li>
+                                <li><code>f.write(score)</code> crashes if score is an integer. Use <code>str(score)</code>.</li>
+                                <li>Forgetting <code>.strip()</code> leaves <code>\n</code> on the end, so <code>"Ben\n" == "Ben"</code> is False.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-6">
+                    <h2>2.6 Actions: sequence, selection and iteration</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Construct</th><th>What it does</th><th>When it is used</th></tr>
+                            <tr><td>Sequence</td><td>Runs instructions one after another, in order.</td><td>Always. The order matters: you must get input before you process it.</td></tr>
+                            <tr><td>Selection</td><td>Chooses which block of code to run based on a condition.</td><td>When the program needs to make a decision: grade boundaries, menu choices, login checks.</td></tr>
+                            <tr><td>Iteration</td><td>Repeats a block of code.</td><td>When something needs doing more than once: processing every item in a list, re-asking for valid input.</td></tr>
+                        </table>
+
+                        <h3>Selection: if / elif / else</h3>
+<pre class="code">
+mark = 64
+if mark >= 70:
+    grade = "Distinction"
+elif mark >= 55:
+    grade = "Merit"
+elif mark >= 40:
+    grade = "Pass"
+else:
+    grade = "Fail"
+print(grade)
+</pre>
+<pre class="out">
+Merit
+</pre>
+                        <p>Conditions are checked from the top. The first True one runs and the rest are skipped. That is why the highest boundary goes first: if <code>mark &gt;= 40</code> came first, 64 would get a Pass.</p>
+
+                        <h3>Selection: match / case (Python 3.10+)</h3>
+                        <p><code>match</code> compares one value against several possible patterns. It is tidier than a long <code>elif</code> chain when you are checking a single value for exact matches, such as a menu choice.</p>
+<pre class="code">
+choice = "2"
+match choice:
+    case "1":
+        print("View basket")
+    case "2":
+        print("Checkout")
+    case "3" | "q":
+        print("Quit")
+    case _:
+        print("Invalid option")
+</pre>
+<pre class="out">
+Checkout
+</pre>
+                        <p><code>case _:</code> is the default and works like <code>else</code>. <code>|</code> means 'or'. <code>match</code> cannot do range checks like <code>mark &gt;= 70</code> without extra syntax, so use <code>if</code> for those.</p>
+
+                        <h3>Iteration</h3>
+                        <table>
+                            <tr><th>Loop</th><th>Type</th><th>Python</th><th>Use when</th></tr>
+                            <tr><td>Count-controlled</td><td>Repeats a fixed number of times</td><td><code>for i in range(5):</code><br><code>for item in basket:</code></td><td>You know how many times before the loop starts: every item in a list, 10 questions.</td></tr>
+                            <tr><td>Condition-controlled</td><td>Repeats while a condition is True ('while do')</td><td><code>while password != "admin123":</code></td><td>You don't know how many times: until valid input, until the user quits.</td></tr>
+                        </table>
+<pre class="code">
+for i in range(1, 11, 3):
+    print(i, end=" ")
+print()
+total = 0
+count = 0
+while total &lt; 20:
+    total = total + 7
+    count = count + 1
+print(total, count)
+</pre>
+<pre class="out">
+1 4 7 10
+21 3
+</pre>
+                        <p><code>range(start, stop, step)</code>: stop is <strong>not</strong> included. <code>range(5)</code> gives 0, 1, 2, 3, 4.</p>
+
+                        <h4>Benefits and drawbacks of loops (2.6.5)</h4>
+                        <table>
+                            <tr><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr>
+                                <td><ul><li>Less code: one block instead of copying lines</li><li>Easier to maintain: change it once</li><li>Works for any amount of data, e.g. a list of 10 or 10,000</li><li>Fewer chances of a copy-and-paste error</li></ul></td>
+                                <td><ul><li>Infinite loop if the condition never becomes False (program hangs)</li><li>Off-by-one errors with <code>range()</code> boundaries</li><li>Nested loops on large data can be slow</li><li>Harder for beginners to trace than straight-line code</li></ul></td>
+                            </tr>
+                        </table>
+
+                        <h3>Worked example: trace table</h3>
+                        <p>A trace table records the value of each variable as the code runs, line by line. It is the best way to answer 'what is the output' questions. Draw your own before you check.</p>
+<pre class="code">
+n = 5
+result = 1
+while n > 1:
+    result = result * n
+    n = n - 2
+print(result)
+</pre>
+<pre class="out">
+15
+</pre>
+                        <details class="box worked">
+                            <summary><strong>Show the trace table</strong></summary>
+                            <table>
+                                <tr><th>n</th><th>result</th><th>n &gt; 1?</th><th>Output</th></tr>
+                                <tr><td>5</td><td>1</td><td>True</td><td></td></tr>
+                                <tr><td>3</td><td>5</td><td>True</td><td></td></tr>
+                                <tr><td>1</td><td>15</td><td>False</td><td></td></tr>
+                                <tr><td></td><td></td><td></td><td>15</td></tr>
+                            </table>
+                        </details>
+                        <div class="box check">
+                            <h4>? QUICK CHECK</h4>
+                            <ul>
+                                <li>Rewrite the loop above as a <code>for</code> loop using <code>range()</code> with a step.</li>
+                                <li>Why is a <code>while</code> loop the right choice for asking a user to re-enter a PIN until it is correct?</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Sequence</dt><dd>Instructions run one after another in the order written.</dd>
+                            <dt>Selection</dt><dd>Choosing which code to run based on a condition (if, elif, else, match/case).</dd>
+                            <dt>Iteration</dt><dd>Repeating a block of code (a loop).</dd>
+                            <dt>Count-controlled loop</dt><dd>A loop that repeats a set number of times (for).</dd>
+                            <dt>Condition-controlled loop</dt><dd>A loop that repeats while a condition is True (while).</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-7">
+                    <h2>2.7 Functions and procedures</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th></th><th>Function</th><th>Procedure</th></tr>
+                            <tr><td>Parameters</td><td>May or may not take parameters</td><td>May or may not take parameters</td></tr>
+                            <tr><td>Returns a value?</td><td><strong>Must</strong> return a result using <code>return</code></td><td><strong>Must not</strong> return a result</td></tr>
+                            <tr><td>Example use</td><td>Calculate VAT and return it; validate an email and return True/False</td><td>Display a menu; write a line to a log file</td></tr>
+                        </table>
+<pre class="code">
+def calculate_vat(price, rate=0.2):      # function: returns a value
+    return round(price * rate, 2)
+
+def print_receipt(item, price):          # procedure: no return value
+    vat = calculate_vat(price)
+    print(f"{item:&lt;10} £{price:>6.2f}  VAT £{vat:.2f}")
+
+print_receipt("Keyboard", 24.99)
+print_receipt("Mouse", 9.5)
+</pre>
+<pre class="out">
+Keyboard   £ 24.99  VAT £5.00
+Mouse      £  9.50  VAT £1.90
+</pre>
+                        <p><code>price</code> and <code>rate</code> are <strong>parameters</strong>. <code>24.99</code> is an <strong>argument</strong>: the actual value passed in. <code>rate=0.2</code> is a default value used if no argument is given.</p>
+
+                        <h3>Where functions and procedures come from (2.7.3)</h3>
+                        <table>
+                            <tr><th>Source</th><th>Example</th></tr>
+                            <tr><td>User-written</td><td><code>calculate_vat()</code> above</td></tr>
+                            <tr><td>Pre-written, built into the language</td><td><code>print()</code>, <code>len()</code>, <code>round()</code>, <code>max()</code>, <code>min()</code>, <code>range()</code>, <code>ord()</code>, <code>chr()</code></td></tr>
+                            <tr><td>Pre-written, in libraries supplied with the language (standard library)</td><td><code>math.sqrt()</code>, <code>math.floor()</code>, <code>math.ceil()</code>, <code>random.randint()</code>, <code>datetime.now()</code></td></tr>
+                            <tr><td>Pre-written, in third-party libraries</td><td>pandas, matplotlib, requests (installed with pip)</td></tr>
+                        </table>
+<pre class="code">
+import math
+import random
+
+print(math.floor(7.8), math.ceil(7.2), math.trunc(-7.8))
+print(math.sqrt(81), math.pow(2, 5), round(math.pi, 3))
+roll = random.randint(1, 6)
+print(1 &lt;= roll &lt;= 6)
+print(ord("A"), chr(66), max([4, 9, 2]), min(4, 9, 2))
+</pre>
+<pre class="out">
+7 8 -7
+9.0 32.0 3.142
+True
+65 B 9 2
+</pre>
+
+                        <h3>Benefits and drawbacks of pre-written code (2.7.4)</h3>
+                        <table>
+                            <tr><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr>
+                                <td><ul><li>Saves development time and cost</li><li>Usually well tested, so fewer bugs</li><li>Written by specialists, often more efficient than your own</li><li>Lets you do complex things (graphs, data analysis) without expert knowledge</li><li>Documentation and community support available</li></ul></td>
+                                <td><ul><li>May not do exactly what you need</li><li>You may not understand how it works, making debugging hard</li><li>Third-party code can contain security vulnerabilities or malicious code</li><li>Can be abandoned or stop being updated; updates can break your code</li><li>Licence restrictions may apply</li><li>Adds size to the program</li></ul></td>
+                            </tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>Benefits of writing your own subroutines (user-written): reusable, easier to test each part on its own (unit testing), easier to read, and a team can work on different subroutines at the same time.</p>
+                        </div>
+
+                        <h3>String handling methods (Appendix 2)</h3>
+<pre class="code">
+email = "  Sam.Jones@Example.co.uk  "
+email = email.strip().lower()
+print(email)
+print(email.find("@"), email.index("."), email.count("o"))
+user, domain = email.split("@")
+print(user, domain, len(user))
+print("abc123".isalnum(), "abc".isalpha())
+print("2024".isdigit(), "ABC".isupper())
+print(email.replace("example", "sample"))
+</pre>
+<pre class="out">
+sam.jones@example.co.uk
+9 3 2
+sam.jones example.co.uk 9
+True True
+True True
+sam.jones@sample.co.uk
+</pre>
+
+                        <dl class="recall">
+                            <dt>Function</dt><dd>A named subroutine that may take parameters and must return a value.</dd>
+                            <dt>Procedure</dt><dd>A named subroutine that may take parameters and does not return a value.</dd>
+                            <dt>Parameter</dt><dd>A variable listed in a subroutine definition that receives a value when the subroutine is called.</dd>
+                            <dt>Argument</dt><dd>The actual value passed to a subroutine when it is called.</dd>
+                            <dt>Library</dt><dd>A collection of pre-written code that can be imported, e.g. math, random.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-8">
+                    <h2>2.8 Validation</h2>
+                    <div class="window-body">
+                        <p><strong>Validation</strong> is an automatic check that input data is sensible and follows set rules before it is accepted. It reduces errors and stops a program crashing on bad data. It <strong>cannot</strong> check that data is correct: a valid date of birth may still be the wrong one.</p>
+                        <table>
+                            <tr><th>Check</th><th>What it checks</th><th>Example</th></tr>
+                            <tr><td>Presence</td><td>Something has been entered</td><td>Surname cannot be left blank</td></tr>
+                            <tr><td>Length</td><td>Number of characters is within limits</td><td>Password at least 8 characters; mobile number exactly 11 digits</td></tr>
+                            <tr><td>Range</td><td>A value is between a lower and upper limit</td><td>Age 16–99; quantity 1–10</td></tr>
+                            <tr><td>Type</td><td>Data is the right data type</td><td>Quantity must be a whole number</td></tr>
+                            <tr><td>Format</td><td>Data matches a pattern</td><td>Postcode like LS1 4AP; email contains @ and a dot after it</td></tr>
+                            <tr><td>Check digit</td><td>A calculated digit at the end matches the rest of the number</td><td>ISBN-13 on books, barcodes, bank card numbers</td></tr>
+                        </table>
+<pre class="code">
+def get_quantity():
+    while True:
+        entry = input("Quantity (1-10): ")
+        if entry == "":                        # presence check
+            print("Error: quantity cannot be blank.")
+        elif not entry.isdigit():              # type check
+            print("Error: enter a whole number.")
+        elif not 1 &lt;= int(entry) &lt;= 10:        # range check
+            print("Error: quantity must be between 1 and 10.")
+        else:
+            return int(entry)
+
+qty = get_quantity()
+print("Accepted:", qty)
+</pre>
+<pre class="out">
+Quantity (1-10):
+Error: quantity cannot be blank.
+Quantity (1-10): two
+Error: enter a whole number.
+Quantity (1-10): 15
+Error: quantity must be between 1 and 10.
+Quantity (1-10): 4
+Accepted: 4
+</pre>
+<pre class="code">
+def valid_password(pw):
+    return len(pw) >= 8                        # length check
+
+def valid_email(email):                        # simple format check
+    if email.count("@") != 1:
+        return False
+    user, domain = email.split("@")
+    return len(user) > 0 and "." in domain
+
+print(valid_password("letmein"))
+print(valid_email("ali@wakefield.ac.uk"))
+print(valid_email("ali.wakefield"))
+</pre>
+<pre class="out">
+False
+True
+False
+</pre>
+
+                        <h3>Check digit worked example: ISBN-13</h3>
+                        <p>Multiply the 13 digits alternately by 1 and 3 and add the results. If the total divides exactly by 10, the number is valid. A single mistyped digit or two swapped digits will usually fail.</p>
+<pre class="code">
+def valid_isbn13(isbn):
+    if len(isbn) != 13 or not isbn.isdigit():
+        return False
+    total = 0
+    for i in range(13):
+        weight = 1 if i % 2 == 0 else 3
+        total = total + int(isbn[i]) * weight
+    return total % 10 == 0
+
+print(valid_isbn13("9780306406157"))
+print(valid_isbn13("9780306406158"))
+</pre>
+<pre class="out">
+True
+False
+</pre>
+                        <h4>Try it: ISBN-13 checker</h4>
+                        <div class="button-row">
+                            <label for="isbn-in">ISBN-13:</label>
+                            <input id="isbn-in" class="quiz-select" value="9780306406157" maxlength="13" inputmode="numeric">
+                            <strong id="isbn-out" aria-live="polite"></strong>
+                        </div>
+                        <p>Try changing one digit, or swapping two neighbouring digits.</p>
+
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <p>Range checks: <code>if 1 &lt; qty &lt; 10</code> rejects 1 and 10. If the limits are allowed, use <code>&lt;=</code>. Boundary test data catches exactly this error.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Validation</dt><dd>Automatic checks that input data is sensible and follows rules before it is accepted. It does not check data is correct.</dd>
+                            <dt>Check digit</dt><dd>An extra digit calculated from the other digits in a number, used to detect input errors.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-9">
+                    <h2>2.9 Design considerations and programming practices</h2>
+                    <div class="window-body">
+                        <h3>Order of actions and operations (2.9.1–2.9.2, 2.9.4)</h3>
+                        <ul>
+                            <li>Actions must happen in a <strong>logical order</strong>: get input, validate it, process it, output the result. You cannot calculate a total before reading the prices.</li>
+                            <li>Initialise variables <strong>before</strong> a loop. Setting <code>total = 0</code> inside the loop resets it every time.</li>
+                            <li>Use brackets so calculations follow the order you intend. This keeps outputs accurate and avoids logic errors.</li>
+                            <li>Check for zero before dividing: <code>if count &gt; 0: average = total / count</code>. This avoids a ZeroDivisionError.</li>
+                            <li>For efficiency, do work once rather than inside a loop. Calculate <code>len(items)</code> once before the loop; put the most likely condition first in an <code>if</code> chain; stop a search as soon as the item is found.</li>
+                        </ul>
+
+                        <h3>Choosing data structures for efficiency (2.9.3)</h3>
+                        <table>
+                            <tr><th>Situation</th><th>Better choice</th><th>Why</th></tr>
+                            <tr><td>Look up a price by product code thousands of times</td><td>Dictionary</td><td>Looking up a key is direct; a list would need searching item by item (slower execution time).</td></tr>
+                            <tr><td>Store 1 million temperature readings</td><td>Array of floats</td><td>All the same type, stored compactly, so less memory than a list of mixed objects.</td></tr>
+                            <tr><td>A basket that grows and shrinks</td><td>List</td><td>Easy to append and remove items.</td></tr>
+                            <tr><td>Fixed values that never change</td><td>Constants (or a tuple)</td><td>Clear and protected from accidental change.</td></tr>
+                        </table>
+
+                        <h3>Naming conventions (2.9.5)</h3>
+                        <table>
+                            <tr><th>Convention</th><th>Example</th><th>Notes</th></tr>
+                            <tr><td>Meaningful names</td><td><code>total_price</code> not <code>tp</code> or <code>x</code></td><td>Code explains itself; fewer comments needed; easier to maintain.</td></tr>
+                            <tr><td>camelCase</td><td><code>totalPrice</code>, <code>getUserName()</code></td><td>Used in Java, C# and JavaScript.</td></tr>
+                            <tr><td>snake_case</td><td><code>total_price</code>, <code>get_user_name()</code></td><td>Python's style guide (PEP 8) recommends this for variables and functions.</td></tr>
+                            <tr><td>CAPITALS</td><td><code>MAX_SIZE</code></td><td>Constants in Python.</td></tr>
+                        </table>
+
+                        <h3>Code style and readability (2.9.6)</h3>
+                        <ul>
+                            <li><strong>Naming conventions:</strong> consistent names let any developer guess what a variable holds.</li>
+                            <li><strong>White space:</strong> blank lines between functions, spaces around operators (<code>x = a + b</code>), and consistent indentation make structure obvious. In Python, indentation is required, not optional.</li>
+                            <li><strong>Maximum line length:</strong> PEP 8 suggests 79 characters. Short lines can be read without scrolling sideways and are easier to compare side by side.</li>
+                        </ul>
+                        <h4>Hard to read:</h4>
+<pre class="code">
+def a(b,c):
+    d=b*c
+    if d>100:d=d*0.9
+    return d
+print(a(12,10))
+</pre>
+<pre class="out">
+108.0
+</pre>
+                        <h4>Same logic, readable:</h4>
+<pre class="code">
+BULK_DISCOUNT = 0.9
+BULK_THRESHOLD = 100
+
+
+def order_cost(unit_price, quantity):
+    cost = unit_price * quantity
+    if cost > BULK_THRESHOLD:
+        cost = cost * BULK_DISCOUNT
+    return cost
+
+
+print(order_cost(12, 10))
+</pre>
+<pre class="out">
+108.0
+</pre>
+
+                        <h3>Judging an algorithm (2.9.7)</h3>
+                        <p>When asked to judge the suitability of an algorithm or program, comment on each of these:</p>
+                        <table>
+                            <tr><th>Criterion</th><th>Questions to ask</th></tr>
+                            <tr><td>Meets requirements</td><td>Does it do everything the brief asks? Does it handle all cases, including edge cases?</td></tr>
+                            <tr><td>Efficiency: storage</td><td>Does it keep unnecessary copies of data? Is the data structure memory efficient?</td></tr>
+                            <tr><td>Efficiency: execution time</td><td>Does it repeat work? Does it stop early when it can? Are there unnecessary nested loops?</td></tr>
+                            <tr><td>Data structures and types</td><td>Is a dictionary used where lookups are needed? Are prices floats and counts integers?</td></tr>
+                            <tr><td>Variables and constants</td><td>Are fixed values constants? Are variables local where possible?</td></tr>
+                            <tr><td>Presentation</td><td>Is output clear and formatted? Are prompts and error messages helpful?</td></tr>
+                            <tr><td>Maintainability</td><td>Meaningful names, comments, subroutines, consistent style, constants instead of magic numbers.</td></tr>
+                        </table>
+
+                        <dl class="recall">
+                            <dt>camelCase</dt><dd>Naming style where words are joined and each word after the first starts with a capital: totalPrice.</dd>
+                            <dt>snake_case</dt><dd>Naming style where words are lower case and joined with underscores: total_price. Recommended for Python variables.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-10">
+                    <h2>2.10 Robust code</h2>
+                    <div class="window-body">
+                        <h3>Characteristics of robust code (2.10.1)</h3>
+                        <ul>
+                            <li><strong>Handles unexpected inputs:</strong> validates input and re-prompts instead of crashing. Letters typed into a number field are rejected.</li>
+                            <li><strong>Handles unexpected terminations:</strong> uses <code>try/except</code> to catch runtime errors (missing file, network down, divide by zero) and closes files or saves data safely.</li>
+                            <li><strong>Produces specific and meaningful error messages:</strong> 'Quantity must be between 1 and 10' tells the user what to fix. 'Error' does not.</li>
+                        </ul>
+<pre class="code">
+def read_total(filename):
+    try:
+        with open(filename, "r") as f:
+            values = [float(line.strip()) for line in f]
+        return sum(values)
+    except FileNotFoundError:
+        print(f"Error: '{filename}' was not found. Check the file name.")
+    except ValueError:
+        print(f"Error: '{filename}' contains a line that is not a number.")
+    return None
+
+with open("sales.txt", "w") as f:
+    f.write("12.50\n8.25\nten\n")
+
+print(read_total("sale.txt"))
+print(read_total("sales.txt"))
+</pre>
+<pre class="out">
+Error: 'sale.txt' was not found. Check the file name.
+None
+Error: 'sales.txt' contains a line that is not a number.
+None
+</pre>
+
+                        <h3>Types of error</h3>
+                        <table>
+                            <tr><th>Error type</th><th>What happens</th><th>Example</th></tr>
+                            <tr><td>Syntax</td><td>Code breaks the language rules. It will not run at all.</td><td>Missing colon: <code>if x &gt; 5</code>; missing bracket; <code>pritn()</code>; bad indentation</td></tr>
+                            <tr><td>Runtime</td><td>Program starts but crashes when the line runs.</td><td><code>10 / 0</code> (ZeroDivisionError); <code>int("abc")</code> (ValueError); <code>items[10]</code> (IndexError); missing file (FileNotFoundError)</td></tr>
+                            <tr><td>Logic</td><td>Program runs but gives the wrong result. No error message.</td><td><code>&gt;</code> instead of <code>&gt;=</code>; wrong order of operations; total reset inside loop</td></tr>
+                        </table>
+
+                        <h3>Debugging (2.10.2–2.10.5)</h3>
+                        <p>Debugging is <strong>locating</strong> errors and then <strong>correcting</strong> them. It is used during development, after a test fails and when users report faults. Debugging makes code robust because each error found and fixed is one less way for the program to crash or give wrong results.</p>
+                        <table>
+                            <tr><th>Technique</th><th>How it helps</th></tr>
+                            <tr><td>Read the error message</td><td>Python gives the error type and line number.</td></tr>
+                            <tr><td>Trace tables / dry runs</td><td>Follow the code by hand to find where values go wrong. Essential for logic errors.</td></tr>
+                            <tr><td>Print statements</td><td>Print variable values at key points to see what is really happening.</td></tr>
+                            <tr><td>IDE breakpoints</td><td>Pause the program at a chosen line and inspect variables.</td></tr>
+                            <tr><td>Stepping</td><td>Run one line at a time and watch the flow through selection and loops.</td></tr>
+                            <tr><td>Test with planned data</td><td>Valid, invalid, boundary and erroneous data show which cases fail.</td></tr>
+                        </table>
+
+                        <h3>Worked example: locate and correct</h3>
+                        <p>This program should count how many students passed (40 or more) and print the pass rate. It contains three errors. Find them before you check.</p>
+<pre class="code">
+marks = [38, 40, 72, 55, 19]
+for mark in marks:
+    passed = 0
+    if mark > 40:
+        passed = passed + 1
+rate = passed / len(marks) * 100
+print("Pass rate: " + rate + "%")
+</pre>
+                        <details class="box worked">
+                            <summary><strong>Show the three errors and the corrected code</strong></summary>
+                            <table>
+                                <tr><th>Line</th><th>Error</th><th>Type</th><th>Correction</th></tr>
+                                <tr><td>3</td><td><code>passed = 0</code> inside the loop resets the count each time</td><td>Logic</td><td>Move it above the <code>for</code> line</td></tr>
+                                <tr><td>4</td><td><code>&gt; 40</code> excludes a mark of exactly 40</td><td>Logic</td><td><code>if mark &gt;= 40:</code></td></tr>
+                                <tr><td>7</td><td>Cannot join a float to a string with <code>+</code></td><td>Runtime (TypeError)</td><td><code>print("Pass rate: " + str(rate) + "%")</code></td></tr>
+                            </table>
+                            <p><strong>Corrected:</strong></p>
+<pre class="code">
+marks = [38, 40, 72, 55, 19]
+passed = 0
+for mark in marks:
+    if mark >= 40:
+        passed = passed + 1
+rate = passed / len(marks) * 100
+print("Pass rate: " + str(rate) + "%")
+</pre>
+<pre class="out">
+Pass rate: 60.0%
+</pre>
+                        </details>
+
+                        <dl class="recall">
+                            <dt>Robust code</dt><dd>Code that handles unexpected inputs and terminations and gives specific, meaningful error messages.</dd>
+                            <dt>Debugging</dt><dd>Locating and correcting errors in code.</dd>
+                            <dt>Syntax error</dt><dd>Code that breaks the rules of the language, so it cannot run.</dd>
+                            <dt>Runtime error</dt><dd>An error that happens while the program is running, causing it to crash, e.g. dividing by zero.</dd>
+                            <dt>Logic error</dt><dd>The program runs but gives the wrong result.</dd>
+                            <dt>Exception</dt><dd>An error object raised at runtime. Can be caught with try/except.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-11">
+                    <h2>2.11 Common algorithms</h2>
+                    <div class="window-body">
+                        <p>You need to know how each algorithm works, be able to trace it, and judge when to use it. Big O notation is <strong>not</strong> required: compare using logical reasoning about comparisons, time and memory.</p>
+
+                        <h3>Try it: algorithm stepper</h3>
+                        <p>Pick an algorithm, type a list, then press <strong>Step</strong> to watch it work one comparison at a time.</p>
+                        <div class="button-row">
+                            <label>Algorithm
+                                <select id="viz-algo" class="quiz-select">
+                                    <option value="bubble">Bubble sort</option>
+                                    <option value="insertion">Insertion sort</option>
+                                    <option value="linear">Linear search</option>
+                                    <option value="binary">Binary search</option>
+                                </select>
+                            </label>
+                            <label>List <input id="viz-list" class="quiz-select" value="5, 1, 4, 2, 8"></label>
+                            <label id="viz-target-label">Find <input id="viz-target" class="quiz-select" value="4" size="4"></label>
+                        </div>
+                        <div class="viz-row" id="viz-row" aria-hidden="true"></div>
+                        <p class="viz-note" id="viz-note" aria-live="polite"></p>
+                        <div class="button-row">
+                            <button type="button" class="button" id="viz-back">◀ Back</button>
+                            <button type="button" class="button" id="viz-step">Step ▶</button>
+                            <button type="button" class="button" id="viz-reset">Reset</button>
+                            <span id="viz-count" class="flashcard-count"></span>
+                        </div>
+                        <p class="post-date">Yellow = being compared · Green = in its final place / found · Faded = discarded</p>
+
+                        <h3>Linear search</h3>
+                        <ol>
+                            <li>Start at the first item.</li>
+                            <li>Compare it with the target.</li>
+                            <li>If it matches, stop and return the position.</li>
+                            <li>Otherwise move to the next item.</li>
+                            <li>If you reach the end without a match, the item is not there.</li>
+                        </ol>
+<pre class="code">
+def linear_search(items, target):
+    for i in range(len(items)):
+        if items[i] == target:
+            return i
+    return -1
+
+print(linear_search(["Leeds", "York", "Hull", "Wakefield"], "Hull"))
+print(linear_search(["Leeds", "York"], "Bradford"))
+</pre>
+<pre class="out">
+2
+-1
+</pre>
+
+                        <h3>Binary search</h3>
+                        <p>The list <strong>must be sorted</strong> first.</p>
+                        <ol>
+                            <li>Find the middle item.</li>
+                            <li>If it is the target, stop.</li>
+                            <li>If the target is smaller, discard the middle item and everything above it.</li>
+                            <li>If the target is larger, discard the middle item and everything below it.</li>
+                            <li>Repeat on the half that is left until the target is found or nothing is left.</li>
+                        </ol>
+<pre class="code">
+def binary_search(items, target):
+    low = 0
+    high = len(items) - 1
+    while low &lt;= high:
+        mid = (low + high) // 2
+        if items[mid] == target:
+            return mid
+        elif target &lt; items[mid]:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return -1
+
+numbers = [3, 8, 12, 19, 25, 31, 40, 47, 52]
+print(binary_search(numbers, 40))
+</pre>
+<pre class="out">
+6
+</pre>
+                        <table>
+                            <tr><th>Step</th><th>low</th><th>high</th><th>mid</th><th>items[mid]</th><th>Action</th></tr>
+                            <tr><td>1</td><td>0</td><td>8</td><td>4</td><td>25</td><td>40 &gt; 25, so low = 5</td></tr>
+                            <tr><td>2</td><td>5</td><td>8</td><td>6</td><td>40</td><td>Found at index 6</td></tr>
+                        </table>
+                        <p>Linear search would have needed 7 comparisons to find 40. Binary search needed 2.</p>
+
+                        <h3>Bubble sort</h3>
+                        <ol>
+                            <li>Compare the first two items. If they are in the wrong order, swap them.</li>
+                            <li>Move along one place and compare the next pair. Repeat to the end of the list: this is one <strong>pass</strong>.</li>
+                            <li>After each pass the largest unsorted item has 'bubbled' to its correct place at the end.</li>
+                            <li>Repeat passes until a whole pass makes <strong>no swaps</strong>.</li>
+                        </ol>
+<pre class="code">
+def bubble_sort(items):
+    n = len(items)
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(n - 1):
+            if items[i] > items[i + 1]:
+                items[i], items[i + 1] = items[i + 1], items[i]
+                swapped = True
+        n = n - 1
+    return items
+
+print(bubble_sort([5, 1, 4, 2, 8]))
+</pre>
+<pre class="out">
+[1, 2, 4, 5, 8]
+</pre>
+                        <table>
+                            <tr><th>After pass</th><th>List</th><th>Swaps made</th></tr>
+                            <tr><td>Start</td><td>5 1 4 2 8</td><td></td></tr>
+                            <tr><td>1</td><td>1 4 2 5 8</td><td>3 (5↔1, 5↔4, 5↔2)</td></tr>
+                            <tr><td>2</td><td>1 2 4 5 8</td><td>1 (4↔2)</td></tr>
+                            <tr><td>3</td><td>1 2 4 5 8</td><td>0, so stop</td></tr>
+                        </table>
+
+                        <h3>Insertion sort</h3>
+                        <ol>
+                            <li>Treat the first item as a sorted list of one.</li>
+                            <li>Take the next item.</li>
+                            <li>Compare it with items in the sorted part, moving larger items one place right, until you find where it belongs.</li>
+                            <li>Insert it. Repeat until every item has been inserted.</li>
+                        </ol>
+<pre class="code">
+def insertion_sort(items):
+    for i in range(1, len(items)):
+        current = items[i]
+        j = i - 1
+        while j >= 0 and items[j] > current:
+            items[j + 1] = items[j]
+            j = j - 1
+        items[j + 1] = current
+    return items
+
+print(insertion_sort([7, 3, 9, 1, 5]))
+</pre>
+<pre class="out">
+[1, 3, 5, 7, 9]
+</pre>
+                        <table>
+                            <tr><th>Insert</th><th>List afterwards (sorted part in bold)</th></tr>
+                            <tr><td>Start</td><td><strong>7</strong> 3 9 1 5</td></tr>
+                            <tr><td>3</td><td><strong>3 7</strong> 9 1 5</td></tr>
+                            <tr><td>9</td><td><strong>3 7 9</strong> 1 5</td></tr>
+                            <tr><td>1</td><td><strong>1 3 7 9</strong> 5</td></tr>
+                            <tr><td>5</td><td><strong>1 3 5 7 9</strong></td></tr>
+                        </table>
+
+                        <h3>Merge sort</h3>
+                        <ol>
+                            <li>Split the list in half, then split each half again, until every list has one item (a list of one is sorted).</li>
+                            <li>Merge pairs of lists back together: compare the front item of each list and take the smaller one each time.</li>
+                            <li>Keep merging until there is one sorted list.</li>
+                        </ol>
+<pre class="code">
+def merge_sort(items):
+    if len(items) &lt;= 1:
+        return items
+    mid = len(items) // 2
+    left = merge_sort(items[:mid])
+    right = merge_sort(items[mid:])
+    merged = []
+    i = j = 0
+    while i &lt; len(left) and j &lt; len(right):
+        if left[i] &lt;= right[j]:
+            merged.append(left[i])
+            i = i + 1
+        else:
+            merged.append(right[j])
+            j = j + 1
+    merged = merged + left[i:] + right[j:]
+    return merged
+
+print(merge_sort([38, 27, 43, 3, 9, 82, 10]))
+</pre>
+<pre class="out">
+[3, 9, 10, 27, 38, 43, 82]
+</pre>
+                        <table>
+                            <tr><th>Stage</th><th>Lists</th></tr>
+                            <tr><td>Split</td><td>[38 27 43] [3 9 82 10]</td></tr>
+                            <tr><td>Split</td><td>[38] [27 43] [3 9] [82 10]</td></tr>
+                            <tr><td>Split</td><td>[38] [27] [43] [3] [9] [82] [10]</td></tr>
+                            <tr><td>Merge</td><td>[38] [27 43] [3 9] [10 82]</td></tr>
+                            <tr><td>Merge</td><td>[27 38 43] [3 9 10 82]</td></tr>
+                            <tr><td>Merge</td><td>[3 9 10 27 38 43 82]</td></tr>
+                        </table>
+
+                        <h3>Comparing algorithms (2.11.3–2.11.5)</h3>
+                        <p>Metrics: <strong>memory space</strong> used, <strong>execution time</strong>, and <strong>number of comparisons</strong>. The table assumes a list of n items.</p>
+                        <table>
+                            <tr><th>Algorithm</th><th>Best case</th><th>Worst case</th><th>Average case</th><th>Memory</th></tr>
+                            <tr><td>Linear search</td><td>Target is first: 1 comparison</td><td>Target is last or missing: n comparisons</td><td>About n ÷ 2 comparisons</td><td>No extra memory</td></tr>
+                            <tr><td>Binary search</td><td>Target is the middle item: 1 comparison</td><td>Keeps halving until 1 item left: about 10 comparisons for 1,000 items, 20 for 1,000,000</td><td>Close to the worst case</td><td>No extra memory (but list must already be sorted)</td></tr>
+                            <tr><td>Bubble sort</td><td>Already sorted: one pass, n − 1 comparisons, no swaps</td><td>Reverse order: every pair compared and swapped on every pass</td><td>Many passes; slow on large lists</td><td>Sorts in place, no extra memory</td></tr>
+                            <tr><td>Insertion sort</td><td>Already sorted: n − 1 comparisons</td><td>Reverse order: each item moves all the way to the front</td><td>Slow on large lists; good on small or nearly sorted lists</td><td>Sorts in place, no extra memory</td></tr>
+                            <tr><td>Merge sort</td><td>Same as worst: always splits and merges fully</td><td>Much faster than bubble or insertion on large lists</td><td>Consistent performance</td><td>Needs extra memory for the sub-lists</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Algorithm</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Linear search</td><td>Simple. Works on unsorted data. Fine for short lists.</td><td>Slow on long lists.</td></tr>
+                            <tr><td>Binary search</td><td>Very fast on large lists.</td><td>Data must be sorted first, which takes time. More complex to code.</td></tr>
+                            <tr><td>Bubble sort</td><td>Simple to understand and code. In place. Can detect a sorted list in one pass.</td><td>Very slow on large or reversed lists.</td></tr>
+                            <tr><td>Insertion sort</td><td>Simple. In place. Fast for small or nearly sorted lists. Can sort data as it arrives.</td><td>Slow on large, unsorted lists.</td></tr>
+                            <tr><td>Merge sort</td><td>Fast and consistent on large lists.</td><td>Uses more memory. More complex. Overkill for tiny lists.</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: JUDGING SUITABILITY (2.11.6–2.11.7)</h4>
+                            <ul>
+                                <li>Always link your choice to the scenario: size of the data, whether it is already sorted, how often it is searched, and memory limits.</li>
+                                <li>A phone contact list searched many times a day: keep it sorted and use binary search; the sorting cost is paid once.</li>
+                                <li>A list of 12 items searched once: linear search; sorting first would waste time.</li>
+                                <li>A leaderboard where one new score is added to an already sorted list: insertion sort.</li>
+                                <li>Sorting 2 million transaction records on a server with plenty of RAM: merge sort.</li>
+                                <li>An embedded device with very little memory: an in-place sort (insertion or bubble).</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Linear search</dt><dd>Checks each item in turn from the start until the target is found or the list ends.</dd>
+                            <dt>Binary search</dt><dd>Repeatedly checks the middle item of a sorted list and discards the half that cannot contain the target.</dd>
+                            <dt>Bubble sort</dt><dd>Compares adjacent pairs and swaps them if they are in the wrong order, repeating passes until no swaps are made.</dd>
+                            <dt>Insertion sort</dt><dd>Builds a sorted section one item at a time by inserting each item into its correct position.</dd>
+                            <dt>Merge sort</dt><dd>Splits a list into single items, then merges them back together in order.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-12">
+                    <h2>2.12 Testing</h2>
+                    <div class="window-body">
+                        <h3>Why test components separately (2.12.1)</h3>
+                        <p>Each part of a solution is tested on its own before everything is put together. Faults are easier and cheaper to find and fix in a small part than in the finished system, where it is hard to tell which part caused the problem.</p>
+                        <table>
+                            <tr><th>Component</th><th>Why test it first</th><th>Example</th></tr>
+                            <tr><td>Software</td><td>Each module must work before it is combined, so faults can be traced to one place.</td><td>Test the login function on its own.</td></tr>
+                            <tr><td>Hardware</td><td>Confirms devices work and meet requirements before software depends on them.</td><td>Check a barcode scanner reads codes reliably.</td></tr>
+                            <tr><td>Data</td><td>Confirms data is accurate, complete and in the right format.</td><td>Check imported product prices have no blanks or text.</td></tr>
+                            <tr><td>Interfaces</td><td>Confirms components pass data correctly between each other and to users.</td><td>Check the app sends the right data to the payment API.</td></tr>
+                            <tr><td>Resulting service (final product)</td><td>Confirms the whole system meets the requirements for real users.</td><td>Full test of an online order from basket to confirmation email.</td></tr>
+                        </table>
+
+                        <h3>Testing methods (2.12.2)</h3>
+                        <table>
+                            <tr><th>Method</th><th>What it is</th><th>Benefits</th><th>Drawbacks</th><th>When</th></tr>
+                            <tr><td>Concept</td><td>Testing an idea or prototype with users before full development.</td><td>Finds bad ideas early, cheaply.</td><td>Prototype may not reflect the real product.</td><td>Start of a project</td></tr>
+                            <tr><td>Unit</td><td>Testing one component, such as a single function, on its own.</td><td>Errors easy to locate. Can be automated.</td><td>Does not show if parts work together.</td><td>During development</td></tr>
+                            <tr><td>Boundary</td><td>Testing values at and just beyond the edges of valid ranges.</td><td>Finds off-by-one errors in conditions.</td><td>Only covers limits, not general logic.</td><td>Whenever there are ranges</td></tr>
+                            <tr><td>Integration</td><td>Testing that combined components work together.</td><td>Finds interface and data-passing faults.</td><td>Harder to locate which part failed.</td><td>After unit testing</td></tr>
+                            <tr><td>Performance</td><td>Measuring speed and responsiveness under normal use.</td><td>Confirms the system is fast enough.</td><td>Needs realistic environment and tools.</td><td>Before release</td></tr>
+                            <tr><td>System</td><td>Testing the complete system against the requirements.</td><td>Checks everything works end to end.</td><td>Time-consuming. Faults found late cost more.</td><td>After integration</td></tr>
+                            <tr><td>Acceptance</td><td>The client or end users check the system meets their needs.</td><td>Confirms the client is happy before sign-off.</td><td>Users may find issues that need major changes.</td><td>Before handover</td></tr>
+                            <tr><td>Usability</td><td>Watching real users try tasks to see how easy the system is to use.</td><td>Finds confusing design and accessibility issues.</td><td>Subjective. Needs representative users.</td><td>Prototype and before release</td></tr>
+                            <tr><td>Regression</td><td>Re-running earlier tests after a change.</td><td>Shows a fix has not broken something else.</td><td>Repetitive; best automated.</td><td>After every change or update</td></tr>
+                            <tr><td>Load / stress</td><td>Load: expected peak users. Stress: pushing beyond limits to find the breaking point.</td><td>Shows how the system copes on busy days and how it fails.</td><td>Needs special tools to simulate users.</td><td>Before launch, e.g. ticket sites</td></tr>
+                            <tr><td>Closed box</td><td>Testing inputs and outputs without seeing the code (black box).</td><td>Tests from the user's view. Tester needs no code knowledge.</td><td>Some code paths may never be tested.</td><td>System and acceptance testing</td></tr>
+                            <tr><td>Open box</td><td>Testing with knowledge of the code, checking every path (white box).</td><td>Can test every branch and loop.</td><td>Needs programming knowledge. Time-consuming.</td><td>Unit testing</td></tr>
+                        </table>
+
+                        <h3>Automation (2.12.3)</h3>
+                        <table>
+                            <tr><th>Method</th><th>Purpose</th><th>When used</th></tr>
+                            <tr><td>Macros</td><td>Record and replay a sequence of actions, e.g. keystrokes and clicks in an application.</td><td>Repetitive tasks in applications such as entering test data into a form or spreadsheet.</td></tr>
+                            <tr><td>Scripts</td><td>Code written to run tests or tasks automatically, e.g. a Python script that calls a function with 100 sets of test data and checks results.</td><td>Unit and regression testing; running the same tests after every change.</td></tr>
+                            <tr><td>Functional testing tools</td><td>Software that tests whether features work as specified, often by driving the user interface automatically (e.g. Selenium, pytest).</td><td>Regression, system and load testing on larger projects.</td></tr>
+                        </table>
+                        <h4>A simple test script:</h4>
+<pre class="code">
+def is_valid_age(age):
+    return 16 &lt;= age &lt;= 99
+
+tests = [(15, False), (16, True), (50, True), (99, True), (100, False)]
+for value, expected in tests:
+    actual = is_valid_age(value)
+    result = "PASS" if actual == expected else "FAIL"
+    print(value, "expected", expected, "got", actual, result)
+</pre>
+<pre class="out">
+15 expected False got False PASS
+16 expected True got True PASS
+50 expected True got True PASS
+99 expected True got True PASS
+100 expected False got False PASS
+</pre>
+
+                        <h3>Test data (2.12.4.1–2.12.4.2)</h3>
+                        <p>Example: a cinema app accepts a number of tickets from <strong>1 to 8</strong>.</p>
+                        <table>
+                            <tr><th>Type</th><th>Definition</th><th>Example data</th><th>Expected result</th></tr>
+                            <tr><td>Valid</td><td>Data that should be accepted</td><td>4</td><td>Accepted</td></tr>
+                            <tr><td>Invalid</td><td>Correct data type but breaks a rule, so should be rejected</td><td>12, -3</td><td>Rejected with error message</td></tr>
+                            <tr><td>Boundary</td><td>Values at the limits and just outside them</td><td>1 and 8 (accepted); 0 and 9 (rejected)</td><td>1, 8 accepted; 0, 9 rejected</td></tr>
+                            <tr><td>Erroneous</td><td>Wrong data type, should be rejected</td><td>"four", 2.5, blank</td><td>Rejected with error message</td></tr>
+                        </table>
+
+                        <h4>Quick sort: what type of test data is it?</h4>
+                        <p>The cinema app accepts 1 to 8 tickets. Choose the type for each item.</p>
+                        <div id="data-quiz"></div>
+
+                        <h3>Test plan (2.12.4.3)</h3>
+                        <p>A test plan is written <strong>before</strong> testing and completed during testing. Its steps are: identify the tests; describe the purpose of each; identify the test data; describe the expected results; record the actual results.</p>
+                        <table>
+                            <tr><th>No.</th><th>Purpose of test</th><th>Test data</th><th>Type</th><th>Expected result</th><th>Actual result</th></tr>
+                            <tr><td>1</td><td>Check a normal number of tickets is accepted</td><td>4</td><td>Valid</td><td>Accepted, total shown</td><td></td></tr>
+                            <tr><td>2</td><td>Check upper limit is accepted</td><td>8</td><td>Boundary</td><td>Accepted</td><td></td></tr>
+                            <tr><td>3</td><td>Check just above upper limit is rejected</td><td>9</td><td>Boundary</td><td>Error: 'Choose 1 to 8 tickets'</td><td></td></tr>
+                            <tr><td>4</td><td>Check text is rejected</td><td>four</td><td>Erroneous</td><td>Error: 'Enter a whole number'</td><td></td></tr>
+                            <tr><td>5</td><td>Check blank entry is rejected</td><td>(blank)</td><td>Erroneous</td><td>Error: 'Enter a number of tickets'</td><td></td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>The 'actual result' column is filled in when the test is run. If actual ≠ expected, the test has failed: record what happened, fix the code, then re-test (and regression test).</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Test plan</dt><dd>A document listing the tests to run, their purpose, the test data, expected results and actual results.</dd>
+                            <dt>Valid test data</dt><dd>Data that should be accepted and processed normally.</dd>
+                            <dt>Invalid test data</dt><dd>Data of the correct type that should be rejected because it breaks a rule, e.g. age = 150.</dd>
+                            <dt>Boundary test data</dt><dd>Data at the edge of what is allowed, and just outside it, e.g. 0, 1, 100, 101 for a 1–100 range.</dd>
+                            <dt>Erroneous test data</dt><dd>Data of the wrong type that should be rejected, e.g. "ten" when a number is expected.</dd>
+                            <dt>Unit testing</dt><dd>Testing one component (e.g. a function) on its own.</dd>
+                            <dt>Integration testing</dt><dd>Testing that components work correctly together.</dd>
+                            <dt>Regression testing</dt><dd>Re-running earlier tests after a change to check nothing that worked before is now broken.</dd>
+                            <dt>Open box testing</dt><dd>Testing with knowledge of the code, checking every path runs correctly (also called white box).</dd>
+                            <dt>Closed box testing</dt><dd>Testing inputs and outputs without looking at the code (also called black box).</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>DATA TYPES</h4><ul><li>int: whole numbers</li><li>float: decimals</li><li>str: text (phone numbers too)</li><li>bool: True / False</li><li>input() always returns a string</li></ul></div>
+                            <div><h4>VARIABLES AND SCOPE</h4><ul><li>Variable changes; CONSTANT doesn't</li><li>int() float() str() bool() convert types</li><li>Local: inside a function only</li><li>Global: whole program; needs <code>global</code> to change inside a function</li></ul></div>
+                            <div><h4>DATA STRUCTURES</h4><ul><li>List: ordered, changeable, mixed types</li><li>Array: one data type, memory efficient</li><li>Dictionary: key → value lookup</li><li>append, insert, remove, pop, index, sort, in</li></ul></div>
+                            <div><h4>OPERATORS</h4><ul><li>+ - * / ** // %</li><li>// integer division, % remainder</li><li>== != &lt; &gt; &lt;= &gt;=</li><li>and, or, not</li><li>BIDMAS: use brackets</li></ul></div>
+                            <div><h4>ACTIONS</h4><ul><li>Sequence, selection, iteration</li><li>if / elif / else; match / case</li><li>for = count-controlled; while = condition-controlled</li><li>range(start, stop, step): stop not included</li></ul></div>
+                            <div><h4>SUBROUTINES AND VALIDATION</h4><ul><li>Function returns a value; procedure doesn't</li><li>Built-in, standard library, third-party, user-written</li><li>Checks: presence, length, range, type, format, check digit</li><li>Validation ≠ correct data</li></ul></div>
+                            <div><h4>ROBUST CODE AND DEBUGGING</h4><ul><li>Handles bad input and unexpected termination</li><li>Specific error messages</li><li>try / except</li><li>Errors: syntax, runtime, logic</li><li>Trace tables, breakpoints, print statements</li></ul></div>
+                            <div><h4>ALGORITHMS AND TESTING</h4><ul><li>Linear: any list, slow; binary: sorted list, halves each time</li><li>Bubble: swap pairs; insertion: insert into sorted part; merge: split then merge (extra memory)</li><li>Test data: valid, invalid, boundary, erroneous</li><li>Unit → integration → system → acceptance; regression after changes</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on CA2 from the course question bank. Pick a topic or question type, answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-area="2"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 1 hour 45 minutes. Questions get harder as you go.</p>
+                        <div class="qset" data-set="ca2">
+                            <div class="q" data-m="3">
+                                <p>State the most suitable data type for each of these: (i) the number of items in a basket; (ii) a customer's postcode; (iii) whether an order has been dispatched.</p>
+                                <div class="ms"><ul><li>(i) Integer</li><li>(ii) String</li><li>(iii) Boolean</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why a constant should be used to store the VAT rate in a till program.</p>
+                                <div class="ms"><ul><li>The value is stored once and cannot be changed by accident during the program (1)…</li><li>…so if the VAT rate changes, it only needs updating in one place / every calculation updates / fewer errors (1).</li><li>Accept: makes code easier to read because the name explains the value (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>A program uses <code>age = input("Enter age: ")</code> then <code>if age &gt;= 18:</code>. Explain why this produces an error and how to fix it.</p>
+                                <div class="ms"><ul><li><code>input()</code> returns a string, which cannot be compared with an integer using &gt;= / causes a TypeError (1).</li><li>Convert it: <code>age = int(input("Enter age: "))</code> (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>State the output of each line: (a) <code>print(17 // 5)</code> (b) <code>print(17 % 5)</code> (c) <code>print(2 ** 3 + 1)</code> (d) <code>print(not (5 &gt; 3 and 2 &gt; 4))</code>.</p>
+                                <div class="ms"><ul><li>(a) 3</li><li>(b) 2</li><li>(c) 9</li><li>(d) True</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the difference between a local variable and a global variable.</p>
+                                <div class="ms"><ul><li>A local variable is declared inside a subroutine and can only be used within it / only exists while it runs (1).</li><li>A global variable is declared outside subroutines and can be accessed anywhere in the program (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Give one similarity and one difference between a function and a procedure.</p>
+                                <div class="ms"><ul><li>Similarity: both are named blocks of code / both may take parameters / both can be called many times (1).</li><li>Difference: a function must return a value; a procedure does not (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>A gym app stores member IDs and their membership type, e.g. M104 is "Off-peak". Explain why a dictionary is more suitable than a list for this data.</p>
+                                <div class="ms"><ul><li>A dictionary stores key–value pairs, so the member ID can be the key and the membership type the value (1)…</li><li>…so a type can be looked up directly by ID without searching through the list / faster lookup / IDs are kept unique (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe how a binary search would find the value 31 in this list: <code>[4, 9, 15, 22, 31, 40, 58]</code>.</p>
+                                <div class="ms"><ul><li>Find the middle item: index 3 = 22 (1).</li><li>31 is greater than 22, so discard 22 and everything below it, leaving [31, 40, 58] (1).</li><li>Middle item is 40; 31 is less, so discard 40 and above; check 31: found (1). Accept a correct alternative midpoint convention applied consistently.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Complete a trace table for this code and state the output.</p>
+<pre class="code">
+total = 0
+for i in range(2, 9, 3):
+    total = total + i
+    print(i, total)
+</pre>
+                                <div class="ms"><ul><li>i takes the values 2, 5, 8 (1)</li><li>total takes the values 2, 7, 15 (1)</li><li>Output lines: <code>2 2</code>, <code>5 7</code>, <code>8 15</code> (2: one mark for first two lines, one for the last)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>Write a Python program that asks the user for a password and keeps asking until it is at least 8 characters long and contains at least one digit. It should print a specific error message each time and print "Password set" when a valid one is entered.</p>
+                                <div class="ms">
+                                    <ul><li>Gets input from the user (1)</li><li>Uses a condition-controlled loop that repeats until valid (1)</li><li>Length check using <code>len() &gt;= 8</code> (1)</li><li>Checks for a digit, e.g. loop with <code>isdigit()</code> or <code>any()</code> (1)</li><li>Specific error message for each failed rule (1)</li><li>Prints "Password set" only when valid (1)</li></ul>
+                                    <p><strong>Example answer:</strong></p>
+<pre class="code">
+while True:
+    password = input("Enter a password: ")
+    has_digit = False
+    for ch in password:
+        if ch.isdigit():
+            has_digit = True
+    if len(password) &lt; 8:
+        print("Error: password must be at least 8 characters.")
+    elif not has_digit:
+        print("Error: password must contain at least one digit.")
+    else:
+        print("Password set")
+        break
+</pre>
+<pre class="out">
+Enter a password: cat
+Error: password must be at least 8 characters.
+Enter a password: elephants
+Error: password must contain at least one digit.
+Enter a password: elephant5
+Password set
+</pre>
+                                </div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>The code below should read a file of temperatures (one per line) and print the average. It contains three errors. Identify each error and state the correction.</p>
+<pre class="code">
+f = open("temps.txt", "w")
+total = 0
+count = 0
+for line in f.readlines():
+    total = total + line.strip()
+    count = count + 1
+f.close()
+print("Average:", total // count)
+</pre>
+                                <div class="ms"><ul><li>Line 1: file opened in write mode, which wipes it / cannot read (1). Correction: <code>open("temps.txt", "r")</code> (1).</li><li>Line 5: adding a string to a number causes a TypeError (1). Correction: <code>float(line.strip())</code> (1).</li><li>Line 8: integer division <code>//</code> gives a whole number, losing accuracy (1). Correction: <code>total / count</code> (1).</li><li>Accept: no check for <code>count &gt; 0</code> before dividing, if justified, in place of one error.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A cinema's booking form accepts an age from 3 to 120. Give one item of each type of test data and the expected result: valid, boundary, invalid, erroneous.</p>
+                                <div class="ms"><ul><li>Valid: e.g. 35, accepted (1)</li><li>Boundary: 3 or 120 accepted, or 2 or 121 rejected (1)</li><li>Invalid: e.g. 150 or -5, rejected with error message (1)</li><li>Erroneous: e.g. "ten" or blank, rejected with error message (1)</li><li>Expected result must be given for the mark.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain two characteristics of robust code, using a self-service checkout as your example.</p>
+                                <div class="ms"><ul><li>Handles unexpected inputs (1), e.g. if a customer scans an item that is not in the database, it displays a message instead of freezing (1).</li><li>Handles unexpected terminations (1), e.g. if the card reader disconnects mid-payment, the transaction is saved and can be resumed (1).</li><li>Specific and meaningful error messages (1), e.g. 'Unexpected item in bagging area: please remove the last item' rather than 'Error 37' (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain the difference between integration testing and regression testing.</p>
+                                <div class="ms"><ul><li>Integration testing checks that separate components work together correctly (1), e.g. data passes correctly from the basket module to the payment module (1).</li><li>Regression testing re-runs previous tests after a change (1) to make sure the change has not broken parts that worked before (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Write a function <code>count_vowels(word)</code> that returns the number of vowels (a, e, i, o, u) in a word, ignoring case. Show how it would be called and its result printed.</p>
+                                <div class="ms">
+                                    <ul><li>Function defined with a parameter (1)</li><li>Converts to lower case or checks both cases (1)</li><li>Loops through characters and counts vowels (1)</li><li>Returns the count, and calls/prints it (1)</li></ul>
+                                    <p><strong>Example answer:</strong></p>
+<pre class="code">
+def count_vowels(word):
+    count = 0
+    for letter in word.lower():
+        if letter in "aeiou":
+            count = count + 1
+    return count
+
+print(count_vowels("Wakefield"))
+</pre>
+<pre class="out">
+4
+</pre>
+                                </div>
+                            </div>
+                            <div class="q" data-m="9">
+                                <p>A logistics company keeps a list of 250,000 parcel tracking numbers. New parcels are added throughout the day and customers search for their parcel thousands of times per hour. Evaluate the use of linear search and binary search for this system, including how the data should be sorted.</p>
+                                <div class="ms">
+                                    <p><strong>Indicative content.</strong> Credit other valid points.</p>
+                                    <ul>
+                                        <li>Linear search works on unsorted data, so new parcels can simply be appended with no sorting cost.</li>
+                                        <li>Linear search is slow here: worst case 250,000 comparisons, average about 125,000, repeated thousands of times per hour, so slow responses and high server load.</li>
+                                        <li>Binary search needs about 18 comparisons in the worst case for 250,000 items, so it is far faster for frequent searches.</li>
+                                        <li>Binary search requires the list to be sorted; sorting takes time, but this cost is paid once rather than on every search.</li>
+                                        <li>New parcels could be inserted into the correct position as they arrive (insertion sort is efficient for one new item into a sorted list), or added in batches and the list re-sorted with merge sort overnight.</li>
+                                        <li>Merge sort is fast on large data but needs extra memory; a server is likely to have enough.</li>
+                                        <li>Judgement: binary search on a sorted list is the better choice because searches far outnumber insertions; the extra complexity is justified.</li>
+                                    </ul>
+                                    <div class="levels" data-max="9"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>A developer has written a working program for a café's loyalty scheme, but it uses single-letter variable names, no subroutines, no comments and the value 0.1 (the discount) typed in 14 places. Discuss the impact of these practices on the café and the developer's team.</p>
+                                <div class="box support">
+                                    <h4>◆ SUPPORT: SENTENCE STARTERS FOR 16 AND 17</h4>
+                                    <ul>
+                                        <li>Linear search would be suitable because... However, with 250,000 items...</li>
+                                        <li>Binary search needs the data to be sorted, which means...</li>
+                                        <li>When new parcels are added, the company could...</li>
+                                        <li>Overall, the best approach is ... because ...</li>
+                                        <li>Single-letter names make it harder for another developer to...</li>
+                                        <li>Typing 0.1 in 14 places means that if the discount changes...</li>
+                                    </ul>
+                                </div>
+                                <div class="ms">
+                                    <p><strong>Indicative content.</strong> Credit other valid points.</p>
+                                    <ul>
+                                        <li>Single-letter names make the code hard for other developers to understand, so changes take longer and cost the café more.</li>
+                                        <li>No subroutines means repeated code; bugs must be fixed in many places, and parts cannot be tested on their own.</li>
+                                        <li>No comments make it harder to maintain if the original developer leaves.</li>
+                                        <li>The discount typed in 14 places (a 'magic number') means a change to the discount risks one copy being missed, so customers are charged inconsistently, a logic error that is hard to spot.</li>
+                                        <li>Using a constant such as <code>LOYALTY_DISCOUNT = 0.1</code> would allow a single change.</li>
+                                        <li>On the other hand, the program works now, so there is no immediate impact on customers; the cost appears later when it needs updating.</li>
+                                        <li>Refactoring takes time and money in the short term, but reduces long-term maintenance cost.</li>
+                                    </ul>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>For question 16: estimate how many comparisons each search would need in the worst case and use the figures in your answer.</li>
+                                <li>For question 10: extend your program so the password must also contain an upper-case letter, and write a test plan with five tests for it.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-ca2" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-ca2" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · CA2 Introduction to Programming · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+    <script>
+        /* ---------- ISBN-13 checker (same rule as valid_isbn13) ---------- */
+        const isbnIn = document.getElementById('isbn-in');
+        const isbnOut = document.getElementById('isbn-out');
+
+        function checkIsbn() {
+            const isbn = isbnIn.value.trim();
+            if (isbn.length !== 13 || !/^\d+$/.test(isbn)) {
+                isbnOut.textContent = 'Needs exactly 13 digits';
+                return;
+            }
+            let total = 0;
+            for (let i = 0; i < 13; i++) {
+                total += Number(isbn[i]) * (i % 2 === 0 ? 1 : 3);
+            }
+            isbnOut.textContent = `Weighted total = ${total} → ${total % 10 === 0 ? 'VALID (divides by 10)' : 'INVALID (remainder ' + total % 10 + ')'}`;
+        }
+
+        isbnIn.addEventListener('input', checkIsbn);
+        checkIsbn();
+
+        /* ---------- Test data sorting quiz ---------- */
+        const dataItems = [
+            ['5', 'Valid'], ['1', 'Boundary'], ['9', 'Boundary'], ['20', 'Invalid'],
+            ['"six"', 'Erroneous'], ['8', 'Boundary'], ['-2', 'Invalid'], ['3.5', 'Erroneous'], ['0', 'Boundary']
+        ];
+        const dataQuiz = document.getElementById('data-quiz');
+        const dataTable = document.createElement('table');
+        dataTable.innerHTML = '<thead><tr><th>Test data</th><th>Type</th><th>Result</th></tr></thead>';
+        const dataBody = dataTable.createTBody();
+
+        dataItems.forEach(([value, answer]) => {
+            const row = dataBody.insertRow();
+            row.insertCell().textContent = value;
+            const select = document.createElement('select');
+            select.className = 'quiz-select';
+            ['Choose...', 'Valid', 'Invalid', 'Boundary', 'Erroneous'].forEach(text => select.append(new Option(text, text)));
+            select.setAttribute('aria-label', 'Type of test data for ' + value);
+            row.insertCell().appendChild(select);
+            const result = row.insertCell();
+            select.addEventListener('change', () => {
+                result.textContent = select.value === answer ? '✔ Correct' : `✘ No: it's ${answer.toLowerCase()}`;
+            });
+        });
+        dataQuiz.appendChild(dataTable);
+
+        /* ---------- Algorithm stepper ----------
+           Each algorithm is run once up front and every step is recorded,
+           so Back and Step just move through the list of steps. */
+        const vizAlgo = document.getElementById('viz-algo');
+        const vizList = document.getElementById('viz-list');
+        const vizTarget = document.getElementById('viz-target');
+        const vizRow = document.getElementById('viz-row');
+        const vizNote = document.getElementById('viz-note');
+        const vizCount = document.getElementById('viz-count');
+        let steps = [];
+        let stepIndex = 0;
+
+        function bubbleSteps(list) {
+            const a = [...list];
+            const out = [{ a: [...a], hi: [], fixed: a.length, note: 'Start. Press Step to compare the first pair.' }];
+            let n = a.length;
+            let swapped = true;
+            let pass = 0;
+            while (swapped) {
+                swapped = false;
+                pass++;
+                for (let i = 0; i < n - 1; i++) {
+                    const x = a[i], y = a[i + 1];
+                    const swap = x > y;
+                    if (swap) {
+                        [a[i], a[i + 1]] = [a[i + 1], a[i]];
+                        swapped = true;
+                    }
+                    out.push({ a: [...a], hi: [i, i + 1], fixed: n, note: `Pass ${pass}: compare ${x} and ${y} → ${swap ? 'wrong order, swap' : 'right order, no swap'}` });
+                }
+                n--;
+                out.push({ a: [...a], hi: [], fixed: swapped ? n : 0, note: `End of pass ${pass}: ${swapped ? 'swaps were made, so do another pass.' : 'no swaps, so the list is sorted.'}` });
+            }
+            return out;
+        }
+
+        function insertionSteps(list) {
+            const a = [...list];
+            const out = [{ a: [...a], hi: [], sorted: 1, note: 'Start. The first item is a sorted list of one.' }];
+            for (let i = 1; i < a.length; i++) {
+                const current = a[i];
+                let j = i - 1;
+                out.push({ a: [...a], hi: [i], sorted: i, note: `Take ${current} and find where it belongs in the sorted part.` });
+                while (j >= 0 && a[j] > current) {
+                    a[j + 1] = a[j];
+                    out.push({ a: [...a], hi: [j, j + 1], sorted: i, note: `${a[j]} is bigger than ${current}, so move ${a[j]} one place right.` });
+                    j--;
+                }
+                a[j + 1] = current;
+                out.push({ a: [...a], hi: [j + 1], sorted: i + 1, note: `Insert ${current} at position ${j + 1}.` });
+            }
+            out.push({ a: [...a], hi: [], sorted: a.length, note: 'Every item has been inserted: sorted.' });
+            return out;
+        }
+
+        function linearSteps(list, target) {
+            const out = [{ a: list, hi: [], note: `Look for ${target}, starting at the first item.` }];
+            for (let i = 0; i < list.length; i++) {
+                if (list[i] === target) {
+                    out.push({ a: list, hi: [], found: i, note: `Comparison ${i + 1}: ${list[i]} = ${target}. Found at index ${i}.` });
+                    return out;
+                }
+                out.push({ a: list, hi: [i], note: `Comparison ${i + 1}: ${list[i]} ≠ ${target}, move to the next item.` });
+            }
+            out.push({ a: list, hi: [], note: `Reached the end after ${list.length} comparisons: ${target} is not in the list (return -1).` });
+            return out;
+        }
+
+        function binarySteps(list, target) {
+            const a = [...list].sort((x, y) => x - y);
+            const sortedNote = a.join() === list.join() ? '' : ' (The list was sorted first: binary search needs sorted data.)';
+            const out = [{ a, hi: [], low: 0, high: a.length - 1, note: `Look for ${target}. low = 0, high = ${a.length - 1}.${sortedNote}` }];
+            let low = 0;
+            let high = a.length - 1;
+            let count = 0;
+            while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                count++;
+                if (a[mid] === target) {
+                    out.push({ a, hi: [], found: mid, low, high, note: `Comparison ${count}: mid = (${low} + ${high}) // 2 = ${mid}. items[${mid}] = ${a[mid]}: found!` });
+                    return out;
+                }
+                const smaller = target < a[mid];
+                out.push({ a, hi: [mid], low, high, note: `Comparison ${count}: mid = ${mid}, items[${mid}] = ${a[mid]}. ${target} is ${smaller ? 'smaller, so discard mid and everything above (high = ' + (mid - 1) + ')' : 'larger, so discard mid and everything below (low = ' + (mid + 1) + ')'}.` });
+                if (smaller) high = mid - 1;
+                else low = mid + 1;
+            }
+            out.push({ a, hi: [], low, high, note: `Nothing left to check: ${target} is not in the list (return -1).` });
+            return out;
+        }
+
+        function resetViz() {
+            const list = vizList.value.split(',').map(s => Number(s.trim())).filter(n => !Number.isNaN(n) && vizList.value.trim() !== '').slice(0, 14);
+            const target = Number(vizTarget.value);
+            const algo = vizAlgo.value;
+            document.getElementById('viz-target-label').hidden = algo === 'bubble' || algo === 'insertion';
+            if (!list.length) {
+                steps = [{ a: [], hi: [], note: 'Type some numbers separated by commas.' }];
+            } else if (algo === 'bubble') steps = bubbleSteps(list);
+            else if (algo === 'insertion') steps = insertionSteps(list);
+            else if (algo === 'linear') steps = linearSteps(list, target);
+            else steps = binarySteps(list, target);
+            stepIndex = 0;
+            drawViz();
+        }
+
+        function drawViz() {
+            const step = steps[stepIndex];
+            vizRow.innerHTML = '';
+            step.a.forEach((value, i) => {
+                const cell = document.createElement('span');
+                cell.className = 'viz-cell';
+                cell.textContent = value;
+                if (step.hi.includes(i)) cell.classList.add('hi');
+                if (step.fixed !== undefined && i >= step.fixed) cell.classList.add('fixed');
+                if (step.sorted !== undefined && i < step.sorted) cell.classList.add('part');
+                if (step.found === i) cell.classList.add('fixed');
+                if (step.low !== undefined && (i < step.low || i > step.high) && step.found !== i) cell.classList.add('out');
+                vizRow.appendChild(cell);
+            });
+            vizNote.textContent = step.note;
+            vizCount.textContent = `Step ${stepIndex + 1} / ${steps.length}`;
+        }
+
+        document.getElementById('viz-step').addEventListener('click', () => {
+            if (stepIndex < steps.length - 1) stepIndex++;
+            drawViz();
+        });
+        document.getElementById('viz-back').addEventListener('click', () => {
+            if (stepIndex > 0) stepIndex--;
+            drawViz();
+        });
+        document.getElementById('viz-reset').addEventListener('click', resetViz);
+        vizAlgo.addEventListener('change', () => {
+            if (vizAlgo.value === 'binary' && vizList.value === '5, 1, 4, 2, 8') {
+                vizList.value = '3, 8, 12, 19, 25, 31, 40, 47, 52';
+                vizTarget.value = '40';
+            }
+            resetViz();
+        });
+        vizList.addEventListener('change', resetViz);
+        vizTarget.addEventListener('change', resetViz);
+        resetViz();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

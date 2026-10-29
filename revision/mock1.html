@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mock Paper 1 | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev mock" data-page="mock1">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">PART C · T LEVEL TECHNICAL QUALIFICATION IN DIGITAL SOFTWARE DEVELOPMENT (LEVEL 3)</p>
+            <h1>Mock Core Paper 1: Problem Solving, Programming, Emerging Issues and Legislation</h1>
+            <p>Content areas 1–4 · 2 hours 15 minutes · 90 marks</p>
+            <span class="big-num" aria-hidden="true">C</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <div class="mock-bar" id="mock-bar"></div>
+
+                <section class="window" id="info">
+                    <h2>Read this first</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Time</th><th>Total marks</th><th>You will need</th></tr>
+                            <tr><td>2 hours 15 minutes</td><td>90</td><td>Black pen. No calculator, notes or electronic devices.</td></tr>
+                        </table>
+                        <h3>Instructions</h3>
+                        <ul>
+                            <li>Press <strong>Start timer</strong> above and work in silence, without notes.</li>
+                            <li>Answer <strong>all</strong> questions in Section A and Section B.</li>
+                            <li>Type your answers in the boxes (they're saved on this device), or write on lined paper and number each answer clearly, e.g. 5 (c).</li>
+                            <li>Mark schemes stay locked until you press <strong>I've finished: show mark schemes</strong>.</li>
+                        </ul>
+                        <h3>Information</h3>
+                        <ul>
+                            <li>The total mark for this paper is 90.</li>
+                            <li>The marks for <strong>each</strong> question are shown in brackets. Use this as a guide to how much time to spend on each question.</li>
+                            <li>Questions marked with an asterisk (*) are levels-based: you will be marked on the quality of your extended response.</li>
+                            <li>Where the term 'code' is used, it refers to Python 3.10 or later.</li>
+                        </ul>
+                        <h3>Advice</h3>
+                        <ul>
+                            <li>Read each question carefully before you start to answer it.</li>
+                            <li>Use the scenario in Section B in your answers.</li>
+                            <li>Try to answer every question.</li>
+                            <li>Check your answers if you have time at the end.</li>
+                        </ul>
+                        <div class="box">
+                            <h4>■ MOCK EXAMINATION</h4>
+                            <p>This is a practice paper written to match the style and structure of the live assessment. It is not a Pearson paper. When you mark it: for point-marked questions, award one mark for each point in the list, up to the total, and accept other valid answers. For levels-based (*) questions, read the whole answer, choose the level that best fits, then the mark within it. Indicative content is a guide, not a checklist. Spec references show where to revise if you lost marks.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="qset" data-set="mock1" data-locked>
+
+                    <section class="window" id="secA">
+                        <h2>SECTION A (30 marks)</h2>
+                        <div class="window-body">
+                            <p>Answer ALL questions.</p>
+
+                            <div class="q" data-n="1 (a)" data-m="2">
+                                <p>State <strong>two</strong> tasks of abstraction.</p>
+                                <div class="ms"><p class="ref">Spec 1.1.14</p><ul><li>Any two: identify the information that is needed; filter out unnecessary details; hide details of internal workings.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (b)" data-m="2">
+                                <p>Describe what a sub-process symbol represents in a flowchart.</p>
+                                <div class="ms"><p class="ref">Spec 1.2.2</p><ul><li>A predefined process / sub-routine / function (1) that is defined elsewhere, e.g. in a separate flowchart (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (c)" data-m="2">
+                                <p>Explain <strong>one</strong> benefit of decomposition when a team of developers builds a new system.</p>
+                                <div class="ms"><p class="ref">Spec 1.1.6</p><ul><li>Each part can be given to a different developer (1) so parts are built at the same time and the project is finished sooner (1). Accept: easier to test/find errors in small parts.</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 1 = 6 marks)</p>
+
+                            <div class="q" data-n="2 (a)" data-m="2">
+                                <p>State the most suitable data type for: (i) the price of a meal deal; (ii) whether a customer has a loyalty card.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.1</p><ul><li>(i) Float / real (1) (ii) Boolean (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (b)" data-m="3">
+                                <p>Study this code. State the output.</p>
+<pre class="code">
+values = [3, 8, 2, 7]
+total = 0
+for v in values:
+    if v % 2 == 0:
+        total = total + v
+    else:
+        total = total - 1
+print(total, len(values))
+</pre>
+                                <div class="ms"><p class="ref">Spec 2.6.6</p><ul><li>8 (2 marks: 1 for adding the even numbers 8 + 2 = 10, 1 for subtracting 2 for the odd numbers)</li><li>4 (1)</li><li>Output: <code>8 4</code></li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (c)" data-m="2">
+                                <p>Explain the difference between a function and a procedure.</p>
+                                <div class="ms"><p class="ref">Spec 2.7.1–2</p><ul><li>A function returns a value (1); a procedure does not return a value (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (d)" data-m="2">
+                                <p>Give <strong>two</strong> benefits of using a constant rather than typing the same value throughout a program.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.2</p><ul><li>Any two: only needs changing in one place; avoids inconsistent values / typing errors; the name makes the code easier to read; cannot be changed accidentally (by convention).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 2 = 9 marks)</p>
+
+                            <div class="q" data-n="3 (a)" data-m="2">
+                                <p>Define the term 'edge computing' and give <strong>one</strong> example of where it is used.</p>
+                                <div class="ms"><p class="ref">Spec 3.2.1</p><ul><li>Processing data on or near the device where it is created rather than in a central cloud / data centre (1).</li><li>Example (1): self-driving cars; factory safety sensors; smart CCTV that detects motion locally; IoT devices in smart cities.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="3 (b)" data-m="4">
+                                <p>Explain <strong>two</strong> ways that remote and hybrid working have changed organisational culture.</p>
+                                <div class="ms"><p class="ref">Spec 3.1.1</p><ul><li>Change (1) + explanation (1), twice. E.g. more communication by video call and chat (1) so messages can be misunderstood and relationships harder to build (1); more staff monitoring software (1) which can reduce trust and morale (1); expectation to be always available (1) blurring work–life boundaries (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 3 = 6 marks)</p>
+
+                            <div class="q" data-n="4 (a)" data-m="2">
+                                <p>Name <strong>two</strong> of the eight data protection principles.</p>
+                                <div class="ms"><p class="ref">Spec 4.1.3</p><ul><li>Any two: fair and lawful; purposes; adequacy; accuracy; retention; rights; security; international transfer.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="4 (b)" data-m="2">
+                                <p>Explain <strong>one</strong> implication for employers of the display screen equipment regulations.</p>
+                                <div class="ms"><p class="ref">Spec 4.1.1</p><ul><li>Implication (1) + explanation (1): e.g. must carry out a DSE workstation assessment (1) to reduce the risk of back pain and RSI (1); provide eye tests on request (1); plan breaks (1); provide training (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="4 (c)" data-m="2">
+                                <p>Describe what is meant by victimisation under the Equality Act 2010.</p>
+                                <div class="ms"><p class="ref">Spec 4.1.5</p><ul><li>Treating someone badly (1) because they have made or supported a complaint of discrimination (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="4 (d)" data-m="3">
+                                <p>Give <strong>three</strong> items of content typically found in an acceptable use policy.</p>
+                                <div class="ms"><p class="ref">Spec 4.2.4</p><ul><li>Any three: permitted activities; prohibited activities; working practices / confidentiality; communication etiquette; organisation image; sanctions / penalties.</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 4 = 9 marks)</p>
+                            <p class="paper-total">TOTAL FOR SECTION A = 30 MARKS</p>
+                        </div>
+                    </section>
+
+                    <section class="window" id="secB">
+                        <h2>SECTION B (60 marks)</h2>
+                        <div class="window-body">
+                            <p>Answer ALL questions.</p>
+                            <div class="box scenario">
+                                <h4>■ SCENARIO: CALDER VALLEY VETS</h4>
+                                <ul>
+                                    <li>Calder Valley Vets has six surgeries across West Yorkshire and 90 staff. Appointments are booked by phone and pet records are kept on paper at each surgery.</li>
+                                    <li>The group has hired a small development team to build an online system for booking appointments, storing pet records, taking payments and sending reminders by text message.</li>
+                                    <li>Many clients are elderly. Some live in rural areas with poor mobile signal.</li>
+                                </ul>
+                            </div>
+
+                            <div class="q" data-n="5 (a)" data-m="4">
+                                <p>Use decomposition to identify <strong>four</strong> main parts of the new system.</p>
+                                <div class="ms"><p class="ref">Spec 1.1.7</p><ul><li>Any four: client/pet accounts; appointment booking/calendar; pet records; payments; text reminders; staff/admin area; reporting.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="5 (b)" data-m="4">
+                                <p>This algorithm should count the appointments that last more than 30 minutes. Identify <strong>two</strong> errors and give the correction for each.</p>
+                                <table>
+                                    <tr><td>1</td><td>Set count to 1</td></tr>
+                                    <tr><td>2</td><td>For each appointment in the list</td></tr>
+                                    <tr><td>2.1</td><td>If appointment length &lt; 30</td></tr>
+                                    <tr><td>2.1.1</td><td>Add 1 to count</td></tr>
+                                    <tr><td>3</td><td>Output count</td></tr>
+                                </table>
+                                <div class="ms"><p class="ref">Spec 1.2.9–10</p><ul><li>Line 1: count set to 1 (1); should be 0 (1).</li><li>Line 2.1: uses &lt; 30 (1); should be &gt; 30 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="5 (c)" data-m="6">
+                                <p>Write a Python function <code>appointment_cost(consult_type, is_member)</code>. A standard consultation costs £45.00 and an emergency consultation costs £120.00. Members receive 10% off. The function should return the cost, or −1 if the consultation type is not recognised.</p>
+                                <div class="ms">
+                                    <p class="ref">Spec 2.7.6, 2.4.6</p>
+                                    <ul><li>Function defined with two parameters (1)</li><li>Correct price for standard and emergency (1)</li><li>Returns −1 for an unrecognised type (1)</li><li>Applies 10% discount for members (1)</li><li>Returns the cost (1)</li><li>Correct syntax and indentation throughout (1)</li></ul>
+                                    <p><strong>Example answer:</strong></p>
+<pre class="code">
+def appointment_cost(consult_type, is_member):
+    prices = {"standard": 45.00, "emergency": 120.00}
+    if consult_type not in prices:
+        return -1
+    cost = prices[consult_type]
+    if is_member:
+        cost = cost * 0.9
+    return round(cost, 2)
+
+print(appointment_cost("standard", True))
+print(appointment_cost("emergency", False))
+print(appointment_cost("dental", False))
+</pre>
+<pre class="out">
+40.5
+120.0
+-1
+</pre>
+                                </div>
+                            </div>
+                            <div class="q" data-n="5 (d)" data-m="4">
+                                <p>After launch, some reminder texts are sent on the wrong day. Explain why the team should use root cause analysis, and suggest a suitable approach.</p>
+                                <div class="ms"><p class="ref">Spec 1.3.3–4</p><ul><li>Root cause analysis finds the underlying cause (1) so the fault is fixed permanently rather than patching symptoms / it doesn't recur (1).</li><li>Approach named (1) with justification (1): e.g. five whys, because it's quick for a single fault; or FMEA to check other parts of the reminder system for similar failures.</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 5 = 18 marks)</p>
+
+                            <div class="q" data-n="6 (a)" data-m="6">
+                                <p>The code below should ask for a pet's weight and only accept values from 0.1 to 100.0 kg. It contains <strong>three</strong> errors. Identify each error and state the correction.</p>
+<pre class="code">
+def get_weight():
+    while True
+        weight = input("Pet weight (kg): ")
+        try:
+            weight = int(weight)
+        except ValueError:
+            print("Enter a number")
+            continue
+        if weight > 0.1 and weight &lt;= 100.0:
+            return weight
+        print("Weight must be between 0.1 and 100.0 kg")
+</pre>
+                                <div class="ms">
+                                    <p class="ref">Spec 2.10.4–5</p>
+                                    <ul><li>Line 2: missing colon after <code>while True</code> (1); add <code>:</code> (1).</li><li>Line 5: <code>int()</code> rejects decimal weights such as 2.5 (1); use <code>float()</code> (1).</li><li>Line 9: <code>&gt; 0.1</code> rejects 0.1 (1); use <code>&gt;= 0.1</code> (1).</li></ul>
+                                    <p><strong>Corrected code:</strong></p>
+<pre class="code">
+def get_weight():
+    while True:
+        weight = input("Pet weight (kg): ")
+        try:
+            weight = float(weight)
+        except ValueError:
+            print("Enter a number")
+            continue
+        if weight >= 0.1 and weight &lt;= 100.0:
+            return weight
+        print("Weight must be between 0.1 and 100.0 kg")
+
+print(get_weight())
+</pre>
+<pre class="out">
+Pet weight (kg): heavy
+Enter a number
+Pet weight (kg): 0.05
+Weight must be between 0.1 and 100.0 kg
+Pet weight (kg): 0.1
+0.1
+</pre>
+                                </div>
+                            </div>
+                            <div class="q" data-n="6 (b)" data-m="4">
+                                <p>Complete a test plan for the weight input by giving <strong>one</strong> item of test data for each type and the expected result: valid, boundary, invalid, erroneous.</p>
+                                <div class="ms"><p class="ref">Spec 2.12.4</p><ul><li>Valid, e.g. 12.5, accepted (1)</li><li>Boundary, e.g. 0.1 or 100.0 accepted / 0.09 or 100.1 rejected (1)</li><li>Invalid, e.g. 150 or −3, rejected with message (1)</li><li>Erroneous, e.g. "ten" or blank, rejected with message (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-n="6 (c)" data-m="3">
+                                <p>The system stores 40,000 pet records sorted by pet ID. Explain why binary search is more suitable than linear search for finding a record.</p>
+                                <div class="ms"><p class="ref">Spec 2.11.6</p><ul><li>The list is already sorted, which binary search needs (1).</li><li>Binary search halves the remaining records each comparison, so needs about 16 comparisons for 40,000 (1)</li><li>whereas linear search could need up to 40,000, so binary search gives much faster results for staff (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 6 = 13 marks)</p>
+
+                            <div class="q" data-n="7 (a)" data-m="4">
+                                <p>The group plans to add an AI chatbot that asks clients about their pet's symptoms before booking. Explain <strong>two</strong> impacts of this on the surgery staff.</p>
+                                <div class="ms"><p class="ref">Spec 3.1.1, 3.2.1</p><ul><li>Impact (1) + explanation (1), twice. E.g. reception staff take fewer routine calls (1) so they have more time for clients in the surgery (1); staff may fear job losses (1) lowering morale (1); vets must check AI triage is accurate (1) because wrong advice could harm animals and the practice's reputation (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="*7 (b)" data-m="6">
+                                <p>Discuss the digital inclusion issues the group must consider when moving appointment booking online.</p>
+                                <div class="ms">
+                                    <p class="ref">Spec 3.1.2–3</p>
+                                    <p><strong>Indicative content:</strong> elderly clients may lack digital skills or confidence; rural clients have poor connectivity; some lack suitable devices; site must meet accessibility standards (large text, screen reader support, plain language); keep phone booking as an alternative; assisted digital support at reception; benefits of 24/7 booking for many clients; risk of excluding loyal clients who may go elsewhere.</p>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                            <p class="paper-total">(Total for Question 7 = 10 marks)</p>
+
+                            <div class="q" data-n="8 (a)" data-m="4">
+                                <p>Explain how <strong>two</strong> data protection principles apply to the way the group stores clients' details.</p>
+                                <div class="ms"><p class="ref">Spec 4.1.3</p><ul><li>Principle (1) applied (1), twice. E.g. security: records encrypted and access restricted to staff who need them (1)(1); adequacy: only collect details needed to treat the pet and contact the owner (1)(1); retention: delete records of clients who have left after a set period (1)(1); accuracy: owners can update contact details (1)(1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="8 (b)" data-m="3">
+                                <p>A veterinary nurse looks up the records of a celebrity's dog out of curiosity. Explain which law may have been broken and the possible consequences for the nurse.</p>
+                                <div class="ms"><p class="ref">Spec 4.1.4</p><ul><li>Computer Misuse Act 1990, section 1: unauthorised access (1); accept data protection breach.</li><li>Consequence (1) + development (1): e.g. dismissal for gross misconduct (1) and possible prosecution, fine or prison (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 8 = 7 marks)</p>
+
+                            <div class="q" data-n="*9" data-m="12">
+                                <p>Evaluate the group's plan to replace paper records and telephone booking with the new online system. In your answer, consider the legal requirements, the impact on clients and staff, and how the development team should approach the problem.</p>
+                                <div class="ms">
+                                    <p class="ref">Synoptic: spec 1.3, 3.1, 4.1</p>
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Benefits: 24/7 booking; records available at all six surgeries; fewer lost paper records; automated reminders reduce missed appointments; online payments.</li>
+                                        <li>Legal: personal data must meet data protection principles (security, retention, accuracy); staff training and access control; computer misuse awareness; accessibility; DSE assessments for staff using screens more.</li>
+                                        <li>Clients and staff: digital inclusion of elderly and rural clients; staff retraining and resistance to change; reduced phone workload.</li>
+                                        <li>Development approach: decomposition and modularisation suit a small team; top-down design from requirements; abstraction of what each module needs; thorough testing; root cause analysis after faults.</li>
+                                        <li>Risks: system failure stops bookings at all sites; data breach; cost.</li>
+                                        <li>Judgement: e.g. worthwhile if phone booking is kept for those who need it, data protection is designed in, and the system is tested and rolled out carefully.</li>
+                                    </ul>
+                                    <div class="levels" data-max="12"></div>
+                                </div>
+                            </div>
+                            <p class="paper-total">(Total for Question 9 = 12 marks)</p>
+                            <p class="paper-total">TOTAL FOR SECTION B = 60 MARKS<br>TOTAL FOR PAPER = 90 MARKS</p>
+                            <p class="paper-total" style="text-align: center">END OF PAPER</p>
+                        </div>
+                    </section>
+
+                </div>
+
+                <section class="window" id="notes">
+                    <h2>My corrections: what I need to go back over</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="corrections-mock1" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · Mock Core Paper 1 · A practice paper, not a Pearson paper.</p>
+        </footer>
+
+    </div>
+
+    <script src="revision.js?v=2026-10-29"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

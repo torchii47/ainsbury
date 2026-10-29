@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Glossary | Rowan's Website</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+</head>
+<body>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Toolkit">
+            <a href="../index.html">&larr; Home</a>
+            <a href="../revision/index.html" class="nav-featured">📚 Revision Guide</a>
+            <a href="starter.html">Starter</a>
+            <a href="checklist.html">Checklist</a>
+            <a href="cheatsheet.html">Cheat Sheet</a>
+            <a href="mistakes.html">Mistakes</a>
+            <a href="glossary.html" aria-current="page">Glossary</a>
+            <a href="term.html">Term Planner</a>
+            <a href="placement.html">Placement</a>
+            <a href="question.html">Random Question</a>
+        </nav>
+
+        <main>
+        <section class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">glossary.dic</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Glossary</h1>
+                <p class="page-intro">Key terms in plain English for building websites: HTML, CSS, design and the web.</p>
+                <div class="guidelines-box">
+                    <h3>Revising for the core exams?</h3>
+                    <p>The exam terms (all eight content areas, about 280 definitions) are in the <a href="../revision/glossary.html">Core Revision Guide glossary</a>, with flashcards and a filter by content area.</p>
+                </div>
+
+                <nav class="letter-nav" aria-label="Glossary sections">
+                    <a class="button" href="#web">Web basics</a>
+                    <a class="button" href="#html-css">HTML &amp; CSS</a>
+                    <a class="button" href="#design">Design &amp; accessibility</a>
+                    <a class="button" href="#dev">Development</a>
+                    <a class="button" href="#law">Legislation</a>
+                </nav>
+            </div>
+        </section>
+
+        <section class="window" id="web">
+            <div class="title-bar">
+                <h2>Web basics</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <dl class="glossary">
+                    <dt>Browser</dt>
+                    <dd>Software that fetches and displays web pages, e.g. Chrome, Firefox, Edge, Safari.</dd>
+                    <dt>Client</dt>
+                    <dd>The device requesting a web page, usually your browser.</dd>
+                    <dt>Server</dt>
+                    <dd>A computer that stores websites and sends pages to clients when they ask for them.</dd>
+                    <dt>Hosting</dt>
+                    <dd>A service that stores your site on a server so it's available online. Neocities is a host.</dd>
+                    <dt>Domain name</dt>
+                    <dd>The human-readable address of a site, e.g. <code>neocities.org</code>.</dd>
+                    <dt>URL</dt>
+                    <dd>The full address of a specific page or file, e.g. <code>https://example.neocities.org/about.html</code>.</dd>
+                    <dt>HTTP / HTTPS</dt>
+                    <dd>The protocol browsers and servers use to communicate. HTTPS is the secure, encrypted version.</dd>
+                    <dt>Cache</dt>
+                    <dd>Copies of files saved by the browser so pages load faster next time. Can show you an old version of your site.</dd>
+                    <dt>Front end</dt>
+                    <dd>The part of a site users see and interact with: HTML, CSS and JavaScript running in the browser.</dd>
+                    <dt>Back end</dt>
+                    <dd>The part that runs on the server: databases, logins, processing data.</dd>
+                </dl>
+            </div>
+        </section>
+
+        <section class="window" id="html-css">
+            <div class="title-bar">
+                <h2>HTML &amp; CSS</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <dl class="glossary">
+                    <dt>HTML (HyperText Markup Language)</dt>
+                    <dd>The language that gives a web page its structure and content.</dd>
+                    <dt>CSS (Cascading Style Sheets)</dt>
+                    <dd>The language that controls how a page looks: colours, fonts, layout.</dd>
+                    <dt>JavaScript</dt>
+                    <dd>A programming language that adds behaviour and interactivity to pages.</dd>
+                    <dt>Element</dt>
+                    <dd>A piece of a page made from an opening tag, content and a closing tag, e.g. <code>&lt;p&gt;Hello&lt;/p&gt;</code>.</dd>
+                    <dt>Tag</dt>
+                    <dd>The code in angle brackets that marks the start or end of an element, e.g. <code>&lt;p&gt;</code>.</dd>
+                    <dt>Attribute</dt>
+                    <dd>Extra information inside an opening tag, e.g. <code>href</code> in <code>&lt;a href="about.html"&gt;</code>.</dd>
+                    <dt>Semantic HTML</dt>
+                    <dd>Using tags that describe their meaning (<code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>) rather than generic ones (<code>&lt;div&gt;</code>). Helps accessibility and search engines.</dd>
+                    <dt>Selector</dt>
+                    <dd>The part of a CSS rule that chooses which elements to style.</dd>
+                    <dt>Class / ID</dt>
+                    <dd>Names you give elements so CSS can target them. A class can be reused; an ID should be unique on the page.</dd>
+                    <dt>Box model</dt>
+                    <dd>Every element is a box made of content, padding, border and margin.</dd>
+                    <dt>Flexbox / Grid</dt>
+                    <dd>CSS layout systems. Flexbox arranges items in a row or column; Grid arranges them in rows and columns.</dd>
+                    <dt>Relative path</dt>
+                    <dd>A link to a file based on where the current file is, e.g. <code>images/cat.png</code>.</dd>
+                    <dt>Absolute path</dt>
+                    <dd>A full address including the domain, e.g. <code>https://example.com/images/cat.png</code>.</dd>
+                    <dt>DOM (Document Object Model)</dt>
+                    <dd>The browser's tree-shaped model of a page, which JavaScript can read and change.</dd>
+                </dl>
+            </div>
+        </section>
+
+        <section class="window" id="design">
+            <div class="title-bar">
+                <h2>Design &amp; accessibility</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <dl class="glossary">
+                    <dt>Accessibility</dt>
+                    <dd>Designing so everyone can use a site, including people with visual, hearing, motor or cognitive impairments.</dd>
+                    <dt>WCAG</dt>
+                    <dd>The Web Content Accessibility Guidelines: the international standard for accessible websites.</dd>
+                    <dt>Alt text</dt>
+                    <dd>A text description of an image, read aloud by screen readers and shown if the image fails to load.</dd>
+                    <dt>Screen reader</dt>
+                    <dd>Software that reads page content aloud for people who are blind or partially sighted.</dd>
+                    <dt>Colour contrast</dt>
+                    <dd>The difference in brightness between text and its background. Low contrast is hard to read.</dd>
+                    <dt>Responsive design</dt>
+                    <dd>A site that adapts its layout to fit any screen size, from phones to large monitors.</dd>
+                    <dt>Media query</dt>
+                    <dd>CSS that only applies when a condition is met, such as the screen being narrower than 600px.</dd>
+                    <dt>Viewport</dt>
+                    <dd>The visible area of a web page on the user's screen.</dd>
+                    <dt>UI (User Interface)</dt>
+                    <dd>The parts of a product a user interacts with: buttons, menus, layout.</dd>
+                    <dt>UX (User Experience)</dt>
+                    <dd>How easy and pleasant something is to use overall.</dd>
+                    <dt>Wireframe</dt>
+                    <dd>A simple sketch of a page layout showing where content goes, without colours or images.</dd>
+                    <dt>Prototype</dt>
+                    <dd>An early working model of a product used to test ideas before building it fully.</dd>
+                </dl>
+            </div>
+        </section>
+
+        <section class="window" id="dev">
+            <div class="title-bar">
+                <h2>Development</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <dl class="glossary">
+                    <dt>Validation</dt>
+                    <dd>Checking code against the official rules to find errors, e.g. with the W3C validator.</dd>
+                    <dt>Debugging</dt>
+                    <dd>Finding and fixing errors in code.</dd>
+                    <dt>Testing</dt>
+                    <dd>Checking a product works as intended, across different browsers, devices and users.</dd>
+                    <dt>Version control</dt>
+                    <dd>Tracking changes to files over time so you can see history and undo mistakes. Git is the most common tool.</dd>
+                    <dt>Iteration</dt>
+                    <dd>Improving a product in repeated cycles of building, testing and refining.</dd>
+                    <dt>Requirements</dt>
+                    <dd>What a client or user needs a product to do.</dd>
+                    <dt>Stakeholder</dt>
+                    <dd>Anyone with an interest in a project, e.g. clients, users, managers.</dd>
+                    <dt>SEO (Search Engine Optimisation)</dt>
+                    <dd>Making a site easier for search engines to find and rank, e.g. with good titles, headings and descriptions.</dd>
+                    <dt>Compression</dt>
+                    <dd>Reducing a file's size so it downloads faster.</dd>
+                </dl>
+            </div>
+        </section>
+
+        <section class="window" id="law">
+            <div class="title-bar">
+                <h2>Legislation</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <dl class="glossary">
+                    <dt>Data Protection Act 2018 / UK GDPR</dt>
+                    <dd>UK law controlling how personal data is collected, stored and used. People have rights over their own data.</dd>
+                    <dt>Computer Misuse Act 1990</dt>
+                    <dd>Makes it illegal to access or modify computer systems or data without permission.</dd>
+                    <dt>Copyright, Designs and Patents Act 1988</dt>
+                    <dd>Protects original work, including images, music, text and code. Don't use other people's work without permission or a suitable licence.</dd>
+                    <dt>Equality Act 2010</dt>
+                    <dd>Protects people from discrimination, including disabled people's access to services. Relevant to website accessibility.</dd>
+                </dl>
+            </div>
+        </section>
+        </main>
+
+    </div>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

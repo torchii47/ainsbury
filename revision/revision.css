@@ -1,0 +1,1377 @@
+/* ==========================================================
+   Core Revision Guide: extra styles on top of ../css/style.css
+   Each part of the guide has its own colour, set by the class on
+   <body> (e.g. class="rev ca1"). Change --ca to re-colour a page.
+   ========================================================== */
+
+.rev        { --ca: #14213d; --ca-2: #3e5585; --ca-light: #e6eaf3; }
+.rev.ca1    { --ca: #1f4e79; --ca-2: #4a7fb0; --ca-light: #dfeaf5; }
+.rev.ca2    { --ca: #8b3a00; --ca-2: #c0632a; --ca-light: #fbe6d9; }
+.rev.ca3    { --ca: #00664f; --ca-2: #2f9a7f; --ca-light: #daf0e9; }
+.rev.ca4    { --ca: #5b2a86; --ca-2: #8a5bb5; --ca-light: #ece2f5; }
+.rev.ca5    { --ca: #7a5c00; --ca-2: #a8862a; --ca-light: #f6eed5; }
+.rev.ca6    { --ca: #005f73; --ca-2: #2f8ea3; --ca-light: #d8edf2; }
+.rev.ca7    { --ca: #8b1e3f; --ca-2: #b8506f; --ca-light: #f7dfe6; }
+.rev.ca8    { --ca: #333333; --ca-2: #666666; --ca-light: #e8e8e8; }
+
+[hidden] {
+    display: none !important;
+}
+
+.rev-site {
+    max-width: 1240px;
+}
+
+.rev h3 {
+    color: var(--ca);
+    border-bottom: 2px dashed var(--ca-2);
+    margin-top: 1.2rem;
+}
+
+.rev h3:first-child {
+    margin-top: 0;
+}
+
+.rev h4 {
+    margin: 1rem 0 0.4rem;
+    color: var(--ca);
+}
+
+.rev a {
+    color: var(--ca);
+}
+
+.rev a:hover,
+.rev a:focus-visible {
+    background: var(--ca);
+    color: var(--white);
+}
+
+/* ----------------------------------------------------------
+   Header banner (like the coloured section openers)
+   ---------------------------------------------------------- */
+.rev-header {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+    padding: 18px 22px;
+    color: var(--white);
+    background: var(--ca);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+}
+
+.rev-header .kicker {
+    margin: 0;
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    line-height: 1.8;
+    color: var(--yellow);
+}
+
+.rev-header h1 {
+    position: relative;
+    margin: 8px 0 10px;
+    color: var(--white);
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: clamp(1.05rem, 3.6vw, 1.9rem);
+    line-height: 1.45;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+.rev-header p {
+    position: relative;
+    max-width: 75ch;
+}
+
+.rev-header .links {
+    font-size: 0.85rem;
+    opacity: 0.95;
+}
+
+.rev-header a {
+    color: var(--yellow);
+}
+
+.rev-header .big-num {
+    position: absolute;
+    right: 14px;
+    bottom: -42px;
+    font-family: "Arial Black", Impact, sans-serif;
+    font-size: 10rem;
+    line-height: 1;
+    opacity: 0.16;
+    pointer-events: none;
+}
+
+/* Nav buttons get a coloured tab underneath, like the printed page tabs */
+.rev-nav a[class^="tab-"] {
+    border-bottom-width: 5px;
+}
+
+.rev-nav .tab-index, .rev-nav .tab-exams, .rev-nav .tab-mock1,
+.rev-nav .tab-mock2, .rev-nav .tab-glossary { border-bottom-color: #14213d; }
+.rev-nav .tab-ca1 { border-bottom-color: #1f4e79; }
+.rev-nav .tab-ca2 { border-bottom-color: #8b3a00; }
+.rev-nav .tab-ca3 { border-bottom-color: #00664f; }
+.rev-nav .tab-ca4 { border-bottom-color: #5b2a86; }
+.rev-nav .tab-ca5 { border-bottom-color: #7a5c00; }
+.rev-nav .tab-ca6 { border-bottom-color: #005f73; }
+.rev-nav .tab-ca7 { border-bottom-color: #8b1e3f; }
+.rev-nav .tab-ca8 { border-bottom-color: #333333; }
+
+/* ----------------------------------------------------------
+   Layout: contents sidebar + main column
+   ---------------------------------------------------------- */
+.rev-layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.rev-toc {
+    position: sticky;
+    top: 10px;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    padding: 6px;
+    font-size: 0.85rem;
+    background: var(--grey);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 4px 4px 0 var(--ca);
+}
+
+.rev-toc summary {
+    padding: 2px 8px;
+    cursor: pointer;
+    color: var(--white);
+    background: linear-gradient(90deg, var(--ca), var(--ca-2));
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.35rem;
+}
+
+.rev-toc ol {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 4px;
+    background: var(--white);
+    border: 2px solid;
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+.rev-toc li {
+    margin: 0;
+}
+
+.rev-toc ol a {
+    display: block;
+    padding: 3px 6px;
+    color: var(--ink);
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.rev-toc ol a.active {
+    color: var(--white);
+    background: var(--ca);
+}
+
+.toc-option {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin: 8px 2px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.toc-option input {
+    accent-color: var(--ca);
+    margin-top: 3px;
+}
+
+.reminder-box {
+    margin-top: 8px;
+    padding: 8px;
+    background: #fff8d6;
+    border: 2px dashed var(--ca);
+}
+
+.reminder-box strong {
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+    color: var(--ca);
+}
+
+.reminder-box p {
+    margin: 6px 0;
+}
+
+.reminder-box .button {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+}
+
+@media (max-width: 900px) {
+    .rev-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .rev-toc {
+        position: static;
+        max-height: none;
+    }
+}
+
+/* ----------------------------------------------------------
+   Windows: the h2 is the title bar
+   ---------------------------------------------------------- */
+.rev .window {
+    box-shadow: 4px 4px 0 var(--ca);
+    scroll-margin-top: 12px;
+}
+
+.rev .window > h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 3px 76px 3px 8px;
+    color: var(--white);
+    background: linear-gradient(90deg, var(--ca), var(--ca-2));
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.5rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+    overflow-wrap: anywhere;
+}
+
+/* The _ □ × buttons (added by js/windows.js) sit over the right of the h2,
+   so the heading text itself stays clean for the page contents list.
+   The right padding on the h2 above leaves room for them. */
+.rev .window:not(.win-maximised) {
+    position: relative;
+}
+
+.rev .window.win-maximised {
+    box-shadow: 0 0 0 100vmax rgba(20, 20, 40, 0.6);
+}
+
+.rev .title-bar-controls-float {
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    margin: 0;
+}
+
+.rev .window-body {
+    overflow-wrap: break-word;
+}
+
+/* ----------------------------------------------------------
+   Tables
+   ---------------------------------------------------------- */
+.table-wrap {
+    overflow-x: auto;
+    margin: 8px 0 14px;
+}
+
+.rev main table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: var(--white);
+}
+
+.rev main th,
+.rev main td {
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid var(--grey-dark);
+}
+
+.rev main th {
+    color: var(--white);
+    background: var(--ca);
+}
+
+.rev main tr:nth-child(even) td {
+    background: var(--ca-light);
+}
+
+.rev main td ul {
+    margin: 0;
+    padding-left: 16px;
+}
+
+/* Spec checklist */
+table.spec td:nth-child(n+3),
+table.spec th:nth-child(n+3) {
+    width: 4.6em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.spec td:first-child {
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+table.spec input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ca);
+    cursor: pointer;
+}
+
+table.spec tr.rated-secure td:first-child { box-shadow: inset 6px 0 #137a2f; }
+table.spec tr.rated-unsure td:first-child { box-shadow: inset 6px 0 #d99a00; }
+table.spec tr.rated-revise td:first-child { box-shadow: inset 6px 0 #c0001a; }
+table.spec.only-weak tr.rated-secure { display: none; }
+
+.spec-summary {
+    font-weight: bold;
+}
+
+/* ----------------------------------------------------------
+   Boxes: exam tip, common mistake, quick check, stretch...
+   ---------------------------------------------------------- */
+.box {
+    margin: 14px 0;
+    padding: 10px 14px;
+    background: var(--ca-light);
+    border: 1px solid var(--ca);
+    border-left: 6px solid var(--ca);
+}
+
+.box h4 {
+    margin: 0 0 6px;
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.6rem;
+    line-height: 1.7;
+    letter-spacing: 1px;
+    color: var(--ca);
+}
+
+.box > :last-child,
+.box ul:last-child {
+    margin-bottom: 0;
+}
+
+.box ul {
+    margin-top: 0;
+}
+
+.box.mistake { background: #fdecec; border-color: #b3001b; }
+.box.mistake h4 { color: #b3001b; }
+.box.worked { background: #fffbe6; }
+.box.stretch { background: var(--white); border-style: dashed; border-left-style: solid; }
+.box.support { background: #f2f2f2; }
+.box.scenario { background: #fff8d6; border: 2px dashed var(--ca); }
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.grid-2 > .box {
+    margin: 0;
+}
+
+/* ----------------------------------------------------------
+   Quick recall (cover-up definitions)
+   ---------------------------------------------------------- */
+.recall-box {
+    margin: 16px 0;
+    padding: 10px 14px;
+    background: var(--ca-light);
+    border: 2px solid var(--ca);
+}
+
+.recall-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    margin-bottom: 8px;
+}
+
+.recall-head strong {
+    color: var(--ca);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.45rem;
+    font-weight: normal;
+}
+
+.recall-head span {
+    flex: 1;
+    font-size: 0.85rem;
+}
+
+.recall-head .button {
+    font-size: 0.8rem;
+}
+
+dl.recall {
+    display: grid;
+    grid-template-columns: minmax(130px, 230px) 1fr;
+    margin: 0;
+    background: var(--white);
+    border: 1px solid var(--grey-dark);
+}
+
+dl.recall dt,
+dl.recall dd {
+    margin: 0;
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--grey-light);
+}
+
+dl.recall dt {
+    font-weight: bold;
+}
+
+dl.recall.covered dd {
+    cursor: pointer;
+}
+
+dl.recall.covered dd:not(.shown) {
+    color: transparent;
+    background: repeating-linear-gradient(45deg, var(--grey-light) 0 6px, var(--grey) 6px 12px);
+    user-select: none;
+}
+
+dl.recall.covered dd:not(.shown) * {
+    visibility: hidden;
+}
+
+@media (max-width: 600px) {
+    dl.recall {
+        grid-template-columns: 1fr;
+    }
+
+    dl.recall dt {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
+
+/* ----------------------------------------------------------
+   Flashcards
+   ---------------------------------------------------------- */
+.flashcard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 190px;
+    margin-bottom: 10px;
+    padding: 22px;
+    color: var(--ink);
+    background: var(--white);
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 1.15rem;
+    text-align: center;
+    cursor: pointer;
+    border: 3px double var(--ca);
+    box-shadow: 4px 4px 0 var(--ca);
+}
+
+.flashcard.flipped {
+    background: var(--ca-light);
+}
+
+.flashcard-face {
+    font-weight: bold;
+}
+
+.flashcard.flipped .flashcard-face {
+    font-weight: normal;
+}
+
+.flashcard-hint {
+    color: #595959;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+}
+
+.flashcard-count {
+    font-family: "VT323", monospace;
+    font-size: 1.4rem;
+}
+
+/* ----------------------------------------------------------
+   Knowledge organiser
+   ---------------------------------------------------------- */
+.ko {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.ko > div {
+    padding: 10px 12px;
+    background: var(--ca-light);
+    border-top: 5px solid var(--ca);
+}
+
+.ko h4 {
+    margin: 0 0 6px;
+    color: var(--ca);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.35rem;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+.ko ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.9rem;
+}
+
+.ko li {
+    margin-bottom: 3px;
+}
+
+.ko.quiz li {
+    cursor: pointer;
+}
+
+.ko.quiz li:not(.seen) {
+    filter: blur(5px);
+    user-select: none;
+}
+
+/* ----------------------------------------------------------
+   Code blocks (line numbers come from a CSS counter)
+   ---------------------------------------------------------- */
+.code-wrap {
+    position: relative;
+}
+
+.rev pre.code {
+    counter-reset: line;
+    padding-left: 0;
+    padding-right: 120px;
+}
+
+.rev pre.code .ln {
+    display: block;
+    min-height: 1.4em;
+    padding-left: 3.2em;
+}
+
+.rev pre.code .ln::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 2.2em;
+    margin-left: -3em;
+    margin-right: 0.8em;
+    text-align: right;
+    color: #b07a98;
+    user-select: none;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 1px 6px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: var(--grey);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+}
+
+.out-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin: -6px 0 6px;
+    font-size: 0.9rem;
+}
+
+.out-label .button {
+    padding: 2px 10px;
+    font-size: 0.8rem;
+}
+
+.rev pre.out {
+    color: #39ff14;
+    background: #111;
+    border-style: dotted;
+}
+
+/* ----------------------------------------------------------
+   Questions and self-marking
+   ---------------------------------------------------------- */
+.scoreboard {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    color: var(--yellow);
+    background: var(--ink);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.25rem;
+    border: 3px ridge var(--ca-2);
+}
+
+.score-text {
+    flex: 1 1 260px;
+}
+
+.scoreboard .button {
+    padding: 3px 10px;
+    font-size: 0.78rem;
+}
+
+.mock .scoreboard {
+    position: static;
+}
+
+.q {
+    padding: 12px 0 16px;
+    border-bottom: 2px dashed var(--ca-light);
+}
+
+.q:last-child {
+    border-bottom: none;
+}
+
+.q-num {
+    display: inline-block;
+    min-width: 2.8em;
+    margin-bottom: 4px;
+    padding: 1px 6px;
+    color: var(--white);
+    background: var(--ca);
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.q > p:first-of-type {
+    font-weight: bold;
+}
+
+.q-marks {
+    color: var(--ca);
+    white-space: nowrap;
+}
+
+.q-answer {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 6px 8px;
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 0.95rem;
+    resize: vertical;
+    border: 2px solid;
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+    background: #fffef5;
+}
+
+.q-self {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.ms {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #f0fbf2;
+    border: 2px solid #137a2f;
+}
+
+.ms::before {
+    content: "\2714  MARK SCHEME";
+    display: block;
+    margin-bottom: 6px;
+    color: #137a2f;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.55rem;
+}
+
+.ms ul {
+    margin-top: 0;
+}
+
+.ms .ref {
+    color: #137a2f;
+    font-family: "Courier New", monospace;
+    font-size: 0.85rem;
+}
+
+.sub-label {
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.3rem;
+    color: var(--ca);
+}
+
+/* Mock paper timer bar */
+.mock-bar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 6px 8px;
+    background: var(--grey);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 4px 4px 0 var(--ca);
+}
+
+.mock-clock {
+    min-width: 5.2em;
+    color: #39ff14;
+    background: #000;
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.mock-status {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.paper-total {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* ----------------------------------------------------------
+   Diagrams
+   ---------------------------------------------------------- */
+.fig {
+    margin: 14px 0;
+    text-align: center;
+}
+
+.fig svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.fig figcaption {
+    margin-top: 6px;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.fig text {
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 13px;
+    fill: var(--ink);
+}
+
+.fig .shape {
+    fill: var(--white);
+    stroke: var(--ca);
+    stroke-width: 2;
+}
+
+.fig .line {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.6;
+}
+
+.fig .label {
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Boxes joined by arrows */
+.flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 12px 0;
+}
+
+.flow > div {
+    flex: 1 1 110px;
+    max-width: 220px;
+    padding: 8px;
+    text-align: center;
+    background: var(--white);
+    border: 2px solid var(--ca);
+    box-shadow: 3px 3px 0 var(--ca-light);
+    font-size: 0.85rem;
+}
+
+.flow > div strong {
+    display: block;
+    color: var(--ca);
+}
+
+.flow .arrow {
+    color: var(--ca);
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* Tree diagrams (block diagram, hierarchical model) */
+.tree {
+    margin: 14px 0;
+    text-align: center;
+}
+
+.tree-root {
+    display: inline-block;
+    padding: 8px 22px;
+    font-weight: bold;
+    background: var(--white);
+    border: 2px solid var(--ca);
+}
+
+.tree-kids {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 3px solid var(--ca);
+}
+
+.tree-kids > div > strong {
+    display: block;
+    padding: 6px;
+    color: var(--white);
+    background: var(--ca);
+}
+
+.tree-kids ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 2px solid var(--ca);
+    border-top: none;
+}
+
+.tree-kids li {
+    margin: 0;
+    padding: 5px;
+    font-size: 0.85rem;
+    background: var(--white);
+    border-top: 1px dashed var(--grey);
+}
+
+/* Click-to-reveal worked examples */
+details.box > summary {
+    cursor: pointer;
+}
+
+details.box[open] > summary {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--ca);
+}
+
+/* Algorithm stepper (CA2) */
+.viz-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 52px;
+    margin: 12px 0 6px;
+}
+
+.viz-cell {
+    min-width: 44px;
+    padding: 6px 4px;
+    text-align: center;
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 1.6rem;
+    background: var(--white);
+    border: 2px solid var(--ca);
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.viz-cell.part {
+    border-width: 2px 2px 6px;
+}
+
+.viz-cell.hi {
+    background: var(--yellow);
+}
+
+.viz-cell.fixed {
+    background: #c8efd0;
+    border-color: #137a2f;
+}
+
+.viz-cell.out {
+    opacity: 0.3;
+}
+
+.viz-note {
+    min-height: 3em;
+    font-weight: bold;
+}
+
+/* Live output boxes on CA8 (SQL query, hash) */
+.rev pre.sqli-out {
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #39ff14;
+    background: #111;
+}
+
+/* Exam timing bar */
+.time-bar {
+    display: flex;
+    height: 52px;
+    margin: 10px 0 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 2px solid var(--ink);
+}
+
+.time-bar > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    text-align: center;
+    border-right: 2px solid var(--ink);
+}
+
+.time-bar > div:last-child {
+    border-right: none;
+}
+
+.time-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-family: "Courier New", monospace;
+}
+
+/* ----------------------------------------------------------
+   Guide home
+   ---------------------------------------------------------- */
+.part-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 10px;
+}
+
+.part-card {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 14px;
+    color: var(--white);
+    background: var(--card);
+    border: 2px solid;
+    border-color: var(--white) #333 #333 var(--white);
+}
+
+.part-card > a {
+    color: var(--white);
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.part-card > a span {
+    display: block;
+    margin-top: 4px;
+    font-family: Verdana, sans-serif;
+    font-size: 0.95rem;
+    color: var(--yellow);
+}
+
+.part-card ul {
+    margin: 8px 0 0;
+    padding-left: 16px;
+    font-size: 0.82rem;
+}
+
+.part-card li {
+    margin-bottom: 2px;
+}
+
+.part-card ul a {
+    color: var(--white);
+    font-weight: normal;
+}
+
+.part-card ul a:hover,
+.part-card > a:hover {
+    color: var(--ink);
+    background: var(--yellow);
+}
+
+.mini-bar {
+    display: flex;
+    height: 12px;
+    margin-bottom: 4px;
+    background: var(--grey-light);
+    border: 1px solid var(--grey-dark);
+}
+
+.mini-secure { background: #137a2f; }
+.mini-unsure { background: #d99a00; }
+.mini-revise { background: #c0001a; }
+
+.search-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.search-row input,
+.glossary-tools input,
+.glossary-tools select {
+    flex: 1 1 220px;
+    padding: 6px 8px;
+    font-size: 1rem;
+    border: 2px solid;
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+.search-list {
+    list-style: none;
+    padding: 0;
+}
+
+.search-list li {
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--grey);
+}
+
+.search-snippet {
+    display: block;
+    font-size: 0.82rem;
+    color: #555;
+}
+
+/* Glossary */
+.glossary-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.rev .glossary dt {
+    margin-top: 10px;
+    color: var(--ca);
+}
+
+.tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 5px;
+    color: var(--white);
+    font-family: "Courier New", monospace;
+    font-size: 0.75rem;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.tag-CA1 { background: #1f4e79; }
+.tag-CA2 { background: #8b3a00; }
+.tag-CA3 { background: #00664f; }
+.tag-CA4 { background: #5b2a86; }
+.tag-CA5 { background: #7a5c00; }
+.tag-CA6 { background: #005f73; }
+.tag-CA7 { background: #8b1e3f; }
+.tag-CA8 { background: #333333; }
+
+.tag:hover {
+    color: var(--yellow);
+}
+
+/* Notes */
+textarea.notes {
+    width: 100%;
+    min-height: 140px;
+    padding: 8px;
+    font-family: "Courier New", monospace;
+    font-size: 0.95rem;
+    line-height: 26px;
+    resize: vertical;
+    background: repeating-linear-gradient(var(--white) 0 25px, #c9c9c9 25px 26px);
+    border: 2px solid;
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+}
+
+.checklist-table input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ca);
+}
+
+/* Tick list of "I can..." statements (ESP and specialism pages) */
+.checklist {
+    list-style: none;
+    padding-left: 0;
+}
+
+.checklist li {
+    margin: 6px 0;
+}
+
+.checklist label {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.checklist input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--ca);
+}
+
+.checklist input:checked + span {
+    color: #595959;
+    text-decoration: line-through;
+}
+
+/* Previous / next links */
+.pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    margin: 4px 0 20px;
+}
+
+.pager-next {
+    margin-left: auto;
+}
+
+/* ----------------------------------------------------------
+   Spaced-repetition flashcard buttons
+   ---------------------------------------------------------- */
+.srs-rate {
+    margin-bottom: 8px;
+}
+
+.srs-rate .button {
+    flex: 1 1 140px;
+    padding: 8px 12px;
+    font-size: 1rem;
+}
+
+.rev .srs-got { background: #c8efd0; }
+.rev .srs-not { background: #f8d0d6; }
+
+.srs-stats {
+    margin: 8px 0 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.srs-reset {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+}
+
+/* ----------------------------------------------------------
+   Quiz me
+   ---------------------------------------------------------- */
+.quiz-me .quiz-question {
+    margin-top: 8px;
+}
+
+.quiz-me .quiz-answer {
+    margin-bottom: 10px;
+}
+
+/* ----------------------------------------------------------
+   Python runner
+   ---------------------------------------------------------- */
+.run-btn {
+    position: absolute;
+    top: 6px;
+    right: 62px;
+    padding: 1px 6px;
+    color: #111;
+    background: #9af0a8;
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+}
+
+.runner {
+    margin: -6px 0 14px;
+    padding: 10px 12px;
+    background: var(--grey-light);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+}
+
+.runner-label {
+    display: block;
+    margin: 4px 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.code-edit {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    color: #ffd6e8;
+    background: var(--ink);
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    tab-size: 4;
+    white-space: pre;
+    overflow-x: auto;
+    resize: vertical;
+    border: 2px inset var(--grey);
+}
+
+.run-inputs {
+    color: var(--yellow);
+}
+
+.runner .button-row {
+    margin: 8px 0;
+}
+
+.runner-status {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.rev pre.run-out {
+    margin: 0;
+    color: #39ff14;
+    background: #111;
+    white-space: pre-wrap;
+}
+
+.run-images img {
+    display: block;
+    margin-top: 8px;
+    background: var(--white);
+}
+
+/* ----------------------------------------------------------
+   Phones: scrolling nav, scoreboard that doesn't stick
+   ---------------------------------------------------------- */
+@media (max-width: 600px) {
+    .rev-nav {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+
+    .rev-nav a {
+        flex-shrink: 0;
+    }
+
+    .scoreboard {
+        position: static;
+    }
+
+    .rev-header .big-num {
+        font-size: 6rem;
+        bottom: -24px;
+    }
+
+    .rev .window-body {
+        padding: 10px;
+    }
+
+    .time-bar {
+        font-size: 0.65rem;
+    }
+}
+
+/* Print: hide the clutter, show every mark scheme and output */
+@media print {
+    body {
+        background: none;
+    }
+
+    .rev-nav,
+    .rev-toc,
+    .pager,
+    .q-answer,
+    .q-tools,
+    .scoreboard,
+    .mock-bar,
+    .copy-btn,
+    .run-btn,
+    .runner,
+    .out-label .button {
+        display: none !important;
+    }
+
+    .rev-layout {
+        display: block;
+    }
+
+    .ms,
+    pre.out {
+        display: block !important;
+    }
+
+    .window {
+        box-shadow: none;
+        break-inside: avoid-page;
+    }
+
+    /* One knowledge organiser per printed page */
+    .ko-page {
+        break-after: page;
+    }
+
+    .ko-page:last-child {
+        break-after: auto;
+    }
+
+    .ko-print-intro,
+    .rev-header .big-num {
+        display: none !important;
+    }
+
+    .ko > div {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

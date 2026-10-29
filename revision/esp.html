@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employer Set Project | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev" data-page="esp">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CORE COMPONENT · 40% OF THE CORE</p>
+            <h1>Employer Set Project</h1>
+            <p>The Employer Set Project (ESP) is the synoptic part of the core: it draws on everything in content areas 1–8. This page covers how it works, the pandas and matplotlib you're allowed to use, practice at fixing defects in code, and how to write a reflective evaluation.</p>
+            <span class="big-num" aria-hidden="true">E</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="overview">
+                    <h2>What the ESP is</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Assessment</th><th>Content</th><th>Format</th><th>Weighting</th></tr>
+                            <tr><td>Employer Set Project</td><td>Synoptic: draws on all core content</td><td>Supervised project up to 14 h 30 min, 100 marks. Tasks: planning, fixing defects in code, design, development, reflective evaluation. No internet or AI tools.</td><td>40%</td></tr>
+                        </table>
+                        <p>Pre-release material comes out before the tasks start. It introduces the employer's scenario, so read it carefully and make sure you understand the business, its users and the problem.</p>
+
+                        <h3>Key dates</h3>
+                        <p>From the course key dates (provisional, so check with your teacher).</p>
+                        <table>
+                            <thead><tr><th>Date</th><th>What</th><th>Details</th></tr></thead>
+                            <tbody id="esp-dates"><tr><td colspan="3">Loading...</td></tr></tbody>
+                        </table>
+
+                        <div class="box mistake">
+                            <h4>✗ NO INTERNET OR AI TOOLS</h4>
+                            <p>You won't be able to look anything up during the tasks. Practise now so you don't need to:</p>
+                            <ul>
+                                <li>Learn the <a href="exams.html#a6">Appendix 2 Python commands</a>: they're the ones you can expect to need.</li>
+                                <li>Write code without autocomplete or AI suggestions, then run and debug it yourself.</li>
+                                <li>Get quick at reading Python error messages: the error type and line number tell you where to look (<a href="ca2.html#s2-10">2.10</a>).</li>
+                                <li>Know the pandas and matplotlib basics below by heart.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="tasks">
+                    <h2>What to revise for each kind of task</h2>
+                    <div class="window-body">
+                        <p>The ESP tasks cover planning, fixing defects, design, development and reflective evaluation. This table shows which parts of the guide help most with each. It's revision guidance, not the official mark scheme.</p>
+                        <table>
+                            <tr><th>Kind of task</th><th>What you'll be doing</th><th>Revise</th></tr>
+                            <tr><td>Planning</td><td>Breaking the brief down, working out requirements and what the solution needs to do</td><td><a href="ca1.html#s1-1">Decomposition and abstraction (1.1)</a>, <a href="ca1.html#s1-3">problem-solving strategies (1.3)</a>, <a href="ca5.html#s5-4-4">SMARTER objectives (5.4.4)</a>, <a href="ca5.html#s5-4-5">feasibility (5.4.5)</a></td></tr>
+                            <tr><td>Fixing defects in code</td><td>Finding and correcting errors in code you're given</td><td><a href="ca2.html#s2-10">Debugging and error types (2.10)</a>, <a href="ca2.html#s2-12">testing and test data (2.12)</a>, <a href="#defects">practice below</a></td></tr>
+                            <tr><td>Design</td><td>Planning the solution before you build it</td><td><a href="ca1.html#s1-2">Flowcharts and written algorithms (1.2)</a>, <a href="ca6.html#s6-9">data models (6.10)</a>, <a href="ca3.html#s3-1-3">end users and accessibility (3.1.3)</a>, <a href="ca2.html#s2-9">design considerations (2.9)</a></td></tr>
+                            <tr><td>Development</td><td>Writing and testing the code</td><td><a href="ca2.html">All of CA2</a>, <a href="ca2.html#s2-8">validation (2.8)</a>, <a href="ca2.html#s2-10">robust code (2.10)</a>, <a href="#pandas">pandas and matplotlib</a>, <a href="ca8.html">security</a></td></tr>
+                            <tr><td>Reflective evaluation</td><td>Judging how well your solution meets the brief, and how you'd improve it</td><td><a href="ca2.html#s2-9">Judging an algorithm (2.9.7)</a>, <a href="exams.html#a2">command words and the explanation ladder</a>, <a href="#evaluation">evaluation guide below</a></td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="pandas">
+                    <h2>pandas and matplotlib</h2>
+                    <div class="window-body">
+                        <p>The spec lists these for the Employer Set Project only: <strong>pandas</strong> (import CSV, data frames, totals, averages, counts, trends) and <strong>matplotlib</strong> (graphs with labels and legends). Press <strong>▶ Run</strong> on each example to try it: the first run loads pandas, which takes a little longer. Run the examples in order, because example 1 creates the file the others read.</p>
+
+                        <h3>1. Import a CSV into a data frame</h3>
+                        <p>A <strong>data frame</strong> is a table: rows are records, columns are fields. <code>pd.read_csv()</code> turns a CSV file into one, and works out the data types for you.</p>
+<pre class="code">
+import pandas as pd
+
+with open("sales.csv", "w") as f:
+    f.write("date,branch,item,quantity,price\n")
+    f.write("2027-05-03,Leeds,Latte,12,3.20\n")
+    f.write("2027-05-03,York,Tea,8,1.80\n")
+    f.write("2027-05-04,Leeds,Scone,5,2.50\n")
+    f.write("2027-05-04,York,Latte,9,3.20\n")
+    f.write("2027-05-05,Leeds,Latte,15,3.20\n")
+    f.write("2027-05-05,York,Scone,11,2.50\n")
+
+sales = pd.read_csv("sales.csv")
+print(sales.head(3))
+print(len(sales), "rows,", len(sales.columns), "columns")
+</pre>
+<pre class="out">
+         date branch   item  quantity  price
+0  2027-05-03  Leeds  Latte        12    3.2
+1  2027-05-03   York    Tea         8    1.8
+2  2027-05-04  Leeds  Scone         5    2.5
+6 rows, 5 columns
+</pre>
+                        <p><code>head(3)</code> shows the first 3 rows. The numbers down the left are the <strong>index</strong>. Unlike the plain <code>csv</code> module (<a href="ca6.html#s6-5">6.5</a>), pandas reads numbers as numbers, not strings.</p>
+
+                        <h3>2. Totals, averages and counts</h3>
+<pre class="code">
+import pandas as pd
+
+sales = pd.read_csv("sales.csv")
+sales["total"] = sales["quantity"] * sales["price"]
+
+print("Total takings: £" + format(sales["total"].sum(), ".2f"))
+print("Average quantity:", round(sales["quantity"].mean(), 1))
+print("Biggest sale: £" + format(sales["total"].max(), ".2f"))
+print(sales["item"].value_counts())
+</pre>
+<pre class="out">
+Total takings: £169.60
+Average quantity: 10.0
+Biggest sale: £48.00
+item
+Latte    3
+Scone    2
+Tea      1
+Name: count, dtype: int64
+</pre>
+                        <table>
+                            <tr><th>Code</th><th>What it does</th></tr>
+                            <tr><td><code>df["new"] = df["a"] * df["b"]</code></td><td>Adds a calculated column, working out every row at once</td></tr>
+                            <tr><td><code>.sum()</code> <code>.mean()</code> <code>.max()</code> <code>.min()</code></td><td>Total, average, largest and smallest of a column</td></tr>
+                            <tr><td><code>.value_counts()</code></td><td>How many times each value appears</td></tr>
+                            <tr><td><code>len(df)</code></td><td>Number of rows</td></tr>
+                        </table>
+
+                        <h3>3. Group, filter and sort</h3>
+<pre class="code">
+import pandas as pd
+
+sales = pd.read_csv("sales.csv")
+sales["total"] = sales["quantity"] * sales["price"]
+
+print(sales.groupby("branch")["total"].sum())
+print()
+lattes = sales[sales["item"] == "Latte"]
+print(lattes[["date", "branch", "quantity"]])
+print()
+print(sales.sort_values("total", ascending=False).head(2))
+</pre>
+<pre class="out">
+branch
+Leeds    98.9
+York     70.7
+Name: total, dtype: float64
+
+         date branch  quantity
+0  2027-05-03  Leeds        12
+3  2027-05-04   York         9
+4  2027-05-05  Leeds        15
+
+         date branch   item  quantity  price  total
+4  2027-05-05  Leeds  Latte        15    3.2   48.0
+0  2027-05-03  Leeds  Latte        12    3.2   38.4
+</pre>
+                        <table>
+                            <tr><th>Code</th><th>What it does</th></tr>
+                            <tr><td><code>df.groupby("col")["other"].sum()</code></td><td>A total for each group, e.g. takings per branch</td></tr>
+                            <tr><td><code>df[df["col"] == value]</code></td><td>Only the rows that match a condition (a filter)</td></tr>
+                            <tr><td><code>df[["a", "b"]]</code></td><td>Only some columns (note the double brackets)</td></tr>
+                            <tr><td><code>df.sort_values("col", ascending=False)</code></td><td>Sort the rows, largest first</td></tr>
+                        </table>
+
+                        <h3>4. Show a trend with a labelled graph</h3>
+<pre class="code">
+import pandas as pd
+import matplotlib.pyplot as plt
+
+sales = pd.read_csv("sales.csv")
+sales["total"] = sales["quantity"] * sales["price"]
+daily = sales.groupby(["date", "branch"])["total"].sum().unstack()
+print(daily)
+
+daily.plot(kind="line", marker="o")
+plt.title("Daily takings by branch")
+plt.xlabel("Date")
+plt.ylabel("Takings (£)")
+plt.legend(title="Branch")
+plt.tight_layout()
+plt.savefig("takings.png")
+print("Chart saved as takings.png")
+</pre>
+<pre class="out">
+branch      Leeds  York
+date
+2027-05-03   38.4  14.4
+2027-05-04   12.5  28.8
+2027-05-05   48.0  27.5
+Chart saved as takings.png
+</pre>
+                        <p>When you run it here, the chart appears under the output. On your own computer, <code>plt.show()</code> opens it in a window instead of saving it.</p>
+                        <div class="box tip">
+                            <h4>★ EVERY GRAPH NEEDS</h4>
+                            <ul>
+                                <li>A title that says what the graph shows: <code>plt.title()</code></li>
+                                <li>Labelled axes, with units: <code>plt.xlabel()</code> and <code>plt.ylabel()</code></li>
+                                <li>A legend whenever there's more than one line or bar colour: <code>plt.legend()</code></li>
+                                <li>The right type: a line graph for trends over time, a bar chart to compare categories (<a href="ca6.html#s6-9">6.9</a>)</li>
+                            </ul>
+                        </div>
+                        <div class="box stretch">
+                            <h4>▲ TRY IT</h4>
+                            <ul>
+                                <li>Change example 4 to <code>kind="bar"</code>. Which chart shows the trend more clearly?</li>
+                                <li>Add a line to example 2 that prints the average takings per sale.</li>
+                                <li>Filter example 3 to show only York's sales of more than £20.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="defects">
+                    <h2>Fixing defects: practice</h2>
+                    <div class="window-body">
+                        <p>Each program has defects. For each one, give the line number, the problem, the type of error (syntax, runtime or logic) and the corrected line. Press <strong>▶ Run</strong> to watch the faulty code fail, then fix it in the editor until it works.</p>
+                        <div class="qset" data-set="esp">
+                            <div class="q" data-m="6">
+                                <p>This program should print the average score and how many scores are 50 or more. Find the three defects.</p>
+<pre class="code">
+scores = [72, 45, 50, 88, 39]
+total = 0
+passes = 0
+for score in scores:
+    total = total + score
+    if score > 50:
+        passes = passes + 1
+average = total / len(score)
+print("Average: " + average)
+print("Scores of 50 or more:", passes)
+</pre>
+                                <div class="ms">
+                                    <table>
+                                        <tr><th>Line</th><th>Defect</th><th>Type</th><th>Correction</th></tr>
+                                        <tr><td>6</td><td><code>&gt; 50</code> leaves out a score of exactly 50</td><td>Logic</td><td><code>if score &gt;= 50:</code></td></tr>
+                                        <tr><td>8</td><td><code>len(score)</code> uses the single score (an int), not the list</td><td>Runtime (TypeError)</td><td><code>average = total / len(scores)</code></td></tr>
+                                        <tr><td>9</td><td>Joins a float to a string with <code>+</code></td><td>Runtime (TypeError)</td><td><code>print("Average: " + str(average))</code></td></tr>
+                                    </table>
+                                    <p>One mark for each defect found, one for each correct fix.</p>
+<pre class="code">
+scores = [72, 45, 50, 88, 39]
+total = 0
+passes = 0
+for score in scores:
+    total = total + score
+    if score >= 50:
+        passes = passes + 1
+average = total / len(scores)
+print("Average: " + str(average))
+print("Scores of 50 or more:", passes)
+</pre>
+<pre class="out">
+Average: 58.8
+Scores of 50 or more: 3
+</pre>
+                                </div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>This program should count how many times each colour appears. Find the two defects.</p>
+<pre class="code">
+colours = ["red", "blue", "red", "green", "blue", "red"]
+counts = {}
+for colour in colours:
+    if colour in counts:
+        counts[colour] = 1
+    else:
+        counts[colour] = counts[colour] + 1
+for colour, number in counts.items:
+    print(colour, number)
+</pre>
+                                <div class="ms">
+                                    <table>
+                                        <tr><th>Line</th><th>Defect</th><th>Type</th><th>Correction</th></tr>
+                                        <tr><td>5 and 7</td><td>The two branches are the wrong way round: a new colour isn't in the dictionary yet, so line 7 raises a KeyError</td><td>Runtime (KeyError)</td><td>Line 5: <code>counts[colour] = counts[colour] + 1</code>; line 7: <code>counts[colour] = 1</code></td></tr>
+                                        <tr><td>8</td><td><code>counts.items</code> is missing its brackets, so it isn't called</td><td>Runtime (TypeError)</td><td><code>for colour, number in counts.items():</code></td></tr>
+                                    </table>
+<pre class="code">
+colours = ["red", "blue", "red", "green", "blue", "red"]
+counts = {}
+for colour in colours:
+    if colour in counts:
+        counts[colour] = counts[colour] + 1
+    else:
+        counts[colour] = 1
+for colour, number in counts.items():
+    print(colour, number)
+</pre>
+<pre class="out">
+red 3
+blue 2
+green 1
+</pre>
+                                </div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>This program should keep asking for an age until it is between 16 and 99. Explain the two defects and write a corrected version.</p>
+<pre class="code">
+age = int(input("Age: "))
+while age &lt; 16 or age > 99:
+    print("Age must be 16 to 99")
+print("Accepted")
+</pre>
+                                <div class="ms">
+                                    <ul>
+                                        <li>The loop never asks again, so an invalid age prints the message forever: an infinite loop (logic) (1). Ask for the age inside the loop (1).</li>
+                                        <li>Typing a word such as <code>ten</code> crashes <code>int()</code> with a ValueError (runtime) (1). Check the input is a whole number before converting it, e.g. with <code>isdigit()</code> or <code>try/except</code> (1).</li>
+                                    </ul>
+<pre class="code">
+while True:
+    entry = input("Age: ")
+    if not entry.isdigit():
+        print("Enter a whole number")
+    elif not 16 &lt;= int(entry) &lt;= 99:
+        print("Age must be 16 to 99")
+    else:
+        break
+print("Accepted:", entry)
+</pre>
+<pre class="out">
+Age: ten
+Enter a whole number
+Age: 12
+Age must be 16 to 99
+Age: 17
+Accepted: 17
+</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box tip">
+                            <h4>★ A METHOD FOR FIXING DEFECTS</h4>
+                            <ol>
+                                <li>Read what the code is <em>meant</em> to do, then run it.</li>
+                                <li>If it crashes, read the error: the last line gives the type, the line number shows where.</li>
+                                <li>If it runs but the answer is wrong, trace it with a trace table or add print statements.</li>
+                                <li>Fix one defect at a time and re-run after each fix.</li>
+                                <li>Test with valid, boundary, invalid and erroneous data (<a href="ca2.html#s2-12">2.12</a>), and record what you changed and why.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="evaluation">
+                    <h2>Writing a reflective evaluation</h2>
+                    <div class="window-body">
+                        <p>An evaluation judges how well your solution meets the brief and what you'd do differently. Like an 'evaluate' exam question, it needs evidence, both strengths and weaknesses, and a supported judgement.</p>
+                        <table>
+                            <tr><th>Cover</th><th>Questions to answer</th></tr>
+                            <tr><td>Meeting the requirements</td><td>Go through the brief. Which requirements does your solution meet fully, partly or not at all? Use your test results as evidence.</td></tr>
+                            <tr><td>Quality of the solution</td><td>Use the criteria from <a href="ca2.html#s2-9">2.9.7</a>: efficiency, data structures and types, variables and constants, presentation, maintainability, robustness.</td></tr>
+                            <tr><td>Users</td><td>Is it usable and accessible for the users in the scenario? (<a href="ca3.html#s3-1-3">3.1.3</a>)</td></tr>
+                            <tr><td>Legal and security</td><td>Does it handle personal data properly and protect it? (<a href="ca4.html#s4-1-3">4.1.3</a>, <a href="ca8.html">CA8</a>)</td></tr>
+                            <tr><td>Your process</td><td>How did your planning and testing go? What would you do differently next time?</td></tr>
+                            <tr><td>Improvements</td><td>What would you add or change with more time, and why would it help the client?</td></tr>
+                        </table>
+                        <div class="box support">
+                            <h4>◆ SUPPORT: SENTENCE STARTERS</h4>
+                            <ul>
+                                <li>The solution meets the requirement to ... because test ... showed ...</li>
+                                <li>A limitation is that ... which means the client ...</li>
+                                <li>I chose a dictionary for ... because ... However, ...</li>
+                                <li>If I had more time, I would ... so that ...</li>
+                                <li>Next time I would plan ... earlier, because ...</li>
+                                <li>Overall, the solution is ... because ... outweighs ...</li>
+                            </ul>
+                        </div>
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKES</h4>
+                            <ul>
+                                <li>Describing what you did instead of judging how well it works.</li>
+                                <li>Only listing strengths. A balanced evaluation earns more.</li>
+                                <li>Claims with no evidence. Point to a test, a requirement or a feature.</li>
+                                <li>Improvements with no reason. Say why each one would help the client or users.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="ready">
+                    <h2>Am I ready?</h2>
+                    <div class="window-body">
+                        <ul class="checklist">
+                            <li><label><input type="checkbox" data-save="esp-appendix"><span>I can use the Appendix 2 Python commands without looking them up</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-errors"><span>I can read an error message and find the faulty line quickly</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-pandas"><span>I can read a CSV with pandas and work out totals, averages and counts</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-groupby"><span>I can group, filter and sort a data frame</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-graphs"><span>I can draw a graph with a title, axis labels and a legend</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-testplan"><span>I can write a test plan with valid, boundary, invalid and erroneous data</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-design"><span>I can draw a flowchart and a data model for a scenario</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-eval"><span>I can write a balanced evaluation backed up by evidence</span></label></li>
+                            <li><label><input type="checkbox" data-save="esp-save"><span>I save my work often, with clear file names and comments in my code</span></label></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-esp" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · Employer Set Project · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/dates.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+    <script>
+        // ESP dates come from js/dates.js, so they only need updating in one place
+        const espRows = (typeof keyDates !== 'undefined' ? keyDates : [])
+            .filter(item => /^ESP/i.test(item.title))
+            .sort((a, b) => a.date.localeCompare(b.date));
+        const espBody = document.getElementById('esp-dates');
+        espBody.innerHTML = espRows.length
+            ? espRows.map(item => `<tr><td>${item.date}</td><td><strong>${item.title}</strong></td><td>${item.details || ''}</td></tr>`).join('')
+            : '<tr><td colspan="3">No ESP dates added yet.</td></tr>';
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

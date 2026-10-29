@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100 font-sans antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CargoPulse v4.8 - Enterprise System Inspection & Audit Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for Telemetry & Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#111827',
+                            950: '#030712',
+                        },
+                        brand: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        .terminal-glow { box-shadow: 0 0 25px rgba(14, 165, 233, 0.08); }
+        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.07); }
+        .active-tab { background-color: #2563eb !important; color: #ffffff !important; font-weight: 600; }
+        .pulse-subtle { animation: pulseSlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulseSlow { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    </style>
+</head>
+<body class="h-full flex flex-col bg-slate-950 text-slate-100 overflow-hidden select-none">
+
+    <!-- TOP GLOBAL NAVIGATION HEADER -->
+    <header class="bg-slate-950 border-b border-slate-800/90 px-4 py-2.5 flex flex-wrap items-center justify-between shrink-0 gap-3 z-20">
+        <!-- Brand & System Status -->
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-700 flex items-center justify-center font-extrabold text-white text-xl tracking-wider shadow-lg shadow-indigo-600/25 ring-1 ring-indigo-400/30">
+                    <i class="fa-solid fa-boxes-packing"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-base tracking-tight text-white">CargoPulse<span class="text-blue-400">Enterprise</span></span>
+                        <span class="text-[10px] bg-blue-950/90 text-blue-300 border border-blue-700/60 px-1.5 py-0.2 rounded font-mono font-bold">v4.8.2-PROD</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 flex items-center gap-2">
+                        <span>Org: <strong class="text-slate-200 font-semibold">Apex Logistics Solutions Ltd</strong></span>
+                        <span class="text-slate-600">•</span>
+                        <span>DC Cluster: <span class="font-mono text-slate-300">UK-WEST-NODES (3 DCs)</span></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Operational Status Badge -->
+            <div class="hidden xl:flex items-center gap-3 pl-4 border-l border-slate-800 text-xs">
+                <div class="flex items-center gap-2 bg-amber-950/60 border border-amber-700/60 px-3 py-1 rounded-full text-amber-300">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    <span class="font-bold text-[11px] uppercase tracking-wider">Operational - Degraded Performance</span>
+                </div>
+                <div class="text-slate-400 text-[11px] font-mono">
+                    <i class="fa-solid fa-clock text-blue-400 mr-1"></i> <span id="systemClock">--:--:00 UTC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global Search & System Controls -->
+        <div class="flex items-center space-x-3 text-xs">
+            <!-- Environment Switcher -->
+            <select id="envSwitcher" onchange="changeEnvironment()" class="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500 font-mono">
+                <option value="prod">ENV: Production (Live Data)</option>
+                <option value="staging">ENV: Staging Replica</option>
+                <option value="legacy">ENV: Legacy Gateway (v2.1)</option>
+            </select>
+
+            <!-- Global Search -->
+            <div class="relative hidden lg:block">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                <input type="text" id="globalSearchInput" onkeyup="handleGlobalSearch(event)" placeholder="Search node, log, ticket, report (Press '/')..." class="bg-slate-900 border border-slate-800 text-slate-200 text-xs pl-8 pr-4 py-1.5 rounded-lg focus:outline-none focus:border-blue-500 w-64 transition">
+            </div>
+
+            <!-- User Persona Badge -->
+            <div class="hidden md:flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg">
+                <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                <div class="text-left">
+                    <div class="text-[10px] font-bold text-slate-200 leading-none">Auditor Access</div>
+                    <div class="text-[9px] text-slate-400 font-mono">Read-Only Diagnostic Mode</div>
+                </div>
+            </div>
+
+            <button onclick="openScenarioBriefModal()" class="px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow-md transition flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info"></i> <span class="hidden md:inline">Audit Brief</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN WORKSPACE CONTAINER -->
+    <div class="flex-1 flex overflow-hidden">
+
+        <!-- LEFT SIDEBAR NAVIGATION -->
+        <aside class="w-16 lg:w-64 bg-slate-950 border-r border-slate-800/90 flex flex-col justify-between shrink-0 select-none z-10">
+            <nav class="p-2 lg:p-3 space-y-1 overflow-y-auto">
+                <div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider hidden lg:block">Audit Navigation Modules</div>
+
+                <button onclick="switchTab('overview')" id="nav-overview" class="nav-btn active-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left">
+                    <i class="fa-solid fa-gauge text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">1. Overview & Architecture</span>
+                </button>
+
+                <button onclick="switchTab('benchmark')" id="nav-benchmark" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-stopwatch text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">2. Benchmark Laboratory</span>
+                    <span class="hidden lg:inline-block ml-auto text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">TEST</span>
+                </button>
+
+                <button onclick="switchTab('telemetry')" id="nav-telemetry" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-chart-line text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">3. Telemetry & Downtime</span>
+                    <span class="hidden lg:inline-block ml-auto text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">30D</span>
+                </button>
+
+                <button onclick="switchTab('tickets')" id="nav-tickets" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-headset text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">4. User Tickets & Support</span>
+                    <span class="hidden lg:inline-block ml-auto text-[9px] bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded font-mono">16</span>
+                </button>
+
+                <button onclick="switchTab('compatibility')" id="nav-compatibility" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-diagram-project text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">5. Compatibility Matrix</span>
+                </button>
+
+                <button onclick="switchTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-folder-open text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">6. Reports Center</span>
+                    <span class="hidden lg:inline-block ml-auto text-[9px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono">15</span>
+                </button>
+
+                <button onclick="switchTab('dbanalyzer')" id="nav-dbanalyzer" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-database text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">7. DB Query Analyzer</span>
+                </button>
+
+                <button onclick="switchTab('config')" id="nav-config" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-sliders text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">8. Feature Matrix & Config</span>
+                </button>
+
+                <button onclick="switchTab('terminal')" id="nav-terminal" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition text-left text-slate-400 hover:text-slate-200 hover:bg-slate-900">
+                    <i class="fa-solid fa-terminal text-sm w-4 text-center"></i>
+                    <span class="hidden lg:inline">9. Real-Time Syslog Stream</span>
+                    <span class="hidden lg:inline-block ml-auto text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded font-mono">LIVE</span>
+                </button>
+            </nav>
+
+            <!-- Sidebar Audit Guide Box -->
+            <div class="p-3 border-t border-slate-800 text-[11px] text-slate-400 hidden lg:block bg-slate-950/90 space-y-2">
+                <div class="font-bold text-slate-200 flex items-center justify-between text-[11px]">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-list-check text-blue-400"></i> Audit Progress</span>
+                    <span class="font-mono text-xs text-blue-400" id="auditPercent">0/8 Items</span>
+                </div>
+                <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden border border-slate-800">
+                    <div id="auditProgressBar" class="bg-blue-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+                <p class="text-[10px] text-slate-500 leading-tight">
+                    Search through metrics, run live test probes, and inspect tickets to gather data for your external worksheet.
+                </p>
+            </div>
+        </aside>
+
+        <!-- MAIN DYNAMIC CONTENT DISPLAY AREA -->
+        <main class="flex-1 overflow-y-auto bg-slate-900 p-4 md:p-6 space-y-6">
+
+            <!-- ========================================== -->
+            <!-- TAB 1: OVERVIEW & SYSTEM ARCHITECTURE -->
+            <!-- ========================================== -->
+            <section id="tab-overview" class="tab-panel space-y-6">
+                <!-- Top Key Performance Metrics -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-4 rounded-xl relative overflow-hidden group">
+                        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                            <span class="font-medium">30-Day Uptime Rate</span>
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-white font-mono">99.86%</div>
+                        <div class="flex items-center justify-between mt-2 text-[11px]">
+                            <span class="text-amber-400 font-medium">60 Mins Total Downtime</span>
+                            <span class="text-slate-500">SLA: 99.95%</span>
+                        </div>
+                        <div class="w-full bg-slate-900 h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-emerald-500 h-full" style="width: 99.86%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl relative overflow-hidden group">
+                        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                            <span class="font-medium">Simple Task Latency</span>
+                            <i class="fa-solid fa-bolt text-emerald-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-white font-mono">0.82s <span class="text-xs text-emerald-400 font-normal">(Avg)</span></div>
+                        <div class="flex items-center justify-between mt-2 text-[11px]">
+                            <span class="text-emerald-400 font-medium">PASS (&lt; 1.5s Target)</span>
+                            <span class="text-slate-500">85% Success</span>
+                        </div>
+                        <div class="w-full bg-slate-900 h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-emerald-500 h-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl relative overflow-hidden group">
+                        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                            <span class="font-medium">Advanced Task Latency</span>
+                            <i class="fa-solid fa-triangle-exclamation text-rose-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-rose-400 font-mono">14.2s <span class="text-xs text-rose-400 font-normal">(Avg)</span></div>
+                        <div class="flex items-center justify-between mt-2 text-[11px]">
+                            <span class="text-rose-400 font-medium">FAIL (&gt; 5.0s Target)</span>
+                            <span class="text-slate-500">DB Join Spike</span>
+                        </div>
+                        <div class="w-full bg-slate-900 h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-rose-500 h-full" style="width: 32%"></div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl relative overflow-hidden group">
+                        <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+                            <span class="font-medium">InvTrack Sync Method</span>
+                            <i class="fa-solid fa-arrows-rotate text-amber-400"></i>
+                        </div>
+                        <div class="text-2xl font-extrabold text-amber-300 font-mono">FTP Batch</div>
+                        <div class="flex items-center justify-between mt-2 text-[11px]">
+                            <span class="text-amber-400 font-medium">Hourly Export Script</span>
+                            <span class="text-slate-500">Lag: 0 - 45m</span>
+                        </div>
+                        <div class="w-full bg-slate-900 h-1 rounded-full mt-2 overflow-hidden">
+                            <div class="bg-amber-500 h-full" style="width: 40%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Executive Scenario Summary Banner -->
+                <div class="bg-gradient-to-r from-slate-950 via-blue-950/40 to-slate-950 p-5 rounded-xl border border-blue-900/40 relative">
+                    <div class="space-y-2 max-w-5xl">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-blue-400 bg-blue-950 px-2 py-0.5 rounded border border-blue-800">Apex Logistics Corporate Diagnostic Console</span>
+                            <span class="text-[10px] uppercase tracking-wider font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Live Telemetry Active</span>
+                        </div>
+                        <h2 class="text-base md:text-lg font-bold text-white">CargoPulse v4.8 System Architecture & Operational Profile</h2>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Apex Logistics Solutions relies on CargoPulse as its core ERP to manage freight bookings, vehicle dispatching, international customs manifests, and billing across three main distribution hubs. You are conducting an audit of this system. Explore the test benchmarks, downtime charts, integration logs, and ticket complaints to locate the data required for your evaluation form.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cluster Server Node Matrix -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Distribution Hub Status -->
+                    <div class="glass-card p-5 rounded-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-sm text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-warehouse text-blue-400"></i> Distribution Center Nodes
+                            </h3>
+                            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">3/3 Online</span>
+                        </div>
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                                <div class="flex justify-between font-semibold">
+                                    <span class="text-slate-200">DC-1: Heathrow Hub (London)</span>
+                                    <span class="text-emerald-400 font-mono">5,840 pkgs/day</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Primary dispatch node. 18 active dispatcher workstations.</p>
+                            </div>
+
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                                <div class="flex justify-between font-semibold">
+                                    <span class="text-slate-200">DC-2: Trafford Hub (Manchester)</span>
+                                    <span class="text-emerald-400 font-mono">4,120 pkgs/day</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Secondary freight depot. 14 active dispatcher workstations.</p>
+                            </div>
+
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                                <div class="flex justify-between font-semibold">
+                                    <span class="text-slate-200">DC-3: Midpoint Hub (Birmingham)</span>
+                                    <span class="text-emerald-400 font-mono">3,290 pkgs/day</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Cross-dock distribution facility. 13 active dispatcher workstations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core System Capabilities Quick Check -->
+                    <div class="glass-card p-5 rounded-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-sm text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-indigo-400"></i> Functionality Verification
+                            </h3>
+                            <span class="text-[10px] text-slate-400">Key Features</span>
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+                                <span>Real-time Vehicle Tracking</span>
+                                <span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Functional</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+                                <span>Driver Dispatch Auto-Assign</span>
+                                <span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Functional</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+                                <span>Int'l Customs Manifest Currency Field</span>
+                                <span class="text-rose-400 font-bold"><i class="fa-solid fa-xmark"></i> Missing / Defect</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+                                <span>Stripe Billing Gateway Auto-Charge</span>
+                                <span class="text-emerald-400 font-bold"><i class="fa-solid fa-check"></i> Functional</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 bg-slate-950 rounded-lg border border-slate-800">
+                                <span>Multi-Currency Billing Summary Query</span>
+                                <span class="text-amber-400 font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Slow (&gt; 14s)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Environment & Deployment Properties -->
+                    <div class="glass-card p-5 rounded-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-sm text-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-server text-cyan-400"></i> Infrastructure Profile
+                            </h3>
+                            <span class="text-[10px] text-slate-400 font-mono">SaaS Cloud</span>
+                        </div>
+                        <div class="space-y-3 text-xs">
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                                <div class="text-slate-400 text-[10px] uppercase font-mono">Installation Method</div>
+                                <div class="text-slate-200 font-semibold">100% Web SaaS via SSO (Single Sign-On)</div>
+                                <div class="text-[11px] text-slate-400">Zero workstation installation required. Operates in standard web browsers.</div>
+                            </div>
+
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
+                                <div class="text-slate-400 text-[10px] uppercase font-mono">Support Support Channels</div>
+                                <div class="text-slate-200 font-semibold">24/7 Live Chat + SharePoint Knowledge Base</div>
+                                <div class="text-[11px] text-slate-400">Escalations handled via SLA-backed IT helpdesk email ticketing.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 2: LIVE TASK BENCHMARK LABORATORY -->
+            <!-- ========================================== -->
+            <section id="tab-benchmark" class="tab-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-stopwatch text-blue-400"></i> Interactive Task Benchmark Testing Laboratory
+                        </h2>
+                        <p class="text-xs text-slate-400">Execute real-time test probes with randomized execution delays to measure system performance for audit reporting.</p>
+                    </div>
+                    <button onclick="clearConsoleLog()" class="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-trash-can"></i> Clear Terminal Output
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    
+                    <!-- Left: Test Triggers Column (6 Cols) -->
+                    <div class="lg:col-span-6 space-y-4">
+                        
+                        <!-- Test Probe A: Simple Task -->
+                        <div class="glass-card p-5 rounded-xl space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-wider font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Benchmark Task A</span>
+                                    <h3 class="text-sm font-bold text-white mt-1">Simple Task: Filter & Search Active Shipment by Tracking ID</h3>
+                                </div>
+                                <span class="text-xs font-mono bg-slate-950 text-slate-300 px-2 py-1 rounded border border-slate-800">Target: &lt; 1.5s</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Single-indexed lookup on primary database table. Typically yields high pass rate.
+                            </p>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span id="simple-status" class="text-slate-400 text-[11px]">Status: Ready</span>
+                                    <span id="simple-timer" class="font-bold text-emerald-400">0.00s</span>
+                                </div>
+                                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                                    <div id="simple-progress" class="bg-emerald-500 h-full w-0 transition-all duration-75"></div>
+                                </div>
+                            </div>
+                            <button id="btn-run-simple" onclick="executeBenchmark('simple')" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> Run Simple Task Benchmark
+                            </button>
+                        </div>
+
+                        <!-- Test Probe B: Advanced Task -->
+                        <div class="glass-card p-5 rounded-xl space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-wider font-bold text-rose-400 bg-rose-950 px-2 py-0.5 rounded border border-rose-800">Benchmark Task B</span>
+                                    <h3 class="text-sm font-bold text-white mt-1">Advanced Task: Monthly Multi-Currency Billing & Financial Summary</h3>
+                                </div>
+                                <span class="text-xs font-mono bg-slate-950 text-slate-300 px-2 py-1 rounded border border-slate-800">Target: &lt; 5.0s</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Performs complex SQL multi-table joins across 12M historical rows without foreign currency indexes.
+                            </p>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span id="adv-status" class="text-slate-400 text-[11px]">Status: Ready</span>
+                                    <span id="adv-timer" class="font-bold text-rose-400">0.00s</span>
+                                </div>
+                                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                                    <div id="adv-progress" class="bg-rose-500 h-full w-0 transition-all duration-75"></div>
+                                </div>
+                            </div>
+                            <button id="btn-run-adv" onclick="executeBenchmark('advanced')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-gears"></i> Run Advanced Task Benchmark
+                            </button>
+                        </div>
+
+                        <!-- Test Probe C: Customs Manifest Export -->
+                        <div class="glass-card p-5 rounded-xl space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-wider font-bold text-amber-400 bg-amber-950 px-2 py-0.5 rounded border border-amber-800">Benchmark Task C</span>
+                                    <h3 class="text-sm font-bold text-white mt-1">Customs Manifest XML Formatting Export</h3>
+                                </div>
+                                <span class="text-xs font-mono bg-slate-950 text-slate-300 px-2 py-1 rounded border border-slate-800">Target: &lt; 3.0s</span>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">
+                                Formats international shipment data. Missing foreign currency fields trigger fallback conversion scripts.
+                            </p>
+                            <div class="space-y-1.5">
+                                <div class="flex justify-between text-xs font-mono">
+                                    <span id="xml-status" class="text-slate-400 text-[11px]">Status: Ready</span>
+                                    <span id="xml-timer" class="font-bold text-amber-400">0.00s</span>
+                                </div>
+                                <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+                                    <div id="xml-progress" class="bg-amber-500 h-full w-0 transition-all duration-75"></div>
+                                </div>
+                            </div>
+                            <button id="btn-run-xml" onclick="executeBenchmark('xml')" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs rounded-lg shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-file-export"></i> Run Manifest Export Benchmark
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Live Execution Diagnostic Terminal (6 Cols) -->
+                    <div class="lg:col-span-6 flex flex-col h-[540px] bg-slate-950 rounded-xl border border-slate-800 overflow-hidden font-mono terminal-glow">
+                        <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                <span class="text-xs font-bold text-slate-300 ml-2">cargopulse-benchmark-probes.log</span>
+                            </div>
+                            <span class="text-[10px] text-slate-500">TTY / dev / pts0</span>
+                        </div>
+                        <div id="terminal-output" class="flex-1 p-4 overflow-y-auto space-y-2 text-[11px] leading-relaxed text-slate-300">
+                            <div class="text-slate-500">[00:00:00] [SYSTEM] Diagnostic Benchmark Console initialized.</div>
+                            <div class="text-slate-500">[00:00:00] [INFO] Click benchmark buttons on the left to measure task latency...</div>
+                        </div>
+                        <div class="bg-slate-900/80 px-4 py-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-500">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Listener Ready</span>
+                            <span>Auto-Scroll Active</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: INFRASTRUCTURE TELEMETRY & DOWNTIME -->
+            <!-- ========================================== -->
+            <section id="tab-telemetry" class="tab-panel hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-amber-400"></i> 30-Day Infrastructure Telemetry & Downtime Analytics
+                    </h2>
+                    <p class="text-xs text-slate-400">Examine 30-day downtime logs, uptime rates, scheduled maintenance windows, and server CPU/memory spikes.</p>
+                </div>
+
+                <!-- 30-Day Downtime Bar Chart -->
+                <div class="glass-card p-5 rounded-xl space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Daily System Downtime Breakdown (Last 30 Days)</h3>
+                            <p class="text-[11px] text-slate-400">Hover over bars to inspect downtime minutes per day</p>
+                        </div>
+                        <div class="flex items-center space-x-4 text-[11px]">
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-rose-500 rounded-sm"></span> Unscheduled Outage (10m)</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-amber-500 rounded-sm"></span> Scheduled Maintenance (50m)</span>
+                            <span class="flex items-center gap-1.5"><span class="w-3 h-3 bg-emerald-500 rounded-sm"></span> Normal (0m)</span>
+                        </div>
+                    </div>
+                    <div class="relative h-64 w-full">
+                        <canvas id="downtimeCanvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Incident Explanatory Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-rose-900/40 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wide flex items-center gap-1.5">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Day 5: Unscheduled Outage Incident
+                            </span>
+                            <span class="text-xs font-mono bg-rose-950 text-rose-300 px-2 py-0.5 rounded border border-rose-800">10 Mins Downtime</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong>Root Cause:</strong> Sudden DB connection pool exhaustion on primary PostgreSQL cluster during morning shift dispatch peak (08:40 AM - 08:50 AM UTC). Triggered HTTP 504 Gateway Timeout.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-amber-900/40 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wide flex items-center gap-1.5">
+                                <i class="fa-solid fa-wrench"></i> Day 12: Scheduled Maintenance Window
+                            </span>
+                            <span class="text-xs font-mono bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-800">50 Mins Downtime</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong>Maintenance Actions:</strong> Off-peak database index re-indexing, security patch application, and storage expansion executed at 02:00 AM UTC. Zero core business disruption.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Secondary Charts: CPU Usage & API Endpoint Latency -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-card p-5 rounded-xl space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Server CPU & Memory Load Profile (24 Hours)</h3>
+                        <div class="relative h-48 w-full">
+                            <canvas id="cpuLoadCanvas"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">API Endpoint Latency Distribution (ms)</h3>
+                        <div class="relative h-48 w-full">
+                            <canvas id="apiLatencyCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 4: END-USER SUPPORT & INCIDENT TICKETS -->
+            <!-- ========================================== -->
+            <section id="tab-tickets" class="tab-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-headset text-rose-400"></i> End-User Support Tickets & Incident Complaints
+                        </h2>
+                        <p class="text-xs text-slate-400">Filter through user feedback to identify system usability bugs, missing currency fields, and support escalation channels.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <select id="ticketPriorityFilter" onchange="filterTickets()" class="bg-slate-950 border border-slate-800 text-slate-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none">
+                            <option value="all">All Priorities</option>
+                            <option value="High">High Priority</option>
+                            <option value="Medium">Medium Priority</option>
+                            <option value="Low">Low Priority</option>
+                        </select>
+                        <input type="text" id="ticketSearch" onkeyup="filterTickets()" placeholder="Search ticket text..." class="bg-slate-950 border border-slate-800 text-slate-200 text-xs px-3 py-1.5 rounded-lg focus:outline-none w-48">
+                    </div>
+                </div>
+
+                <div id="ticketContainer" class="space-y-3">
+                    <!-- Dynamic Ticket List Cards injected via JS -->
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 5: COMPATIBILITY MATRIX -->
+            <!-- ========================================== -->
+            <section id="tab-compatibility" class="tab-panel hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-diagram-project text-indigo-400"></i> Legacy & Future System Compatibility Matrix
+                    </h2>
+                    <p class="text-xs text-slate-400">Evaluate integrations with internal legacy databases, future cloud ERP targets, and third-party carrier APIs.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Legacy Card -->
+                    <div class="glass-card p-5 rounded-xl space-y-3 border-amber-900/40">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-sm text-slate-100">Legacy Integration</h3>
+                            <span class="text-[10px] bg-amber-950 text-amber-300 border border-amber-800 px-2 py-0.5 rounded font-mono">FTP Batch Script</span>
+                        </div>
+                        <div class="text-xs text-slate-300"><strong>Target System:</strong> InvTrack v2.1 On-Premise</div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            CargoPulse exports hourly batch files via FTP to update legacy stock counts. Lacks real-time API sync.
+                        </p>
+                        <div class="p-3 bg-amber-950/30 border border-amber-900/60 rounded text-[11px] text-amber-300">
+                            <strong>Audit Assessment:</strong> <strong>NOT Fully Compatible.</strong> Causes up to 45-minute inventory count mismatches during active shift operations.
+                        </div>
+                    </div>
+
+                    <!-- Future System Card -->
+                    <div class="glass-card p-5 rounded-xl space-y-3 border-emerald-900/40">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-sm text-slate-100">Proposed Future System</h3>
+                            <span class="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded font-mono">REST Webhooks</span>
+                        </div>
+                        <div class="text-xs text-slate-300"><strong>Target System:</strong> Oracle Cloud SCM</div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            CargoPulse provides native OpenAPI REST microservices and webhook subscription models.
+                        </p>
+                        <div class="p-3 bg-emerald-950/30 border border-emerald-900/60 rounded text-[11px] text-emerald-300">
+                            <strong>Audit Assessment:</strong> <strong>YES, Fully Compatible.</strong> Standard JSON payloads align directly with planned cloud migration specs.
+                        </div>
+                    </div>
+
+                    <!-- External Services Card -->
+                    <div class="glass-card p-5 rounded-xl space-y-3 border-blue-900/40">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-sm text-slate-100">External Third-Party APIs</h3>
+                            <span class="text-[10px] bg-blue-950 text-blue-300 border border-blue-800 px-2 py-0.5 rounded font-mono">Web APIs Active</span>
+                        </div>
+                        <div class="text-xs text-slate-300"><strong>Services:</strong> FedEx, DHL, Stripe Gateway</div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Automated tracking webhooks and credit card billing sync natively through TLS 1.3 encrypted REST endpoints.
+                        </p>
+                        <div class="p-3 bg-blue-950/30 border border-blue-900/60 rounded text-[11px] text-blue-300">
+                            <strong>Audit Assessment:</strong> <strong>YES, Highly Compatible.</strong> 99.98% successful payload delivery across carrier partners.
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 6: FINANCIAL & OPERATIONS REPORTS -->
+            <!-- ========================================== -->
+            <section id="tab-reports" class="tab-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-folder-open text-cyan-400"></i> Financial & Operations Reports Repository
+                        </h2>
+                        <p class="text-xs text-slate-400">Filter through operational records to extract audit data while bypassing distraction reports.</p>
+                    </div>
+                    <div class="relative">
+                        <i class="fa-solid fa-filter absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+                        <input type="text" id="reportSearch" onkeyup="filterReportsTable()" placeholder="Filter reports by keyword..." class="bg-slate-950 border border-slate-800 text-slate-200 text-xs pl-8 pr-4 py-1.5 rounded-lg focus:outline-none focus:border-blue-500 w-full sm:w-64">
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-mono">
+                                    <th class="p-3">Report Title</th>
+                                    <th class="p-3">Category</th>
+                                    <th class="p-3">Audit Relevance</th>
+                                    <th class="p-3">Generated Date</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reportsTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+                                <!-- JS Injected Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 7: DATABASE QUERY ANALYZER -->
+            <!-- ========================================== -->
+            <section id="tab-dbanalyzer" class="tab-panel hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-database text-purple-400"></i> Database Query & Performance Execution Analyzer
+                    </h2>
+                    <p class="text-xs text-slate-400">Inspect slow query execution trees to understand why the Advanced Task benchmark takes over 14 seconds.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-card p-5 rounded-xl space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Slow Execution Query Log</h3>
+                        <div class="space-y-3 font-mono text-xs">
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-2">
+                                <div class="flex justify-between text-[11px] text-rose-400 font-bold">
+                                    <span>QUERY_ID: #SQL-9912 (Financial Summary)</span>
+                                    <span>Latency: 14.28s</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 bg-slate-900 p-2 rounded overflow-x-auto">
+                                    SELECT f.booking_id, f.amount, c.exchange_rate FROM freight_billing f LEFT JOIN currency_rates c ON f.curr_id = c.id WHERE f.created_at >= '2026-08-01';
+                                </div>
+                                <div class="text-[11px] text-amber-400">
+                                    <strong>Issue:</strong> Missing composite index on <code>curr_id</code>. Forces sequential table scan on 12,400,000 rows.
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-2">
+                                <div class="flex justify-between text-[11px] text-emerald-400 font-bold">
+                                    <span>QUERY_ID: #SQL-2011 (Simple Tracking Lookup)</span>
+                                    <span>Latency: 0.08s</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 bg-slate-900 p-2 rounded overflow-x-auto">
+                                    SELECT * FROM active_shipments WHERE tracking_id = 'TRK-982110' LIMIT 1;
+                                </div>
+                                <div class="text-[11px] text-emerald-400">
+                                    <strong>Status:</strong> B-Tree Index Hit on Primary Key. Optimal execution time.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-xl space-y-4">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200">Execution Plan Tree Analysis</h3>
+                        <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 font-mono text-[11px] space-y-2 text-slate-300">
+                            <div class="text-rose-400">-> Gather (cost=1000.00..450211.00 rows=12400000)</div>
+                            <div class="pl-4 text-amber-300">-> Parallel Sequential Scan on freight_billing (cost=0.00..326110.00)</div>
+                            <div class="pl-8 text-slate-400">Filter: (created_at >= '2026-08-01')</div>
+                            <div class="pl-8 text-rose-400">Rows Removed by Filter: 8,110,200</div>
+                            <div class="pl-4 text-purple-300">-> Hash Join on currency_rates.id</div>
+                            <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-400">
+                                <strong>Auditor Finding:</strong> The database engine cannot parallelize currency conversions without an indexed currency lookup table.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 8: FEATURE MATRIX & CONFIGURATION -->
+            <!-- ========================================== -->
+            <section id="tab-config" class="tab-panel hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <h2 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-emerald-400"></i> Feature Matrix & System Configuration Options
+                    </h2>
+                    <p class="text-xs text-slate-400">Review enabled system flags, missing feature toggles, and operational configurations.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="glass-card p-4 rounded-xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-200">International Currency Fields in Manifest UI</span>
+                            <span class="bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded font-mono text-[10px]">DISABLED / MISSING</span>
+                        </div>
+                        <p class="text-slate-400 text-[11px]">
+                            Forces staff to manually convert foreign currencies on external spreadsheets prior to XML export.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-200">Single Sign-On (SSO) Authentication</span>
+                            <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded font-mono text-[10px]">ENABLED</span>
+                        </div>
+                        <p class="text-slate-400 text-[11px]">
+                            Integrates with Corporate Azure AD. Workstations require zero local software installation.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-200">FTP Legacy Sync Bridge Script</span>
+                            <span class="bg-amber-950 text-amber-300 border border-amber-800 px-2 py-0.5 rounded font-mono text-[10px]">HOURLY CRON</span>
+                        </div>
+                        <p class="text-slate-400 text-[11px]">
+                            Transfers inventory batch delta XML files to InvTrack v2.1 at top of every hour.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-4 rounded-xl space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-200">24/7 Live Chat In-App Support Widget</span>
+                            <span class="bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded font-mono text-[10px]">ENABLED</span>
+                        </div>
+                        <p class="text-slate-400 text-[11px]">
+                            Embedded end-user assistance widget connected to Tier-1 support desk and SharePoint KB.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================== -->
+            <!-- TAB 9: REAL-TIME SYSLOG TERMINAL -->
+            <!-- ========================================== -->
+            <section id="tab-terminal" class="tab-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <h2 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-terminal text-emerald-400"></i> Real-Time Live System Stream Console
+                        </h2>
+                        <p class="text-xs text-slate-400">Live stdout logs capturing background cron tasks, carrier webhooks, SQL executions, and FTP transfers.</p>
+                    </div>
+                    <button onclick="toggleStreamPause()" id="btn-pause-stream" class="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-pause"></i> <span>Pause Stream</span>
+                    </button>
+                </div>
+
+                <div class="bg-slate-950 rounded-xl border border-slate-800 font-mono h-[520px] flex flex-col overflow-hidden terminal-glow">
+                    <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-300">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="font-bold">cargopulse-prod-syslog.stream</span>
+                        </div>
+                        <span class="text-[10px] text-slate-500">Port 8080 / TCP</span>
+                    </div>
+                    <div id="liveStreamBox" class="flex-1 p-4 overflow-y-auto space-y-2 text-[11px] leading-relaxed text-slate-300">
+                        <!-- Streaming injected via JS -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- SCENARIO BRIEF MODAL -->
+    <div id="briefModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 rounded-xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden border border-slate-800 text-slate-200">
+            <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                    <i class="fa-solid fa-file-contract text-blue-400"></i> Audit Brief & Instructions
+                </h3>
+                <button onclick="closeScenarioBriefModal()" class="text-slate-400 hover:text-white font-bold text-lg px-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-xs text-slate-300 leading-relaxed">
+                <div class="bg-blue-950/50 border border-blue-800/60 p-3.5 rounded-lg">
+                    <strong class="text-blue-300 block mb-1">Company Profile & System Audit Context</strong>
+                    You are completing a Digital System Audit on <strong>CargoPulse v4.8</strong> for <strong>Apex Logistics Solutions</strong>. Use this inspection platform to gather test times, downtime calculations, and compatibility evidence for your assignment form.
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-white border-b border-slate-800 pb-1">Key Inspection References</h4>
+                    <ul class="list-disc pl-5 space-y-1.5 text-slate-400">
+                        <li><strong>Functionality:</strong> International customs manifests lack foreign currency conversion fields, forcing staff into manual spreadsheet re-entry.</li>
+                        <li><strong>Simple Task:</strong> Tracking ID search operates under 1.5s (~85% pass rate).</li>
+                        <li><strong>Advanced Task:</strong> Multi-currency financial billing summaries average 14.2s (&gt; 5.0s target) due to missing DB query indexes.</li>
+                        <li><strong>Legacy Systems:</strong> FTP batch exports sync with InvTrack v2.1 hourly, causing inventory mismatches.</li>
+                        <li><strong>Future & External Systems:</strong> REST webhooks support Oracle Cloud SCM and carrier APIs (FedEx/DHL/Stripe).</li>
+                        <li><strong>Availability:</strong> 60 total downtime minutes over 30 days (10m unscheduled outage + 50m scheduled maintenance).</li>
+                        <li><strong>Support & Installation:</strong> 24/7 live chat + SharePoint KB + SLA email ticket escalation. 100% web SaaS deployment via SSO.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-slate-950 px-5 py-3 border-t border-slate-800 text-right">
+                <button onclick="closeScenarioBriefModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-lg transition">
+                    Close Brief
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORT PREVIEW MODAL -->
+    <div id="reportViewModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-slate-900 rounded-xl shadow-2xl max-w-xl w-full flex flex-col overflow-hidden border border-slate-800 text-slate-200">
+            <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h3 id="modalReportTitle" class="font-bold text-sm text-white">Report Preview</h3>
+                <button onclick="closeReportViewModal()" class="text-slate-400 hover:text-white font-bold text-lg px-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modalReportContent" class="p-6 text-xs text-slate-300 space-y-3 leading-relaxed">
+                <!-- Preview Text Injected via JS -->
+            </div>
+            <div class="bg-slate-950 px-5 py-3 border-t border-slate-800 text-right">
+                <button onclick="closeReportViewModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs rounded-lg transition">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // System Data Collections
+        const reportsData = [
+            { id: "REP-01", title: "Monthly Freight Billing Summary Report", category: "Financial", auditRelevance: "High (Advanced Task Performance)", date: "2026-09-01", content: "Contains multi-currency financial aggregation across 50,000+ freight ledger records. Observed execution latency: 14.2s (Exceeds 5.0s SLA target due to dynamic currency conversions and missing database indexes)." },
+            { id: "REP-02", title: "Legacy InvTrack v2.1 Sync Exception Log", category: "Integration", auditRelevance: "High (Legacy Compatibility)", date: "2026-09-15", content: "FTP batch file sync executed hourly at :00. Found 14 instance discrepancies where inventory count in CargoPulse was ahead of InvTrack v2.1 by up to 45 minutes." },
+            { id: "REP-03", title: "Customs Foreign Currency Field Exception Audit", category: "Functionality", auditRelevance: "High (Functionality Defect)", date: "2026-09-18", content: "Dispatchers report missing foreign currency conversion input fields on primary manifest screens. Forces manual recalculations in Excel before XML export." },
+            { id: "REP-04", title: "30-Day Availability & Downtime Incident Log", category: "Availability", auditRelevance: "High (Downtime Analysis)", date: "2026-09-20", content: "Total experienced downtime in last 30 days: 60 minutes. Breakdown: 10 mins unscheduled cloud database timeout (Day 5), 50 mins scheduled maintenance (Day 12)." },
+            { id: "REP-05", title: "Depot Diesel Fuel Consumption Analysis", category: "Operations", auditRelevance: "Low (Distraction / Noise)", date: "2026-09-10", content: "Depot diesel fuel usage across DC-1, DC-2, and DC-3. Average fleet efficiency recorded at 8.4 mpg." },
+            { id: "REP-06", title: "Staff Uniform & Safety Gear Inventory Audit", category: "Admin", auditRelevance: "None (Distraction / Noise)", date: "2026-09-05", content: "Warehouse hi-vis jacket and safety boot stock levels." },
+            { id: "REP-07", title: "Oracle Cloud SCM REST API Compatibility Spec", category: "Integration", auditRelevance: "Medium (Future System Compatibility)", date: "2026-09-12", content: "OpenAPI v3 JSON schema verification for planned cloud ERP migration. All webhooks and REST endpoints verified compatible." },
+            { id: "REP-08", title: "Single Sign-On (SSO) Browser Deployment Log", category: "Installation", auditRelevance: "Medium (Ease of Installation)", date: "2026-09-02", content: "100% web SaaS deployment. Zero client installations required on company workstations." },
+            { id: "REP-09", title: "Warehouse Cafeteria Vending Machine Supply Log", category: "Admin", auditRelevance: "None (Distraction / Noise)", date: "2026-09-01", content: "Monthly restocking invoice for breakroom snack vending machines." },
+            { id: "REP-10", title: "Driver Medical Certification Records", category: "HR", auditRelevance: "None (Distraction / Noise)", date: "2026-09-14", content: "Annual HGV driver fitness and vision testing logs." }
+        ];
+
+        const supportTicketsData = [
+            { id: "TCK-8821", category: "Functionality", priority: "High", user: "Dispatch Lead (DC-1)", text: "International freight manifests require manually re-entering foreign currency conversion values because foreign currency input fields are missing from the primary shipment UI.", status: "Open" },
+            { id: "TCK-8804", category: "Compatibility", priority: "Medium", user: "Warehouse Operations Supervisor", text: "The hourly FTP batch export to InvTrack v2.1 creates up to a 45-minute delay in stock counts between the warehouse floor and CargoPulse.", status: "Under Review" },
+            { id: "TCK-8790", category: "Installation", priority: "Low", user: "IT Support Technician", text: "New staff workstation setup took less than 2 minutes via Single Sign-On (SSO) on Chrome. Zero software installation required.", status: "Closed" },
+            { id: "TCK-8755", category: "Support", priority: "Low", user: "Billing Clerk", text: "Used the in-app 24/7 live chat widget to ask about multi-currency invoice formatting. Support agent responded in 3 minutes with helpful SharePoint KB link.", status: "Closed" },
+            { id: "TCK-8712", category: "Performance", priority: "High", user: "Financial Analyst", text: "Monthly Multi-Currency Financial Summary report takes over 14 seconds to load and frequently times out during peak dispatch hours.", status: "Investigating" },
+            { id: "TCK-8690", category: "Compatibility", priority: "Low", user: "Logistics Controller", text: "FedEx and DHL carrier status tracking updates sync seamlessly via REST webhooks.", status: "Closed" },
+            { id: "TCK-8640", category: "Admin", priority: "Low", user: "Warehouse Clerk", text: "Printer in Depot B ran out of cyan toner during dispatch label generation.", status: "Closed" },
+            { id: "TCK-8610", category: "Admin", priority: "Low", user: "Fleet Driver", text: "Forgotten PIN for the rear security gate at Manchester Depot.", status: "Closed" },
+            { id: "TCK-8580", category: "Functionality", priority: "High", user: "Customs Compliance Manager", text: "Manual foreign currency re-entry on customs manifests is causing an average 15-minute operational delay per international manifest shipment.", status: "Open" },
+            { id: "TCK-8520", category: "Performance", priority: "Medium", user: "Dispatcher (DC-3)", text: "Search by tracking ID works great under 1 second, but generating multi-currency billing reports locks up the tab.", status: "Investigating" }
+        ];
+
+        let logsBuffer = [];
+        let isStreamPaused = false;
+        let auditProgressCount = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initSystemClock();
+            initDowntimeChart();
+            initCpuLoadChart();
+            initApiLatencyChart();
+            renderReportsTable(reportsData);
+            renderTickets(supportTicketsData);
+            startLiveSyslogStream();
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    document.getElementById('globalSearchInput').focus();
+                }
+            });
+        });
+
+        function initSystemClock() {
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('systemClock').textContent = now.toUTCString().split(' ')[4] + ' UTC';
+            }, 1000);
+        }
+
+        // Navigation Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active-tab');
+                btn.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-tab');
+                activeBtn.classList.remove('text-slate-400');
+            }
+            incrementAuditProgress();
+        }
+
+        function incrementAuditProgress() {
+            if (auditProgressCount < 8) {
+                auditProgressCount++;
+                document.getElementById('auditPercent').textContent = `${auditProgressCount}/8 Explored`;
+                document.getElementById('auditProgressBar').style.width = `${(auditProgressCount / 8) * 100}%`;
+            }
+        }
+
+        // Benchmark Execution Probes Logic
+        function executeBenchmark(type) {
+            if (type === 'simple') {
+                runBenchmarkProbe('btn-run-simple', 'simple-status', 'simple-timer', 'simple-progress', 1.5, 0.85, 0.4, 1.3, 1.7, 2.4, 'SIMPLE_SEARCH_PROBE', 'Tracking ID search');
+            } else if (type === 'advanced') {
+                runBenchmarkProbe('btn-run-adv', 'adv-status', 'adv-timer', 'adv-progress', 5.0, 0.30, 3.9, 4.8, 6.2, 15.4, 'ADVANCED_FINANCIAL_PROBE', 'Multi-currency financial summary');
+            } else if (type === 'xml') {
+                runBenchmarkProbe('btn-run-xml', 'xml-status', 'xml-timer', 'xml-progress', 3.0, 0.60, 1.1, 2.8, 3.2, 5.1, 'MANIFEST_XML_PROBE', 'Customs manifest XML export');
+            }
+        }
+
+        function runBenchmarkProbe(btnId, statusId, timerId, progressId, targetSec, passRate, minPass, maxPass, minFail, maxFail, logTag, descName) {
+            const btn = document.getElementById(btnId);
+            const statusText = document.getElementById(statusId);
+            const timerVal = document.getElementById(timerId);
+            const progressBar = document.getElementById(progressId);
+
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            statusText.textContent = 'Status: Executing Query...';
+            progressBar.style.width = '0%';
+
+            const isPass = Math.random() < passRate;
+            const simulatedTime = isPass 
+                ? (Math.random() * (maxPass - minPass) + minPass).toFixed(2)
+                : (Math.random() * (maxFail - minFail) + minFail).toFixed(2);
+
+            let startTime = performance.now();
+            appendConsoleLog(`[${logTag}] Starting execution of ${descName}...`);
+
+            let interval = setInterval(() => {
+                let current = ((performance.now() - startTime) / 1000).toFixed(2);
+                if (current <= simulatedTime) {
+                    timerVal.textContent = `${current}s`;
+                    progressBar.style.width = `${Math.min((current / simulatedTime) * 100, 100)}%`;
+                }
+            }, 50);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                timerVal.textContent = `${simulatedTime}s`;
+                progressBar.style.width = '100%';
+
+                if (parseFloat(simulatedTime) <= targetSec) {
+                    statusText.textContent = `Status: PASSED (< ${targetSec}s)`;
+                    statusText.className = 'text-emerald-400 font-mono font-bold text-[11px]';
+                    appendConsoleLog(`[${logTag}] SUCCESS - ${descName} finished in ${simulatedTime}s (Target < ${targetSec}s). Memory: 22MB.`);
+                } else {
+                    statusText.textContent = `Status: FAILED (> ${targetSec}s)`;
+                    statusText.className = 'text-rose-400 font-mono font-bold text-[11px]';
+                    appendConsoleLog(`[${logTag}] ERROR - ${descName} query bottleneck. Latency: ${simulatedTime}s (Exceeded ${targetSec}s target).`);
+                }
+
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+            }, simulatedTime * 1000);
+        }
+
+        function appendConsoleLog(msg) {
+            const output = document.getElementById('terminal-output');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${msg}`;
+
+            const div = document.createElement('div');
+            if (msg.includes('ERROR') || msg.includes('FAILED')) {
+                div.className = 'text-rose-400 font-semibold';
+            } else if (msg.includes('SUCCESS')) {
+                div.className = 'text-emerald-400 font-semibold';
+            } else {
+                div.className = 'text-slate-300';
+            }
+            div.textContent = logEntry;
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function clearConsoleLog() {
+            document.getElementById('terminal-output').innerHTML = `<div class="text-slate-500">[${new Date().toLocaleTimeString()}] Console output reset.</div>`;
+        }
+
+        // Charts Initialization
+        function initDowntimeChart() {
+            const ctx = document.getElementById('downtimeCanvas').getContext('2d');
+            const labels = Array.from({length: 30}, (_, i) => `Day ${i + 1}`);
+            const data = Array(30).fill(0);
+            data[4] = 10;   // Day 5 Unscheduled Outage
+            data[11] = 50;  // Day 12 Scheduled Maintenance
+
+            const bgColors = data.map((val, idx) => {
+                if (idx === 4) return '#ef4444';
+                if (idx === 11) return '#f59e0b';
+                return '#10b981';
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Downtime (Minutes)',
+                        data: data,
+                        backgroundColor: bgColors,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
+                        y: { beginAtZero: true, max: 60, ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+        }
+
+        function initCpuLoadChart() {
+            const ctx = document.getElementById('cpuLoadCanvas').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+                    datasets: [{
+                        label: 'CPU Usage %',
+                        data: [15, 85, 28, 79, 65, 48, 88, 32],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: '#1e293b' } },
+                        y: { beginAtZero: true, max: 100, ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+        }
+
+        function initApiLatencyChart() {
+            const ctx = document.getElementById('apiLatencyCanvas').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['FedEx API', 'DHL API', 'Stripe Gateway', 'InvTrack FTP', 'Internal DB Join'],
+                    datasets: [{
+                        label: 'Latency (ms)',
+                        data: [28, 45, 110, 2800, 14200],
+                        backgroundColor: ['#10b981', '#10b981', '#10b981', '#f59e0b', '#f43f5e'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { display: false } },
+                        y: { beginAtZero: true, ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: '#1e293b' } }
+                    }
+                }
+            });
+        }
+
+        // Reports Render
+        function renderReportsTable(data) {
+            const tbody = document.getElementById('reportsTableBody');
+            tbody.innerHTML = data.map(r => `
+                <tr class="hover:bg-slate-900/60 transition">
+                    <td class="p-3 font-semibold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-file-lines text-blue-400"></i> ${r.title}
+                    </td>
+                    <td class="p-3"><span class="bg-slate-950 text-slate-300 px-2 py-0.5 rounded border border-slate-800 text-[10px] font-mono">${r.category}</span></td>
+                    <td class="p-3 font-medium ${r.auditRelevance.includes('High') ? 'text-emerald-400' : 'text-slate-400'}">${r.auditRelevance}</td>
+                    <td class="p-3 font-mono text-slate-400">${r.date}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="previewReport('${r.id}')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-[10px] font-semibold transition">Preview</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function filterReportsTable() {
+            const query = document.getElementById('reportSearch').value.toLowerCase();
+            const filtered = reportsData.filter(r => 
+                r.title.toLowerCase().includes(query) || 
+                r.category.toLowerCase().includes(query) ||
+                r.auditRelevance.toLowerCase().includes(query)
+            );
+            renderReportsTable(filtered);
+        }
+
+        function previewReport(id) {
+            const rep = reportsData.find(r => r.id === id);
+            if (!rep) return;
+            document.getElementById('modalReportTitle').textContent = `${rep.id}: ${rep.title}`;
+            document.getElementById('modalReportContent').innerHTML = `
+                <div class="bg-slate-950 p-3 rounded border border-slate-800 font-mono text-[11px] text-blue-300">Category: ${rep.category} | Date: ${rep.date}</div>
+                <p>${rep.content}</p>
+            `;
+            document.getElementById('reportViewModal').classList.remove('hidden');
+        }
+
+        function closeReportViewModal() {
+            document.getElementById('reportViewModal').classList.add('hidden');
+        }
+
+        // Tickets Render
+        function renderTickets(tickets) {
+            const container = document.getElementById('ticketContainer');
+            container.innerHTML = tickets.map(t => `
+                <div class="glass-card p-4 rounded-xl space-y-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs font-bold text-blue-400">${t.id}</span>
+                            <span class="text-[10px] bg-slate-950 text-slate-300 px-2 py-0.5 rounded border border-slate-800">${t.category}</span>
+                            <span class="text-[10px] ${t.priority === 'High' ? 'bg-rose-950 text-rose-300 border-rose-800' : 'bg-slate-950 text-slate-400'} border px-2 py-0.5 rounded">${t.priority} Priority</span>
+                        </div>
+                        <span class="text-[11px] text-slate-400">Reporter: <strong class="text-slate-200">${t.user}</strong></span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${t.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function filterTickets() {
+            const priority = document.getElementById('ticketPriorityFilter').value;
+            const query = document.getElementById('ticketSearch').value.toLowerCase();
+            const filtered = supportTicketsData.filter(t => {
+                const matchPriority = priority === 'all' || t.priority === priority;
+                const matchQuery = t.text.toLowerCase().includes(query) || t.user.toLowerCase().includes(query) || t.id.toLowerCase().includes(query);
+                return matchPriority && matchQuery;
+            });
+            renderTickets(filtered);
+        }
+
+        // Syslog Stream Simulation
+        function startLiveSyslogStream() {
+            const streamBox = document.getElementById('liveStreamBox');
+            const sampleLogs = [
+                "[CRON] FTP Batch Export triggered -> InvTrack v2.1 (/exports/inv_delta.xml)",
+                "[HTTP] GET /api/v4/shipments/tracking_id=TRK-9821 - 200 OK (22ms)",
+                "[SQL] EXPLAIN ANALYZE SELECT * FROM billing WHERE currency != 'GBP' -> Sequential Scan on 12.4M rows",
+                "[WEBHOOK] DHL Express status callback payload received (DELIVERED)",
+                "[AUTH] User SSO identity verified for dispatcher_DC2@apexlogistics.com",
+                "[HTTP 504] GATEWAY TIMEOUT - PostgreSQL connection pool max reached (100/100)"
+            ];
+
+            setInterval(() => {
+                if (isStreamPaused) return;
+                const randomLog = sampleLogs[Math.floor(Math.random() * sampleLogs.length)];
+                const timestamp = new Date().toLocaleTimeString();
+                const div = document.createElement('div');
+                div.className = randomLog.includes('504') ? 'text-amber-400' : 'text-slate-300';
+                div.textContent = `[${timestamp}] ${randomLog}`;
+                streamBox.appendChild(div);
+                streamBox.scrollTop = streamBox.scrollHeight;
+            }, 3500);
+        }
+
+        function toggleStreamPause() {
+            isStreamPaused = !isStreamPaused;
+            const btn = document.getElementById('btn-pause-stream');
+            btn.innerHTML = isStreamPaused 
+                ? `<i class="fa-solid fa-play"></i> <span>Resume Stream</span>`
+                : `<i class="fa-solid fa-pause"></i> <span>Pause Stream</span>`;
+        }
+
+        function handleGlobalSearch(e) {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 2) {
+                switchTab('reports');
+                document.getElementById('reportSearch').value = query;
+                filterReportsTable();
+            }
+        }
+
+        function changeEnvironment() {
+            const env = document.getElementById('envSwitcher').value;
+            appendConsoleLog(`[ENVIRONMENT_CHANGED] Active context switched to: ${env.toUpperCase()}`);
+        }
+
+        function openScenarioBriefModal() {
+            document.getElementById('briefModal').classList.remove('hidden');
+        }
+
+        function closeScenarioBriefModal() {
+            document.getElementById('briefModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

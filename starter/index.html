@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- Tells the browser this is a modern HTML5 page -->
+<html lang="en">
+
+<!-- The <head> holds information ABOUT the page. None of it shows on screen. -->
+<head>
+    <!-- Lets the page use any character, including emoji -->
+    <meta charset="utf-8">
+
+    <!-- Makes the page scale properly on phones -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The text shown in the browser tab. Make it unique on every page. -->
+    <title>Your Name | Portfolio</title>
+
+    <!-- A short summary of your site for search engines -->
+    <meta name="description" content="My T Level Digital portfolio.">
+
+    <!-- Links your stylesheet. The file must be in the same folder. -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- The <body> holds everything visitors can see -->
+<body>
+
+    <!-- Top of the page: your name and the menu -->
+    <header>
+        <h1>Your Name</h1>
+        <p>T Level Digital Student</p>
+
+        <!-- Navigation: add a link for each page you make -->
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+        </nav>
+    </header>
+
+    <!-- The main content of this page. Only one <main> per page. -->
+    <main>
+
+        <!-- A <section> groups related content under a heading -->
+        <section>
+            <h2>Welcome</h2>
+            <p>Write a short introduction about yourself and what this site is for.</p>
+        </section>
+
+        <section>
+            <h2>My Projects</h2>
+
+            <!-- An <article> is a self-contained piece, like one project -->
+            <article class="card">
+                <h3>Project Title</h3>
+                <!-- Put your images in an "images" folder. Always include alt text. -->
+                <img src="images/project.png" alt="Screenshot of my project homepage">
+                <p>What did you build? What did you learn?</p>
+            </article>
+        </section>
+
+    </main>
+
+    <!-- Bottom of the page -->
+    <footer>
+        <p>&copy; 2026 Your Name</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CA5 Business Context | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev ca5" data-page="ca5">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 5 · CORE PAPER 2</p>
+            <h1>Content Area 5: Business Context</h1>
+            <p>Content area 5 looks at the organisations that digital systems are built for: what they do, who has an interest in them, how digital systems add value, what can go wrong, and how change is managed. Paper 2 questions are often based on a short scenario about a business. Use the details in the scenario in every answer.</p>
+            <p class="links"><strong>Links to other content areas:</strong> risks link to <a href="ca8.html">Content area 8</a> (Security) and <a href="ca4.html">Content area 4</a> (Legislation). Implementation testing links to <a href="ca2.html#s2-12">Content area 2 (2.12 Testing)</a>. Backups and resilience link to <a href="ca7.html#s7-6">Content area 7 (7.6)</a>.</p>
+            <span class="big-num" aria-hidden="true">5</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>5.1.1</td><td>Describe the purpose (service or product) and sector (private, public, voluntary/charity) of organisations, including SME, large enterprise and NGO</td></tr>
+                            <tr><td>5.1.2</td><td>Define B2C, B2B and B2M business models</td></tr>
+                            <tr><td>5.1.3</td><td>Identify internal and external stakeholders</td></tr>
+                            <tr><td>5.2.1</td><td>Explain how digital systems support sales and marketing, R&amp;D, HR, operations, management, logistics and finance</td></tr>
+                            <tr><td>5.2.2</td><td>Explain how digital systems meet user needs and ensure quality: functionality, pain points, accessibility, compatibility, availability, support, installation</td></tr>
+                            <tr><td>5.3.1</td><td>Explain the risks to organisations of using digital systems</td></tr>
+                            <tr><td>5.3.2</td><td>Explain the impact of those risks: legal action, fines, reputational damage, loss of licence, loss of business</td></tr>
+                            <tr><td>5.4.1–2</td><td>Explain internal and external (PESTLE) factors that trigger change</td></tr>
+                            <tr><td>5.4.3</td><td>Explain how organisations respond to change</td></tr>
+                            <tr><td>5.4.4</td><td>Explain the change management process: CAB, SMARTER objectives, impact, resources, risk communication, configuration, testing, implementation methods, documentation, rollback, training, monitoring, version control</td></tr>
+                            <tr><td>5.4.5</td><td>Explain the factors that determine feasibility: benefits and drawbacks, risks, constraints</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s5-1">
+                    <h2>5.1 Business environment</h2>
+                    <div class="window-body">
+                        <h3>Purpose of organisations (5.1.1)</h3>
+                        <table>
+                            <tr><th>Purpose</th><th>Meaning</th><th>Examples</th></tr>
+                            <tr><td>Providing a service</td><td>Carries out tasks or provides expertise for customers; nothing physical is owned afterwards.</td><td>Banks, NHS, Netflix, accountants, IT support companies</td></tr>
+                            <tr><td>Providing a product</td><td>Makes or sells physical or digital goods.</td><td>Supermarkets, car manufacturers, a games studio selling games</td></tr>
+                        </table>
+                        <h4>Sectors</h4>
+                        <table>
+                            <tr><th>Sector</th><th>Description</th><th>Examples</th></tr>
+                            <tr><td>Private: SME</td><td>Privately owned, fewer than 250 staff. Aims to make a profit. Limited budget for IT.</td><td>A local web design agency; an independent café chain</td></tr>
+                            <tr><td>Private: large enterprise</td><td>Privately owned, 250 or more staff. Often has its own IT department and bigger budgets.</td><td>Tesco, Sky, Asda, BT</td></tr>
+                            <tr><td>Private: NGO</td><td>Independent of government; often works on social, humanitarian or environmental issues; funded by donations and grants.</td><td>Amnesty International, Greenpeace, Oxfam</td></tr>
+                            <tr><td>Public sector</td><td>Owned and funded by government (taxes) to provide services, not profit.</td><td>NHS trusts, councils, HMRC, state schools and colleges</td></tr>
+                            <tr><td>Voluntary / charity: not for profit</td><td>Any surplus goes back into the cause. Relies on donations and volunteers.</td><td>Macmillan, local food banks, Age UK</td></tr>
+                        </table>
+
+                        <h3>Business models (5.1.2)</h3>
+                        <table>
+                            <tr><th>Model</th><th>Meaning</th><th>Example</th></tr>
+                            <tr><td>B2C: Business to Customer</td><td>Sells directly to individual consumers.</td><td>ASOS, Spotify Premium, Deliveroo</td></tr>
+                            <tr><td>B2B: Business to Business</td><td>Sells to other businesses.</td><td>Sage accounting software sold to firms; a company supplying servers to data centres</td></tr>
+                            <tr><td>B2M: Business to Many</td><td>Sells to businesses and consumers at the same time, using marketing that appeals to both.</td><td>Microsoft 365 (home and business plans); Amazon (shoppers and Amazon Business)</td></tr>
+                        </table>
+
+                        <h3>Stakeholders (5.1.3)</h3>
+                        <table>
+                            <tr><th>Internal</th><th>Interest</th><th>External</th><th>Interest</th></tr>
+                            <tr><td>Owners</td><td>Profit, growth, control</td><td>Customers / clients</td><td>Quality, price, service</td></tr>
+                            <tr><td>Directors</td><td>Strategy, performance, meeting targets</td><td>Suppliers</td><td>Regular orders, being paid on time</td></tr>
+                            <tr><td>Employees</td><td>Pay, job security, working conditions</td><td>Shareholders</td><td>Dividends, share price</td></tr>
+                            <tr><td></td><td></td><td>Outsourced services</td><td>Contract continuing, clear requirements</td></tr>
+                            <tr><td></td><td></td><td>Investors / funders</td><td>Return on investment; for charities, money used well</td></tr>
+                            <tr><td></td><td></td><td>Government</td><td>Tax paid, laws followed, jobs created</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>Shareholders are listed as <strong>external</strong> in this spec. Owners and directors are internal. Explain how a change affects a stakeholder's interest, e.g. 'Automating the warehouse may worry employees because some roles could be cut.'</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Stakeholder</dt><dd>Anyone with an interest in, or affected by, an organisation.</dd>
+                            <dt>SME</dt><dd>Small or medium-sized enterprise: fewer than 250 employees (small: fewer than 50).</dd>
+                            <dt>Large enterprise</dt><dd>An organisation with 250 or more employees.</dd>
+                            <dt>NGO</dt><dd>Non-governmental organisation: independent of government, usually working for a social or environmental cause.</dd>
+                            <dt>Private sector</dt><dd>Organisations owned by individuals or shareholders, usually aiming to make a profit.</dd>
+                            <dt>Public sector</dt><dd>Organisations owned and funded by the government to provide public services.</dd>
+                            <dt>Voluntary / charity sector</dt><dd>Not-for-profit organisations that use any surplus for their cause.</dd>
+                            <dt>B2C</dt><dd>Business to Customer: selling directly to individual consumers.</dd>
+                            <dt>B2B</dt><dd>Business to Business: selling products or services to other businesses.</dd>
+                            <dt>B2M</dt><dd>Business to Many: selling to both businesses and consumers at the same time, often with tailored marketing for each.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s5-2">
+                    <h2>5.2 Digital value to organisations</h2>
+                    <div class="window-body">
+                        <h3>Supporting key organisation areas (5.2.1)</h3>
+                        <table>
+                            <tr><th>Area</th><th>How digital systems help</th><th>Example</th></tr>
+                            <tr><td>Sales and marketing</td><td><ul><li>Better market research (online surveys, analytics)</li><li>Brand promotion including social media</li><li>Online selling (24/7, wider market)</li><li>Contextualising customer behaviour to personalise services</li><li>Better customer retention (loyalty apps, targeted emails)</li><li>Brand differentiation and values</li><li>Analytics tools: search and social media analytics</li></ul></td><td>Tesco Clubcard data used to send personalised offers</td></tr>
+                            <tr><td>Research, design and development</td><td>Provision of unique products and services: simulation, prototyping, CAD, data analysis</td><td>Car makers test designs in software before building them</td></tr>
+                            <tr><td>Human Resources</td><td><ul><li>Staff records</li><li>Performance management</li><li>Training records</li></ul></td><td>An HR system tracks holidays, appraisals and mandatory training</td></tr>
+                            <tr><td>Operations</td><td><ul><li>Enhanced internal communication</li><li>Automation of internal processes</li><li>Automated manufacturing</li><li>Remote working</li><li>Intranet / shared workspace</li><li>Document sharing and online storage</li></ul></td><td>Teams and SharePoint for a hybrid workforce</td></tr>
+                            <tr><td>Management</td><td>Real-time monitoring of KPIs: sales, customers served, units manufactured, real-time location of assets</td><td>A dashboard showing today's sales and delivery van locations</td></tr>
+                            <tr><td>Logistics</td><td>Automated stock control</td><td>Barcode scanning reorders stock when it falls below a set level</td></tr>
+                            <tr><td>Finance</td><td><ul><li>Reduced costs</li><li>Increased revenue</li><li>Better financial reporting via up-to-date information</li></ul></td><td>Cloud accounting gives managers live figures, not month-old reports</td></tr>
+                        </table>
+
+                        <h3>Meeting user needs and ensuring quality (5.2.2)</h3>
+                        <table>
+                            <tr><th>Factor</th><th>Meaning</th><th>Example</th></tr>
+                            <tr><td>Appropriate and effective functionality</td><td>The system lets users do every task they need.</td><td>A banking app that lets users pay, transfer, freeze a card and view statements</td></tr>
+                            <tr><td>Reduction of pain points: response time</td><td>Fast responses; tell users the expected wait and if it changes.</td><td>'Your call is 3rd in the queue'; a progress bar on uploads</td></tr>
+                            <tr><td>Reduction of pain points: complexity of task</td><td>Make tasks quick and simple.</td><td>One-click reorder; saved addresses</td></tr>
+                            <tr><td>Appropriate accessibility provision</td><td>Usable by people with disabilities.</td><td>Screen reader support; captions; keyboard navigation</td></tr>
+                            <tr><td>Compatibility</td><td>Works with internal legacy systems, proposed future systems and external services.</td><td>A new website still talks to the old stock database and to PayPal</td></tr>
+                            <tr><td>Availability of service</td><td>Minimise downtime; future-proof for upgrades.</td><td>Maintenance at 3am; system designed so it can scale</td></tr>
+                            <tr><td>Effective end user support</td><td>Provision of digital support.</td><td>Live chat, FAQs, help guides, tutorial videos</td></tr>
+                            <tr><td>Ease of installation</td><td>Provision of an installation package.</td><td>An installer that sets everything up in a few clicks; app store download</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>KPI</dt><dd>Key performance indicator: a measurable value showing how well an organisation is achieving its objectives.</dd>
+                            <dt>Pain point</dt><dd>A specific problem or frustration users experience with a product or service.</dd>
+                            <dt>Legacy system</dt><dd>An older system still in use that new systems may need to work with.</dd>
+                            <dt>Downtime</dt><dd>Time when a system is unavailable.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s5-3">
+                    <h2>5.3 Risk to organisations of using digital systems</h2>
+                    <div class="window-body">
+                        <h3>Potential risks (5.3.1)</h3>
+                        <table>
+                            <tr><th>Risk</th><th>Explanation</th><th>Example</th></tr>
+                            <tr><td>Security breach: compromised confidentiality</td><td>Unauthorised people see data.</td><td>Hackers steal customer records</td></tr>
+                            <tr><td>Security breach: loss of integrity</td><td>Data is changed or corrupted, so it can't be trusted.</td><td>Malware alters prices in a database</td></tr>
+                            <tr><td>Security breach: reduced availability</td><td>Systems or data can't be accessed when needed.</td><td>Ransomware encrypts files; DDoS takes website offline</td></tr>
+                            <tr><td>Privacy breach: personal information</td><td>Customers' or staff personal data is exposed.</td><td>Email with all customers' addresses in CC instead of BCC</td></tr>
+                            <tr><td>Privacy breach: business information</td><td>Commercially sensitive data is exposed.</td><td>Product plans leaked to a competitor</td></tr>
+                            <tr><td>Regulatory and legal non-compliance</td><td>Breaking laws such as data protection or accessibility.</td><td>Keeping data longer than needed; inaccessible public sector website</td></tr>
+                            <tr><td>Audience exclusion: biases</td><td>System disadvantages some groups.</td><td>AI recruitment tool favours male applicants</td></tr>
+                            <tr><td>Audience exclusion: poor user experience</td><td>Users struggle and give up.</td><td>Confusing checkout leads to abandoned baskets</td></tr>
+                            <tr><td>Emerging rival technologies</td><td>Competitors adopt newer technology and win customers.</td><td>High street video rental shops replaced by streaming</td></tr>
+                            <tr><td>Technical issues: reliance and system failure</td><td>If the system fails, the business stops.</td><td>Card payment outage means shops can't take payments</td></tr>
+                            <tr><td>Technical issues: system not fit for purpose</td><td>System doesn't meet requirements.</td><td>New booking system can't handle peak demand</td></tr>
+                        </table>
+                        <h3>Potential impact of risks (5.3.2)</h3>
+                        <table>
+                            <tr><th>Impact</th><th>Explanation</th></tr>
+                            <tr><td>Legal action</td><td>Customers, staff or partners sue for damages; regulators prosecute.</td></tr>
+                            <tr><td>Fines</td><td>E.g. the ICO can fine up to £17.5 million or 4% of global turnover for data protection breaches.</td></tr>
+                            <tr><td>Reputational damage</td><td>Bad publicity; customers lose trust and go elsewhere; harder to recruit.</td></tr>
+                            <tr><td>Withdrawal of licence to practise</td><td>Regulated organisations (banks, financial advisers, healthcare) can lose permission to operate.</td></tr>
+                            <tr><td>Loss of business</td><td>Customers leave, contracts are cancelled, sales lost during downtime.</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: CHAIN THE RISK TO THE IMPACT</h4>
+                            <p>A risk on its own is not a full answer. Link it: 'A security breach exposing patient records (risk) would breach data protection law, so the clinic could be fined by the ICO (impact), and patients may move to another practice (impact).'</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Confidentiality, integrity, availability</dt><dd>The three security properties that a breach can compromise (the CIA triad).</dd>
+                            <dt>Audience exclusion</dt><dd>When some users cannot use or are disadvantaged by a system, e.g. through bias or poor user experience.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s5-4-1">
+                    <h2>5.4.1–3 Triggers for change and responses</h2>
+                    <div class="window-body">
+                        <h3>Internal factors (5.4.1)</h3>
+                        <table>
+                            <tr><th>Factor</th><th>Digital impact example</th></tr>
+                            <tr><td>Organisational restructuring</td><td>Departments merged, so user permissions and systems must be reorganised.</td></tr>
+                            <tr><td>Expansion</td><td>New branches need network connections, more licences and more server capacity.</td></tr>
+                            <tr><td>Downsizing</td><td>Fewer staff; processes automated; licences and hardware reduced.</td></tr>
+                            <tr><td>New strategic objectives: diversification</td><td>A clothing retailer starts selling homeware: new product categories in the website and stock system.</td></tr>
+                            <tr><td>New strategic objectives: rebranding</td><td>Website, app, email templates and social media all need updating.</td></tr>
+                            <tr><td>New strategic objectives: additional features or services</td><td>A gym adds online class booking to its app.</td></tr>
+                        </table>
+
+                        <h3>External factors: PESTLE (5.4.2)</h3>
+                        <table>
+                            <tr><th>Factor</th><th>Spec examples</th><th>Digital impact example</th></tr>
+                            <tr><td>Political</td><td>Change in government; conflict; shift in government priorities</td><td>New government funding for digital health; sanctions stop use of a supplier</td></tr>
+                            <tr><td>Economic</td><td>New services; recession; inflation; interest rates; consumer trends; new competitors; entering new markets</td><td>Recession cuts IT budget; a competitor launches an app so you must too</td></tr>
+                            <tr><td>Social</td><td>Changing demographics; market/social trends; adapting to remote working; cultural expectations</td><td>Customers expect mobile apps and contactless payment</td></tr>
+                            <tr><td>Technological</td><td>New technologies emerge; obsolete ones are retired; system failure; zero-day vulnerabilities</td><td>Windows 10 end of support forces upgrades; a zero-day forces an urgent patch</td></tr>
+                            <tr><td>Legal</td><td>New legislation; changes to legislation</td><td>New data protection or accessibility rules require system changes</td></tr>
+                            <tr><td>Environmental</td><td>Sustainability issues; pandemics; natural disasters</td><td>Pandemic forces remote working; flooding damages a server room</td></tr>
+                        </table>
+                        <h4>Practise: which PESTLE factor?</h4>
+                        <div class="sorter" data-options="Political|Economic|Social|Technological|Legal|Environmental">
+                            <p data-a="Technological">The operating system on every till reaches end of support.</p>
+                            <p data-a="Legal">A new law requires all apps to offer a 'delete my account' button.</p>
+                            <p data-a="Economic">Interest rates rise and the company delays buying new servers.</p>
+                            <p data-a="Social">Younger customers expect to pay by phone rather than card.</p>
+                            <p data-a="Environmental">A storm floods the basement where the servers are kept.</p>
+                            <p data-a="Political">A new government shifts funding towards digital public services.</p>
+                        </div>
+
+                        <h3>How organisations respond to change (5.4.3)</h3>
+                        <table>
+                            <tr><th>Response</th><th>Examples</th></tr>
+                            <tr><td>New or amended policies</td><td>New remote working policy; updated AUP</td></tr>
+                            <tr><td>New or amended business processes</td><td>Change in staffing numbers; change in delivery schedules; change in opening hours</td></tr>
+                            <tr><td>New or amended products or services</td><td>Completely new products; next generation products; minor updates to existing products</td></tr>
+                            <tr><td>New or improved digital systems</td><td>Back-end systems (stock, payroll, databases); customer-facing systems (website, app, chatbot)</td></tr>
+                            <tr><td>Improved training</td><td>Training staff on a new system or new security threats</td></tr>
+                            <tr><td>Restructuring</td><td>Change in management structure; redrawing of boundaries (e.g. regions or departments)</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>PESTLE</dt><dd>Political, Economic, Social, Technological, Legal, Environmental: the external factors that trigger change.</dd>
+                            <dt>Zero-day vulnerability</dt><dd>A security flaw unknown to the vendor, with no patch available, that attackers can exploit.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s5-4-4">
+                    <h2>5.4.4 The change management process</h2>
+                    <div class="window-body">
+                        <p><strong>Change management</strong> is the controlled process for making changes to digital systems so that they are planned, approved, tested and documented, and so disruption is kept to a minimum.</p>
+                        <table>
+                            <tr><th>Stage</th><th>What happens</th></tr>
+                            <tr><td>Identify the type of change</td><td>New system, or amendment to an existing system?</td></tr>
+                            <tr><td>Role of the change advisory board (CAB)</td><td>Prioritise change requests; review them; manage stages of approval; monitor the change (collate and analyse change data, check implementation, take action to accelerate change); provide feedback.</td></tr>
+                            <tr><td>Identify the changes to be made</td><td>Set SMARTER objectives (below).</td></tr>
+                            <tr><td>Identify impact of change</td><td>Measure or forecast positive and negative impact; analyse it.</td></tr>
+                            <tr><td>Allocation of resources</td><td>Budget, time, staffing, hardware and software.</td></tr>
+                            <tr><td>Communicate risks and desired impact to stakeholders</td><td>To gain acceptance and ensure compliance.</td></tr>
+                            <tr><td>Configuration of the new system or process</td><td>Integration with legacy systems; maintaining service during the change.</td></tr>
+                            <tr><td>Fully test the new system</td><td>Results must be reproducible; use a test environment (hardware and software) that matches the live one.</td></tr>
+                            <tr><td>Choose the implementation method</td><td>Parallel, phased, direct or pilot (below).</td></tr>
+                            <tr><td>Document the change process</td><td>Requirement traceability (responsibility and accountability); up-to-date information; record all decisions; retain change documentation; user training manuals.</td></tr>
+                            <tr><td>Rollback planning</td><td>Backup methodology, backup location, recovery plan, so the old system can be restored if the change fails.</td></tr>
+                            <tr><td>Identify training needs</td><td>New training requirements; refresher courses.</td></tr>
+                            <tr><td>Monitor progress</td><td>Post-progress review: did the change meet its objectives?</td></tr>
+                            <tr><td>Version control software</td><td>Tracks every change to code and documents so earlier versions can be restored and changes traced to a person.</td></tr>
+                        </table>
+
+                        <h3>SMARTER objectives</h3>
+                        <table>
+                            <tr><th>Letter</th><th>Meaning</th><th>Example: new online booking system for a dental practice</th></tr>
+                            <tr><td>S</td><td>Specific</td><td>Patients can book, change and cancel appointments online</td></tr>
+                            <tr><td>M</td><td>Measurable</td><td>40% of bookings made online</td></tr>
+                            <tr><td>A</td><td>Achievable</td><td>Uses an existing booking platform the practice can afford</td></tr>
+                            <tr><td>R</td><td>Realistic</td><td>Staff have time to be trained</td></tr>
+                            <tr><td>T</td><td>Time-bound</td><td>Live within 3 months</td></tr>
+                            <tr><td>E</td><td>Evaluated</td><td>Patient feedback and booking data assessed after 1 month</td></tr>
+                            <tr><td>R</td><td>Reviewed</td><td>Objectives reviewed and adjusted at 6 months</td></tr>
+                        </table>
+
+                        <h3>Implementation methods</h3>
+                        <table>
+                            <tr><th>Method</th><th>How it works</th><th>Benefits</th><th>Drawbacks</th><th>Best for</th></tr>
+                            <tr><td>Parallel</td><td>Old and new systems run side by side; results compared.</td><td>Lowest risk: old system is a fallback; outputs can be checked.</td><td>Double the work and cost; staff may resist dropping old system.</td><td>Critical systems: payroll, banking</td></tr>
+                            <tr><td>Phased</td><td>New system introduced one module at a time.</td><td>Problems limited to one part; staff learn gradually.</td><td>Slow; old and new must work together during transition.</td><td>Large systems with separate modules</td></tr>
+                            <tr><td>Direct</td><td>Old system switched off, new one switched on at once.</td><td>Quickest and cheapest; no duplication.</td><td>Highest risk: if it fails there is no fallback.</td><td>Small or non-critical systems; when old system cannot continue</td></tr>
+                            <tr><td>Pilot</td><td>New system used in one branch or by one group first.</td><td>Problems found on a small scale; pilot users can train others.</td><td>Slower to roll out everywhere; pilot site bears the risk.</td><td>Organisations with many similar branches</td></tr>
+                        </table>
+                        <div class="box worked">
+                            <h4>✎ WORKED EXAMPLE</h4>
+                            <p>A supermarket chain with 300 stores is replacing its till software. <strong>Pilot</strong> is suitable: install in three stores first, fix problems with real customers on a small scale, then roll out. Direct would risk every store being unable to take payments at once; parallel is impractical because each till can only run one system.</p>
+                        </div>
+                        <h4>Practise: which implementation method suits best?</h4>
+                        <div class="sorter" data-options="Parallel|Phased|Direct|Pilot">
+                            <p data-a="Parallel">A council's payroll system, where every payment must be checked against the old system for a month.</p>
+                            <p data-a="Pilot">A bank with 80 branches trialling new counter software.</p>
+                            <p data-a="Direct">A small café replacing a broken booking spreadsheet that can no longer be opened.</p>
+                            <p data-a="Phased">A hospital moving to a new system one module at a time: appointments first, then prescriptions, then billing.</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Change advisory board (CAB)</dt><dd>A group that reviews, prioritises and approves proposed changes to systems and monitors their implementation.</dd>
+                            <dt>SMARTER</dt><dd>Specific, Measurable, Achievable, Realistic, Time-bound, Evaluated, Reviewed: a framework for setting objectives.</dd>
+                            <dt>Version control</dt><dd>Software that tracks every change to files, who made it and when, so earlier versions can be restored (e.g. Git).</dd>
+                            <dt>Requirement traceability</dt><dd>Being able to link each change back to the requirement it meets and who was responsible.</dd>
+                            <dt>Rollback</dt><dd>Returning to the previous version of a system if a change fails.</dd>
+                            <dt>Pilot implementation</dt><dd>Introducing the new system in one location or to one group first, then rolling it out.</dd>
+                            <dt>Direct implementation</dt><dd>Switching off the old system and starting the new one at the same moment (big bang).</dd>
+                            <dt>Phased implementation</dt><dd>Introducing the new system one part (module) at a time.</dd>
+                            <dt>Parallel implementation</dt><dd>Running the old and new systems side by side for a period.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s5-4-5">
+                    <h2>5.4.5 Feasibility of a digital project</h2>
+                    <div class="window-body">
+                        <p>A feasibility study decides whether a project is worth doing. It weighs benefits against drawbacks, risks and constraints.</p>
+                        <table>
+                            <tr><th>Factor</th><th>Examples</th></tr>
+                            <tr><td>Benefits and drawbacks</td><td><ul><li>Financial savings (e.g. fewer staff hours)</li><li>Cost of implementing change (hardware, software, training, consultants)</li><li>Impact on processes: productivity gains, improved communication, security</li><li>Provision of new products</li><li>Impact on company reputation</li></ul></td></tr>
+                            <tr><td>Risks</td><td><ul><li>Resistance to change from the workforce</li><li>Misuse of new systems</li><li>Inadequate support for the new system</li><li>Inadequate knowledge of the new system</li><li>Disruption caused by implementation</li></ul></td></tr>
+                            <tr><td>Constraints</td><td><ul><li>Budget</li><li>Time</li><li>Human resources and technological resources</li></ul></td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>In an evaluate question about feasibility, weigh the benefits against costs, risks and constraints for the organisation in the scenario, then make a judgement: is it feasible, and under what conditions? For example: 'It is feasible if implemented in phases so the cost is spread over two financial years.'</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Feasibility</dt><dd>Whether a project is practical and worthwhile given its benefits, risks and constraints.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>ORGANISATIONS</h4><ul><li>Service or product</li><li>Private: SME (&lt;250), large, NGO</li><li>Public sector</li><li>Voluntary / charity: not for profit</li></ul></div>
+                            <div><h4>MODELS AND STAKEHOLDERS</h4><ul><li>B2C, B2B, B2M</li><li>Internal: owners, directors, employees</li><li>External: customers, suppliers, shareholders, outsourced services, investors, government</li></ul></div>
+                            <div><h4>DIGITAL VALUE</h4><ul><li>Sales and marketing: analytics, personalisation</li><li>HR records</li><li>Operations: automation, remote working</li><li>Management: real-time KPIs</li><li>Logistics: stock control; finance: reporting</li></ul></div>
+                            <div><h4>MEETING USER NEEDS</h4><ul><li>Functionality</li><li>Fewer pain points: response time, complexity</li><li>Accessibility</li><li>Compatibility</li><li>Availability, support, easy installation</li></ul></div>
+                            <div><h4>RISKS → IMPACTS</h4><ul><li>Security and privacy breaches</li><li>Non-compliance; audience exclusion</li><li>Rival technologies; system failure</li><li>Impacts: legal action, fines, reputation, loss of licence, loss of business</li></ul></div>
+                            <div><h4>TRIGGERS FOR CHANGE</h4><ul><li>Internal: restructure, expand, downsize, new strategy</li><li>External: PESTLE</li><li>Zero-day vulnerabilities, new laws, pandemics</li></ul></div>
+                            <div><h4>CHANGE PROCESS</h4><ul><li>Change advisory board approves, prioritises and monitors</li><li>SMARTER objectives</li><li>Resources, risks, testing</li><li>Documentation, rollback plan, training</li><li>Version control</li></ul></div>
+                            <div><h4>IMPLEMENTATION AND FEASIBILITY</h4><ul><li>Parallel: safe, costly</li><li>Phased: one module at a time</li><li>Direct: fast, risky</li><li>Pilot: one site first</li><li>Feasibility: benefits vs risks vs constraints</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on CA5 from the course question bank. Pick a topic or question type, answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-area="5"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 80 minutes.</p>
+                        <div class="qset" data-set="ca5">
+                            <div class="q" data-m="2">
+                                <p>State the difference between the public sector and the private sector.</p>
+                                <div class="ms"><ul><li>Public sector organisations are owned/funded by government to provide services (1); private sector organisations are owned by individuals/shareholders and usually aim to make a profit (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="1">
+                                <p>Give one example of an NGO.</p>
+                                <div class="ms"><ul><li>Any valid NGO, e.g. Oxfam, Amnesty International, Greenpeace, Red Cross.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Identify two internal stakeholders and two external stakeholders of a college.</p>
+                                <div class="ms"><ul><li>Internal (any two): owners/governors; directors/principal/senior leaders; employees/lecturers/support staff.</li><li>External (any two): students/customers; parents; suppliers; government/funding bodies (e.g. DfE); employers/partners; Ofsted. One mark each.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain how real-time monitoring of KPIs could help the manager of a parcel delivery company.</p>
+                                <div class="ms"><ul><li>Manager can see where vans are / parcels delivered in real time (1) so problems such as delays can be spotted and resources redeployed quickly (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain two ways a digital system can reduce pain points for users of a train ticket app.</p>
+                                <div class="ms"><ul><li>Pain point (1) + how the system reduces it (1), twice. E.g. response time: show live delay information and estimated times (1) so passengers can plan (1). Complexity: save payment details and favourite journeys (1) so buying takes a few taps (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A hospital's patient record system fails for six hours. Explain two potential impacts on the hospital.</p>
+                                <div class="ms"><ul><li>Impact (1) + explanation (1), twice. E.g. patient safety risk because staff cannot see medication history (1), possible legal action (1); reputational damage (1) loss of public trust (1); disruption/cancelled appointments (1); regulatory investigation (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain one political and one technological factor that could trigger change in a bank.</p>
+                                <div class="ms"><ul><li>Political (1) + explanation (1): e.g. new government regulations on open banking require the bank to share data via APIs, so systems must change (1).</li><li>Technological (1) + explanation (1): e.g. a zero-day vulnerability in online banking software requires urgent patching (1); customers expect new technology such as biometric login (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe the role of a change advisory board.</p>
+                                <div class="ms"><ul><li>Any three: reviews change requests; prioritises them; approves or rejects through stages of approval; monitors the change (collating data, checking implementation, accelerating); provides feedback.</li></ul></div>
+                            </div>
+
+                            <div class="box scenario">
+                                <h4>■ SCENARIO FOR QUESTIONS 9–13</h4>
+                                <p><strong>BrewBox</strong> is a Yorkshire SME with 60 staff that sells coffee subscriptions online to customers and supplies coffee beans to cafés. It uses an old stock system and a separate website. The directors want a new integrated system covering the website, stock, deliveries and customer accounts.</p>
+                            </div>
+
+                            <div class="q" data-m="2" data-n="9">
+                                <p>State which business model BrewBox uses and justify your answer.</p>
+                                <div class="ms"><ul><li>B2M (1): it sells subscriptions to individual customers (B2C) and supplies cafés (B2B) (1). Accept B2C or B2B only if clearly justified with reference to one part (max 1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2" data-n="10">
+                                <p>Write two SMARTER objectives for BrewBox's new system.</p>
+                                <div class="ms"><ul><li>One mark per objective that is specific and measurable with a time element, e.g. 'All stock levels update automatically when an online order is placed, from launch in March.' 'Reduce delivery errors by 50% within six months.'</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3" data-n="11">
+                                <p>Explain why BrewBox needs a rollback plan.</p>
+                                <div class="ms"><ul><li>If the new system fails or has serious bugs (1) BrewBox could restore the old system and data from backup (1) so customers can still order and income is not lost (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6" data-n="12">
+                                <p>Discuss the suitability of direct and parallel implementation for BrewBox's new system.</p>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Direct: cheapest and quickest, important for an SME; no need to run two systems. But high risk: if the new system fails, customers cannot order and cafés cannot be supplied; no fallback.</li>
+                                        <li>Parallel: low risk because the old system continues; outputs can be compared (e.g. stock levels). But 60 staff would have to enter data twice; costly and time-consuming; the old website and stock system are separate, making parallel running complex.</li>
+                                        <li>Could consider timing a direct change during a quiet period, with a strong rollback plan, as a compromise.</li>
+                                    </ul>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="9" data-n="13">
+                                <p>Evaluate the feasibility of BrewBox's new integrated system.</p>
+                                <div class="box support">
+                                    <h4>◆ SUPPORT: SENTENCE STARTERS</h4>
+                                    <ul>
+                                        <li>Direct implementation would be quicker because ... however, if the system failed ...</li>
+                                        <li>Parallel implementation means staff would have to ...</li>
+                                        <li>BrewBox would benefit from the new system because ...</li>
+                                        <li>A risk is that staff ... which could mean ...</li>
+                                        <li>BrewBox is an SME, so the budget ...</li>
+                                    </ul>
+                                </div>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Benefits: integrated stock and website avoids selling out-of-stock items; automated deliveries; customer accounts improve retention; better reporting for directors; supports growth in both B2C and B2B.</li>
+                                        <li>Costs: software, hardware, consultants, training, data migration from old system; significant for an SME.</li>
+                                        <li>Risks: staff resistance; inadequate knowledge of the new system; disruption during implementation; integration problems with the legacy stock data.</li>
+                                        <li>Constraints: limited budget and IT staff in an SME; time (avoid busy periods such as Christmas).</li>
+                                        <li>Judgement: e.g. feasible if phased over time to spread cost, with training and a rollback plan, because the long-term savings and customer benefits outweigh the costs.</li>
+                                    </ul>
+                                    <div class="levels" data-max="9"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="4" data-n="14">
+                                <p>Explain the importance of version control software during a change to a company's website.</p>
+                                <div class="ms"><ul><li>Point (1) + linked explanation (1), twice. E.g. tracks every change and who made it (1) so mistakes can be traced and responsibility identified (1); allows rollback to a previous working version (1) if the update breaks the site (1); allows several developers to work at once without overwriting each other's work (1)(1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4" data-n="15">
+                                <p>Explain why documentation is important in the change management process.</p>
+                                <div class="ms"><ul><li>Point (1) + linked explanation (1), twice. E.g. requirement traceability (1) so every change can be linked to a requirement and a responsible person (1); records decisions (1) so the reasons can be reviewed later (1); user training manuals (1) help staff use the new system (1); keeps information up to date for future maintenance (1)(1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>For question 13, recommend a specific implementation method and justify it using the constraints you have identified.</li>
+                                <li>Identify which PESTLE factors might have triggered BrewBox's decision, and explain the link.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-ca5" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-ca5" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · CA5 Business Context · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

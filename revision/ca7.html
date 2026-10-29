@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CA7 Digital Environments | Core Revision Guide</title>
+    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
+    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+</head>
+<body class="rev ca7" data-page="ca7">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 7 · CORE PAPER 2</p>
+            <h1>Content Area 7: Digital Environments</h1>
+            <p>Content area 7 covers the hardware, software, networks, virtual and cloud environments that software runs on, and how organisations keep them resilient. Expect a mix of short knowledge questions (name a protocol, state a layer) and longer questions where you recommend or evaluate an environment for a scenario.</p>
+            <p class="links"><strong>Links to other content areas:</strong> device hardening, backups and security settings link closely to <a href="ca8.html">Content area 8</a> (Security). Compilers, interpreters and IDEs link to <a href="ca2.html">Content area 2</a>.</p>
+            <span class="big-num" aria-hidden="true">7</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>7.1.1</td><td>Explain the features and uses of personal computers, mobile devices, servers and embedded devices</td></tr>
+                            <tr><td>7.1.2</td><td>Explain input/output devices, processors (cores, clock speed, cache, mobile), RAM and ROM, secondary storage, motherboard, GPU, network interfaces, cooling and sensors</td></tr>
+                            <tr><td>7.2.1</td><td>Explain batch, multitasking, real-time, network and mobile operating systems</td></tr>
+                            <tr><td>7.2.2</td><td>Explain file management, defragmenters, compression, package managers, protection and backup utilities</td></tr>
+                            <tr><td>7.2.3</td><td>Explain IDEs (editing, debugging, screen design tools), compilers and interpreters</td></tr>
+                            <tr><td>7.2.4</td><td>Explain word processors, spreadsheets, databases, email and project management software</td></tr>
+                            <tr><td>7.3.1–2</td><td>Explain the benefits and drawbacks of networks and the features of PAN, LAN, MAN, WAN and VPN</td></tr>
+                            <tr><td>7.3.3–4</td><td>Compare copper, fibre and wireless connections; star, mesh and tree topologies; logical vs physical</td></tr>
+                            <tr><td>7.3.5–6</td><td>Compare client-server, thin client and peer-to-peer; explain the role of servers, clients, routers, switches and the internet backbone</td></tr>
+                            <tr><td>7.3.7–8</td><td>Describe the layers, functions and protocols of the OSI and TCP/IP models</td></tr>
+                            <tr><td>7.3.9</td><td>Explain packet structure, packet switching, causes of packet loss and CRC</td></tr>
+                            <tr><td>7.3.10</td><td>Explain HTTP/HTTPS, SMTP/POP/IMAP, RIP/OSPF, FTP/SFTP, DHCP and DNS</td></tr>
+                            <tr><td>7.3.11</td><td>Explain bandwidth and latency and their effect on performance</td></tr>
+                            <tr><td>7.4.1–2</td><td>Explain virtual machines, type 1 and type 2 hypervisors, and the key features of virtual environments</td></tr>
+                            <tr><td>7.4.3–4</td><td>Explain the benefits and drawbacks of virtual environments</td></tr>
+                            <tr><td>7.5.1–2</td><td>Explain private and public cloud and the benefits of cloud</td></tr>
+                            <tr><td>7.5.3</td><td>Explain IaaS, PaaS and SaaS, including who manages what</td></tr>
+                            <tr><td>7.6.1</td><td>Explain the benefits of resilient environments</td></tr>
+                            <tr><td>7.6.2</td><td>Explain methods to improve resilience: updates, hardware replacement, redundancy, hardening, backups, hot/warm/cold sites, standard operating procedures</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-1">
+                    <h2>7.1 Hardware</h2>
+                    <div class="window-body">
+                        <h3>Types of physical computer (7.1.1)</h3>
+                        <table>
+                            <tr><th>Type</th><th>Features</th><th>Typical uses</th></tr>
+                            <tr><td>Personal computer (desktop, laptop)</td><td>General purpose; keyboard, mouse, screen; upgradeable (desktops); moderate power use</td><td>Office work, software development, gaming, design</td></tr>
+                            <tr><td>Mobile devices (smartphones, tablets)</td><td>Portable, battery powered, touchscreen, built-in sensors (GPS, camera, accelerometer), mobile processors, wireless connectivity</td><td>Communication, apps, mobile payments, field work (e.g. delivery drivers)</td></tr>
+                            <tr><td>Servers</td><td>Powerful multi-core processors, large RAM and storage, redundant power supplies and drives, run 24/7, often rack-mounted, no screen needed</td><td>Hosting websites, databases, email, file storage, virtual machines</td></tr>
+                            <tr><td>Embedded devices</td><td>Built into a larger product, one dedicated function, low power, often a microcontroller with firmware in ROM, little or no user interface</td><td>Washing machines, car engine management, smart thermostats, medical devices</td></tr>
+                        </table>
+
+                        <h3>Hardware devices (7.1.2)</h3>
+                        <table>
+                            <tr><th>Component</th><th>Key points</th></tr>
+                            <tr><td>Input devices</td><td>Send data into the computer: keyboard, mouse, touchscreen, microphone, scanner, barcode reader, webcam.</td></tr>
+                            <tr><td>Output devices</td><td>Present results: monitor, printer, speakers, projector, actuators (motors in robots).</td></tr>
+                            <tr><td>Processor: number of cores</td><td>Each core can process instructions independently. More cores help multitasking and programs written to run in parallel. Doubling cores does not double speed if software is not designed for it.</td></tr>
+                            <tr><td>Processor: clock speed</td><td>Cycles per second in GHz (3.5 GHz = 3.5 billion cycles per second). Higher speed means more instructions per second but more heat and power.</td></tr>
+                            <tr><td>Processor: cache size</td><td>Very fast memory inside the CPU (levels L1, L2, L3). Larger cache means fewer slow trips to RAM.</td></tr>
+                            <tr><td>Processor: mobile processors</td><td>Designed for low power and low heat to save battery (e.g. ARM-based). Often a system on a chip (SoC) combining CPU, GPU and other components.</td></tr>
+                            <tr><td>RAM</td><td>Volatile. Holds the OS, programs and data in use. More RAM lets more programs run at once without slowing down (less use of virtual memory).</td></tr>
+                            <tr><td>ROM</td><td>Non-volatile. Holds firmware such as the BIOS/UEFI used to start the computer. Contents are not normally changed.</td></tr>
+                            <tr><td>Secondary storage: magnetic</td><td>Hard disk drives (HDD): spinning platters and a moving read/write head. Cheap per GB, large capacity; slower, moving parts can fail if dropped, noisy.</td></tr>
+                            <tr><td>Secondary storage: solid state</td><td>SSDs, USB flash drives, SD cards: flash memory, no moving parts. Fast, robust, silent, low power; higher cost per GB, limited write cycles.</td></tr>
+                            <tr><td>Secondary storage: optical</td><td>CD, DVD, Blu-ray: read by laser. Cheap, portable, good for distribution and archiving; low capacity, slow, easily scratched, becoming obsolete.</td></tr>
+                            <tr><td>Motherboard</td><td>Main circuit board connecting the CPU, RAM, storage, expansion cards and ports, and carrying data between them.</td></tr>
+                            <tr><td>Graphics processing unit (GPU)</td><td>Thousands of small cores for parallel processing. Renders graphics; also used for machine learning, video editing and scientific calculations.</td></tr>
+                            <tr><td>Network interface devices</td><td>Connect the computer to a network. Can be an internal PCI/PCIe card (fast, permanent, desktops and servers) or a USB adapter (portable, easy to add, may be slower).</td></tr>
+                            <tr><td>Cooling: air</td><td>Heat sinks and fans. Cheap and simple; noisier and less effective under heavy load.</td></tr>
+                            <tr><td>Cooling: liquid</td><td>Liquid pumped through a block on the CPU/GPU to a radiator. Quieter and more effective for high-performance machines and data centres; more expensive, risk of leaks.</td></tr>
+                            <tr><td>Sensors</td><td>Measure the physical world: temperature, light, motion, GPS, accelerometer, fingerprint. Used in phones, IoT devices and embedded systems.</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>When recommending hardware, link the specification to the use: 'A video editing workstation needs a GPU with many cores because rendering is done in parallel, which reduces export times.'</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Server</dt><dd>A computer that provides services or resources (files, web pages, email) to other computers on a network.</dd>
+                            <dt>Core</dt><dd>An independent processing unit within a CPU. More cores means more instructions can be processed at the same time.</dd>
+                            <dt>Clock speed</dt><dd>The number of instruction cycles a CPU can carry out per second, measured in GHz.</dd>
+                            <dt>Cache</dt><dd>Small, very fast memory on or near the CPU that stores frequently used instructions and data.</dd>
+                            <dt>RAM</dt><dd>Random access memory: volatile main memory that holds the programs and data currently in use.</dd>
+                            <dt>ROM</dt><dd>Read-only memory: non-volatile memory that holds the startup instructions (firmware/BIOS).</dd>
+                            <dt>Volatile</dt><dd>Loses its contents when the power is switched off.</dd>
+                            <dt>GPU</dt><dd>Graphics processing unit: a processor with many cores designed for parallel processing of graphics and large calculations.</dd>
+                            <dt>Embedded device</dt><dd>A computer built into a larger device to perform one dedicated function, e.g. in a washing machine or car.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-2">
+                    <h2>7.2 Software</h2>
+                    <div class="window-body">
+                        <h3>Operating systems (7.2.1)</h3>
+                        <table>
+                            <tr><th>Type</th><th>Features</th><th>Examples of use</th></tr>
+                            <tr><td>Batch</td><td>Runs jobs without user interaction; processes high volumes of similar data; jobs scheduled to run at set times (often overnight).</td><td>Payroll runs, bank statement printing, end-of-day billing</td></tr>
+                            <tr><td>Multitasking</td><td>Concurrent execution of multiple tasks; time-slicing gives each task a turn on the CPU; interrupts let urgent tasks take priority.</td><td>Windows, macOS, Linux desktops</td></tr>
+                            <tr><td>Real-time (RTOS)</td><td>Responds to inputs within a guaranteed time. Used for monitoring and control and for transaction processing.</td><td>Car airbags, aircraft systems, medical monitors, ticket booking (prevents double booking)</td></tr>
+                            <tr><td>Network OS</td><td>Resource sharing (files, printers); user management (accounts, permissions); communication between devices.</td><td>Windows Server, Linux servers</td></tr>
+                            <tr><td>Mobile</td><td>For smartphones and tablets; touch interface; lower processing requirements; designed to increase battery life (e.g. closes background apps).</td><td>Android, iOS</td></tr>
+                        </table>
+
+                        <h3>Utilities (7.2.2)</h3>
+                        <table>
+                            <tr><th>Utility</th><th>What it does</th></tr>
+                            <tr><td>File management</td><td>Create, copy, move, rename, delete and organise files and folders; search; set permissions.</td></tr>
+                            <tr><td>Defragmenter</td><td>Rearranges fragmented files on a magnetic hard disk so each file's parts are stored together, reducing read head movement and speeding up access. Not needed (and not recommended) for SSDs.</td></tr>
+                            <tr><td>File compression</td><td>Reduces file size (e.g. ZIP) to save storage and speed up transfers. Lossless keeps all data; lossy (JPEG, MP3) removes some.</td></tr>
+                            <tr><td>Package manager</td><td>Installs, updates and removes software and its dependencies automatically from a repository, e.g. pip for Python, apt for Linux, winget for Windows.</td></tr>
+                            <tr><td>Protection software</td><td>Anti-malware and firewalls: scan for and remove threats, block unauthorised connections.</td></tr>
+                            <tr><td>Backup software</td><td>Copies data on a schedule (full, incremental, differential) so it can be restored after loss.</td></tr>
+                        </table>
+
+                        <h3>Code development tools (7.2.3)</h3>
+                        <table>
+                            <tr><th>Tool</th><th>Features</th></tr>
+                            <tr><td>IDE: code editing tools</td><td>Syntax highlighting, auto-complete, auto-indentation, line numbers, error highlighting as you type, refactoring tools.</td></tr>
+                            <tr><td>IDE: debugging tools</td><td>Breakpoints, stepping through code line by line, watching variable values, call stack view.</td></tr>
+                            <tr><td>IDE: screen design tools</td><td>Drag-and-drop design of graphical user interfaces (forms, buttons, layouts) that generates the code.</td></tr>
+                            <tr><td>Compiler</td><td>Translates the whole program into machine code before it runs, producing an executable. Fast to run; code is hidden from users; errors are reported after compiling the whole program; must recompile for each platform. Examples: C, C++, (C# compiles to an intermediate form).</td></tr>
+                            <tr><td>Interpreter</td><td>Translates and runs code one line at a time. Easier debugging (stops at the error line); runs on any platform with the interpreter; slower to run; source code must be distributed. Example: Python.</td></tr>
+                        </table>
+
+                        <h3>Application software (7.2.4)</h3>
+                        <table>
+                            <tr><th>Application</th><th>Features and business uses</th></tr>
+                            <tr><td>Word processors</td><td>Create and format documents: letters, reports, contracts; templates, mail merge, track changes, collaboration.</td></tr>
+                            <tr><td>Spreadsheets</td><td>Calculations with formulas and functions, charts, sorting and filtering data; budgets, sales analysis, forecasts.</td></tr>
+                            <tr><td>Databases</td><td>Store large amounts of structured data in tables; queries, forms and reports; customer records, stock control. Reduce duplication compared with spreadsheets.</td></tr>
+                            <tr><td>Email</td><td>Send messages and attachments; calendars and contacts; formal written record of communication.</td></tr>
+                            <tr><td>Project management software</td><td>Plan tasks, Gantt charts, assign resources, track progress and deadlines, Kanban boards (e.g. Microsoft Project, Trello, Jira).</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Operating system</dt><dd>Software that manages hardware and resources and provides a platform for applications.</dd>
+                            <dt>Time-slicing</dt><dd>Giving each task a short slot of processor time in turn, so several tasks appear to run at once.</dd>
+                            <dt>Interrupt</dt><dd>A signal to the processor that something needs attention immediately.</dd>
+                            <dt>Utility</dt><dd>System software that maintains or optimises the computer, e.g. backup, compression.</dd>
+                            <dt>Package manager</dt><dd>A tool that installs, updates and removes software and its dependencies, e.g. pip, apt.</dd>
+                            <dt>IDE</dt><dd>Integrated development environment: software that combines a code editor, debugger and other tools for programming.</dd>
+                            <dt>Compiler</dt><dd>Translates the whole source code into machine code in one go, producing an executable file.</dd>
+                            <dt>Interpreter</dt><dd>Translates and runs source code one line at a time.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-3">
+                    <h2>7.3 Networks</h2>
+                    <div class="window-body">
+                        <h3>Benefits and drawbacks of networks (7.3.1)</h3>
+                        <table>
+                            <tr><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr>
+                                <td><ul><li>Share files and data; collaborate</li><li>Share hardware such as printers and internet connection</li><li>Central backup and security management</li><li>Communication: email, messaging, video</li><li>Users can log in from any machine</li><li>Software can be installed and updated centrally</li></ul></td>
+                                <td><ul><li>Cost of hardware (servers, switches, cabling) and specialist staff</li><li>Malware and attacks can spread across the network</li><li>If a server or switch fails, many users are affected</li><li>Performance slows with heavy traffic</li><li>Needs ongoing management and security</li></ul></td>
+                            </tr>
+                        </table>
+
+                        <h3>Features of network types (7.3.2)</h3>
+                        <p>Networks differ in <strong>number of users</strong>, <strong>connection media</strong> (the cables or wireless used) and <strong>coverage</strong> (the area served).</p>
+                        <table>
+                            <tr><th>Type</th><th>Coverage</th><th>Example</th><th>Notes</th></tr>
+                            <tr><td>PAN: personal area network</td><td>A few metres around one person</td><td>Phone connected to smartwatch and earbuds by Bluetooth</td><td>Very few devices; low power</td></tr>
+                            <tr><td>LAN: local area network</td><td>One building or site</td><td>A college or office network</td><td>Owned and managed by the organisation; fast; Ethernet and Wi-Fi</td></tr>
+                            <tr><td>MAN: metropolitan area network</td><td>A town or city</td><td>A council linking its offices and libraries; city-wide Wi-Fi</td><td>Often uses fibre leased from telecoms providers</td></tr>
+                            <tr><td>WAN: wide area network</td><td>Countries or the world</td><td>The internet; a bank linking branches nationally</td><td>Uses third-party infrastructure; slower and more expensive than LAN</td></tr>
+                            <tr><td>VPN: virtual private network</td><td>Any distance, over the internet</td><td>Staff connecting securely to the office network from home</td><td>Creates an encrypted tunnel over a public network so traffic can't be read</td></tr>
+                        </table>
+
+                        <h3>Connectivity methods (7.3.3)</h3>
+                        <table>
+                            <tr><th>Method</th><th>Features</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Copper / Ethernet (twisted pair, e.g. Cat 6)</td><td>Electrical signals; up to 100 m per run</td><td>Cheap; reliable; fast (1–10 Gbps); easy to install</td><td>Interference (EMI); limited distance; signal degrades</td></tr>
+                            <tr><td>Fibre-optic</td><td>Pulses of light through glass or plastic</td><td>Very high bandwidth; long distances; immune to electrical interference; hard to tap</td><td>Expensive; fragile; specialist installation</td></tr>
+                            <tr><td>Wireless access points (Wi-Fi)</td><td>Radio waves; WAP connects wireless devices to the wired network</td><td>Mobility; no cables; easy to add devices</td><td>Slower and less reliable than cable; range limited by walls; interference; must be secured (WPA3)</td></tr>
+                        </table>
+
+                        <h3>Topologies (7.3.4)</h3>
+                        <table>
+                            <tr><th>Topology</th><th>Layout</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Star</td><td>Every device connects to a central switch.</td><td>One cable failure only affects one device; easy to add devices; good performance</td><td>If the central switch fails, the whole network fails; lots of cable</td></tr>
+                            <tr><td>Mesh</td><td>Devices connect to many others (full mesh: every device to every other).</td><td>Very resilient: many routes for data; no single point of failure</td><td>Expensive and complex; lots of connections. Partial mesh reduces this. Used in WANs and the internet backbone, and wireless mesh home Wi-Fi.</td></tr>
+                            <tr><td>Tree</td><td>Several star networks connected in a hierarchy from a root.</td><td>Scalable; easy to manage in sections (e.g. one star per floor)</td><td>If the root or a backbone link fails, the sections below are cut off</td></tr>
+                        </table>
+                        <figure class="fig">
+                            <svg viewBox="0 0 660 190" role="img" aria-label="Three topologies. Star: five devices each linked to one central switch. Mesh: five devices each linked to every other device. Tree: a root switch linked to two switches, each with two devices.">
+                                <text x="110" y="18" text-anchor="middle" class="label">Star</text>
+                                <path class="line" d="M110,100 L110,40 M110,100 L50,80 M110,100 L170,80 M110,100 L65,155 M110,100 L155,155"/>
+                                <rect class="shape" x="92" y="88" width="36" height="24"/><text x="110" y="104" text-anchor="middle" style="font-size: 9px">switch</text>
+                                <circle class="shape" cx="110" cy="40" r="11"/><circle class="shape" cx="50" cy="80" r="11"/><circle class="shape" cx="170" cy="80" r="11"/><circle class="shape" cx="65" cy="155" r="11"/><circle class="shape" cx="155" cy="155" r="11"/>
+                                <text x="330" y="18" text-anchor="middle" class="label">Mesh (full)</text>
+                                <path class="line" d="M330,40 L270,80 M330,40 L390,80 M330,40 L285,155 M330,40 L375,155 M270,80 L390,80 M270,80 L285,155 M270,80 L375,155 M390,80 L285,155 M390,80 L375,155 M285,155 L375,155"/>
+                                <circle class="shape" cx="330" cy="40" r="11"/><circle class="shape" cx="270" cy="80" r="11"/><circle class="shape" cx="390" cy="80" r="11"/><circle class="shape" cx="285" cy="155" r="11"/><circle class="shape" cx="375" cy="155" r="11"/>
+                                <text x="550" y="18" text-anchor="middle" class="label">Tree</text>
+                                <path class="line" d="M550,45 L490,100 M550,45 L610,100 M490,100 L465,155 M490,100 L515,155 M610,100 L585,155 M610,100 L635,155"/>
+                                <rect class="shape" x="532" y="33" width="36" height="24"/><text x="550" y="49" text-anchor="middle" style="font-size: 9px">root</text>
+                                <rect class="shape" x="472" y="88" width="36" height="24"/><rect class="shape" x="592" y="88" width="36" height="24"/>
+                                <circle class="shape" cx="465" cy="155" r="11"/><circle class="shape" cx="515" cy="155" r="11"/><circle class="shape" cx="585" cy="155" r="11"/><circle class="shape" cx="635" cy="155" r="11"/>
+                            </svg>
+                        </figure>
+                        <p><strong>Physical topology</strong> is how devices are actually cabled. <strong>Logical topology</strong> is how data actually flows. For example, a network can be physically wired as a star but data may be passed in a logical bus or ring pattern; Wi-Fi devices have no cables but logically form a star around the access point.</p>
+
+                        <h3>Network models (7.3.5)</h3>
+                        <table>
+                            <tr><th>Model</th><th>How it works</th><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr><td>Client-server</td><td>Clients request services from central servers that store data and manage security.</td><td>Central backup and security; easy to manage users; scalable</td><td>Servers are expensive; needs IT staff; server failure affects everyone</td></tr>
+                            <tr><td>Thin client</td><td>Clients have minimal processing power and storage; the server does almost all processing (e.g. virtual desktops).</td><td>Cheap clients; easy to manage centrally; data never stored on the client so more secure</td><td>Totally dependent on the server and network; poor for heavy graphics</td></tr>
+                            <tr><td>Peer-to-peer</td><td>All computers are equal and share resources directly; no central server.</td><td>Cheap; easy to set up; no single point of failure</td><td>No central backup or security; harder to manage as it grows; performance depends on each peer</td></tr>
+                        </table>
+
+                        <h3>Network components (7.3.6)</h3>
+                        <table>
+                            <tr><th>Component</th><th>Role</th></tr>
+                            <tr><td>Server</td><td>Provides services to clients: files, web pages, email, authentication, printing.</td></tr>
+                            <tr><td>Client</td><td>A device that requests and uses services from a server.</td></tr>
+                            <tr><td>Router</td><td>Connects different networks (e.g. a LAN to the internet) and forwards packets towards their destination using IP addresses. Home routers often include a switch, WAP and firewall.</td></tr>
+                            <tr><td>Network switch</td><td>Connects devices within a LAN; learns MAC addresses and sends data only to the intended device, reducing unnecessary traffic.</td></tr>
+                            <tr><td>Internet connection / backbone</td><td>The connection to an ISP; the backbone is the high-capacity fibre network of main routes that carries internet traffic between countries and providers.</td></tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Topology</dt><dd>The arrangement of devices and connections in a network.</dd>
+                            <dt>Router</dt><dd>Forwards data packets between different networks using IP addresses.</dd>
+                            <dt>Switch</dt><dd>Connects devices within a LAN and forwards data only to the device it is addressed to, using MAC addresses.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-3-7">
+                    <h2>7.3.7–8 Network models: OSI and TCP/IP</h2>
+                    <div class="window-body">
+                        <p>Layered models split networking into separate layers. Each layer has a job and passes data to the layer above or below. Benefits: hardware and software from different vendors work together; one layer can change without affecting the others; easier to troubleshoot.</p>
+                        <table>
+                            <tr><th>OSI layer</th><th>Function</th><th>Example protocols / devices</th><th>TCP/IP layer</th></tr>
+                            <tr><td>7 Application</td><td>Provides network services to applications the user interacts with.</td><td>HTTP, HTTPS, FTP, SMTP, POP, IMAP, DNS, DHCP</td><td>Application</td></tr>
+                            <tr><td>6 Presentation</td><td>Formats, encrypts and compresses data so it can be understood by the receiver.</td><td>TLS/SSL encryption, JPEG, ASCII, MP4</td><td>Application</td></tr>
+                            <tr><td>5 Session</td><td>Opens, manages and closes communication sessions between devices.</td><td>NetBIOS, RPC, session handling in TLS</td><td>Application</td></tr>
+                            <tr><td>4 Transport</td><td>Splits data into segments, end-to-end delivery, error checking, flow control, port numbers.</td><td>TCP (reliable, ordered), UDP (fast, no guarantee)</td><td>Transport</td></tr>
+                            <tr><td>3 Network</td><td>Logical (IP) addressing and routing packets between networks.</td><td>IP, ICMP, RIP, OSPF; routers</td><td>Internet</td></tr>
+                            <tr><td>2 Data link</td><td>Physical (MAC) addressing, framing, error detection on the local link.</td><td>Ethernet, Wi-Fi (802.11) frames, ARP; switches</td><td>Network (access)</td></tr>
+                            <tr><td>1 Physical</td><td>Transmits raw bits as electrical, light or radio signals.</td><td>Cables, connectors, radio frequencies; hubs, NICs</td><td>Network (access)</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ REMEMBERING THE OSI LAYERS</h4>
+                            <p>From layer 7 down: <strong>All People Seem To Need Data Processing</strong>. From layer 1 up: <strong>Please Do Not Throw Sausage Pizza Away</strong>.</p>
+                        </div>
+                        <table>
+                            <tr><th>TCP/IP layer</th><th>Function</th><th>Protocols</th></tr>
+                            <tr><td>Application</td><td>Combines OSI 5–7. Provides services to applications and formats data.</td><td>HTTP, HTTPS, FTP, SFTP, SMTP, POP, IMAP, DNS, DHCP</td></tr>
+                            <tr><td>Transport</td><td>Establishes end-to-end connections, splits data into numbered segments, uses ports, handles retransmission.</td><td>TCP, UDP</td></tr>
+                            <tr><td>Internet</td><td>Adds source and destination IP addresses and routes packets across networks.</td><td>IP (IPv4, IPv6), ICMP</td></tr>
+                            <tr><td>Network (access / link)</td><td>Combines OSI 1–2. Sends frames over the physical medium using MAC addresses.</td><td>Ethernet, Wi-Fi, ARP</td></tr>
+                        </table>
+                        <h4>Practise: which OSI layer?</h4>
+                        <div class="sorter" data-options="7 Application|6 Presentation|5 Session|4 Transport|3 Network|2 Data link|1 Physical">
+                            <p data-a="3 Network">A router chooses the next hop for a packet using its IP address.</p>
+                            <p data-a="6 Presentation">Data is encrypted with TLS and compressed before sending.</p>
+                            <p data-a="2 Data link">A switch reads a MAC address and forwards the frame to one port.</p>
+                            <p data-a="4 Transport">TCP numbers segments and resends one that went missing.</p>
+                            <p data-a="1 Physical">Bits travel as pulses of light down a fibre cable.</p>
+                            <p data-a="7 Application">A browser sends an HTTPS request for a web page.</p>
+                            <p data-a="5 Session">A connection between two devices is opened, kept alive and closed.</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Protocol</dt><dd>A set of rules that govern how data is transmitted and received.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-3-9">
+                    <h2>7.3.9–11 Packets, protocols, bandwidth and latency</h2>
+                    <div class="window-body">
+                        <h3>Data packets (7.3.9)</h3>
+                        <table>
+                            <tr><th>Part</th><th>Contents</th><th>Role</th></tr>
+                            <tr><td>Header</td><td>Source IP address; destination IP address; packet sequence number; total number of packets; protocol; time to live (TTL)</td><td>Gets the packet to the right place and lets the receiver reassemble packets in order. TTL stops lost packets circulating forever.</td></tr>
+                            <tr><td>Payload</td><td>The actual data being sent (a chunk of the file, email or web page)</td><td>The content.</td></tr>
+                            <tr><td>Trailer</td><td>Error-checking value (e.g. CRC) and end-of-packet marker</td><td>Lets the receiver detect whether the packet was corrupted.</td></tr>
+                        </table>
+
+                        <h4>Packet switching</h4>
+                        <ol>
+                            <li>Data is split into packets, each with a header.</li>
+                            <li>Each packet is sent independently; routers forward each one along the best available route at that moment.</li>
+                            <li>Packets may take different routes and arrive out of order.</li>
+                            <li>The receiver uses the sequence numbers to reassemble them.</li>
+                            <li>Missing or corrupted packets are requested again (TCP).</li>
+                        </ol>
+                        <p>Benefits: efficient use of the network; routes around failures and congestion. Drawbacks: packets can arrive out of order or be delayed, which matters for real-time traffic like video calls.</p>
+
+                        <h4>Causes of packet loss</h4>
+                        <ul>
+                            <li>Network congestion: routers' buffers fill up and packets are dropped.</li>
+                            <li>Faulty or damaged hardware (cables, routers, NICs).</li>
+                            <li>Wireless interference or weak signal.</li>
+                            <li>TTL reaching zero before arrival.</li>
+                            <li>Software bugs or misconfigured devices; deliberate attacks such as DoS.</li>
+                        </ul>
+
+                        <h4>Error handling: cyclic redundancy check (CRC)</h4>
+                        <ol>
+                            <li>The sender performs a calculation (a form of polynomial division) on the packet's data to produce a CRC value.</li>
+                            <li>The CRC value is added to the trailer.</li>
+                            <li>The receiver performs the same calculation on the data it received.</li>
+                            <li>If the values match, the data is accepted. If not, the packet is corrupt and is discarded and re-requested.</li>
+                        </ol>
+
+                        <h3>Network protocols (7.3.10)</h3>
+                        <table>
+                            <tr><th>Protocol</th><th>Purpose</th><th>Port (useful to know)</th></tr>
+                            <tr><td>HTTP</td><td>HyperText Transfer Protocol: requests and transfers web pages between browser and web server. Not encrypted.</td><td>80</td></tr>
+                            <tr><td>HTTPS</td><td>HTTP Secure: HTTP encrypted with TLS, so data such as passwords and card numbers cannot be read if intercepted; server identity verified with a certificate.</td><td>443</td></tr>
+                            <tr><td>SMTP</td><td>Simple Mail Transfer Protocol: sends email from client to server and between mail servers.</td><td>25 / 587</td></tr>
+                            <tr><td>POP (POP3)</td><td>Post Office Protocol: downloads email from the server to one device, usually deleting it from the server. Good for one device and offline access.</td><td>110</td></tr>
+                            <tr><td>IMAP</td><td>Internet Message Access Protocol: email stays on the server and is synchronised across all devices.</td><td>143</td></tr>
+                            <tr><td>RIP</td><td>Routing Information Protocol: routers share routes and choose the path with the fewest hops (max 15). Simple; suited to small networks; slow to adapt.</td><td>-</td></tr>
+                            <tr><td>OSPF</td><td>Open Shortest Path First: routers share link-state information and calculate the fastest path based on cost (e.g. bandwidth). Scales to large networks; adapts quickly to changes.</td><td>-</td></tr>
+                            <tr><td>FTP</td><td>File Transfer Protocol: uploads and downloads files between client and server. Not encrypted.</td><td>20 / 21</td></tr>
+                            <tr><td>SFTP</td><td>SSH File Transfer Protocol: secure, encrypted file transfer.</td><td>22</td></tr>
+                            <tr><td>DHCP</td><td>Dynamic Host Configuration Protocol: automatically gives devices an IP address, subnet mask, default gateway and DNS server when they join a network.</td><td>67 / 68</td></tr>
+                            <tr><td>DNS</td><td>Domain Name System: translates domain names (wakefield.ac.uk) into IP addresses.</td><td>53</td></tr>
+                        </table>
+                        <h4>Practise: which protocol?</h4>
+                        <div class="sorter" data-options="HTTPS|SMTP|POP|IMAP|RIP|OSPF|SFTP|DHCP|DNS">
+                            <p data-a="DHCP">Your laptop joins the college Wi-Fi and is automatically given an IP address.</p>
+                            <p data-a="IMAP">You read an email on your phone and it shows as read on your laptop too.</p>
+                            <p data-a="DNS">Your browser finds the IP address for neocities.org.</p>
+                            <p data-a="SMTP">Your email client sends a message to the mail server.</p>
+                            <p data-a="SFTP">A developer uploads website files over an encrypted connection.</p>
+                            <p data-a="HTTPS">A customer enters card details on a shop's checkout page.</p>
+                            <p data-a="OSPF">Routers in a large network calculate the fastest path using link cost.</p>
+                            <p data-a="RIP">Routers in a small network pick the route with the fewest hops.</p>
+                            <p data-a="POP">Email is downloaded to one computer and removed from the server.</p>
+                        </div>
+
+                        <h3>Bandwidth and latency (7.3.11)</h3>
+                        <table>
+                            <tr><th></th><th>Bandwidth</th><th>Latency</th></tr>
+                            <tr><td>Meaning</td><td>The maximum amount of data that can be transferred per second</td><td>The delay for data to travel from sender to receiver</td></tr>
+                            <tr><td>Unit</td><td>Bits per second (Mbps, Gbps)</td><td>Milliseconds (ms)</td></tr>
+                            <tr><td>Affected by</td><td>Connection type, number of users sharing it, ISP package</td><td>Distance, number of hops/routers, congestion, connection type (satellite is high)</td></tr>
+                            <tr><td>Effect when poor</td><td>Slow downloads and uploads, video buffering, low quality streams</td><td>Lag in online games and video calls, slow response to clicks, even if downloads are fast</td></tr>
+                        </table>
+                        <div class="box worked">
+                            <h4>✎ WORKED EXAMPLE: DOWNLOAD TIME</h4>
+                            <ul>
+                                <li>How long will a 500 MB file take to download on a 100 Mbps connection?</li>
+                                <li>Convert megabytes to megabits: 500 × 8 = 4,000 Mb.</li>
+                                <li>Time = data ÷ bandwidth = 4,000 ÷ 100 = <strong>40 seconds</strong> (in ideal conditions; real throughput is usually lower).</li>
+                            </ul>
+                        </div>
+                        <h4>Try it: download time calculator</h4>
+                        <div class="button-row">
+                            <label>File size <input id="dl-size" class="quiz-select" type="number" value="500" min="0" step="any" size="6"></label>
+                            <select id="dl-unit" class="quiz-select" aria-label="File size unit"><option value="1">MB</option><option value="1000">GB</option></select>
+                            <label>Bandwidth <input id="dl-bw" class="quiz-select" type="number" value="100" min="0.1" step="any" size="6"> Mbps</label>
+                        </div>
+                        <p id="dl-out" class="spec-summary" aria-live="polite"></p>
+
+                        <dl class="recall">
+                            <dt>Packet</dt><dd>A small unit of data sent across a network, containing a header, payload and trailer.</dd>
+                            <dt>Packet switching</dt><dd>Splitting data into packets that travel independently across a network and are reassembled at the destination.</dd>
+                            <dt>CRC</dt><dd>Cyclic redundancy check: an error-detection value calculated from the packet's data and checked by the receiver.</dd>
+                            <dt>Bandwidth</dt><dd>The maximum amount of data that can be transferred per second, measured in bits per second.</dd>
+                            <dt>Latency</dt><dd>The time delay for data to travel from source to destination, measured in milliseconds.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-4">
+                    <h2>7.4 Virtual environments</h2>
+                    <div class="window-body">
+                        <h3>Components (7.4.1)</h3>
+                        <table>
+                            <tr><th>Component</th><th>Role and characteristics</th></tr>
+                            <tr><td>Virtual machine: clients</td><td>Virtual PCs (a full desktop OS running as software), virtual switches (connect VMs to each other and to the physical network), virtual routers (route traffic between virtual networks).</td></tr>
+                            <tr><td>Virtual machine: servers</td><td>Several virtual servers (web, database, email) run on one physical server, each with its own OS, isolated from the others.</td></tr>
+                            <tr><td>Hypervisor: type 1 (bare metal)</td><td>Runs directly on the hardware with no host OS. Efficient, secure, high performance. Used in data centres. Examples: VMware ESXi, Microsoft Hyper-V, Proxmox.</td></tr>
+                            <tr><td>Hypervisor: type 2 (hosted)</td><td>Runs as an application on a host OS. Easy to install; slower because it goes through the host OS. Used for testing and learning. Examples: VirtualBox, VMware Workstation.</td></tr>
+                        </table>
+                        <div class="flow">
+                            <div><strong>TYPE 1</strong>VMs<br>↓<br>Hypervisor<br>↓<br>Hardware</div>
+                            <div><strong>TYPE 2</strong>VMs<br>↓<br>Hypervisor (an app)<br>↓<br>Host OS<br>↓<br>Hardware</div>
+                        </div>
+
+                        <h3>Key features (7.4.2)</h3>
+                        <table>
+                            <tr><th>Feature</th><th>Meaning</th></tr>
+                            <tr><td>Increased security</td><td>VMs are separated, so malware in one VM does not easily spread to others or the host; snapshots allow quick recovery.</td></tr>
+                            <tr><td>Managed execution</td><td>The hypervisor controls each VM's access to resources (CPU, RAM, storage), so VMs run in a controlled way.</td></tr>
+                            <tr><td>Sharing</td><td>Several VMs share one set of physical hardware.</td></tr>
+                            <tr><td>Aggregation</td><td>Resources from several physical machines are combined to act as one larger pool (e.g. a cluster).</td></tr>
+                            <tr><td>Emulation</td><td>A VM can imitate different hardware or an older OS, so legacy software can still run.</td></tr>
+                            <tr><td>Isolation</td><td>Each VM is independent: a crash in one does not affect the others.</td></tr>
+                            <tr><td>Portability</td><td>A VM is stored as files, so it can be copied, backed up or moved to another host easily.</td></tr>
+                        </table>
+
+                        <h3>Benefits and drawbacks (7.4.3–7.4.4)</h3>
+                        <table>
+                            <tr><th>Benefits</th><th>Drawbacks</th></tr>
+                            <tr>
+                                <td><ul><li>Cost effective for large environments: fewer physical servers, less space, power and cooling</li><li>Easy management: VMs created, cloned and monitored from one console</li><li>Resilience: VMs can move to another host if one fails</li><li>Potentially lower carbon footprint: fewer machines running</li><li>Improved disaster recovery: VM files can be backed up and restored quickly</li><li>Better testing environments: test software on different OSs safely; roll back with snapshots</li><li>Education and training: students can practise on VMs without damaging real systems</li></ul></td>
+                                <td><ul><li>Extra hardware load: the hypervisor uses resources, and the host needs plenty of RAM and CPU</li><li>Slower execution time than running directly on hardware</li><li>Potential for false representation of performance: software tested in a VM may perform differently on real hardware</li><li>If the physical host fails, all its VMs go down unless failover is set up</li></ul></td>
+                            </tr>
+                        </table>
+                        <dl class="recall">
+                            <dt>Virtual machine (VM)</dt><dd>A software-based computer that runs an operating system and applications like a physical machine.</dd>
+                            <dt>Hypervisor</dt><dd>Software that creates and runs virtual machines and shares physical hardware between them.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-5">
+                    <h2>7.5 Cloud environments</h2>
+                    <div class="window-body">
+                        <h3>Types of cloud (7.5.1)</h3>
+                        <table>
+                            <tr><th></th><th>Private cloud</th><th>Public cloud</th></tr>
+                            <tr><td>Meaning</td><td>Cloud infrastructure used by one organisation only, on its own premises or hosted by a provider.</td><td>Infrastructure owned by a provider and shared by many customers over the internet.</td></tr>
+                            <tr><td>Examples</td><td>A bank's own data centre running virtualised services</td><td>AWS, Microsoft Azure, Google Cloud</td></tr>
+                            <tr><td>Benefits</td><td>Full control; greater security and privacy; can meet strict regulations</td><td>No upfront hardware cost; pay as you go; scales easily; provider handles maintenance</td></tr>
+                            <tr><td>Drawbacks</td><td>Expensive to build and maintain; needs skilled staff; limited scalability</td><td>Less control; data held by a third party (possibly abroad); depends on internet connection; costs can grow</td></tr>
+                        </table>
+
+                        <h3>Benefits of cloud (7.5.2)</h3>
+                        <table>
+                            <tr><th>Benefit</th><th>Meaning</th></tr>
+                            <tr><td>Portability</td><td>Access services and data from any device, anywhere with internet; move workloads between environments.</td></tr>
+                            <tr><td>Elasticity</td><td>Resources scale up automatically at busy times and down when quiet, e.g. an online shop on Black Friday.</td></tr>
+                            <tr><td>Fewer storage limitations</td><td>Storage can be increased on demand without buying hardware.</td></tr>
+                            <tr><td>Cost effectiveness</td><td>No upfront hardware purchase; pay only for what is used; fewer IT staff needed for maintenance.</td></tr>
+                        </table>
+
+                        <h3>Delivery models (7.5.3)</h3>
+                        <table>
+                            <tr><th>Layer</th><th>On-premises</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr>
+                            <tr><td>User accounts</td><td>Client</td><td>Client</td><td>Client</td><td>Client</td></tr>
+                            <tr><td>Data</td><td>Client</td><td>Client</td><td>Client</td><td>Client</td></tr>
+                            <tr><td>Application software</td><td>Client</td><td>Client</td><td>Client</td><td><strong>Provider</strong></td></tr>
+                            <tr><td>Runtime</td><td>Client</td><td>Client</td><td><strong>Provider</strong></td><td><strong>Provider</strong></td></tr>
+                            <tr><td>System software (middleware and OS)</td><td>Client</td><td>Client</td><td><strong>Provider</strong></td><td><strong>Provider</strong></td></tr>
+                            <tr><td>Virtualisation</td><td>Client</td><td><strong>Provider</strong></td><td><strong>Provider</strong></td><td><strong>Provider</strong></td></tr>
+                            <tr><td>Hardware (servers, network, storage)</td><td>Client</td><td><strong>Provider</strong></td><td><strong>Provider</strong></td><td><strong>Provider</strong></td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Model</th><th>Example</th><th>Advantages</th><th>Disadvantages</th><th>Suits</th></tr>
+                            <tr><td>IaaS</td><td>AWS EC2, Azure Virtual Machines</td><td>Most control and flexibility; no hardware to buy</td><td>Client must manage and secure OS and software; needs skilled staff</td><td>IT teams who need custom servers</td></tr>
+                            <tr><td>PaaS</td><td>Azure App Service, Google App Engine, Heroku</td><td>Developers focus on code; no OS patching; quick deployment</td><td>Less control; limited to supported languages/tools; vendor lock-in</td><td>Software developers building and deploying apps</td></tr>
+                            <tr><td>SaaS</td><td>Microsoft 365, Google Workspace, Salesforce</td><td>Ready to use; no installation; provider handles everything</td><td>Least control and customisation; data held by provider; subscription costs continue</td><td>End users and businesses needing standard software</td></tr>
+                        </table>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>Learn the responsibility table. A common question gives a scenario and asks who is responsible for, say, patching the operating system. Answer: client in IaaS, provider in PaaS and SaaS.</p>
+                        </div>
+                        <h4>Practise: who is responsible?</h4>
+                        <div class="sorter" data-options="Client|Provider">
+                            <p data-a="Client">Patching the operating system on an IaaS virtual server.</p>
+                            <p data-a="Provider">Patching the operating system under a PaaS web app.</p>
+                            <p data-a="Client">Managing user accounts in a SaaS email service.</p>
+                            <p data-a="Provider">Replacing a failed hard drive in an IaaS data centre.</p>
+                            <p data-a="Client">Writing and updating the application code on PaaS.</p>
+                            <p data-a="Provider">Updating the application software in SaaS.</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Elasticity</dt><dd>The ability of cloud resources to scale up or down automatically to match demand.</dd>
+                            <dt>IaaS</dt><dd>Infrastructure as a Service: the provider supplies virtualised hardware; the client manages everything from the OS up.</dd>
+                            <dt>PaaS</dt><dd>Platform as a Service: the provider supplies hardware, OS and runtime; the client manages applications and data.</dd>
+                            <dt>SaaS</dt><dd>Software as a Service: the provider supplies the complete application; the client manages users and data.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s7-6">
+                    <h2>7.6 Resilient digital environments</h2>
+                    <div class="window-body">
+                        <h3>Benefits of resilience (7.6.1)</h3>
+                        <table>
+                            <tr><th>Benefit</th><th>Impact on organisation and clients</th></tr>
+                            <tr><td>Increased security: data security in storage and transfer; reduced vulnerabilities</td><td>Data is protected from loss and attack; fewer weaknesses for attackers to exploit.</td></tr>
+                            <tr><td>Increased reputation: protect brand/image; retain customer confidence</td><td>Customers trust an organisation whose services are reliable and whose data is safe.</td></tr>
+                            <tr><td>Reduction in downtime</td><td>Services stay available, so sales, productivity and customer service continue.</td></tr>
+                        </table>
+
+                        <h3>Methods to improve resilience (7.6.2)</h3>
+                        <table>
+                            <tr><th>Method</th><th>Detail</th></tr>
+                            <tr><td>Software updates / upgrades</td><td><strong>Planned</strong> updates and upgrades on a schedule (tested first, outside busy hours). <strong>Patches</strong> released quickly in response to new vulnerabilities.</td></tr>
+                            <tr><td>Hardware replacement</td><td><strong>Rolling replacement plans</strong>: replace a proportion of hardware each year so nothing becomes too old and costs are spread. <strong>Secure disposal</strong>: wipe or physically destroy drives so data cannot be recovered; use certified recyclers.</td></tr>
+                            <tr><td>Data and system redundancy</td><td>Duplicate components so one failure doesn't stop the service: RAID disks, spare power supplies, UPS, backup internet connection, duplicate servers with failover, data replicated to another site.</td></tr>
+                            <tr><td>Device hardening</td><td>Remove unneeded ports, applications, permissions and access; change default passwords; disable unused services. Fewer ways in for attackers.</td></tr>
+                            <tr><td>Backup systems and recovery procedures</td><td><strong>Onsite</strong>: fast to restore but at risk from the same fire or theft. <strong>Remote/offsite</strong>: protected from local disasters but slower to restore. <strong>Cloud</strong>: automatic, offsite, scalable; depends on internet and provider. Recovery procedures must be documented and tested.</td></tr>
+                            <tr><td>Hot, warm and cold sites</td><td>Alternative locations to continue operating after a disaster (table below).</td></tr>
+                            <tr><td>Standard operating procedures</td><td>Written step-by-step procedures so tasks are done consistently and safely: effective staff training; induction for new staff; procedures for new digital systems; procedures for new or updated policies.</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Site</th><th>What it has</th><th>Time to recover</th><th>Cost</th></tr>
+                            <tr><td>Hot</td><td>Fully equipped, running systems with real-time or near real-time copies of data</td><td>Minutes to hours</td><td>Highest</td></tr>
+                            <tr><td>Warm</td><td>Hardware and network connections in place; data must be restored from backup</td><td>Hours to days</td><td>Medium</td></tr>
+                            <tr><td>Cold</td><td>Space, power and cooling only; equipment must be brought in and set up</td><td>Days to weeks</td><td>Lowest</td></tr>
+                        </table>
+                        <div class="box worked">
+                            <h4>✎ WORKED EXAMPLE</h4>
+                            <p>An online bank cannot afford any downtime, so a <strong>hot site</strong> is justified despite the cost. A small accountancy firm could use cloud backups and a <strong>cold site</strong> (or simply work from home), because a few days' disruption is tolerable and the cost of a hot site would be out of proportion.</p>
+                        </div>
+                        <dl class="recall">
+                            <dt>Redundancy</dt><dd>Having duplicate components or data so that if one fails, another takes over.</dd>
+                            <dt>Device hardening</dt><dd>Reducing a device's attack surface by removing unneeded ports, applications, permissions and access.</dd>
+                            <dt>Hot site</dt><dd>A fully equipped backup site with up-to-date data that can take over almost immediately.</dd>
+                            <dt>Cold site</dt><dd>A backup location with power and space but no equipment or data set up.</dd>
+                            <dt>Standard operating procedure (SOP)</dt><dd>A written, step-by-step instruction for carrying out a routine task consistently.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>COMPUTERS AND HARDWARE</h4><ul><li>PC, mobile, server, embedded</li><li>CPU: cores, clock speed, cache, mobile chips</li><li>RAM volatile; ROM non-volatile</li><li>Storage: magnetic, solid state, optical</li><li>GPU, network interface, cooling, sensors</li></ul></div>
+                            <div><h4>OPERATING SYSTEMS</h4><ul><li>Batch: high volume, scheduled</li><li>Multitasking: time-slicing, interrupts</li><li>Real-time: guaranteed response</li><li>Network: sharing, users</li><li>Mobile: battery life</li></ul></div>
+                            <div><h4>SOFTWARE TOOLS</h4><ul><li>Utilities: file management, defragmenter, compression, package manager, protection, backup</li><li>IDE: editor, debugger, screen designer</li><li>Compiler: whole program; interpreter: line by line</li></ul></div>
+                            <div><h4>NETWORKS</h4><ul><li>PAN, LAN, MAN, WAN, VPN</li><li>Copper, fibre, wireless</li><li>Star, mesh, tree; logical vs physical</li><li>Client-server, thin client, peer-to-peer</li><li>Server, client, router, switch, backbone</li></ul></div>
+                            <div><h4>LAYER MODELS</h4><ul><li>OSI: application, presentation, session, transport, network, data link, physical</li><li>TCP/IP: application, transport, internet, network</li><li>Packet: header, payload, trailer; CRC detects errors</li></ul></div>
+                            <div><h4>PROTOCOLS</h4><ul><li>HTTP 80 / HTTPS 443</li><li>SMTP send; POP download; IMAP sync</li><li>RIP hops; OSPF fastest path</li><li>FTP / SFTP, DHCP, DNS</li><li>Bandwidth = capacity; latency = delay</li></ul></div>
+                            <div><h4>VIRTUAL AND CLOUD</h4><ul><li>Type 1 hypervisor (bare metal), type 2 (hosted)</li><li>Features: security, managed execution, sharing, aggregation, emulation, isolation, portability</li><li>Private vs public cloud; elasticity</li><li>IaaS / PaaS / SaaS: client manages less as you go along</li></ul></div>
+                            <div><h4>RESILIENCE</h4><ul><li>Planned updates and patches</li><li>Rolling hardware replacement; secure disposal</li><li>Redundancy; device hardening</li><li>Backups onsite / offsite / cloud</li><li>Hot, warm, cold sites; standard operating procedures</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on CA7 from the course question bank. Pick a topic or question type, answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-area="7"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 100 minutes.</p>
+                        <div class="qset" data-set="ca7">
+                            <div class="q" data-m="2">
+                                <p>State two features of an embedded device.</p>
+                                <div class="ms"><ul><li>Any two: performs one dedicated function; built into a larger device; low power; small; firmware stored in ROM; limited or no user interface; often real-time.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why increasing the cache size of a processor can improve performance.</p>
+                                <div class="ms"><ul><li>Cache stores frequently used instructions/data close to the CPU (1) so the CPU waits less for data from slower RAM / fewer RAM accesses (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Compare RAM and ROM.</p>
+                                <div class="ms"><ul><li>RAM is volatile; ROM is non-volatile (1).</li><li>RAM can be read and written; ROM is normally read only (1).</li><li>RAM holds programs and data currently in use; ROM holds startup instructions / firmware / BIOS (1).</li><li>RAM is usually much larger than ROM (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A delivery company needs laptops for drivers who work outdoors. Explain why solid state storage is more suitable than magnetic storage.</p>
+                                <div class="ms"><ul><li>Point (1) + linked explanation (1), twice. E.g. no moving parts (1) so less likely to be damaged if the laptop is dropped or vibrates in a van (1); uses less power (1) so battery lasts longer on shift (1); faster access (1) so apps load quickly at each delivery (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe how a multitasking operating system allows several programs to appear to run at the same time.</p>
+                                <div class="ms"><ul><li>The CPU switches rapidly between tasks (1)</li><li>each task is given a time slice (1)</li><li>switching is so fast that programs appear to run simultaneously; interrupts allow urgent tasks to take priority (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain two differences between a compiler and an interpreter.</p>
+                                <div class="ms"><ul><li>Difference (1) + expansion (1), twice. E.g. a compiler translates the whole program at once (1) producing an executable, whereas an interpreter translates and runs line by line (1); compiled code runs faster (1) because translation is done in advance (1); interpreter stops at the first error (1) making debugging easier (1); compiled program can be distributed without source code (1) whereas interpreted needs the source and interpreter (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>State the purpose of each protocol: (a) DHCP (b) DNS (c) IMAP.</p>
+                                <div class="ms"><ul><li>(a) Automatically assigns IP addresses (and other settings) to devices joining a network (1).</li><li>(b) Translates domain names into IP addresses (1).</li><li>(c) Retrieves email while keeping it on the server, synchronised across devices (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe the role of the transport layer in the TCP/IP model.</p>
+                                <div class="ms"><ul><li>Any three: splits data into segments/packets; numbers them so they can be reassembled; establishes the connection between hosts (TCP); uses port numbers to direct data to the correct application; checks for errors and requests retransmission; flow control.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Explain how a cyclic redundancy check is used to detect errors in a data packet.</p>
+                                <div class="ms"><ul><li>Sender calculates a CRC value from the data and adds it to the packet trailer (1).</li><li>Receiver performs the same calculation on the received data (1).</li><li>If the values do not match the packet is corrupt and is discarded / re-sent (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>A user has a fast broadband connection but experiences lag in online games. Explain the likely cause.</p>
+                                <div class="ms"><ul><li>High latency (1) caused by e.g. distance to the game server, congestion, Wi-Fi interference or many hops, so there is a delay even though bandwidth is high (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Calculate how long it would take to transfer a 2 GB file over a 50 Mbps connection. Show your working. (1 GB = 1,000 MB)</p>
+                                <div class="ms"><ul><li>2 GB = 2,000 MB = 16,000 Mb (1)</li><li>16,000 ÷ 50 (1)</li><li>= 320 seconds (5 minutes 20 seconds) (1). Accept 2 GB = 2,048 MB giving 327.68 seconds.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain the difference between a type 1 and a type 2 hypervisor.</p>
+                                <div class="ms"><ul><li>Type 1 runs directly on the hardware with no host OS (1); type 2 runs as an application on top of a host OS (1).</li><li>Type 1 is more efficient/faster/more secure, used in data centres (1); type 2 is easier to set up, used for testing/learning on a PC (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A start-up wants to deploy a web application without managing servers or operating systems. Identify the most suitable cloud delivery model and justify your choice.</p>
+                                <div class="ms"><ul><li>PaaS (1).</li><li>The provider manages hardware, virtualisation, OS and runtime (1)</li><li>so the start-up only manages its application code and data, saving time and needing fewer skilled staff (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Explain two methods a hospital could use to improve the resilience of its patient record system.</p>
+                                <div class="ms"><ul><li>Method (1) + linked explanation (1), twice. E.g. redundancy: duplicate servers with failover (1) so records are still available if one fails (1); regular backups stored offsite/cloud (1) so data can be restored after ransomware or fire (1); hot site (1) so service continues within minutes after a disaster (1); patching (1) to close vulnerabilities (1); device hardening (1); SOPs and staff training (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>A college with three buildings is redesigning its network. Discuss the suitability of star and mesh topologies for the network.</p>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Star within each building: easy to add devices; one cable fault affects only one device; good performance; but the central switch is a single point of failure.</li>
+                                        <li>Mesh between buildings: multiple routes, so if one link between buildings fails traffic is rerouted; high resilience; but more expensive cabling (fibre between buildings) and more complex.</li>
+                                        <li>A combination is likely: star in each building, partial mesh or tree linking them. Tree is simpler and cheaper but the root is a single point of failure.</li>
+                                        <li>Consider budget, need for resilience (e.g. exams, online learning), and scalability.</li>
+                                    </ul>
+                                    <div class="levels" data-max="6"></div>
+                                </div>
+                            </div>
+                            <div class="q" data-m="12">
+                                <p>A national chain of 40 gyms runs its booking, membership and payment systems on old servers in its head office. It is considering moving to a public cloud using SaaS for membership and IaaS for its booking system. Evaluate this plan.</p>
+                                <div class="box support">
+                                    <h4>◆ SUPPORT: SENTENCE STARTERS</h4>
+                                    <ul>
+                                        <li>A star topology would suit each building because ... However, ...</li>
+                                        <li>A mesh would provide more routes between buildings, which means ...</li>
+                                        <li>Moving to the cloud would give the gym chain elasticity, so at busy times such as January ...</li>
+                                        <li>With IaaS the gym chain would still be responsible for ...</li>
+                                        <li>A risk of the public cloud is ...</li>
+                                    </ul>
+                                </div>
+                                <div class="ms">
+                                    <p><strong>Indicative content:</strong></p>
+                                    <ul>
+                                        <li>Benefits: no need to replace old servers; elasticity for busy periods (January, evening bookings); access from all 40 gyms and members' phones; provider's data centres offer redundancy and backups, improving resilience; predictable subscription costs; SaaS membership software is maintained and updated by the provider.</li>
+                                        <li>Shared responsibility: with IaaS the gym chain still manages the OS, runtime, booking application, data and user accounts, so it needs skilled staff; with SaaS it only manages users and data.</li>
+                                        <li>Drawbacks: dependent on internet connection at every gym; ongoing costs may exceed owning servers over time; data held by a third party, possibly abroad, so data protection checks needed (payment data must meet PCI DSS); migration risk and staff training; vendor lock-in; less control over SaaS customisation.</li>
+                                        <li>Could suggest PaaS for the booking system to reduce management burden.</li>
+                                        <li>Judgement: e.g. the plan is suitable because old servers are a resilience risk and cloud offers scalability and redundancy, provided the chain has reliable internet at each site and checks where data is stored.</li>
+                                    </ul>
+                                    <div class="levels" data-max="12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>For question 16, include the shared responsibility model and explain how the plan affects resilience (redundancy, backups, downtime).</li>
+                                <li>Explain why OSPF is more suitable than RIP for a large organisation's network.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-ca7" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-ca7" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · CA7 Digital Environments · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="../js/questions.js?v=2026-10-29"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-10-29"></script>
+    <script>
+        // Download time calculator: megabytes × 8 = megabits, then ÷ Mbps
+        const dlSize = document.getElementById('dl-size');
+        const dlUnit = document.getElementById('dl-unit');
+        const dlBw = document.getElementById('dl-bw');
+        const dlOut = document.getElementById('dl-out');
+
+        function showDownload() {
+            const megabytes = Number(dlSize.value) * Number(dlUnit.value);
+            const mbps = Number(dlBw.value);
+            if (!(megabytes > 0) || !(mbps > 0)) {
+                dlOut.textContent = 'Enter a file size and bandwidth above 0.';
+                return;
+            }
+            const megabits = megabytes * 8;
+            const seconds = megabits / mbps;
+            const minutes = Math.floor(seconds / 60);
+            const nice = minutes ? ` (${minutes} min ${Math.round(seconds % 60)} s)` : '';
+            dlOut.textContent = `${megabytes.toLocaleString()} MB × 8 = ${megabits.toLocaleString()} Mb. ${megabits.toLocaleString()} ÷ ${mbps} = ${Number(seconds.toFixed(2)).toLocaleString()} seconds${nice}.`;
+        }
+
+        [dlSize, dlUnit, dlBw].forEach(field => field.addEventListener('input', showDownload));
+        showDownload();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>
