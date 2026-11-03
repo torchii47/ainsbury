@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All Knowledge Organisers | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="The knowledge organiser from every topic, ready to print: one topic per page. Stick them on your wall, or cover the facts and test yourself.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="All Knowledge Organisers | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="The knowledge organiser from every topic, ready to print: one topic per page. Stick them on your wall, or cover the facts and test yourself.">
+    <meta property="og:url" content="https://ainsbury.art/gcse/organisers.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev gcse" data-page="organisers">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">PRINT</p>
+            <h1>All Knowledge Organisers</h1>
+            <p>The knowledge organiser from every topic, ready to print: one topic per page. Stick them on your wall, or cover the facts and test yourself.</p>
+            <span class="big-num" aria-hidden="true">KO</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window ko-print-intro" id="print">
+                    <h2>Print</h2>
+                    <div class="window-body">
+                        <p>Press the button, or use your browser's print option (Ctrl + P). For the best results, turn on <strong>Background graphics</strong> in the print settings so the colours print.</p>
+                        <div class="button-row">
+                            <button type="button" class="button icon-btn icon-printer" id="print-button">Print all organisers</button>
+                        </div>
+                        <p id="ko-status" role="status">Loading the organisers...</p>
+                    </div>
+                </section>
+
+                <!-- Each button opens the mock and prints it from there (see buildMockBar in revision.js) -->
+                <section class="window ko-print-intro" id="mocks">
+                    <h2>Mock papers</h2>
+                    <div class="window-body">
+                        <p>Print a mock to sit it on paper: just the questions, with lined space for answers and no mark schemes. You can print the mark scheme once the paper has been finished on this computer: open the mock and press <strong>I've finished: show mark schemes</strong>.</p>
+                        <table>
+                            <tr><th>Paper</th><th>Print</th></tr>
+                            <tr>
+                                <td><a href="mock1.html">Mock Paper 1: Computer systems</a><br>1 h 30 min · 80 marks</td>
+                                <td><div class="button-row"><a class="button icon-btn icon-printer" href="mock1.html#print-paper">Print paper</a> <a class="button icon-btn icon-printer" href="mock1.html#print-ms">Print mark scheme</a></div></td>
+                            </tr>
+                            <tr>
+                                <td><a href="mock2.html">Mock Paper 2: Algorithms and programming</a><br>1 h 30 min · 80 marks</td>
+                                <td><div class="button-row"><a class="button icon-btn icon-printer" href="mock2.html#print-paper">Print paper</a> <a class="button icon-btn icon-printer" href="mock2.html#print-ms">Print mark scheme</a></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+                <div id="ko-pages"></div>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · Knowledge organisers · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+    <script>
+        // The organisers are copied from each topic page, so there's only one version of each to keep up to date
+        const topics = ['1-1', '1-2', '1-3', '1-4', '1-5', '1-6', '2-1', '2-2', '2-3', '2-4', '2-5'];
+        const holder = document.getElementById('ko-pages');
+        const status = document.getElementById('ko-status');
+
+        document.getElementById('print-button').addEventListener('click', () => window.print());
+
+        Promise.all(topics.map(t =>
+            fetch(`topic${t}.html`)
+                .then(response => {
+                    if (!response.ok) throw new Error(response.status);
+                    return response.text();
+                })
+                .then(html => {
+                    const page = new DOMParser().parseFromString(html, 'text/html');
+                    return { t, title: page.querySelector('h1'), organiser: page.querySelector('.ko') };
+                })
+        )).then(results => {
+            results.forEach(({ t, title, organiser }) => {
+                if (!organiser) return;
+                const section = document.createElement('section');
+                section.className = `window ko-page rev topic${t}`;
+                section.id = `ko-topic${t}`;
+                const heading = document.createElement('h2');
+                heading.textContent = title ? title.textContent : `Topic ${t.replace('-', '.')}`;
+                const body = document.createElement('div');
+                body.className = 'window-body';
+                const link = document.createElement('p');
+                link.className = 'ko-print-intro';
+                link.innerHTML = `<a href="topic${t}.html#ko">Open topic ${t.replace('-', '.')}</a>`;
+                body.append(document.importNode(organiser, true), link);
+                section.append(heading, body);
+                holder.appendChild(section);
+            });
+            // Give the new windows working _ □ × buttons (js/windows.js)
+            if (window.enhanceWindows) enhanceWindows(holder);
+            status.textContent = `${holder.children.length} organisers ready to print. Close any you don't want and they won't print.`;
+        }).catch(() => {
+            status.innerHTML = 'The organisers couldn\'t be loaded. This page needs to be opened on the website: browsers block it when the file is opened straight from your computer. You can still print the organiser on each topic page, e.g. <a href="topic1-1.html#ko">1.1</a>.';
+        });
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

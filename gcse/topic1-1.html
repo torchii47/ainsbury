@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1.1 Systems Architecture | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="What the CPU is for, the parts inside it, how it fetches and executes instructions using the Von Neumann architecture, what makes one CPU faster than another, and what embedded systems are.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="1.1 Systems Architecture | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="What the CPU is for, the parts inside it, how it fetches and executes instructions using the Von Neumann architecture, what makes one CPU faster than another, and what embedded systems are.">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic1-1.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic1-1" data-page="topic1-1">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 1.1 · PAPER 1: COMPUTER SYSTEMS</p>
+            <h1>1.1 Systems architecture</h1>
+            <p>What the CPU is for, the parts inside it, how it fetches and executes instructions using the Von Neumann architecture, what makes one CPU faster than another, and what embedded systems are.</p>
+            <p class="links"><strong>Links to other topics:</strong> the CPU fetches instructions from RAM, covered in <a href="topic1-2.html#s1-2-1">1.2.1 Primary storage</a>. The operating system shares CPU time between programs: see <a href="topic1-5.html#s1-5-1">1.5.1</a>. Machine code and assembly are in <a href="topic2-5.html#s2-5-1">2.5.1</a>.</p>
+            <span class="big-num" aria-hidden="true">1.1</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>1.1.1</td><td>State the purpose of the CPU: to carry out the fetch-execute cycle</td></tr>
+                            <tr><td>1.1.1</td><td>Describe the function of the ALU, the control unit, cache and registers</td></tr>
+                            <tr><td>1.1.1</td><td>Describe the Von Neumann architecture and the role of the MAR, MDR, program counter and accumulator</td></tr>
+                            <tr><td>1.1.1</td><td>Describe each stage of the fetch-execute cycle, saying which registers are used</td></tr>
+                            <tr><td>1.1.2</td><td>Explain how clock speed, cache size and number of cores affect CPU performance</td></tr>
+                            <tr><td>1.1.2</td><td>Explain why doubling cores or clock speed doesn't always double performance</td></tr>
+                            <tr><td>1.1.3</td><td>Describe the purpose and characteristics of embedded systems, with examples</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-1-1">
+                    <h2>1.1.1 Architecture of the CPU</h2>
+                    <div class="window-body">
+                        <p>The <strong>central processing unit (CPU)</strong> is the part of the computer that processes data and instructions. Its purpose is to carry out the <strong>fetch-execute cycle</strong>: fetch an instruction from memory, decode it, execute it, and repeat, billions of times a second.</p>
+
+                        <h3>Common CPU components</h3>
+                        <table>
+                            <tr><th>Component</th><th>What it does</th></tr>
+                            <tr><td>ALU (arithmetic logic unit)</td><td>Carries out arithmetic (add, subtract) and logical operations (AND, OR, NOT) and comparisons (is A &gt; B?).</td></tr>
+                            <tr><td>CU (control unit)</td><td>Decodes instructions. Sends control signals that coordinate how data moves around the CPU and between the CPU and other components. Controls the fetch-execute cycle.</td></tr>
+                            <tr><td>Cache</td><td>A small amount of very fast memory inside or very close to the CPU. Stores frequently used instructions and data so the CPU doesn't have to wait for slower RAM.</td></tr>
+                            <tr><td>Registers</td><td>Tiny, extremely fast storage locations inside the CPU, each holding one value (an address, an instruction or data) that is being used right now.</td></tr>
+                        </table>
+
+                        <dl class="recall">
+                            <dt>CPU</dt><dd>Central processing unit: the component that processes data and instructions by carrying out the fetch-execute cycle.</dd>
+                            <dt>ALU</dt><dd>Arithmetic logic unit: performs arithmetic and logical operations and comparisons.</dd>
+                            <dt>Control unit</dt><dd>Decodes instructions and sends control signals to coordinate the movement of data and the fetch-execute cycle.</dd>
+                            <dt>Cache</dt><dd>Small, very fast memory in or near the CPU that stores frequently used instructions and data.</dd>
+                            <dt>Register</dt><dd>A very small, very fast storage location inside the CPU that holds a single value currently being used.</dd>
+                        </dl>
+
+                        <h3>Von Neumann architecture</h3>
+                        <p>In the <strong>Von Neumann architecture</strong>, <strong>program instructions and data are stored together in the same memory</strong>, in the same format (binary). The CPU fetches each instruction from memory, one at a time, and executes it. It uses four special registers:</p>
+                        <table>
+                            <tr><th>Register</th><th>What it holds</th></tr>
+                            <tr><td>Program counter (PC)</td><td>The <strong>address</strong> of the <strong>next</strong> instruction to be fetched. It is incremented during each fetch.</td></tr>
+                            <tr><td>Memory address register (MAR)</td><td>The <strong>address</strong> in memory that is about to be read from or written to.</td></tr>
+                            <tr><td>Memory data register (MDR)</td><td>The <strong>data or instruction</strong> that has just been fetched from memory, or that is about to be written to memory.</td></tr>
+                            <tr><td>Accumulator (ACC)</td><td>The <strong>result</strong> of calculations carried out by the ALU.</td></tr>
+                        </table>
+
+                        <figure class="fig">
+                            <svg viewBox="0 0 640 260" role="img" aria-label="Von Neumann architecture. The CPU contains the control unit, the ALU with the accumulator, cache, and the registers PC, MAR and MDR. The CPU is connected to main memory (RAM), which holds both instructions and data. The MAR sends addresses to memory; data and instructions travel between memory and the MDR.">
+                                <defs><marker id="arr-vn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b031d"/></marker></defs>
+                                <rect class="shape" x="10" y="10" width="380" height="240"/>
+                                <text x="200" y="32" text-anchor="middle" class="label">CPU</text>
+                                <rect class="shape" x="30" y="45" width="160" height="50"/><text x="110" y="75" text-anchor="middle">Control unit</text>
+                                <rect class="shape" x="210" y="45" width="160" height="50"/><text x="290" y="75" text-anchor="middle">ALU</text>
+                                <rect class="shape" x="210" y="110" width="160" height="34"/><text x="290" y="132" text-anchor="middle">Accumulator</text>
+                                <rect class="shape" x="30" y="110" width="160" height="34"/><text x="110" y="132" text-anchor="middle">Cache</text>
+                                <rect class="shape" x="30" y="160" width="100" height="34"/><text x="80" y="182" text-anchor="middle">PC</text>
+                                <rect class="shape" x="145" y="160" width="100" height="34"/><text x="195" y="182" text-anchor="middle">MAR</text>
+                                <rect class="shape" x="260" y="160" width="110" height="34"/><text x="315" y="182" text-anchor="middle">MDR</text>
+                                <text x="200" y="230" text-anchor="middle" class="label">Registers: PC, MAR, MDR, ACC</text>
+                                <rect class="shape" x="470" y="60" width="160" height="150"/>
+                                <text x="550" y="90" text-anchor="middle" class="label">Main memory (RAM)</text>
+                                <text x="550" y="125" text-anchor="middle" style="font-size: 12px">Instructions</text>
+                                <text x="550" y="145" text-anchor="middle" style="font-size: 12px">and data</text>
+                                <text x="550" y="165" text-anchor="middle" style="font-size: 12px">stored together</text>
+                                <path class="line" d="M195,160 V152 H430 V100 H468" marker-end="url(#arr-vn)"/>
+                                <text x="440" y="92" text-anchor="middle" class="label">address</text>
+                                <path class="line" d="M370,185 H468" marker-start="url(#arr-vn)" marker-end="url(#arr-vn)"/>
+                                <text x="420" y="205" text-anchor="middle" class="label">data</text>
+                            </svg>
+                            <figcaption>Von Neumann architecture: one memory holds both instructions and data</figcaption>
+                        </figure>
+
+                        <h3>The fetch-execute cycle</h3>
+                        <table>
+                            <tr><th>Stage</th><th>What happens</th></tr>
+                            <tr><td>Fetch</td><td>
+                                <ol>
+                                    <li>The address in the <strong>PC</strong> is copied to the <strong>MAR</strong>.</li>
+                                    <li>The instruction at that address is fetched from memory and stored in the <strong>MDR</strong>.</li>
+                                    <li>The <strong>PC</strong> is incremented (add 1) so it points to the next instruction.</li>
+                                </ol>
+                            </td></tr>
+                            <tr><td>Decode</td><td>The <strong>control unit</strong> decodes the instruction in the MDR to work out what it means and what needs to happen.</td></tr>
+                            <tr><td>Execute</td><td>The instruction is carried out, e.g. the ALU does a calculation and stores the result in the <strong>accumulator</strong>, or data is loaded from or stored to memory (using the MAR and MDR again). Then the cycle repeats.</td></tr>
+                        </table>
+
+                        <h4>Try it: a tiny CPU in Python</h4>
+                        <p>This simulation runs a four-instruction program stored in the same memory as its data (Von Neumann). It prints the registers at the end of each cycle. It's simplified: a real LOAD would use the MAR and MDR a second time to fetch the data.</p>
+<pre class="code">
+memory = ["LOAD 5", "ADD 6", "STORE 7", "HALT", "", 12, 30, 0]
+pc = 0
+acc = 0
+running = True
+while running:
+    mar = pc                      # fetch: copy the PC into the MAR
+    mdr = memory[mar]             # the instruction at that address goes into the MDR
+    pc = pc + 1                   # the PC now points to the next instruction
+    parts = mdr.split()           # decode
+    opcode = parts[0]
+    if opcode == "LOAD":          # execute
+        acc = memory[int(parts[1])]
+    elif opcode == "ADD":
+        acc = acc + memory[int(parts[1])]
+    elif opcode == "STORE":
+        memory[int(parts[1])] = acc
+    elif opcode == "HALT":
+        running = False
+    print("PC =", pc, "| MAR =", mar, "| MDR =", mdr, "| ACC =", acc)
+print("Address 7 now holds", memory[7])
+</pre>
+<pre class="out">
+PC = 1 | MAR = 0 | MDR = LOAD 5 | ACC = 12
+PC = 2 | MAR = 1 | MDR = ADD 6 | ACC = 42
+PC = 3 | MAR = 2 | MDR = STORE 7 | ACC = 42
+PC = 4 | MAR = 3 | MDR = HALT | ACC = 42
+Address 7 now holds 42
+</pre>
+
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE: PC AND MAR</h4>
+                            <ul>
+                                <li>The PC and MAR both hold <strong>addresses</strong>, not instructions. The MDR holds the instruction or data itself.</li>
+                                <li>The PC holds the address of the <strong>next</strong> instruction, not the current one.</li>
+                                <li>The control unit <strong>decodes</strong>; the ALU does not.</li>
+                            </ul>
+                        </div>
+
+                        <h4>Match each job to the right part</h4>
+                        <div class="sorter" data-options="ALU|Control unit|Cache|PC|MAR|MDR|Accumulator">
+                            <p data-a="ALU">Works out whether 17 is greater than 12.</p>
+                            <p data-a="Control unit">Decodes the instruction that has just been fetched.</p>
+                            <p data-a="PC">Holds the address of the next instruction to be fetched.</p>
+                            <p data-a="MDR">Holds the instruction that has just been fetched from memory.</p>
+                            <p data-a="MAR">Holds the address in memory that is about to be read from.</p>
+                            <p data-a="Accumulator">Holds the result of the last calculation.</p>
+                            <p data-a="Cache">Stores the instructions in a loop so they don't need to be fetched from RAM each time.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Von Neumann architecture</dt><dd>A computer design in which program instructions and data are stored together in the same memory and fetched by the CPU one at a time.</dd>
+                            <dt>Program counter</dt><dd>Register holding the address of the next instruction to be fetched.</dd>
+                            <dt>MAR</dt><dd>Memory address register: holds the address of the memory location about to be read from or written to.</dd>
+                            <dt>MDR</dt><dd>Memory data register: holds the data or instruction just fetched from memory, or about to be written to it.</dd>
+                            <dt>Accumulator</dt><dd>Register that holds the results of calculations carried out by the ALU.</dd>
+                            <dt>Fetch-execute cycle</dt><dd>The repeated process in which the CPU fetches an instruction from memory, decodes it and executes it.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-1-2">
+                    <h2>1.1.2 CPU performance</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Factor</th><th>What it is</th><th>Effect on performance</th><th>Limits</th></tr>
+                            <tr><td>Clock speed</td><td>The number of fetch-execute cycles the CPU can carry out per second, measured in hertz. 3.5 GHz = 3.5 billion cycles per second.</td><td>Higher clock speed → more instructions executed per second → programs run faster.</td><td>Faster CPUs produce more heat and use more power. Overclocking can make a CPU unstable.</td></tr>
+                            <tr><td>Cache size</td><td>How much data and how many instructions the cache can hold.</td><td>Larger cache → more frequently used data is kept close to the CPU → it waits less often for slower RAM.</td><td>Cache is expensive. Beyond a point, extra cache gives little benefit.</td></tr>
+                            <tr><td>Number of cores</td><td>A core is a complete processing unit that can carry out its own fetch-execute cycle. A quad-core CPU has four.</td><td>More cores → more instructions processed at the same time (in parallel) → better for multitasking and programs written to use several cores.</td><td>Not every program can be split into parts that run at the same time. Cores must communicate, which takes time. Two cores ≠ twice as fast.</td></tr>
+                        </table>
+
+                        <details class="box worked">
+                            <summary><strong>✎ WORKED EXAMPLE: which laptop is faster? Decide yourself, then click.</strong> Laptop A: 2 cores, 3.6 GHz, 4 MB cache. Laptop B: 6 cores, 3.0 GHz, 12 MB cache. Used for video editing.</summary>
+                            <p>Laptop B is likely to perform better for video editing. Video editing software is written to split work across cores, so B's six cores can process more of the video at the same time. Its 12 MB cache also keeps more frames and instructions close to the CPU, so it waits less for RAM. Laptop A's higher clock speed means each core runs more cycles per second, which helps programs that only use one core, but this is unlikely to outweigh four extra cores for this task.</p>
+                        </details>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: EXPLAIN THE CHAIN</h4>
+                            <ul>
+                                <li>Don't write "more cores make it faster". Write what each core does: "each core can carry out its own fetch-execute cycle, so more instructions are processed at the same time".</li>
+                                <li>For 2 marks, link the factor to the result: factor → what changes in the CPU → effect for the user.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Clock speed</dt><dd>The number of fetch-execute cycles a CPU carries out per second, measured in hertz (e.g. GHz).</dd>
+                            <dt>Core</dt><dd>An independent processing unit within a CPU that can carry out its own fetch-execute cycle.</dd>
+                            <dt>Cache size</dt><dd>The amount of data and instructions the cache can store; larger means fewer slow trips to RAM.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-1-3">
+                    <h2>1.1.3 Embedded systems</h2>
+                    <div class="window-body">
+                        <p>An <strong>embedded system</strong> is a computer system built into a larger device, designed to carry out one <strong>dedicated function</strong> (or a small set of functions).</p>
+                        <table>
+                            <tr><th>Characteristic</th><th>Why</th></tr>
+                            <tr><td>Dedicated to one task</td><td>It controls one device, e.g. the wash cycle of a washing machine.</td></tr>
+                            <tr><td>Small and cheap</td><td>Millions are made; the hardware is only as powerful as the task needs.</td></tr>
+                            <tr><td>Low power</td><td>Many run from batteries or must not get hot.</td></tr>
+                            <tr><td>Reliable</td><td>Simple, well-tested hardware and software; some run for years without restarting.</td></tr>
+                            <tr><td>Program usually in ROM (firmware)</td><td>The program doesn't change, so it is stored permanently. It can be hard or impossible to upgrade.</td></tr>
+                            <tr><td>Limited or no user interface</td><td>A few buttons and a small display, or none at all.</td></tr>
+                        </table>
+                        <p><strong>Examples:</strong> washing machine, microwave, central heating thermostat, car engine management system, traffic lights, fitness tracker, digital camera, smart doorbell, MRI scanner control.</p>
+                        <p><strong>Not embedded:</strong> a laptop, desktop PC or smartphone. These are <strong>general-purpose</strong> computers that can run many different programs.</p>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP</h4>
+                            <p>If asked for an example, name the device <em>and</em> what the embedded system does in it: "a dishwasher, where it controls the water temperature and the timing of the wash cycle".</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Embedded system</dt><dd>A computer system built into a larger device to carry out a dedicated function.</dd>
+                            <dt>General-purpose computer</dt><dd>A computer, like a PC or smartphone, that can run many different programs for many different tasks.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>PURPOSE OF THE CPU</h4><ul><li>Process data and instructions</li><li>Carry out the fetch-execute cycle</li></ul></div>
+                            <div><h4>CPU COMPONENTS</h4><ul><li>ALU: arithmetic, logic, comparisons</li><li>CU: decodes, sends control signals</li><li>Cache: fast memory for frequent data</li><li>Registers: tiny, fastest storage</li></ul></div>
+                            <div><h4>VON NEUMANN REGISTERS</h4><ul><li>PC: address of next instruction</li><li>MAR: address to read/write</li><li>MDR: data/instruction fetched or to write</li><li>ACC: result of ALU calculation</li></ul></div>
+                            <div><h4>FETCH-EXECUTE</h4><ul><li>PC → MAR</li><li>Instruction at that address → MDR</li><li>PC incremented</li><li>CU decodes</li><li>Execute; repeat</li></ul></div>
+                            <div><h4>PERFORMANCE</h4><ul><li>Clock speed: cycles per second (GHz)</li><li>Cache size: fewer trips to RAM</li><li>Cores: parallel processing</li><li>Limits: heat, cost, not all tasks split</li></ul></div>
+                            <div><h4>EMBEDDED SYSTEMS</h4><ul><li>Built into a larger device</li><li>Dedicated function</li><li>Small, cheap, low power, reliable</li><li>Firmware in ROM</li><li>e.g. washing machine, thermostat</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 1.1 from the GCSE question bank. Answer in your head or on paper, then check. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="1.1"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 30 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic1-1">
+                            <div class="q" data-m="1">
+                                <p>State the purpose of the CPU.</p>
+                                <div class="ms"><ul><li>To process data and instructions / to carry out the fetch-execute cycle (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the role of the arithmetic logic unit (ALU).</p>
+                                <div class="ms"><ul><li>Carries out arithmetic calculations, e.g. addition/subtraction (1).</li><li>Carries out logical operations/comparisons, e.g. AND, OR, greater than (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe what is meant by the Von Neumann architecture.</p>
+                                <div class="ms"><ul><li>Instructions and data are stored in the same memory (1).</li><li>Instructions are fetched and executed one at a time / uses registers such as PC, MAR, MDR, accumulator (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe what happens during the fetch stage of the fetch-execute cycle. Name the registers used.</p>
+                                <div class="ms"><ul><li>The address in the program counter (1) is copied to the MAR (1).</li><li>The instruction at that address is fetched from memory/RAM into the MDR (1).</li><li>The program counter is incremented (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>State the purpose of the accumulator and the memory address register.</p>
+                                <div class="ms"><ul><li>Accumulator: holds the results of calculations/processing by the ALU (1).</li><li>MAR: holds the address of the memory location to be read from or written to (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why cache improves the performance of a CPU.</p>
+                                <div class="ms"><ul><li>Cache is faster than RAM / is closer to the CPU (1).</li><li>Frequently used data/instructions are stored there, so the CPU spends less time waiting for data from RAM (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Mia's computer has a dual-core 3.2 GHz CPU. She is thinking of upgrading to a quad-core 3.2 GHz CPU. Explain <strong>two</strong> reasons why her programs might <strong>not</strong> run twice as fast.</p>
+                                <div class="ms"><ul><li>Not all programs/tasks can be split to run in parallel (1) so some cores may be idle while one does all the work (1).</li><li>Cores need to communicate/coordinate (1) which takes time / creates overhead (1).</li><li>Accept: other bottlenecks such as RAM or storage speed (1) so the CPU waits for data regardless of cores (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Define the term 'clock speed'.</p>
+                                <div class="ms"><ul><li>The number of fetch-execute cycles / instructions processed (1) per second (1). Accept: measured in hertz/GHz for the second mark.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A smart thermostat contains an embedded system. Describe <strong>three</strong> characteristics of embedded systems.</p>
+                                <div class="ms"><ul><li>Any three, 1 each: dedicated to a single/specific task; part of a larger device; small in size; low power consumption; low cost to make; very reliable; program stored in ROM/firmware; limited/no user interface; difficult to upgrade.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Give <strong>two</strong> examples of devices that contain an embedded system, other than a thermostat.</p>
+                                <div class="ms"><ul><li>Any two, 1 each: washing machine, microwave, dishwasher, car engine management, traffic lights, fitness tracker, digital camera, sat nav, smart TV, etc. Do not accept: laptop, PC, smartphone.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>A games company is choosing a CPU for a new games console. Explain how clock speed, cache size and number of cores will each affect how well games run on the console.</p>
+                                <div class="ms"><ul><li>Clock speed: higher clock speed means more instructions per second (1) so the game can update frames/physics faster / smoother gameplay (1).</li><li>Cache: larger cache stores more frequently used game data/instructions (1) so less waiting for RAM / faster loading of repeated tasks (1).</li><li>Cores: more cores can run tasks in parallel, e.g. graphics, sound and AI at the same time (1) but only if the game is written to use several cores (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Add a <code>SUB</code> instruction to the Python CPU above and change the program so it works out 30 − 12.</li>
+                                <li>Find out what the <em>Harvard</em> architecture is and how it differs from Von Neumann. Why might an embedded system use it?</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic1-1" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic1-1" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 1.1 Systems architecture · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

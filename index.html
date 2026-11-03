@@ -4,9 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Rowan's Website</title>
-    <meta name="description" content="Teaching resources, student portfolios, and course materials.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Rowan&#x27;s Website">
+    <meta property="og:description" content="Revision guides, class demos, teaching resources and student portfolios for T Level Digital, GCSE Computer Science and V Level Digital.">
+    <meta property="og:url" content="https://ainsbury.art/">
+    <meta property="og:image" content="https://ainsbury.art/images/og/site.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="Revision guides, class demos, teaching resources and student portfolios for T Level Digital, GCSE Computer Science and V Level Digital.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css?v=2026-10-29">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css?v=2026-11-04">
+    <script src="js/analytics.js?v=2026-11-04"></script>
 </head>
 
 <body>
@@ -17,328 +30,97 @@
 
         <header class="site-header">
             <h1 class="site-title">Rowan's Website</h1>
-            <p class="subtitle">T Level Digital: Teaching Resources &amp; Student Portfolios</p>
+            <p class="subtitle">Revision Guides, Class Demos &amp; Student Portfolios</p>
         </header>
 
         <!-- Scrolling marquee: the text is written twice so the loop is seamless -->
         <div class="marquee">
             <div class="marquee-track">
-                <span>NEW: the Core Revision Guide is here, see the big box below! &bull; Save your work regularly &bull; Validate your HTML before submitting &bull; Check MDN for syntax &bull; Keep your file names lowercase with no spaces &bull;&nbsp;</span>
-                <span aria-hidden="true">NEW: the Core Revision Guide is here, see the big box below! &bull; Save your work regularly &bull; Validate your HTML before submitting &bull; Check MDN for syntax &bull; Keep your file names lowercase with no spaces &bull;&nbsp;</span>
+                <span>Pick your course below to open its revision guide &bull; More guides coming soon &bull; Save your work regularly &bull; Validate your HTML before submitting &bull; Keep your file names lowercase with no spaces &bull;&nbsp;</span>
+                <span aria-hidden="true">Pick your course below to open its revision guide &bull; More guides coming soon &bull; Save your work regularly &bull; Validate your HTML before submitting &bull; Keep your file names lowercase with no spaces &bull;&nbsp;</span>
             </div>
         </div>
 
-        <p class="construction"><span>🚧 UNDER CONSTRUCTION: new resources added throughout the year 🚧</span></p>
-
         <nav class="nav" aria-label="Sections">
-            <a href="revision/index.html" class="nav-featured">📚 Revision Guide</a>
-            <a href="#welcome">Home</a>
-            <a href="#toolkit">Toolkit</a>
-            <a href="#quick-info">Quick Info</a>
-            <a href="#tlevel">T Level</a>
+            <a href="#guides" class="nav-featured"><img class="pix" src="images/icons/books.svg" alt="" width="16" height="16"> Revision Guides</a>
             <a href="#demos">Demos</a>
+            <a href="#students">Students</a>
+            <a href="#toolkit">Toolkit</a>
             <a href="#resources">Resources</a>
             <a href="#learning-links">Links</a>
-            <a href="#students">Students</a>
         </nav>
 
-        <!-- Outer layout container wrapping main content and sidebar -->
-        <div class="page-layout">
+        <main id="main">
 
-            <main class="container" id="main">
+            <!-- Revision guides. When one's ready, swap its div for an <a href="...">
+                 like the live ones and take off is-soon / aria-disabled. -->
+            <section class="window featured-guide" id="guides">
+                <div class="title-bar">
+                    <h2>C:\Revision_Guides</h2>
+                    <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+                </div>
+                <div class="window-body">
+                    <p class="guide-kicker">Choose your course:</p>
 
-                <!-- Featured: the Core Revision Guide (revision/ folder) -->
-                <section class="window featured-guide" id="revision-guide">
-                    <div class="title-bar">
-                        <h2>📚 CORE_REVISION_GUIDE.exe</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <div class="guide-hero">
-                            <div>
-                                <p class="guide-kicker">Revising for Core Paper 1 or Paper 2? Start here <span class="new-tag blink">NEW!</span></p>
-                                <h3 class="guide-title">Core Revision Guide</h3>
-                                <p>Everything you need for the core exams in one place: notes for all eight content areas, Python code to test yourself on, exam-style questions with mark schemes, two timed mock papers and a searchable glossary.</p>
-                                <a href="revision/index.html" class="button guide-button">Open the Revision Guide &rarr;</a>
-                            </div>
-                            <ul class="guide-features">
-                                <li>✅ Rate yourself on every spec point</li>
-                                <li>🃏 Flashcards for every key term</li>
-                                <li>✏️ Answer questions, then check the mark scheme</li>
-                                <li>⏱️ Timed mock papers for Paper 1 and Paper 2</li>
-                                <li>💾 Progress saves in your browser</li>
-                            </ul>
+                    <div class="course-grid">
+
+                        <a class="course-button" href="revision/index.html" style="--course: #14213d">
+                            <img class="pix course-icon" src="images/icons/terminal.svg" alt="" width="48" height="48">
+                            <span class="course-level">T Level</span>
+                            <span class="course-name">Digital Software Development</span>
+                            <span class="course-detail">Core CA1–CA8, exam technique, timed mocks, ESP, specialism &amp; glossary</span>
+                            <span class="course-cta">Open guide &rarr;</span>
+                        </a>
+
+                        <div class="course-button is-soon" style="--course: #00664f" aria-disabled="true">
+                            <img class="pix course-icon" src="images/icons/shield.svg" alt="" width="48" height="48">
+                            <span class="course-level">T Level</span>
+                            <span class="course-name">Digital Support &amp; Security</span>
+                            <span class="course-detail">Core content areas with the security pathway</span>
+                            <span class="course-cta">Coming soon</span>
                         </div>
 
+                        <a class="course-button" href="gcse/index.html" style="--course: #5b2a86">
+                            <img class="pix course-icon" src="images/icons/computer.svg" alt="" width="48" height="48">
+                            <span class="course-level">OCR GCSE</span>
+                            <span class="course-name">Computer Science</span>
+                            <span class="course-detail">J277 topics 1.1–2.5, exam technique, practical programming, timed mocks &amp; glossary</span>
+                            <span class="course-cta">Open guide &rarr;</span>
+                        </a>
+
+                        <div class="course-button is-soon" style="--course: #8b3a00" aria-disabled="true">
+                            <img class="pix course-icon" src="images/icons/globe.svg" alt="" width="48" height="48">
+                            <span class="course-level">V Level</span>
+                            <span class="course-name">Digital</span>
+                            <span class="course-detail">Revision guide for the new V Level</span>
+                            <span class="course-cta">Coming soon</span>
+                        </div>
+
+                    </div>
+
+                    <div class="countdown-grid">
                         <div class="countdown-box">
-                            <p class="guide-jump">⏳ Countdown</p>
+                            <p class="guide-jump"><img class="pix" src="images/icons/clock.svg" alt="" width="16" height="16"> T Level core exams</p>
                             <div class="exam-countdown" data-base="revision/"></div>
                         </div>
-
-                        <p class="guide-jump">Jump straight to a topic:</p>
-                        <div class="guide-tabs">
-                            <a href="revision/ca1.html" style="--tab: #1f4e79"><strong>CA1</strong> Problem Solving</a>
-                            <a href="revision/ca2.html" style="--tab: #8b3a00"><strong>CA2</strong> Programming</a>
-                            <a href="revision/ca3.html" style="--tab: #00664f"><strong>CA3</strong> Emerging Issues</a>
-                            <a href="revision/ca4.html" style="--tab: #5b2a86"><strong>CA4</strong> Legislation</a>
-                            <a href="revision/ca5.html" style="--tab: #7a5c00"><strong>CA5</strong> Business Context</a>
-                            <a href="revision/ca6.html" style="--tab: #005f73"><strong>CA6</strong> Data</a>
-                            <a href="revision/ca7.html" style="--tab: #8b1e3f"><strong>CA7</strong> Digital Environments</a>
-                            <a href="revision/ca8.html" style="--tab: #333333"><strong>CA8</strong> Security</a>
-                            <a href="revision/exams.html" style="--tab: #14213d"><strong>EXAMS</strong> Exam technique</a>
-                            <a href="revision/mock1.html" style="--tab: #14213d"><strong>MOCK 1</strong> CA1–4 (Paper 1)</a>
-                            <a href="revision/mock2.html" style="--tab: #14213d"><strong>MOCK 2</strong> CA5–8 (Paper 2)</a>
-                            <a href="revision/esp.html" style="--tab: #14213d"><strong>ESP</strong> Employer Set Project</a>
-                            <a href="revision/specialism.html" style="--tab: #14213d"><strong>OS</strong> Occupational specialism</a>
-                            <a href="revision/glossary.html" style="--tab: #14213d"><strong>A–Z</strong> Glossary</a>
+                        <div class="countdown-box">
+                            <p class="guide-jump"><img class="pix" src="images/icons/clock.svg" alt="" width="16" height="16"> GCSE Computer Science exams</p>
+                            <div class="exam-countdown" data-course="gcse" data-base="gcse/"></div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Welcome & Guidelines -->
-                <section class="window" id="welcome">
-                    <div class="title-bar">
-                        <h2>welcome.txt</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p>This is my website for you to access specific teaching resources signposted to here.</p>
-                        <p>You will be creating your own websites as a portfolio, so feel free to use any of the HTML found on this site as a base. Right-click &rarr; <strong>View Page Source</strong> to see how anything here was built.</p>
+            <div class="landing-row">
 
-                        <div class="guidelines-box">
-                            <h3>Course Expectations &amp; Guidelines</h3>
-                            <ul>
-                                <li><strong>No AI Code:</strong> Please refrain from using AI on your site as writing code manually is essential practice for the entire course.</li>
-                                <li><strong>Online Resources:</strong> Use standard online documentation (MDN, W3Schools) for syntax questions or additional features you'd like to add.</li>
-                                <li><strong>Standards:</strong> Ensure your code uses clean, valid HTML tags.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Toolkit pages, laid out like desktop icons -->
-                <section class="window" id="toolkit">
-                    <div class="title-bar">
-                        <h2>C:\Student_Toolkit</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body desktop-icons">
-                        <a href="pages/starter.html"><span class="icon" aria-hidden="true">📁</span><span class="label">Starter Template</span></a>
-                        <a href="pages/checklist.html"><span class="icon" aria-hidden="true">✅</span><span class="label">Submission Checklist</span></a>
-                        <a href="pages/cheatsheet.html"><span class="icon" aria-hidden="true">📖</span><span class="label">HTML &amp; CSS Cheat Sheet</span></a>
-                        <a href="pages/mistakes.html"><span class="icon" aria-hidden="true">⚠️</span><span class="label">Common Mistakes</span></a>
-                        <a href="pages/glossary.html"><span class="icon" aria-hidden="true">🔤</span><span class="label">Glossary</span></a>
-                        <a href="pages/term.html"><span class="icon" aria-hidden="true">📅</span><span class="label">Term Planner</span></a>
-                        <a href="pages/placement.html"><span class="icon" aria-hidden="true">💼</span><span class="label">Placement Prep</span></a>
-                        <a href="pages/question.html"><span class="icon" aria-hidden="true">❓</span><span class="label">Random Question</span></a>
-                        <a href="revision/index.html"><span class="icon" aria-hidden="true">📚</span><span class="label">Core Revision Guide</span></a>
-                    </div>
-                </section>
-
-                <!-- Key information for building portfolio sites -->
-                <section class="window" id="quick-info">
-                    <div class="title-bar">
-                        <h2>readme_first.txt</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <h3>Before you upload</h3>
-                        <ul class="info-list">
-                            <li>Your homepage <strong>must</strong> be called <code>index.html</code>.</li>
-                            <li>Use lowercase file names with no spaces, e.g. <code>about-me.html</code> not <code>About Me.html</code>.</li>
-                            <li>Link to files using relative paths, e.g. <code>images/logo.png</code>, not a path from your own computer.</li>
-                            <li>Give every image an <code>alt</code> description.</li>
-                            <li>Compress images before uploading so pages load quickly.</li>
-                            <li>Run your pages through the HTML and CSS validators and fix any errors.</li>
-                            <li>Keep a backup copy of your site files on your own drive.</li>
-                        </ul>
-
-                        <h3>Every page should have</h3>
-                        <ul class="info-list">
-                            <li><code>&lt;!DOCTYPE html&gt;</code> and <code>&lt;html lang="en"&gt;</code></li>
-                            <li><code>&lt;meta charset="utf-8"&gt;</code> and the viewport meta tag</li>
-                            <li>A unique <code>&lt;title&gt;</code></li>
-                            <li>Navigation back to your homepage</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <!-- T Level course components -->
-                <section class="window" id="tlevel">
-                    <div class="title-bar">
-                        <h2>tlevel_overview.txt</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p>The main parts of your T Level:</p>
-                        <ul class="component-list">
-                            <li>
-                                <strong>Core Exams</strong>
-                                The theory and knowledge behind the course.
-                            </li>
-                            <li>
-                                <strong>Employer Set Project</strong>
-                                A project based on a real-world brief.
-                            </li>
-                            <li>
-                                <strong>Occupational Specialism</strong>
-                                Practical assessment of your specialist skills.
-                            </li>
-                            <li>
-                                <strong>Industry Placement</strong>
-                                315 hours working with an employer.
-                            </li>
-                        </ul>
-                        <p class="more-info">Revising for the core exams? Use the <a href="revision/index.html">Core Revision Guide</a>.</p>
-                        <p class="more-info">More info: <a href="https://www.tlevels.gov.uk/students" target="_blank">tlevels.gov.uk</a></p>
-                    </div>
-                </section>
-
-                <!-- Course Demos & Work -->
+                <!-- Demos are listed in js/demos.js -->
                 <section class="window" id="demos">
                     <div class="title-bar">
                         <h2>class_demos/</h2>
                         <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
                     </div>
                     <div class="window-body">
-                        <div class="demo-item">
-                            <h3>23rd September 2026:</h3>
-                            <a href="cargopulse.html" class="button">CargoPulse</a>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Lesson Resources & Posts -->
-                <section class="window" id="resources">
-                    <div class="title-bar">
-                        <h2>resources_and_notes/</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <div id="blog-posts">
-                            <ul id="post-list"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Reference Links -->
-                <section class="window" id="learning-links">
-                    <div class="title-bar">
-                        <h2>useful_links.url</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body link-groups">
-                        <div>
-                            <h3>Reference</h3>
-                            <ul class="external-links">
-                                <li><a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a></li>
-                                <li><a href="https://www.w3schools.com" target="_blank">W3Schools</a></li>
-                                <li><a href="https://caniuse.com" target="_blank">Can I Use</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Practice</h3>
-                            <ul class="external-links">
-                                <li><a href="https://flexboxfroggy.com" target="_blank">Flexbox Froggy</a></li>
-                                <li><a href="https://cssgridgarden.com" target="_blank">CSS Grid Garden</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Check your work</h3>
-                            <ul class="external-links">
-                                <li><a href="https://validator.w3.org" target="_blank">W3C HTML Validator</a></li>
-                                <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank">W3C CSS Validator</a></li>
-                                <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank">WebAIM Contrast Checker</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Design</h3>
-                            <ul class="external-links">
-                                <li><a href="https://fonts.google.com" target="_blank">Google Fonts</a></li>
-                                <li><a href="https://coolors.co" target="_blank">Coolors: colour palettes</a></li>
-                                <li><a href="https://tinypng.com" target="_blank">TinyPNG: compress images</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3>Neocities</h3>
-                            <ul class="external-links">
-                                <li><a href="https://neocities.org/dashboard" target="_blank">Your Dashboard</a></li>
-                                <li><a href="https://neocities.org/tutorials" target="_blank">Neocities Tutorials</a></li>
-                                <li><a href="https://sadgrlonline.com/layout-editor/" target="_blank">Sadgrl Layout Editor</a></li>
-                                <li><a href="https://cyber.dabamos.de/88x31/" target="_blank">88x31 Button Archive</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-            </main>
-
-            <!-- Sidebar Section for Student Websites -->
-            <aside class="sidebar">
-
-                <!-- A new question from the core question bank every day -->
-                <section class="window" id="question-of-the-day">
-                    <div class="title-bar">
-                        <h2>question_of_the_day.txt</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p class="quiz-meta" id="qotd-meta"></p>
-                        <p class="qotd-question" id="qotd-text">Loading...</p>
-                        <ul class="quiz-options" id="qotd-options"></ul>
-                        <button type="button" class="button" id="qotd-show">Show answer</button>
-                        <p class="quiz-answer" id="qotd-answer" hidden></p>
-                        <p><a href="pages/question.html">More random questions &rarr;</a></p>
-                    </div>
-                </section>
-
-                <section class="window" id="key-dates">
-                    <div class="title-bar">
-                        <h2>key_dates.cal</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <ul class="dates-list" id="dates-list"></ul>
-                        <p><a href="pages/term.html">See the full term planner &rarr;</a></p>
-                    </div>
-                </section>
-
-                <section class="window">
-                    <div class="title-bar">
-                        <span class="title-bar-text">tip_of_the_day.txt</span>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p class="tip-text" id="tip-text" aria-live="polite"></p>
-                        <button type="button" class="button" id="next-tip">Next tip</button>
-                    </div>
-                </section>
-
-                <section class="window">
-                    <div class="title-bar">
-                        <span class="title-bar-text">shortcuts.hlp</span>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p class="shortcut-group">Anywhere</p>
-                        <ul class="shortcut-list">
-                            <li><span>Save</span> <span><kbd>Ctrl</kbd>+<kbd>S</kbd></span></li>
-                            <li><span>Undo / Redo</span> <span><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Y</kbd></span></li>
-                            <li><span>Find</span> <span><kbd>Ctrl</kbd>+<kbd>F</kbd></span></li>
-                        </ul>
-                        <p class="shortcut-group">Browser</p>
-                        <ul class="shortcut-list">
-                            <li><span>Hard refresh</span> <span><kbd>Ctrl</kbd>+<kbd>F5</kbd></span></li>
-                            <li><span>Dev tools</span> <span><kbd>F12</kbd></span></li>
-                            <li><span>View source</span> <span><kbd>Ctrl</kbd>+<kbd>U</kbd></span></li>
-                        </ul>
-                        <p class="shortcut-group">VS Code</p>
-                        <ul class="shortcut-list">
-                            <li><span>Format code</span> <span><kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd></span></li>
-                            <li><span>Comment line</span> <span><kbd>Ctrl</kbd>+<kbd>/</kbd></span></li>
-                            <li><span>Word wrap</span> <span><kbd>Alt</kbd>+<kbd>Z</kbd></span></li>
-                            <li><span>Select next match</span> <span><kbd>Ctrl</kbd>+<kbd>D</kbd></span></li>
-                        </ul>
+                        <ul class="demo-grid" id="demo-list"></ul>
                     </div>
                 </section>
 
@@ -362,42 +144,116 @@
                             <a href="https://donfeurportfolio.neocities.org" target="_blank">Balazs</a>
                             <a href="https://niksportfolio.neocities.org" target="_blank">Nik</a>
                         </div>
-                        <button type="button" class="button webring-random" id="random-site">Random site</button>
+                        <button type="button" class="button webring-random" id="random-site"><img class="pix" src="images/icons/dice.svg" alt="" width="16" height="16"> Random site</button>
                     </div>
                 </section>
 
-                <section class="window">
+            </div>
+
+            <!-- Smaller windows -->
+            <div class="landing-extras">
+
+                <section class="window" id="welcome">
                     <div class="title-bar">
-                        <span class="title-bar-text">counter.exe</span>
+                        <h2>welcome.txt</h2>
                         <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
                     </div>
-                    <div class="window-body counter">
-                        <p>You have visited this page</p>
-                        <div class="counter-digits" id="visit-counter">000000</div>
-                        <p>times on this device.</p>
+                    <div class="window-body">
+                        <p>Teaching resources signposted from class. Feel free to use any of the HTML here as a base for your portfolio: right-click &rarr; <strong>View Page Source</strong>.</p>
+                        <ul class="info-list">
+                            <li><strong>No AI code:</strong> writing code yourself is essential practice for the course.</li>
+                            <li><strong>Use the docs:</strong> MDN and W3Schools for syntax questions.</li>
+                            <li><strong>Standards:</strong> clean, valid HTML.</li>
+                        </ul>
                     </div>
                 </section>
 
-                <section class="window">
+                <section class="window" id="toolkit">
                     <div class="title-bar">
-                        <span class="title-bar-text">badges</span>
+                        <h2>C:\Student_Toolkit</h2>
                         <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
                     </div>
-                    <div class="window-body badges">
-                        <span class="badge badge-tlevel">T LEVEL DIGITAL</span>
-                        <span class="badge badge-neo">NEOCITIES</span>
-                        <span class="badge badge-html">HTML5</span>
-                        <span class="badge badge-css">CSS3</span>
+                    <div class="window-body desktop-icons">
+                        <a href="pages/starter.html"><img class="pix icon" src="images/icons/folder.svg" alt="" width="48" height="48"><span class="label">Starter Template</span></a>
+                        <a href="pages/checklist.html"><img class="pix icon" src="images/icons/checklist.svg" alt="" width="48" height="48"><span class="label">Submission Checklist</span></a>
+                        <a href="pages/cheatsheet.html"><img class="pix icon" src="images/icons/book.svg" alt="" width="48" height="48"><span class="label">HTML &amp; CSS Cheat Sheet</span></a>
+                        <a href="pages/mistakes.html"><img class="pix icon" src="images/icons/warning.svg" alt="" width="48" height="48"><span class="label">Common Mistakes</span></a>
+                        <a href="pages/glossary.html"><img class="pix icon" src="images/icons/dictionary.svg" alt="" width="48" height="48"><span class="label">Glossary</span></a>
+                        <a href="pages/term.html"><img class="pix icon" src="images/icons/calendar.svg" alt="" width="48" height="48"><span class="label">Term Planner</span></a>
+                        <a href="pages/placement.html"><img class="pix icon" src="images/icons/briefcase.svg" alt="" width="48" height="48"><span class="label">Placement Prep</span></a>
+                        <a href="pages/question.html"><img class="pix icon" src="images/icons/help.svg" alt="" width="48" height="48"><span class="label">Random Question</span></a>
                     </div>
                 </section>
 
-            </aside>
+                <section class="window" id="question-of-the-day">
+                    <div class="title-bar">
+                        <h2>question_of_the_day.txt</h2>
+                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+                    </div>
+                    <div class="window-body">
+                        <p class="quiz-meta" id="qotd-meta"></p>
+                        <p class="qotd-question" id="qotd-text">Loading...</p>
+                        <ul class="quiz-options" id="qotd-options"></ul>
+                        <button type="button" class="button" id="qotd-show">Show answer</button>
+                        <p class="quiz-answer" id="qotd-answer" hidden></p>
+                        <p><a href="pages/question.html">More random questions &rarr;</a></p>
+                    </div>
+                </section>
 
-        </div>
+                <section class="window" id="key-dates">
+                    <div class="title-bar">
+                        <h2>key_dates.cal</h2>
+                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+                    </div>
+                    <div class="window-body">
+                        <div class="tab-row" role="tablist" aria-label="Course">
+                            <button type="button" class="button" role="tab" id="dates-tab-tlevel" data-course="tlevel" aria-controls="dates-list">T Level</button>
+                            <button type="button" class="button" role="tab" id="dates-tab-gcse" data-course="gcse" aria-controls="dates-list">GCSE</button>
+                        </div>
+                        <ul class="dates-list" id="dates-list" role="tabpanel"></ul>
+                        <p id="term-link"><a href="pages/term.html">See the full term planner &rarr;</a></p>
+                    </div>
+                </section>
+
+                <section class="window" id="resources">
+                    <div class="title-bar">
+                        <h2>resources_and_notes/</h2>
+                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+                    </div>
+                    <div class="window-body">
+                        <ul id="post-list"></ul>
+                    </div>
+                </section>
+
+                <section class="window" id="learning-links">
+                    <div class="title-bar">
+                        <h2>useful_links.url</h2>
+                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+                    </div>
+                    <div class="window-body">
+                        <ul class="external-links link-columns">
+                            <li><a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a></li>
+                            <li><a href="https://www.w3schools.com" target="_blank">W3Schools</a></li>
+                            <li><a href="https://validator.w3.org" target="_blank">HTML Validator</a></li>
+                            <li><a href="https://jigsaw.w3.org/css-validator/" target="_blank">CSS Validator</a></li>
+                            <li><a href="https://webaim.org/resources/contrastchecker/" target="_blank">Contrast Checker</a></li>
+                            <li><a href="https://flexboxfroggy.com" target="_blank">Flexbox Froggy</a></li>
+                            <li><a href="https://cssgridgarden.com" target="_blank">CSS Grid Garden</a></li>
+                            <li><a href="https://fonts.google.com" target="_blank">Google Fonts</a></li>
+                            <li><a href="https://tinypng.com" target="_blank">TinyPNG</a></li>
+                            <li><a href="https://neocities.org/dashboard" target="_blank">Neocities Dashboard</a></li>
+                            <li><a href="https://www.tlevels.gov.uk/students" target="_blank">tlevels.gov.uk</a></li>
+                        </ul>
+                    </div>
+                </section>
+
+            </div>
+
+        </main>
 
         <!-- Footer styled like a Windows 95 taskbar -->
         <footer class="taskbar">
-            <p>&copy; 2026 Rowan's Website. All rights reserved.</p>
+            <p>&copy; 2026 Rowan's Website. Page visits are counted anonymously with GoatCounter (no cookies).</p>
             <span class="clock" id="clock">--:--</span>
         </footer>
 
@@ -405,12 +261,33 @@
 
     <!-- Scripts -->
     <script src="posts/posts.js?v=2026-10-29"></script>
-    <script src="js/dates.js?v=2026-10-29"></script>
-    <script src="js/tips.js?v=2026-10-29"></script>
-    <script src="js/countdown.js?v=2026-10-29"></script>
+    <script src="js/demos.js?v=2026-11-04"></script>
+    <script src="js/dates.js?v=2026-11-04"></script>
+    <script src="js/countdown.js?v=2026-11-04"></script>
     <script src="js/questions.js?v=2026-10-29"></script>
     <script src="js/question-bank.js?v=2026-10-29"></script>
     <script>
+        // Class demos, newest first
+        const demoList = document.getElementById('demo-list');
+
+        if (typeof demos !== 'undefined' && Array.isArray(demos) && demos.length > 0) {
+            demoList.innerHTML = demos
+                .slice()
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .map((demo, index) => `
+                    <li>
+                        <a href="${demo.file}" class="button demo-button">
+                            ${demo.title}
+                            ${index === 0 ? '<span class="new-tag blink">NEW!</span>' : ''}
+                        </a>
+                        <span class="post-date">${new Date(demo.date + 'T00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                        ${demo.description ? `<span class="demo-desc">${demo.description}</span>` : ''}
+                    </li>
+                `).join('');
+        } else {
+            demoList.innerHTML = '<li>No demos yet.</li>';
+        }
+
         // Question of the day: the same question for everyone all day,
         // picked by counting the days since 1 January 2026
         const dayNumber = Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000);
@@ -456,6 +333,7 @@
             qotdShow.hidden = true;
         });
 
+        // Lesson posts, newest first
         const listContainer = document.getElementById('post-list');
 
         if (typeof posts !== 'undefined' && Array.isArray(posts) && posts.length > 0) {
@@ -472,59 +350,52 @@
             listContainer.innerHTML = '<li>No resources currently available.</li>';
         }
 
-        // Key dates: show the next 3 upcoming, and flag the soonest
+        // Key dates for each course: the next 3, with the soonest flagged.
+        // The tab you pick is remembered on this device.
         const datesList = document.getElementById('dates-list');
+        const dateTabs = document.querySelectorAll('[role="tab"][data-course]');
         const today = new Date().toISOString().slice(0, 10);
-        const upcoming = (typeof keyDates !== 'undefined' ? keyDates : [])
-            .filter(item => item.date >= today)
-            .sort((a, b) => a.date.localeCompare(b.date))
-            .slice(0, 3);
+        const courseDates = {
+            tlevel: typeof keyDates !== 'undefined' ? keyDates : [],
+            gcse: typeof gcseDates !== 'undefined' ? gcseDates : []
+        };
 
-        if (upcoming.length > 0) {
-            datesList.innerHTML = upcoming.map((item, index) => `
+        function showDates(course) {
+            dateTabs.forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.course === course)));
+            datesList.setAttribute('aria-labelledby', 'dates-tab-' + course);
+            document.getElementById('term-link').hidden = course !== 'tlevel';
+
+            const upcoming = courseDates[course]
+                .filter(item => item.date >= today)
+                .sort((a, b) => a.date.localeCompare(b.date))
+                .slice(0, 3);
+
+            datesList.innerHTML = upcoming.length ? upcoming.map((item, index) => `
                 <li>
                     <strong>${item.title}</strong>
                     ${index === 0 ? '<span class="new-tag blink">NEXT!</span>' : ''}
                     <span class="post-date">${item.date}</span>
                 </li>
-            `).join('');
-        } else {
-            datesList.innerHTML = '<li>No upcoming dates yet.</li>';
+            `).join('') : '<li>No upcoming dates yet.</li>';
+
+            try { localStorage.setItem('datesCourse', course); } catch (error) { /* not saved */ }
         }
 
-        // Tip of the day: random tip on each visit
-        const tipText = document.getElementById('tip-text');
-        let tipIndex = Math.floor(Math.random() * tips.length);
-
-        function showTip() {
-            tipText.textContent = tips[tipIndex];
-        }
-
-        document.getElementById('next-tip').addEventListener('click', () => {
-            tipIndex = (tipIndex + 1) % tips.length;
-            showTip();
-        });
-
-        showTip();
+        dateTabs.forEach(tab => tab.addEventListener('click', () => showDates(tab.dataset.course)));
+        let savedCourse = 'tlevel';
+        try { savedCourse = localStorage.getItem('datesCourse') || 'tlevel'; } catch (error) { /* use the default */ }
+        showDates(courseDates[savedCourse] ? savedCourse : 'tlevel');
 
         // Open a random student site
         const studentLinks = document.querySelectorAll('.student-list a');
 
         document.getElementById('random-site').addEventListener('click', () => {
             const pick = studentLinks[Math.floor(Math.random() * studentLinks.length)];
+            if (window.goatcounter && window.goatcounter.count) {
+                window.goatcounter.count({ path: `outbound: ${pick.hostname} (random)`, title: pick.textContent, event: true });
+            }
             window.open(pick.href, '_blank');
         });
-
-        // Visit counter (stored in this browser only)
-        const counter = document.getElementById('visit-counter');
-
-        try {
-            const visits = Number(localStorage.getItem('visits') || 0) + 1;
-            localStorage.setItem('visits', visits);
-            counter.textContent = String(visits).padStart(6, '0');
-        } catch (error) {
-            counter.textContent = '000001';
-        }
 
         // Taskbar clock
         const clock = document.getElementById('clock');

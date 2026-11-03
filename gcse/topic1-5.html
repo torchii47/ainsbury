@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1.5 Systems Software | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="What an operating system does (user interface, memory management and multitasking, peripherals and drivers, user management and file management) and the purpose of utility software: encryption…">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="1.5 Systems Software | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="What an operating system does (user interface, memory management and multitasking, peripherals and drivers, user management and file management) and the purpose of utility software: encryption…">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic1-5.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic1-5" data-page="topic1-5">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 1.5 · PAPER 1: COMPUTER SYSTEMS</p>
+            <h1>1.5 Systems software</h1>
+            <p>What an operating system does (user interface, memory management and multitasking, peripherals and drivers, user management and file management) and the purpose of utility software: encryption, defragmentation and compression.</p>
+            <p class="links"><strong>Links to other topics:</strong> virtual memory is managed by the OS: <a href="topic1-2.html#s1-2-1">1.2.1</a>. Compression: <a href="topic1-2.html#s1-2-5">1.2.5</a>. Encryption and user access levels for security: <a href="topic1-4.html#s1-4-2">1.4.2</a>.</p>
+            <span class="big-num" aria-hidden="true">1.5</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>1.5.1</td><td>Describe the purpose of an operating system</td></tr>
+                            <tr><td>1.5.1</td><td>Describe the user interface, and memory management and multitasking</td></tr>
+                            <tr><td>1.5.1</td><td>Describe peripheral management and drivers</td></tr>
+                            <tr><td>1.5.1</td><td>Describe user management and file management</td></tr>
+                            <tr><td>1.5.2</td><td>Describe the purpose of utility software</td></tr>
+                            <tr><td>1.5.2</td><td>Explain encryption software, defragmentation and data compression</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-5-1">
+                    <h2>1.5.1 Operating systems</h2>
+                    <div class="window-body">
+                        <p><strong>Systems software</strong> runs and manages the computer itself. The most important piece is the <strong>operating system (OS)</strong>, e.g. Windows, macOS, Linux, Android, iOS. Its purpose is to <strong>manage the hardware and software</strong> of the computer and provide a platform for applications to run, so programs don't each need to know how to control the hardware.</p>
+
+                        <table>
+                            <tr><th>Function</th><th>What the OS does</th></tr>
+                            <tr><td>User interface</td><td>Lets the user interact with the computer. <strong>GUI</strong> (graphical user interface): windows, icons, menus and a pointer; easy for beginners. <strong>Command-line interface</strong>: typed commands; uses fewer resources, faster for experts, can automate tasks with scripts. Others include menu-driven (e.g. a cash machine), touch and voice.</td></tr>
+                            <tr><td>Memory management and multitasking</td><td>Moves programs and data into and out of RAM as needed; allocates each program its own area of memory so programs don't overwrite each other; frees memory when a program closes; uses virtual memory when RAM is full. <strong>Multitasking:</strong> the CPU can only process one instruction at a time per core, so the OS gives each program a short time slice of CPU time in turn, so fast that they appear to run at once.</td></tr>
+                            <tr><td>Peripheral management and drivers</td><td>Manages communication with input, output and storage devices (printer, keyboard, webcam). A <strong>device driver</strong> is software that translates the OS's general instructions into commands the specific device understands. New hardware needs the right driver; drivers are updated to fix bugs.</td></tr>
+                            <tr><td>User management</td><td>Creates user accounts with usernames and passwords; controls access rights (what each user can see and change); keeps each user's files and settings separate; logs activity.</td></tr>
+                            <tr><td>File management</td><td>Organises files into a hierarchy of folders/directories; lets users create, name, rename, move, copy, save and delete files; controls file permissions (read-only, read/write); keeps track of where each file is stored on the disk.</td></tr>
+                        </table>
+
+                        <h4>Multitasking: a time-slice simulation</h4>
+                        <p>Three programs need different amounts of CPU time. The OS gives each one time slice in turn, then puts it at the back of the queue.</p>
+<pre class="code">
+queue = [["Browser", 3], ["Music", 2], ["Game", 4]]
+tick = 0
+while len(queue) > 0:
+    task = queue.pop(0)
+    tick = tick + 1
+    task[1] = task[1] - 1
+    if task[1] > 0:
+        queue.append(task)
+        print("Tick", tick, ":", task[0], "runs,", task[1], "left, back of the queue")
+    else:
+        print("Tick", tick, ":", task[0], "runs and finishes")
+</pre>
+<pre class="out">
+Tick 1 : Browser runs, 2 left, back of the queue
+Tick 2 : Music runs, 1 left, back of the queue
+Tick 3 : Game runs, 3 left, back of the queue
+Tick 4 : Browser runs, 1 left, back of the queue
+Tick 5 : Music runs and finishes
+Tick 6 : Game runs, 2 left, back of the queue
+Tick 7 : Browser runs and finishes
+Tick 8 : Game runs, 1 left, back of the queue
+Tick 9 : Game runs and finishes
+</pre>
+
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <ul>
+                                <li>Saying the OS "manages files" for every function. Learn one specific example for each of the five functions.</li>
+                                <li>Confusing a device driver with the device. The driver is <strong>software</strong>.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Operating system</dt><dd>Systems software that manages the computer's hardware and software and provides a platform for applications.</dd>
+                            <dt>GUI</dt><dd>Graphical user interface: lets users interact using windows, icons, menus and a pointer.</dd>
+                            <dt>Command-line interface</dt><dd>A text-based interface where the user types commands.</dd>
+                            <dt>Multitasking</dt><dd>Running several programs apparently at the same time by giving each a share of CPU time in turn.</dd>
+                            <dt>Memory management</dt><dd>The OS allocating RAM to programs, moving data in and out of memory and stopping programs overwriting each other.</dd>
+                            <dt>Device driver</dt><dd>Software that lets the operating system communicate with a specific hardware device.</dd>
+                            <dt>User management</dt><dd>The OS creating user accounts and controlling each user's access rights.</dd>
+                            <dt>File management</dt><dd>The OS organising files into folders and letting users create, move, copy, rename and delete them.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-5-2">
+                    <h2>1.5.2 Utility software</h2>
+                    <div class="window-body">
+                        <p><strong>Utility software</strong> is systems software that helps to <strong>maintain, optimise and protect</strong> the computer. It isn't needed for the computer to run, but it keeps it running well.</p>
+                        <table>
+                            <tr><th>Utility</th><th>What it does</th><th>Why it's useful</th></tr>
+                            <tr><td>Encryption software</td><td>Scrambles files or whole drives using a key, so they can only be read by someone with the key.</td><td>If a laptop or USB stick is lost or stolen, or files are intercepted, the data can't be read.</td></tr>
+                            <tr><td>Defragmentation</td><td>Over time, files on a magnetic hard disk are split into fragments stored in different places, with gaps where files were deleted. Defragmentation <strong>moves the fragments of each file back together</strong> and groups the free space together.</td><td>The read/write head moves less to read a file, so files load faster. <strong>Not needed for SSDs</strong>: they have no moving parts, so access time doesn't depend on location, and extra writes wear them out.</td></tr>
+                            <tr><td>Data compression</td><td>Reduces the size of files (lossy or lossless), e.g. zipping a folder.</td><td>Saves storage space; files are quicker to send and upload.</td></tr>
+                        </table>
+                        <p>Other utilities you may meet: backup software, anti-malware, disk clean-up, firewall software.</p>
+
+                        <h4>What defragmentation does</h4>
+<pre class="code">
+disk = ["A", "B", "A", ".", "C", "B", ".", "A", "C", "."]
+print("Before:", " ".join(disk))
+
+blocks = [block for block in disk if block != "."]
+blocks.sort()
+defragged = blocks + ["."] * (len(disk) - len(blocks))
+print("After: ", " ".join(defragged))
+</pre>
+<pre class="out">
+Before: A B A . C B . A C .
+After:  A A A B B C C . . .
+</pre>
+                        <p>Before, file A is split across three places. After, every file is in one continuous run and all the free space (.) is together.</p>
+
+                        <figure class="fig">
+                            <svg viewBox="0 0 520 120" role="img" aria-label="Before defragmentation, a disk's blocks are mixed: A B A free C B free A C free. After, they are grouped: A A A B B C C free free free.">
+                                <text x="10" y="32" class="label">Before</text>
+                                <g transform="translate(70,12)" style="font-family: monospace">
+                                    <rect class="shape" x="0" y="0" width="40" height="30"/><text x="20" y="20" text-anchor="middle">A</text>
+                                    <rect class="shape" x="44" y="0" width="40" height="30"/><text x="64" y="20" text-anchor="middle">B</text>
+                                    <rect class="shape" x="88" y="0" width="40" height="30"/><text x="108" y="20" text-anchor="middle">A</text>
+                                    <rect x="132" y="0" width="40" height="30" fill="#eee" stroke="#999"/>
+                                    <rect class="shape" x="176" y="0" width="40" height="30"/><text x="196" y="20" text-anchor="middle">C</text>
+                                    <rect class="shape" x="220" y="0" width="40" height="30"/><text x="240" y="20" text-anchor="middle">B</text>
+                                    <rect x="264" y="0" width="40" height="30" fill="#eee" stroke="#999"/>
+                                    <rect class="shape" x="308" y="0" width="40" height="30"/><text x="328" y="20" text-anchor="middle">A</text>
+                                    <rect class="shape" x="352" y="0" width="40" height="30"/><text x="372" y="20" text-anchor="middle">C</text>
+                                    <rect x="396" y="0" width="40" height="30" fill="#eee" stroke="#999"/>
+                                </g>
+                                <text x="10" y="92" class="label">After</text>
+                                <g transform="translate(70,72)" style="font-family: monospace">
+                                    <rect class="shape" x="0" y="0" width="40" height="30"/><text x="20" y="20" text-anchor="middle">A</text>
+                                    <rect class="shape" x="44" y="0" width="40" height="30"/><text x="64" y="20" text-anchor="middle">A</text>
+                                    <rect class="shape" x="88" y="0" width="40" height="30"/><text x="108" y="20" text-anchor="middle">A</text>
+                                    <rect class="shape" x="132" y="0" width="40" height="30"/><text x="152" y="20" text-anchor="middle">B</text>
+                                    <rect class="shape" x="176" y="0" width="40" height="30"/><text x="196" y="20" text-anchor="middle">B</text>
+                                    <rect class="shape" x="220" y="0" width="40" height="30"/><text x="240" y="20" text-anchor="middle">C</text>
+                                    <rect class="shape" x="264" y="0" width="40" height="30"/><text x="284" y="20" text-anchor="middle">C</text>
+                                    <rect x="308" y="0" width="40" height="30" fill="#eee" stroke="#999"/>
+                                    <rect x="352" y="0" width="40" height="30" fill="#eee" stroke="#999"/>
+                                    <rect x="396" y="0" width="40" height="30" fill="#eee" stroke="#999"/>
+                                </g>
+                            </svg>
+                            <figcaption>Fragmented and defragmented disk blocks (grey = free space)</figcaption>
+                        </figure>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: DEFRAGMENTATION</h4>
+                            <p>For full marks say <em>why</em> it helps: the files' parts are stored next to each other, <strong>so the read/write head moves less</strong>, <strong>so</strong> files are accessed faster. And know that it isn't used on SSDs.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Utility software</dt><dd>Systems software that helps maintain, optimise or protect the computer.</dd>
+                            <dt>Defragmentation</dt><dd>Reorganising a hard disk so the parts of each file are stored together and free space is grouped, making access faster.</dd>
+                            <dt>Encryption software</dt><dd>A utility that scrambles files or drives so they can only be read with the correct key.</dd>
+                            <dt>Compression software</dt><dd>A utility that reduces the size of files.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>PURPOSE OF THE OS</h4><ul><li>Manages hardware and software</li><li>Platform for applications</li><li>e.g. Windows, macOS, Linux, Android</li></ul></div>
+                            <div><h4>USER INTERFACE</h4><ul><li>GUI: windows, icons, menus, pointer</li><li>CLI: typed commands, fewer resources</li><li>Menu, touch, voice</li></ul></div>
+                            <div><h4>MEMORY AND MULTITASKING</h4><ul><li>Allocates RAM to programs</li><li>Stops programs overwriting each other</li><li>Virtual memory when RAM full</li><li>Time slices of CPU time in turn</li></ul></div>
+                            <div><h4>PERIPHERALS AND DRIVERS</h4><ul><li>Manages input/output/storage devices</li><li>Driver: software translating OS instructions for one device</li></ul></div>
+                            <div><h4>USERS AND FILES</h4><ul><li>Accounts, passwords, access rights</li><li>Folders/directories hierarchy</li><li>Create, move, copy, rename, delete</li><li>Permissions</li></ul></div>
+                            <div><h4>UTILITIES</h4><ul><li>Encryption: unreadable without key</li><li>Defragmentation: file parts together, free space together; HDD only</li><li>Compression: smaller files</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 1.5 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="1.5"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 25 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic1-5">
+                            <div class="q" data-m="2">
+                                <p>State <strong>two</strong> functions of an operating system, other than file management.</p>
+                                <div class="ms"><ul><li>Any two: provides a user interface; memory management; multitasking; peripheral management/drivers; user management.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe how an operating system manages memory.</p>
+                                <div class="ms"><ul><li>Any three, 1 each: moves programs/data into RAM when needed; removes them when no longer needed; allocates memory to each program; prevents programs overwriting each other's memory; uses virtual memory when RAM is full.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain how an operating system allows several programs to appear to run at the same time.</p>
+                                <div class="ms"><ul><li>Each program is given a short slice of CPU time in turn (1) switching so quickly that they appear to run at once (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the purpose of a device driver.</p>
+                                <div class="ms"><ul><li>Software that allows the OS to communicate with a hardware/peripheral device (1) by translating the OS's instructions into ones the specific device understands (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Describe <strong>three</strong> ways the operating system manages users on a school network.</p>
+                                <div class="ms"><ul><li>Any three: creates/deletes user accounts; usernames and passwords for logging in; sets access rights/permissions, e.g. students can't access staff files; keeps each user's files separate; records/monitors activity.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Explain how defragmentation improves the performance of a hard disk drive.</p>
+                                <div class="ms"><ul><li>Fragments of each file are moved so they are stored next to each other (1).</li><li>Free space is grouped together (1).</li><li>The read/write head has to move less to read a file, so files are accessed faster (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why an SSD should not be defragmented.</p>
+                                <div class="ms"><ul><li>An SSD has no moving parts / data can be accessed equally fast wherever it is stored, so there is no speed benefit (1).</li><li>Defragmenting causes many extra writes, which reduces the SSD's lifespan (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A sales manager carries a laptop containing customer details. Explain how <strong>two</strong> different utility programs could help them.</p>
+                                <div class="ms"><ul><li>Encryption software (1) so customer data can't be read if the laptop is lost/stolen (1).</li><li>Compression software (1) so large files take less space / can be emailed to the office quickly (1). Accept defragmentation with explanation if HDD.</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Change the time-slice simulation so each program gets 2 ticks per turn. How does the order the programs finish in change?</li>
+                                <li>Compare a GUI and a command-line interface for (a) a new computer user and (b) a network technician setting up 200 user accounts.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic1-5" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic1-5" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 1.5 Systems software · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

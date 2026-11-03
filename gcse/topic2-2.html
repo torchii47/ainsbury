@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2.2 Programming Fundamentals | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="Variables, constants, operators and the three programming constructs; data types and casting; string manipulation; file handling; records; arrays; SQL; sub programs; and random numbers. Every example…">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="2.2 Programming Fundamentals | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="Variables, constants, operators and the three programming constructs; data types and casting; string manipulation; file handling; records; arrays; SQL; sub programs; and random numbers. Every example…">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic2-2.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic2-2" data-page="topic2-2">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 2.2 · PAPER 2: COMPUTATIONAL THINKING, ALGORITHMS AND PROGRAMMING</p>
+            <h1>2.2 Programming fundamentals</h1>
+            <p>Variables, constants, operators and the three programming constructs; data types and casting; string manipulation; file handling; records; arrays; SQL; sub programs; and random numbers. Every example is shown in OCR Exam Reference Language and in Python.</p>
+            <p class="links"><strong>Links to other topics:</strong> the full ERL reference is in <a href="exams.html#a6">A6</a>. Boolean operators are covered in more depth in <a href="topic2-4.html">2.4 Boolean logic</a>. Validation and maintainable code: <a href="topic2-3.html">2.3</a>. Practise all of this in <a href="programming.html">Practical programming</a>.</p>
+            <span class="big-num" aria-hidden="true">2.2</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>2.2.1</td><td>Use variables, constants, operators, inputs, outputs and assignments</td></tr>
+                            <tr><td>2.2.1</td><td>Use sequence, selection and iteration (count-controlled and condition-controlled loops)</td></tr>
+                            <tr><td>2.2.1</td><td>Use arithmetic operators, including MOD, DIV and exponentiation</td></tr>
+                            <tr><td>2.2.1</td><td>Use comparison operators and the Boolean operators AND, OR, NOT</td></tr>
+                            <tr><td>2.2.2</td><td>Choose suitable data types: integer, real, Boolean, character, string; use casting</td></tr>
+                            <tr><td>2.2.3</td><td>Use basic string manipulation</td></tr>
+                            <tr><td>2.2.3</td><td>Use basic file handling: open, read, write, close</td></tr>
+                            <tr><td>2.2.3</td><td>Use records to store data, and SQL (SELECT, FROM, WHERE) to search for data</td></tr>
+                            <tr><td>2.2.3</td><td>Use 1D and 2D arrays when solving problems</td></tr>
+                            <tr><td>2.2.3</td><td>Use functions and procedures, with parameters, return values and local/global variables</td></tr>
+                            <tr><td>2.2.3</td><td>Generate random numbers</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-2-1">
+                    <h2>2.2.1 Programming fundamentals</h2>
+                    <div class="window-body">
+                        <h3>Variables, constants and assignment</h3>
+                        <table>
+                            <tr><th>Term</th><th>Meaning</th><th>ERL</th><th>Python</th></tr>
+                            <tr><td>Variable</td><td>A named location in memory that stores a value which <strong>can change</strong> while the program runs</td><td><code>score = 0</code></td><td><code>score = 0</code></td></tr>
+                            <tr><td>Constant</td><td>A named value that <strong>does not change</strong> while the program runs</td><td><code>const VAT = 0.2</code></td><td><code>VAT = 0.2</code> (capitals by convention)</td></tr>
+                            <tr><td>Assignment</td><td>Giving a variable a value with <code>=</code></td><td><code>score = score + 10</code></td><td><code>score = score + 10</code></td></tr>
+                            <tr><td>Input</td><td>Data entered into the program</td><td><code>name = input("Name?")</code></td><td><code>name = input("Name?")</code></td></tr>
+                            <tr><td>Output</td><td>Data shown by the program</td><td><code>print("Hi " + name)</code></td><td><code>print("Hi " + name)</code></td></tr>
+                        </table>
+                        <p><strong>Why use a constant?</strong> If the VAT rate changes, you change it in one place and every calculation that uses it is updated; it can't be changed by mistake while the program runs; a name like <code>VAT</code> makes code easier to read than <code>0.2</code>.</p>
+
+                        <h3>Operators</h3>
+                        <table>
+                            <tr><th>Operator</th><th>ERL</th><th>Python</th><th>Example</th></tr>
+                            <tr><td>Add, subtract, multiply</td><td><code>+ - *</code></td><td><code>+ - *</code></td><td>7 * 3 = 21</td></tr>
+                            <tr><td>Divide</td><td><code>/</code></td><td><code>/</code></td><td>17 / 5 = 3.4</td></tr>
+                            <tr><td>Integer division (quotient)</td><td><code>DIV</code></td><td><code>//</code></td><td>17 DIV 5 = 3</td></tr>
+                            <tr><td>Modulus (remainder)</td><td><code>MOD</code></td><td><code>%</code></td><td>17 MOD 5 = 2</td></tr>
+                            <tr><td>Exponentiation (power)</td><td><code>^</code></td><td><code>**</code></td><td>2 ^ 5 = 32</td></tr>
+                            <tr><td>Comparison</td><td><code>== != &lt; &lt;= &gt; &gt;=</code></td><td><code>== != &lt; &lt;= &gt; &gt;=</code></td><td>17 &gt; 5 is True</td></tr>
+                            <tr><td>Boolean</td><td><code>AND OR NOT</code></td><td><code>and or not</code></td><td>NOT True is False</td></tr>
+                        </table>
+<pre class="code">
+print(17 + 5, 17 - 5, 17 * 5, 17 / 5)
+print(17 // 5, 17 % 5, 2 ** 5)
+print(17 > 5, 17 == 5, 17 != 5)
+print(True and False, True or False, not True)
+</pre>
+<pre class="out">
+22 12 85 3.4
+3 2 32
+True False True
+False True False
+</pre>
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: MOD AND DIV</h4>
+                            <ul>
+                                <li><code>MOD 2</code> tells you if a number is even (remainder 0) or odd (remainder 1).</li>
+                                <li>Convert 135 minutes to hours and minutes: <code>135 DIV 60</code> = 2 hours, <code>135 MOD 60</code> = 15 minutes.</li>
+                                <li><code>=</code> assigns a value; <code>==</code> compares two values.</li>
+                            </ul>
+                        </div>
+
+                        <h3>The three programming constructs</h3>
+                        <table>
+                            <tr><th>Construct</th><th>Meaning</th></tr>
+                            <tr><td>Sequence</td><td>Instructions are carried out one after another, in order</td></tr>
+                            <tr><td>Selection</td><td>A condition decides which instructions run next (if, elseif, else, switch/case)</td></tr>
+                            <tr><td>Iteration</td><td>Instructions are repeated. <strong>Count-controlled</strong> (for): repeats a set number of times. <strong>Condition-controlled</strong> (while, do until): repeats until a condition is met</td></tr>
+                        </table>
+
+                        <h4>Selection</h4>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+mark = int(input("Enter mark: "))
+if mark >= 70 then
+    grade = "Distinction"
+elseif mark >= 50 then
+    grade = "Merit"
+elseif mark >= 40 then
+    grade = "Pass"
+else
+    grade = "Fail"
+endif
+print(grade)
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+mark = int(input("Enter mark: "))
+if mark >= 70:
+    grade = "Distinction"
+elif mark >= 50:
+    grade = "Merit"
+elif mark >= 40:
+    grade = "Pass"
+else:
+    grade = "Fail"
+print(grade)
+</pre>
+<pre class="out">
+Enter mark: 64
+Merit
+</pre>
+                            </div>
+                        </div>
+                        <p><strong>Case selection</strong> is useful when one variable is compared with many fixed values:</p>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+switch choice:
+    case "1":
+        print("New game")
+    case "2":
+        print("Load game")
+    default:
+        print("Invalid choice")
+endswitch
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+choice = "2"
+match choice:
+    case "1":
+        print("New game")
+    case "2":
+        print("Load game")
+    case _:
+        print("Invalid choice")
+</pre>
+<pre class="out">
+Load game
+</pre>
+                            </div>
+                        </div>
+
+                        <h4>Iteration</h4>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+for i = 1 to 5
+    print(str(i) + " x 7 = " + str(i * 7))
+next i
+
+total = 0
+number = int(input("Number (0 to stop): "))
+while number != 0
+    total = total + number
+    number = int(input("Number (0 to stop): "))
+endwhile
+print("Total: " + str(total))
+
+do
+    answer = input("Play again? ")
+until answer == "y" OR answer == "n"
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+for i in range(1, 6):
+    print(i, "x 7 =", i * 7)
+
+total = 0
+number = int(input("Number (0 to stop): "))
+while number != 0:
+    total = total + number
+    number = int(input("Number (0 to stop): "))
+print("Total:", total)
+</pre>
+<pre class="out">
+1 x 7 = 7
+2 x 7 = 14
+3 x 7 = 21
+4 x 7 = 28
+5 x 7 = 35
+Number (0 to stop): 4
+Number (0 to stop): 10
+Number (0 to stop): 0
+Total: 14
+</pre>
+                            </div>
+                        </div>
+                        <p>A <code>while</code> loop checks its condition <strong>before</strong> each repeat, so it might not run at all. A <code>do ... until</code> loop checks <strong>after</strong>, so it always runs at least once. Python has no do-until: use <code>while True:</code> with <code>break</code>.</p>
+
+                        <dl class="recall">
+                            <dt>Variable</dt><dd>A named location in memory that stores a value that can change while the program runs.</dd>
+                            <dt>Constant</dt><dd>A named value that cannot change while the program runs.</dd>
+                            <dt>Assignment</dt><dd>Giving a value to a variable or constant.</dd>
+                            <dt>Sequence</dt><dd>Instructions carried out one after another in order.</dd>
+                            <dt>Selection</dt><dd>Choosing which instructions to run based on a condition, e.g. if statements.</dd>
+                            <dt>Iteration</dt><dd>Repeating a set of instructions, using a loop.</dd>
+                            <dt>Count-controlled loop</dt><dd>A loop that repeats a fixed number of times, e.g. a for loop.</dd>
+                            <dt>Condition-controlled loop</dt><dd>A loop that repeats until (or while) a condition is met, e.g. while or do until.</dd>
+                            <dt>MOD</dt><dd>The modulus operator: gives the remainder of a division, e.g. 17 MOD 5 = 2.</dd>
+                            <dt>DIV</dt><dd>Integer division: gives the whole number part of a division, e.g. 17 DIV 5 = 3.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-2-2">
+                    <h2>2.2.2 Data types</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Data type</th><th>Stores</th><th>Examples</th></tr>
+                            <tr><td>Integer</td><td>Whole numbers</td><td>15, −3, 0</td></tr>
+                            <tr><td>Real (float)</td><td>Numbers with a decimal part</td><td>3.14, −0.5, 19.99</td></tr>
+                            <tr><td>Boolean</td><td>One of two values</td><td>True, False</td></tr>
+                            <tr><td>Character</td><td>A single letter, digit or symbol</td><td>'A', '7', '?'</td></tr>
+                            <tr><td>String</td><td>A sequence of characters</td><td>"Hello", "07700 900123"</td></tr>
+                        </table>
+                        <p><strong>Casting</strong> converts a value from one data type to another. <code>input()</code> always returns a string, so a number typed in must be cast to an integer or real before you can do maths with it.</p>
+<pre class="code">
+age = "15"
+print(age + "1")
+print(int(age) + 1)
+print(float("2.5") * 2)
+print(str(3) + str(4))
+print(bool(0), bool(1))
+</pre>
+<pre class="out">
+151
+16
+5.0
+34
+False True
+</pre>
+                        <h4>Choose the best data type</h4>
+                        <div class="sorter" data-options="Integer|Real|Boolean|Character|String">
+                            <p data-a="String">A phone number, such as 07700 900123.</p>
+                            <p data-a="Real">The price of a meal, such as 12.50.</p>
+                            <p data-a="Boolean">Whether a customer has paid.</p>
+                            <p data-a="Integer">The number of tickets sold.</p>
+                            <p data-a="Character">A grade from A to E.</p>
+                            <p data-a="String">A postcode.</p>
+                        </div>
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <p>Phone numbers and postcodes are <strong>strings</strong>, not integers: they can start with 0, contain spaces and letters, and you never do maths with them.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Integer</dt><dd>A data type for whole numbers.</dd>
+                            <dt>Real</dt><dd>A data type for numbers with a decimal part (also called float).</dd>
+                            <dt>Boolean</dt><dd>A data type with only two possible values: True or False.</dd>
+                            <dt>Character</dt><dd>A data type for a single letter, digit or symbol.</dd>
+                            <dt>String</dt><dd>A data type for a sequence of characters.</dd>
+                            <dt>Casting</dt><dd>Converting a value from one data type to another, e.g. str to int.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-2-3a">
+                    <h2>2.2.3 Strings and files</h2>
+                    <div class="window-body">
+                        <h3>String manipulation</h3>
+                        <p>Characters in a string are numbered from <strong>0</strong>. In "Computer", 'C' is at position 0 and 'r' at position 7.</p>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+word = "Computer"
+print(word.length)
+print(word.substring(0, 3))
+print(word.substring(3, 3))
+print(word.upper)
+print(word.lower)
+print(word.left(4) + "-" + word.right(3))
+print(ASC("C"))
+print(CHR(ASC("C") + 1))
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+word = "Computer"
+print(len(word))
+print(word[0:3])
+print(word[3:6])
+print(word.upper())
+print(word.lower())
+print(word[:4] + "-" + word[-3:])
+print(ord("C"))
+print(chr(ord("C") + 1))
+</pre>
+<pre class="out">
+8
+Com
+put
+COMPUTER
+computer
+Comp-ter
+67
+D
+</pre>
+                            </div>
+                        </div>
+                        <p>In ERL, <code>substring(start, length)</code> takes a <strong>start position and a number of characters</strong>. In Python, <code>word[3:6]</code> takes a start and an end position (the end isn't included). Joining strings with <code>+</code> is called <strong>concatenation</strong>.</p>
+
+                        <h3>File handling</h3>
+                        <p>Files let a program keep data after it closes, e.g. high scores or settings. The four basic operations are <strong>open</strong>, <strong>read</strong>, <strong>write</strong> and <strong>close</strong>. Always close a file, so changes are saved and other programs can use it.</p>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+newFile("scores.txt")
+myFile = open("scores.txt")
+myFile.writeLine("Ali,12")
+myFile.writeLine("Bea,15")
+myFile.close()
+
+myFile = open("scores.txt")
+while NOT myFile.endOfFile()
+    line = myFile.readLine()
+    print(line)
+endwhile
+myFile.close()
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+file = open("scores.txt", "w")
+file.write("Ali,12\n")
+file.write("Bea,15\n")
+file.close()
+
+file = open("scores.txt", "r")
+for line in file:
+    parts = line.strip().split(",")
+    print(parts[0], "scored", parts[1])
+file.close()
+</pre>
+<pre class="out">
+Ali scored 12
+Bea scored 15
+</pre>
+                            </div>
+                        </div>
+                        <p>In Python, mode <code>"w"</code> creates a new file (or overwrites one), <code>"a"</code> appends to the end, and <code>"r"</code> reads.</p>
+
+                        <dl class="recall">
+                            <dt>Concatenation</dt><dd>Joining two or more strings together.</dd>
+                            <dt>Substring</dt><dd>Part of a string, taken from a given position.</dd>
+                            <dt>File handling</dt><dd>Opening, reading from, writing to and closing files so data is kept after the program ends.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-2-3b">
+                    <h2>2.2.3 Arrays, records and SQL</h2>
+                    <div class="window-body">
+                        <h3>Arrays</h3>
+                        <p>An <strong>array</strong> stores several values of the <strong>same data type</strong> under one name. Each value is an <strong>element</strong>, found by its <strong>index</strong>, starting at 0. In the exam, arrays are <strong>static</strong>: their size is fixed when they're created. (Python uses lists, which can grow.)</p>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+array scores[4]
+scores = [12, 15, 9, 18]
+scores[2] = 10
+total = 0
+for i = 0 to 3
+    total = total + scores[i]
+next i
+print(total / 4)
+
+array grid[3,3]
+grid[0,2] = 5
+print(grid[1,0])
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+scores = [12, 15, 9, 18]
+scores[2] = 10
+print(scores, "length", len(scores))
+total = 0
+for score in scores:
+    total = total + score
+print("Average:", total / len(scores))
+
+grid = [[0, 1, 0],
+        [1, 1, 0],
+        [0, 0, 1]]
+print(grid[1][0], grid[2][2])
+grid[0][2] = 5
+for row in grid:
+    print(row)
+</pre>
+<pre class="out">
+[12, 15, 10, 18] length 4
+Average: 13.75
+1 1
+[0, 1, 5]
+[1, 1, 0]
+[0, 0, 1]
+</pre>
+                            </div>
+                        </div>
+                        <p>A <strong>2D array</strong> is like a table or grid: the first index is the row, the second the column (check how the question defines it). Uses: a game board, a seating plan, test results for each student in each subject.</p>
+
+                        <h3>Records</h3>
+                        <p>A <strong>record</strong> groups related data about <strong>one item</strong>. Each piece of data is a <strong>field</strong>, and fields can be <strong>different data types</strong>. A collection of records with the same fields is a <strong>table</strong> (in a database) or a file.</p>
+                        <table>
+                            <tr><th>PupilID (integer)</th><th>Name (string)</th><th>Form (string)</th><th>Age (integer)</th><th>Lunches (Boolean)</th></tr>
+                            <tr><td>1</td><td>Ava</td><td>10A</td><td>15</td><td>True</td></tr>
+                            <tr><td>2</td><td>Ben</td><td>10B</td><td>14</td><td>False</td></tr>
+                            <tr><td>3</td><td>Cal</td><td>10A</td><td>16</td><td>True</td></tr>
+                            <tr><td>4</td><td>Dee</td><td>10C</td><td>15</td><td>False</td></tr>
+                        </table>
+
+                        <h3>SQL</h3>
+                        <p><strong>SQL</strong> (Structured Query Language) is used to search a database. You need three keywords:</p>
+                        <table>
+                            <tr><th>Keyword</th><th>Meaning</th></tr>
+                            <tr><td><code>SELECT</code></td><td>Which fields to show. <code>*</code> means all fields.</td></tr>
+                            <tr><td><code>FROM</code></td><td>Which table to search</td></tr>
+                            <tr><td><code>WHERE</code></td><td>The condition records must meet. Can use <code>= &lt; &gt; &lt;= &gt;= &lt;&gt;</code>, <code>AND</code>, <code>OR</code>, and <code>LIKE</code> with <code>%</code> as a wildcard.</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Query on the table above</th><th>Result</th></tr>
+                            <tr><td><code>SELECT Name, Form FROM Pupils WHERE Age &gt; 14</code></td><td>Ava 10A · Cal 10A · Dee 10C</td></tr>
+                            <tr><td><code>SELECT * FROM Pupils WHERE Form = "10A" AND Lunches = True</code></td><td>Both full records for Ava and Cal</td></tr>
+                            <tr><td><code>SELECT Name FROM Pupils WHERE Name LIKE "B%"</code></td><td>Ben</td></tr>
+                        </table>
+                        <p>The same search done "by hand" in Python, with each record stored as a dictionary:</p>
+<pre class="code">
+pupils = [
+    {"id": 1, "name": "Ava", "form": "10A", "age": 15},
+    {"id": 2, "name": "Ben", "form": "10B", "age": 14},
+    {"id": 3, "name": "Cal", "form": "10A", "age": 16},
+    {"id": 4, "name": "Dee", "form": "10C", "age": 15},
+]
+# SELECT name, form FROM pupils WHERE age > 14
+for pupil in pupils:
+    if pupil["age"] > 14:
+        print(pupil["name"], pupil["form"])
+</pre>
+<pre class="out">
+Ava 10A
+Cal 10A
+Dee 10C
+</pre>
+
+                        <dl class="recall">
+                            <dt>Array</dt><dd>A data structure that stores a fixed number of values of the same data type under one name, accessed by index.</dd>
+                            <dt>Index</dt><dd>The position of an element in an array or string, starting at 0.</dd>
+                            <dt>2D array</dt><dd>An array of arrays, like a table, where each element is found using two indexes.</dd>
+                            <dt>Record</dt><dd>A data structure that stores related fields, which can be different data types, about one item.</dd>
+                            <dt>Field</dt><dd>One item of data in a record, e.g. Name or Age.</dd>
+                            <dt>SQL</dt><dd>Structured Query Language: a language used to search and manage data in databases.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-2-3c">
+                    <h2>2.2.3 Sub programs and random numbers</h2>
+                    <div class="window-body">
+                        <p>A <strong>sub program</strong> is a named block of code that does a specific task and can be called (used) whenever it is needed.</p>
+                        <table>
+                            <tr><th></th><th>Function</th><th>Procedure</th></tr>
+                            <tr><td>Returns a value?</td><td><strong>Yes</strong>: always returns a value to where it was called</td><td><strong>No</strong>: just carries out a task</td></tr>
+                            <tr><td>Example</td><td>Calculate and return the area of a room</td><td>Print a banner</td></tr>
+                        </table>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+function area(width, height)
+    return width * height
+endfunction
+
+procedure showBanner(message)
+    print("** " + message + " **")
+endprocedure
+
+showBanner("Room planner")
+print("Area: " + str(area(4, 3)))
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+def area(width, height):         # function: returns a value
+    return width * height
+
+def show_banner(message):        # procedure: does a job
+    print("** " + message + " **")
+
+show_banner("Room planner")
+print("Area:", area(4, 3))
+</pre>
+<pre class="out">
+** Room planner **
+Area: 12
+</pre>
+                            </div>
+                        </div>
+                        <p><strong>Parameters</strong> are the variables listed in the sub program's definition (<code>width</code>, <code>height</code>). <strong>Arguments</strong> are the actual values passed in when it is called (<code>4</code>, <code>3</code>).</p>
+
+                        <h3>Local and global variables</h3>
+                        <table>
+                            <tr><th>Local variable</th><th>Global variable</th></tr>
+                            <tr><td>Declared inside a sub program; only exists while it runs; can't be used elsewhere</td><td>Declared in the main program; can be used anywhere in the program</td></tr>
+                            <tr><td>Saves memory; the same name can be used in different sub programs without clashing; sub programs are easier to test and reuse</td><td>Useful for values the whole program needs, but can be changed by mistake anywhere, making bugs hard to find</td></tr>
+                        </table>
+<pre class="code">
+count = 0                 # global
+
+def add_one():
+    global count
+    count = count + 1
+
+def double(n):
+    result = n * 2        # local: only exists inside double
+    return result
+
+add_one()
+add_one()
+print(count, double(count))
+</pre>
+<pre class="out">
+2 4
+</pre>
+
+                        <h3>Why use sub programs?</h3>
+                        <ul>
+                            <li>Code is written once and <strong>reused</strong>, so programs are shorter.</li>
+                            <li>Each sub program can be <strong>tested separately</strong>.</li>
+                            <li>Programs are easier to <strong>read and maintain</strong>: fix a bug once and it's fixed everywhere.</li>
+                            <li>Different programmers can work on different sub programs.</li>
+                        </ul>
+
+                        <h3>Random numbers</h3>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+roll = random(1, 6)
+price = random(1.0, 10.0)
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+import random
+random.seed(7)      # same "random" numbers every run, so it can be tested
+for turn in range(5):
+    print("Roll:", random.randint(1, 6))
+</pre>
+<pre class="out">
+Roll: 3
+Roll: 2
+Roll: 4
+Roll: 6
+Roll: 1
+</pre>
+                            </div>
+                        </div>
+                        <p>Delete the <code>random.seed(7)</code> line and run it again to get different rolls each time. Uses: dice games, shuffling questions, picking a random enemy position, simulations.</p>
+
+                        <dl class="recall">
+                            <dt>Sub program</dt><dd>A named, self-contained block of code that performs a specific task and can be called when needed.</dd>
+                            <dt>Function</dt><dd>A sub program that returns a value.</dd>
+                            <dt>Procedure</dt><dd>A sub program that carries out a task but does not return a value.</dd>
+                            <dt>Parameter</dt><dd>A variable in a sub program's definition that receives a value when the sub program is called.</dd>
+                            <dt>Local variable</dt><dd>A variable that only exists inside the sub program where it is declared.</dd>
+                            <dt>Global variable</dt><dd>A variable that can be accessed from anywhere in the program.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>BASICS</h4><ul><li>Variable: can change; constant: can't</li><li>= assigns, == compares</li><li>input() returns a string</li></ul></div>
+                            <div><h4>OPERATORS</h4><ul><li>+ − * /</li><li>DIV (//): whole part; MOD (%): remainder</li><li>^ (**): power</li><li>== != &lt; &lt;= &gt; &gt;=; AND OR NOT</li></ul></div>
+                            <div><h4>CONSTRUCTS</h4><ul><li>Sequence: in order</li><li>Selection: if/elseif/else, switch</li><li>Iteration: for (count), while / do until (condition)</li></ul></div>
+                            <div><h4>DATA TYPES</h4><ul><li>Integer, real, Boolean, character, string</li><li>Casting: int(), float()/real(), str(), bool()</li></ul></div>
+                            <div><h4>STRINGS AND FILES</h4><ul><li>.length, .substring(start, length), .upper, .lower</li><li>ASC / CHR; + concatenates</li><li>open, read/write, close</li></ul></div>
+                            <div><h4>ARRAYS AND RECORDS</h4><ul><li>Array: same type, fixed size, index from 0</li><li>2D: grid[row, column]</li><li>Record: fields of different types about one item</li></ul></div>
+                            <div><h4>SQL</h4><ul><li>SELECT fields (or *)</li><li>FROM table</li><li>WHERE condition (AND, OR, LIKE %)</li></ul></div>
+                            <div><h4>SUB PROGRAMS</h4><ul><li>Function returns a value; procedure doesn't</li><li>Parameters receive arguments</li><li>Local vs global</li><li>random(1, 6)</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 2.2 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="2.2"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 45 minutes. Write code in ERL or Python. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic2-2">
+                            <div class="q" data-m="2">
+                                <p>Give the result of: (a) <code>23 MOD 4</code> (b) <code>23 DIV 4</code></p>
+                                <div class="ms"><ul><li>(a) 3 (1) (b) 5 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain the difference between a variable and a constant.</p>
+                                <div class="ms"><ul><li>A variable's value can change while the program runs (1); a constant's value cannot change while the program runs (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>State the most suitable data type for each: (a) the number of goals scored (b) a player's height in metres (c) whether a player is injured (d) a player's surname.</p>
+                                <div class="ms"><ul><li>(a) integer (b) real/float (c) Boolean (d) string. 1 mark each.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why this code gives an error, and correct it: <code>age = input("Age? ")</code> then <code>print(age + 1)</code></p>
+                                <div class="ms"><ul><li>input returns a string, which can't be added to an integer (1).</li><li>Cast to integer: <code>age = int(input("Age? "))</code> (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>The variable <code>town = "Doncaster"</code>. Give the output of: (a) <code>town.length</code> (b) <code>town.substring(3, 4)</code></p>
+                                <div class="ms"><ul><li>(a) 9 (1) (b) "cast" (1). (Positions D0 o1 n2 c3 a4 s5 t6.)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="5">
+                                <p>Write a program that asks the user to enter 10 numbers and then outputs the largest number entered.</p>
+                                <div class="ms"><ul><li>Loop that repeats 10 times (1).</li><li>Input inside the loop, cast to integer (1).</li><li>Variable to hold largest, initialised sensibly, e.g. to the first number or a very small value (1).</li><li>Compare each number with largest and update if bigger (1).</li><li>Output largest after the loop (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe the difference between a function and a procedure, and give <strong>two</strong> benefits of using sub programs.</p>
+                                <div class="ms"><ul><li>A function returns a value; a procedure does not (1).</li><li>Benefits, any three for 3 marks: code can be reused; easier to test; easier to read/maintain; shorter programs; work can be shared between programmers. (Max 4 total.)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A table <code>Films</code> has the fields <code>Title</code>, <code>Genre</code>, <code>Year</code> and <code>Rating</code>. Write an SQL query to show the title and year of all comedy films released after 2020.</p>
+                                <div class="ms"><ul><li><code>SELECT Title, Year</code> (1)</li><li><code>FROM Films</code> (1)</li><li><code>WHERE Genre = "Comedy" AND Year &gt; 2020</code> (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A 2D array <code>seats</code> stores whether each seat in a theatre is booked (True) or free (False). <code>seats[row, column]</code>. Write code to count how many seats in row 0 are free. Row 0 has 20 seats.</p>
+                                <div class="ms"><ul><li>Loop through columns 0 to 19 (1).</li><li>Check <code>seats[0, column] == False</code> (1).</li><li>Increment a counter and output it after the loop (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Write a function <code>vat(price)</code> that returns the price including 20% VAT. Use a constant for the VAT rate. Then write a line that calls it with 50 and outputs the result.</p>
+                                <div class="ms"><ul><li>Constant declared, e.g. <code>const VAT = 0.2</code> (1).</li><li>Function definition with parameter price (1).</li><li>Returns <code>price + price * VAT</code> / <code>price * 1.2</code> (1).</li><li>Call and output: <code>print(vat(50))</code> (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why using local variables can make a program easier to maintain.</p>
+                                <div class="ms"><ul><li>A local variable can only be changed inside its sub program (1) so it can't be changed by mistake elsewhere / the same name can be reused without clashes, making bugs easier to find (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Write a function that takes a string and returns how many vowels it contains.</li>
+                                <li>Extend the file example: read the scores into a list, then write the highest score to a new file called <code>best.txt</code>.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic2-2" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic2-2" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 2.2 Programming fundamentals · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

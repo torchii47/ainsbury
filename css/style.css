@@ -50,6 +50,16 @@ img {
     max-width: 100%;
 }
 
+/* Pixel icons in images/icons/ (16 x 16). Keep sizes to 16, 32 or 48px
+   so every pixel stays square and sharp. */
+.pix {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: -3px;
+    image-rendering: pixelated;
+}
+
 /* Headings */
 h1,
 h2,
@@ -442,6 +452,223 @@ li {
 }
 
 /* ----------------------------------------------------------
+   Homepage course buttons
+   ---------------------------------------------------------- */
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+    margin-top: 10px;
+}
+
+.course-button {
+    --course: #14213d;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 210px;
+    padding: 16px 16px 14px;
+    color: var(--white);
+    background: var(--course);
+    font-weight: normal;
+    text-decoration: none;
+    border: 3px solid;
+    border-color: var(--white) #111 #111 var(--white);
+    box-shadow: 4px 4px 0 var(--ink);
+}
+
+a.course-button:visited {
+    color: var(--white);
+}
+
+.course-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.course-level {
+    margin-top: 6px;
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.7rem;
+    color: var(--yellow);
+    letter-spacing: 1px;
+}
+
+.course-name {
+    font-family: "VT323", "Courier New", monospace;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.course-detail {
+    flex: 1;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.course-cta {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 6px 12px;
+    color: var(--ink);
+    background: var(--yellow);
+    font-weight: bold;
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+}
+
+a.course-button:hover,
+a.course-button:focus-visible {
+    color: var(--ink);
+    background: var(--yellow);
+}
+
+a.course-button:hover .course-level,
+a.course-button:focus-visible .course-level {
+    color: var(--magenta);
+}
+
+a.course-button:hover .course-cta,
+a.course-button:focus-visible .course-cta {
+    color: var(--yellow);
+    background: var(--ink);
+}
+
+a.course-button:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+}
+
+/* Guides that aren't ready yet */
+.course-button.is-soon {
+    cursor: not-allowed;
+    filter: grayscale(0.6);
+    opacity: 0.75;
+}
+
+.course-button.is-soon .course-cta {
+    background: repeating-linear-gradient(-45deg, var(--yellow) 0 8px, #111 8px 16px);
+    color: transparent;
+    position: relative;
+}
+
+.course-button.is-soon .course-cta::after {
+    content: "COMING SOON";
+    position: absolute;
+    inset: 3px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink);
+    background: var(--yellow);
+    font-size: 0.75rem;
+}
+
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.countdown-grid .countdown-box {
+    margin-top: 0;
+}
+
+/* Tab buttons, e.g. T Level / GCSE on the key dates. The chosen one looks pressed in */
+.tab-row {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.tab-row .button {
+    padding: 3px 12px;
+    font-size: 0.8rem;
+}
+
+.tab-row .button[aria-selected="true"] {
+    background: var(--grey-light);
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+    box-shadow: none;
+}
+
+/* Demos and student sites side by side */
+.landing-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0 20px;
+}
+
+/* Both windows in the row are the same height, so stretch the white part too */
+.landing-row > .window {
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-row > .window > .window-body {
+    flex: 1;
+}
+
+/* The smaller windows stack in columns like a pinboard, so short ones
+   don't leave gaps next to tall ones */
+.landing-extras {
+    columns: 3 280px;
+    column-gap: 20px;
+}
+
+.landing-extras > .window {
+    break-inside: avoid;
+    margin-top: 0;
+}
+
+.demo-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+}
+
+.demo-grid li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--grey);
+}
+
+.demo-grid li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.demo-button {
+    padding: 10px 16px;
+    font-size: 1.05rem;
+}
+
+.demo-desc {
+    flex-basis: 100%;
+    font-size: 0.85rem;
+}
+
+/* Links flow along the line and never split a name over two lines */
+.link-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 0;
+}
+
+.link-columns li {
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* ----------------------------------------------------------
    Layout Wrapper
    ---------------------------------------------------------- */
 .page-layout {
@@ -675,12 +902,25 @@ body.win-dock-open {
     padding-left: 0;
 }
 
+/* Floppy disk before each post, shortcut arrow before each link */
+#post-list li::before,
+.external-links li::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: -3px;
+    background: no-repeat center / 16px 16px;
+    image-rendering: pixelated;
+}
+
 #post-list li::before {
-    content: "💾 ";
+    background-image: url("../images/icons/floppy.svg");
 }
 
 .external-links li::before {
-    content: "🔗 ";
+    background-image: url("../images/icons/shortcut.svg");
 }
 
 .info-list li::marker {
@@ -749,36 +989,60 @@ code {
 }
 
 /* ----------------------------------------------------------
-   Sidebar widgets
+   Student websites: a grid of Windows 95 style buttons
    ---------------------------------------------------------- */
 .student-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin: 10px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px;
+    margin: 10px 0 12px;
 }
 
 .student-list a {
-    display: block;
-    padding: 4px 8px;
-    color: var(--magenta);
-    background: var(--white);
-    border: 1px solid var(--magenta);
-    box-shadow: 2px 2px 0 var(--magenta);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px 6px;
+    color: var(--ink);
+    background: var(--grey);
+    font-size: 0.85rem;
+    text-align: center;
     text-decoration: none;
+    overflow-wrap: anywhere;
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 1px 1px 0 #000;
 }
 
+/* Web page icon above each name; the header colour cycles through four */
 .student-list a::before {
-    content: "★ ";
-    color: var(--hot-pink);
+    content: "";
+    width: 32px;
+    height: 32px;
+    background: url("../images/icons/webpage-pink.svg") no-repeat center / 32px 32px;
+    image-rendering: pixelated;
+}
+
+.student-list a:nth-child(4n + 2)::before { background-image: url("../images/icons/webpage-blue.svg"); }
+.student-list a:nth-child(4n + 3)::before { background-image: url("../images/icons/webpage-green.svg"); }
+.student-list a:nth-child(4n + 4)::before { background-image: url("../images/icons/webpage-red.svg"); }
+
+.student-list a:visited {
+    color: var(--ink);
 }
 
 .student-list a:hover,
 .student-list a:focus-visible {
-    background: var(--magenta);
-    color: var(--white);
+    color: var(--ink);
+    background: var(--yellow);
+}
+
+/* Pressed in when clicked */
+.student-list a:active {
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
     box-shadow: none;
-    transform: translate(2px, 2px);
+    transform: translate(1px, 1px);
 }
 
 .webring-random {
@@ -954,8 +1218,8 @@ kbd {
 }
 
 .desktop-icons .icon {
-    font-size: 2.2rem;
-    line-height: 1;
+    width: 48px;
+    height: 48px;
 }
 
 .desktop-icons a:hover .label,

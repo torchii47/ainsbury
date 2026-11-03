@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2.3 Producing Robust Programs | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="Defensive design: anticipating misuse, authentication, input validation and writing maintainable code. Testing: why we test, iterative and final testing, syntax and logic errors, choosing test data…">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="2.3 Producing Robust Programs | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="Defensive design: anticipating misuse, authentication, input validation and writing maintainable code. Testing: why we test, iterative and final testing, syntax and logic errors, choosing test data…">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic2-3.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic2-3" data-page="topic2-3">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 2.3 · PAPER 2: COMPUTATIONAL THINKING, ALGORITHMS AND PROGRAMMING</p>
+            <h1>2.3 Producing robust programs</h1>
+            <p>Defensive design: anticipating misuse, authentication, input validation and writing maintainable code. Testing: why we test, iterative and final testing, syntax and logic errors, choosing test data, and refining algorithms.</p>
+            <p class="links"><strong>Links to other topics:</strong> syntax and logic errors are introduced in <a href="topic2-1.html#s2-1-2">2.1.2</a>. Validation stops SQL injection: <a href="topic1-4.html#s1-4-1">1.4.1</a>. IDE debugging tools: <a href="topic2-5.html#s2-5-2">2.5.2</a>.</p>
+            <span class="big-num" aria-hidden="true">2.3</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>2.3.1</td><td>Explain defensive design: anticipating misuse and authentication</td></tr>
+                            <tr><td>2.3.1</td><td>Describe and write input validation: range, type, length, presence and format checks</td></tr>
+                            <tr><td>2.3.1</td><td>Explain how sub programs, naming conventions, indentation and comments make code maintainable</td></tr>
+                            <tr><td>2.3.2</td><td>Explain the purpose of testing, and iterative and final/terminal testing</td></tr>
+                            <tr><td>2.3.2</td><td>Identify syntax and logic errors</td></tr>
+                            <tr><td>2.3.2</td><td>Select and use normal, boundary, invalid and erroneous test data; complete a test plan</td></tr>
+                            <tr><td>2.3.2</td><td>Refine algorithms</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-3-1">
+                    <h2>2.3.1 Defensive design</h2>
+                    <div class="window-body">
+                        <p><strong>Defensive design</strong> means designing a program so it keeps working properly even when users make mistakes or try to misuse it.</p>
+
+                        <h3>Anticipating misuse</h3>
+                        <p>Think ahead about what could go wrong, and plan for it: a user typing letters where a number is expected; dividing by zero; entering a negative quantity; leaving a box blank; entering a huge amount of text; trying SQL injection; guessing passwords over and over.</p>
+
+                        <h3>Authentication</h3>
+                        <p><strong>Authentication</strong> confirms the identity of a user before they are allowed access. Methods: username and password; limiting the number of login attempts; two-factor authentication (e.g. a code sent to your phone); biometrics (fingerprint, face).</p>
+
+                        <h3>Input validation</h3>
+                        <p><strong>Validation</strong> checks that input data is <strong>sensible and reasonable</strong> (meets set rules) before it is processed. It can't check that data is <em>correct</em>: an age of 15 passes a range check even if the user is really 16.</p>
+                        <table>
+                            <tr><th>Check</th><th>What it checks</th><th>Example</th></tr>
+                            <tr><td>Range check</td><td>The value is within an allowed range</td><td>A test mark is between 0 and 100</td></tr>
+                            <tr><td>Type check</td><td>The data is the right data type</td><td>A quantity is a whole number, not "six"</td></tr>
+                            <tr><td>Length check</td><td>The data has an allowed number of characters</td><td>A password is at least 8 characters</td></tr>
+                            <tr><td>Presence check</td><td>Something has been entered (it isn't blank)</td><td>A surname must be entered</td></tr>
+                            <tr><td>Format check</td><td>The data follows a set pattern</td><td>A date is DD/MM/YYYY; an email contains @</td></tr>
+                        </table>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span></h4>
+<pre class="code no-run">
+age = input("Enter age (11-18): ")
+while age == "" OR int(age) &lt; 11 OR int(age) &gt; 18
+    print("Invalid: enter 11 to 18")
+    age = input("Enter age (11-18): ")
+endwhile
+print("Age accepted")
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span></h4>
+<pre class="code">
+def get_age():
+    while True:
+        entry = input("Enter age (11-18): ")
+        if entry == "":
+            print("Presence check failed: you must enter something")
+        elif not entry.isdigit():
+            print("Type check failed: whole numbers only")
+        elif int(entry) < 11 or int(entry) > 18:
+            print("Range check failed: must be 11 to 18")
+        else:
+            return int(entry)
+
+age = get_age()
+print("Age accepted:", age)
+</pre>
+<pre class="out">
+Enter age (11-18):
+Presence check failed: you must enter something
+Enter age (11-18): fifteen
+Type check failed: whole numbers only
+Enter age (11-18): 25
+Range check failed: must be 11 to 18
+Enter age (11-18): 15
+Age accepted: 15
+</pre>
+                            </div>
+                        </div>
+
+                        <h3>Maintainability</h3>
+                        <p><strong>Maintainable</strong> code is easy for another programmer (or you, months later) to read, understand, fix and improve.</p>
+                        <table>
+                            <tr><th>Technique</th><th>Why it helps</th></tr>
+                            <tr><td>Sub programs</td><td>Code is split into small, named parts that can be understood, tested and changed one at a time, and reused</td></tr>
+                            <tr><td>Naming conventions</td><td>Meaningful names (<code>total_price</code>, not <code>x</code>) explain what each variable holds; a consistent style (e.g. <code>camelCase</code> or <code>snake_case</code>, capitals for constants)</td></tr>
+                            <tr><td>Indentation</td><td>Shows which code is inside each loop, selection or sub program, so the structure is clear</td></tr>
+                            <tr><td>Comments</td><td>Explain what sections of code do and why, without affecting how the program runs</td></tr>
+                            <tr><td>Constants</td><td>A value that might change, e.g. a discount rate, is updated in one place</td></tr>
+                        </table>
+                        <p>These two programs do the same thing. Which would you rather fix?</p>
+                        <div class="code-pair">
+                            <div>
+                                <h4>Hard to maintain</h4>
+<pre class="code">
+a=float(input("? "))
+b=a*0.8
+if b>50:
+ print(b-5)
+else:
+ print(b)
+</pre>
+<pre class="out">
+? 100
+75.0
+</pre>
+                            </div>
+                            <div>
+                                <h4>Easy to maintain</h4>
+<pre class="code">
+# Sale price: 20% off, plus £5 off orders over £50
+DISCOUNT = 0.2
+BIG_ORDER = 50
+BIG_ORDER_SAVING = 5
+
+def sale_price(price):
+    new_price = price * (1 - DISCOUNT)
+    if new_price > BIG_ORDER:
+        new_price = new_price - BIG_ORDER_SAVING
+    return new_price
+
+price = float(input("Price: "))
+print(sale_price(price))
+</pre>
+<pre class="out">
+Price: 100
+75.0
+</pre>
+                            </div>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Defensive design</dt><dd>Designing a program so it keeps working correctly even when it is misused or given unexpected input.</dd>
+                            <dt>Authentication</dt><dd>Confirming the identity of a user, e.g. with a username and password.</dd>
+                            <dt>Validation</dt><dd>Checking that input data is sensible and meets set rules before it is processed.</dd>
+                            <dt>Range check</dt><dd>A validation check that a value lies between set limits.</dd>
+                            <dt>Presence check</dt><dd>A validation check that data has been entered.</dd>
+                            <dt>Format check</dt><dd>A validation check that data follows a set pattern, e.g. a date as DD/MM/YYYY.</dd>
+                            <dt>Length check</dt><dd>A validation check that data has an allowed number of characters.</dd>
+                            <dt>Type check</dt><dd>A validation check that data is the correct data type.</dd>
+                            <dt>Maintainability</dt><dd>How easy a program is to understand, fix and update.</dd>
+                            <dt>Comment</dt><dd>A note in code that explains it to people reading it and is ignored when the program runs.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-3-2">
+                    <h2>2.3.2 Testing</h2>
+                    <div class="window-body">
+                        <p>The <strong>purpose of testing</strong> is to check the program works as intended and meets the requirements, to find and remove errors, and to make sure it handles invalid input without crashing.</p>
+                        <table>
+                            <tr><th>Type of testing</th><th>When</th><th>What</th></tr>
+                            <tr><td>Iterative testing</td><td><strong>During</strong> development</td><td>Each part (module) is tested as it is written. Errors are fixed and the part is tested again, repeatedly.</td></tr>
+                            <tr><td>Final / terminal testing</td><td><strong>At the end</strong> of development</td><td>The whole program is tested together, to check all the parts work together and it meets every requirement.</td></tr>
+                        </table>
+
+                        <h3>Test data</h3>
+                        <p>For an input that must be a whole number from 1 to 10:</p>
+                        <table>
+                            <tr><th>Type</th><th>Meaning</th><th>Examples</th><th>Expected result</th></tr>
+                            <tr><td>Normal</td><td>Typical, valid data</td><td>4, 7</td><td>Accepted</td></tr>
+                            <tr><td>Boundary</td><td>Valid data at the very edge of the allowed range</td><td>1, 10</td><td>Accepted</td></tr>
+                            <tr><td>Invalid</td><td>Data of the right type, but outside the allowed range</td><td>0, 11, −5</td><td>Rejected</td></tr>
+                            <tr><td>Erroneous</td><td>Data of the wrong type</td><td>"ten", 4.5, @</td><td>Rejected</td></tr>
+                        </table>
+                        <p>Some test plans also test the values just outside each boundary (0 and 11) as part of boundary testing. Either way, say what you expect to happen.</p>
+
+                        <h4>Sort the test data (valid range: whole numbers 1–10)</h4>
+                        <div class="sorter" data-options="Normal|Boundary|Invalid|Erroneous">
+                            <p data-a="Normal">5</p>
+                            <p data-a="Boundary">10</p>
+                            <p data-a="Invalid">25</p>
+                            <p data-a="Erroneous">"ten"</p>
+                            <p data-a="Boundary">1</p>
+                            <p data-a="Erroneous">3.5</p>
+                            <p data-a="Invalid">-3</p>
+                            <p data-a="Normal">8</p>
+                        </div>
+
+                        <h3>A test plan</h3>
+                        <table>
+                            <tr><th>Test</th><th>Purpose</th><th>Test data</th><th>Type</th><th>Expected result</th><th>Actual result</th></tr>
+                            <tr><td>1</td><td>Accepts a typical quantity</td><td>5</td><td>Normal</td><td>Accepted</td><td>Accepted ✔</td></tr>
+                            <tr><td>2</td><td>Accepts the lowest quantity</td><td>1</td><td>Boundary</td><td>Accepted</td><td>Accepted ✔</td></tr>
+                            <tr><td>3</td><td>Accepts the highest quantity</td><td>10</td><td>Boundary</td><td>Accepted</td><td>Rejected ✘</td></tr>
+                            <tr><td>4</td><td>Rejects a quantity that's too high</td><td>11</td><td>Invalid</td><td>Rejected</td><td>Rejected ✔</td></tr>
+                            <tr><td>5</td><td>Rejects text</td><td>"six"</td><td>Erroneous</td><td>Error message, asked again</td><td>Program crashed ✘</td></tr>
+                        </table>
+                        <p>Tests 3 and 5 failed. Test 3 is a <strong>logic error</strong>: the code says <code>quantity &lt; 10</code> where it should say <code>quantity &lt;= 10</code>. Test 5 shows the program needs a type check. After fixing, the tests are run again.</p>
+<pre class="code">
+def valid_quantity(q):
+    return 1 <= q <= 10
+
+tests = [(5, "normal"), (1, "boundary"), (10, "boundary"), (0, "invalid"), (11, "invalid")]
+for value, kind in tests:
+    if valid_quantity(value):
+        print(value, kind, "-> accepted")
+    else:
+        print(value, kind, "-> rejected")
+</pre>
+<pre class="out">
+5 normal -> accepted
+1 boundary -> accepted
+10 boundary -> accepted
+0 invalid -> rejected
+11 invalid -> rejected
+</pre>
+
+                        <h3>Refining algorithms</h3>
+                        <p>After testing, an algorithm is <strong>refined</strong>: errors are fixed, validation is added, and it is made more efficient (e.g. stopping a search as soon as the item is found), or changed to meet a new requirement. In the exam, "refine" means rewrite the algorithm so it does something better or extra.</p>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: TEST DATA</h4>
+                            <ul>
+                                <li>Give an actual value, not a description: write "11", not "a number that's too big".</li>
+                                <li>Boundary data in OCR mark schemes is usually the <strong>valid</strong> value at the edge (1 and 10 here).</li>
+                                <li>Invalid = right type, wrong value. Erroneous = wrong type.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Iterative testing</dt><dd>Testing each part of a program repeatedly during development, fixing errors as they are found.</dd>
+                            <dt>Final testing</dt><dd>Testing the whole program at the end of development to check it meets the requirements (also called terminal testing).</dd>
+                            <dt>Normal data</dt><dd>Typical, valid test data that the program should accept.</dd>
+                            <dt>Boundary data</dt><dd>Valid test data at the edge of the allowed range.</dd>
+                            <dt>Invalid data</dt><dd>Test data of the correct type that is outside the allowed range and should be rejected.</dd>
+                            <dt>Erroneous data</dt><dd>Test data of the wrong data type that should be rejected.</dd>
+                            <dt>Test plan</dt><dd>A table listing each test, its purpose, the test data, the expected result and the actual result.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>DEFENSIVE DESIGN</h4><ul><li>Anticipate misuse: blanks, wrong types, ÷0, huge inputs</li><li>Authentication: passwords, limited attempts, 2FA</li></ul></div>
+                            <div><h4>VALIDATION CHECKS</h4><ul><li>Range: between limits</li><li>Type: right data type</li><li>Length: number of characters</li><li>Presence: not blank</li><li>Format: follows a pattern</li></ul></div>
+                            <div><h4>MAINTAINABILITY</h4><ul><li>Sub programs</li><li>Meaningful names, consistent style</li><li>Indentation</li><li>Comments</li><li>Constants</li></ul></div>
+                            <div><h4>TESTING</h4><ul><li>Purpose: works, meets requirements, no errors, robust</li><li>Iterative: during, part by part</li><li>Final/terminal: end, whole program</li></ul></div>
+                            <div><h4>TEST DATA (1–10)</h4><ul><li>Normal: 5</li><li>Boundary: 1, 10</li><li>Invalid: 0, 11</li><li>Erroneous: "ten", 4.5</li></ul></div>
+                            <div><h4>ERRORS AND REFINING</h4><ul><li>Syntax: won't run</li><li>Logic: runs, wrong result</li><li>Refine: fix, validate, make more efficient</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 2.3 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="2.3"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 30 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic2-3">
+                            <div class="q" data-m="2">
+                                <p>Give <strong>two</strong> ways a programmer can anticipate misuse of a program.</p>
+                                <div class="ms"><ul><li>Any two: validate inputs; check for division by zero; limit login attempts; authentication; reject inputs that are too long; sanitise inputs to stop SQL injection; menus that only allow valid choices.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A website asks users to enter a date of birth as DD/MM/YYYY. Describe <strong>three</strong> validation checks that could be used.</p>
+                                <div class="ms"><ul><li>Any three, 1 each: presence check that something has been entered; format check that it matches DD/MM/YYYY; length check that it is 10 characters; range check that day is 1–31 / month 1–12 / year is sensible; type check that the day, month and year are numbers.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Write an algorithm that asks the user to enter a password and keeps asking until it is at least 8 characters long.</p>
+                                <div class="ms"><ul><li>Input password (1).</li><li>Loop (while/do until) (1).</li><li>Condition checks length &lt; 8 / &gt;= 8 correctly (1).</li><li>Asks again inside the loop / error message (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Explain <strong>three</strong> ways to make a program easier to maintain.</p>
+                                <div class="ms"><ul><li>Any three, each with an explanation, 1 each: comments explain what code does; meaningful variable names show what data is stored; indentation shows the structure; sub programs split code into manageable/reusable parts; constants mean values only change in one place.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain the difference between iterative testing and final testing.</p>
+                                <div class="ms"><ul><li>Iterative testing happens during development, testing each module/part repeatedly as it's written (1).</li><li>Final testing happens at the end, testing the whole program together against the requirements (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A program asks for the number of people in a booking. It must be a whole number from 2 to 8. Give an example of normal, boundary, invalid and erroneous test data.</p>
+                                <div class="ms"><ul><li>Normal: 3–7, e.g. 5 (1).</li><li>Boundary: 2 or 8 (1).</li><li>Invalid: e.g. 1, 9, 0, −4 (1).</li><li>Erroneous: e.g. "five", 4.5, a symbol (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>The code <code>if mark &gt; 0 AND mark &lt; 100 then</code> should accept marks from 0 to 100. Identify the error and correct it.</p>
+                                <div class="ms"><ul><li>It rejects the boundary values 0 and 100 / uses &gt; and &lt; instead of &gt;= and &lt;= (logic error) (1).</li><li><code>if mark &gt;= 0 AND mark &lt;= 100 then</code> (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why validation can't guarantee that data is correct.</p>
+                                <div class="ms"><ul><li>Validation only checks data is sensible/follows rules (1) so a wrong value that is still within the rules, e.g. typing 15 instead of 16 for an age, will be accepted (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Add a format check to <code>get_age</code>'s program for a UK-style email address: it must contain exactly one @ and at least one . after it.</li>
+                                <li>Write a login that allows 3 attempts, then locks the account. Write a test plan for it.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic2-3" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic2-3" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 2.3 Producing robust programs · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

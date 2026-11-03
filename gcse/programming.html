@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Practical Programming | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="You must have the chance to design, write, test and refine programs during the course. There&#x27;s no coursework mark, but Paper 2 Section B (30 marks) tests these skills directly, on paper. Use this…">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Practical Programming | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="You must have the chance to design, write, test and refine programs during the course. There&#x27;s no coursework mark, but Paper 2 Section B (30 marks) tests these skills directly, on paper. Use this…">
+    <meta property="og:url" content="https://ainsbury.art/gcse/programming.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev programming" data-page="programming">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">PRACTICAL PROGRAMMING · PAPER 2 SECTION B</p>
+            <h1>Practical programming</h1>
+            <p>You must have the chance to design, write, test and refine programs during the course. There's no coursework mark, but Paper 2 Section B (30 marks) tests these skills directly, on paper. Use this page to practise.</p>
+            <p class="links"><strong>See also:</strong> <a href="topic2-2.html">2.2 Programming fundamentals</a> · <a href="topic2-3.html">2.3 Producing robust programs</a> · <a href="exams.html#a6">A6 Exam Reference Language</a></p>
+            <span class="big-num" aria-hidden="true">{ }</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="skills">
+                    <h2>Skills checklist</h2>
+                    <div class="window-body">
+                        <p>Tick each skill when you can do it <strong>on paper, without an IDE</strong>. That's what Section B needs.</p>
+                        <ul class="checklist">
+                            <li><label><input type="checkbox" data-save="skill-io"><span>Take input, cast it to an integer or real, and output a result with text</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-if"><span>Write if / elseif / else with comparison and Boolean operators</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-for"><span>Write a count-controlled loop (for), including totals and counters</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-while"><span>Write a condition-controlled loop (while / do until), e.g. for validation</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-string"><span>Use string length, substring, upper/lower, ASC and CHR</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-array"><span>Loop through a 1D array to find a total, average, maximum or count</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-2d"><span>Use a 2D array with nested loops</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-file"><span>Open, read from, write to and close a text file</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-sub"><span>Write a function with parameters that returns a value, and a procedure</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-validate"><span>Validate input with range, length, presence and type checks</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-sql"><span>Write an SQL SELECT ... FROM ... WHERE query</span></label></li>
+                            <li><label><input type="checkbox" data-save="skill-trace"><span>Trace someone else's code and find a logic error</span></label></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="window" id="tasks">
+                    <h2>Practice tasks</h2>
+                    <div class="window-body">
+                        <p>Try each task on paper or in your IDE first. Then open the model solution, run it, and compare. There are many correct answers.</p>
+
+                        <h3>Task 1: Pass or fail (selection and validation)</h3>
+                        <p>Ask for a test mark out of 50. Keep asking until it is between 0 and 50. Convert it to a percentage and output "Pass" if it is at least 40%, otherwise "Fail".</p>
+                        <details class="box worked">
+                            <summary><strong>Show a model solution</strong></summary>
+<pre class="code">
+mark = int(input("Mark out of 50: "))
+while mark < 0 or mark > 50:
+    print("Must be 0 to 50")
+    mark = int(input("Mark out of 50: "))
+percent = mark / 50 * 100
+if percent >= 40:
+    print("Pass with", percent, "%")
+else:
+    print("Fail with", percent, "%")
+</pre>
+<pre class="out">
+Mark out of 50: 62
+Must be 0 to 50
+Mark out of 50: 31
+Pass with 62.0 %
+</pre>
+                        </details>
+
+                        <h3>Task 2: Password strength (string handling)</h3>
+                        <p>Write a function that returns True if a password is at least 8 characters long and contains at least one digit and one capital letter.</p>
+                        <details class="box worked">
+                            <summary><strong>Show a model solution</strong></summary>
+<pre class="code">
+def strong_password(password):
+    has_digit = False
+    has_upper = False
+    for char in password:
+        if char.isdigit():
+            has_digit = True
+        if char.isupper():
+            has_upper = True
+    return len(password) >= 8 and has_digit and has_upper
+
+for attempt in ["sunshine", "Sunshine", "Sunshine7", "Sun7"]:
+    print(attempt, strong_password(attempt))
+</pre>
+<pre class="out">
+sunshine False
+Sunshine False
+Sunshine7 True
+Sun7 False
+</pre>
+                        </details>
+
+                        <h3>Task 3: Caesar cipher (ASC and CHR)</h3>
+                        <p>Write a function that shifts every letter in a message along the alphabet by a given amount, wrapping from Z back to A. Spaces stay as they are.</p>
+                        <details class="box worked">
+                            <summary><strong>Show a model solution</strong></summary>
+<pre class="code">
+def caesar(text, shift):
+    result = ""
+    for char in text.upper():
+        if "A" <= char <= "Z":
+            code = (ord(char) - 65 + shift) % 26 + 65
+            result = result + chr(code)
+        else:
+            result = result + char
+    return result
+
+secret = caesar("Meet at noon", 3)
+print(secret)
+print(caesar(secret, -3))
+</pre>
+<pre class="out">
+PHHW DW QRRQ
+MEET AT NOON
+</pre>
+                            <p>In ERL you'd use <code>ASC(char)</code> and <code>CHR(code)</code>, and <code>MOD 26</code> to wrap round.</p>
+                        </details>
+
+                        <h3>Task 4: High score file (file handling)</h3>
+                        <p>Write three name,score lines to a file, then read the file back and output the player with the highest score.</p>
+                        <details class="box worked">
+                            <summary><strong>Show a model solution</strong></summary>
+<pre class="code">
+scores_file = open("highscores.txt", "w")
+scores_file.write("Ana,340\n")
+scores_file.write("Raj,410\n")
+scores_file.write("Mo,275\n")
+scores_file.close()
+
+best_name = ""
+best_score = -1
+scores_file = open("highscores.txt", "r")
+for line in scores_file:
+    parts = line.strip().split(",")
+    if int(parts[1]) > best_score:
+        best_score = int(parts[1])
+        best_name = parts[0]
+scores_file.close()
+print("High score:", best_name, best_score)
+</pre>
+<pre class="out">
+High score: Raj 410
+</pre>
+                        </details>
+
+                        <h3>Task 5: Noughts and crosses (2D arrays)</h3>
+                        <p>A 3 × 3 board is stored in a 2D array. Write a function that returns True if a given player has three in a row, column or diagonal.</p>
+                        <details class="box worked">
+                            <summary><strong>Show a model solution</strong></summary>
+<pre class="code">
+board = [["X", "O", "X"],
+         ["O", "X", "O"],
+         ["O", "X", "X"]]
+
+def winner(board, player):
+    for i in range(3):
+        if board[i][0] == player and board[i][1] == player and board[i][2] == player:
+            return True
+        if board[0][i] == player and board[1][i] == player and board[2][i] == player:
+            return True
+    if board[0][0] == player and board[1][1] == player and board[2][2] == player:
+        return True
+    if board[0][2] == player and board[1][1] == player and board[2][0] == player:
+        return True
+    return False
+
+print("X wins:", winner(board, "X"))
+print("O wins:", winner(board, "O"))
+</pre>
+<pre class="out">
+X wins: True
+O wins: False
+</pre>
+                        </details>
+
+                        <h3>Task 6: Shopping basket (records)</h3>
+                        <p>Store each item in a basket as a record with an item name, price and quantity. Output the cost of each line and the total, to 2 decimal places.</p>
+                        <details class="box worked">
+                            <summary><strong>Show a model solution</strong></summary>
+<pre class="code">
+basket = [
+    {"item": "Pen", "price": 1.20, "quantity": 3},
+    {"item": "Notebook", "price": 2.50, "quantity": 2},
+    {"item": "Ruler", "price": 0.80, "quantity": 1},
+]
+total = 0
+for line in basket:
+    cost = line["price"] * line["quantity"]
+    total = total + cost
+    print(line["item"], "x", line["quantity"], "=", format(cost, ".2f"))
+print("Total: £" + format(total, ".2f"))
+</pre>
+<pre class="out">
+Pen x 3 = 3.60
+Notebook x 2 = 5.00
+Ruler x 1 = 0.80
+Total: £9.40
+</pre>
+                        </details>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH: BIGGER PROJECTS</h4>
+                            <ul>
+                                <li><strong>Quiz game:</strong> read questions and answers from a file, ask them in a random order, keep score, and save the player's name and score to a high score file.</li>
+                                <li><strong>Library system:</strong> store books as records; let the user search by author, borrow and return books; validate every input.</li>
+                                <li><strong>Dice battle:</strong> two players roll two dice each round for 5 rounds; doubles score extra; output the winner. Write a test plan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="section-b">
+                    <h2>Paper 2 Section B practice</h2>
+                    <div class="window-body">
+                        <p>Answer in OCR Exam Reference Language or Python. Write on paper, then type your answer here to compare with the mark scheme.</p>
+                        <div class="box scenario">
+                            <h4>SCENARIO</h4>
+                            <p>A cinema uses a program to manage ticket sales. Adult tickets cost £9 and child tickets cost £6. A screen has 120 seats.</p>
+                        </div>
+                        <div class="qset" data-set="programming">
+                            <div class="q" data-n="1 (a)" data-m="4">
+                                <p>Write an algorithm that asks for the number of adult tickets and the number of child tickets, and outputs the total cost.</p>
+                                <div class="ms"><ul><li>Input number of adults, cast to integer (1).</li><li>Input number of children, cast to integer (1).</li><li>Calculate total = adults × 9 + children × 6 (1).</li><li>Output total (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (b)" data-m="3">
+                                <p>Refine your algorithm so it keeps asking for the number of adult tickets until it is between 0 and 120.</p>
+                                <div class="ms"><ul><li>Condition-controlled loop around the input (1).</li><li>Correct condition: adults &lt; 0 OR adults &gt; 120 (1).</li><li>Input repeated inside the loop / error message (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (c)" data-m="2">
+                                <p>Give <strong>one</strong> item of invalid test data and <strong>one</strong> item of boundary test data for the number of adult tickets.</p>
+                                <div class="ms"><ul><li>Invalid: e.g. −1, 121, 200 (1).</li><li>Boundary: 0 or 120 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (a)" data-m="6">
+                                <p>The number of tickets sold for each of the 7 days of a week is stored in an array <code>sales</code> (index 0 to 6). Write a program that outputs the total tickets sold, the highest number sold on one day, and how many days sold more than 100 tickets.</p>
+                                <div class="ms"><ul><li>Loop through all 7 elements (1).</li><li>Running total initialised to 0 and added to (1).</li><li>Highest initialised (e.g. sales[0] or 0) (1) and updated when a bigger value is found (1).</li><li>Counter incremented when sales[i] &gt; 100 (1).</li><li>All three values output after the loop (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (b)" data-m="4">
+                                <p>Write a function <code>seatsLeft(sold)</code> that takes the number of seats sold and returns the number of seats left. If more than 120 have been sold, it should return 0.</p>
+                                <div class="ms"><ul><li>Function header with parameter sold (1).</li><li>If sold &gt; 120 return 0 (1).</li><li>Otherwise return 120 − sold (1).</li><li>Uses return rather than print (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="3" data-m="3">
+                                <p>This code should output the average of 5 numbers, but it contains <strong>two</strong> errors. Identify and correct them.</p>
+<pre class="code no-run">
+01 total = 0
+02 for i = 1 to 4
+03     num = input("Number: ")
+04     total = total + num
+05 next i
+06 print(total / 5)
+</pre>
+                                <div class="ms"><ul><li>Line 02: the loop only runs 4 times; should be <code>for i = 1 to 5</code> (or 0 to 4) (1).</li><li>Line 03: input not cast to integer/real (1); should be <code>num = int(input("Number: "))</code> (1).</li></ul></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-programming" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · Practical programming · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

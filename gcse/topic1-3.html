@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1.3 Networks, Connections and Protocols | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="Types of network and what affects their performance; client-server and peer-to-peer; network hardware; the Internet, DNS and the cloud; star and mesh topologies; wired and wireless connections; IP…">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="1.3 Networks, Connections and Protocols | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="Types of network and what affects their performance; client-server and peer-to-peer; network hardware; the Internet, DNS and the cloud; star and mesh topologies; wired and wireless connections; IP…">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic1-3.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic1-3" data-page="topic1-3">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 1.3 · PAPER 1: COMPUTER SYSTEMS</p>
+            <h1>1.3 Computer networks, connections and protocols</h1>
+            <p>Types of network and what affects their performance; client-server and peer-to-peer; network hardware; the Internet, DNS and the cloud; star and mesh topologies; wired and wireless connections; IP and MAC addresses; protocols and layers.</p>
+            <p class="links"><strong>Links to other topics:</strong> keeping networks safe is <a href="topic1-4.html">1.4 Network security</a>. Encryption software is a utility: <a href="topic1-5.html#s1-5-2">1.5.2</a>. Hexadecimal for MAC addresses: <a href="topic1-2.html#s1-2-4a">1.2.4</a>.</p>
+            <span class="big-num" aria-hidden="true">1.3</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>1.3.1</td><td>Describe LANs and WANs, and the factors that affect network performance</td></tr>
+                            <tr><td>1.3.1</td><td>Describe the roles of computers in client-server and peer-to-peer networks</td></tr>
+                            <tr><td>1.3.1</td><td>Describe the hardware needed for a LAN: WAP, router, switch, NIC, transmission media</td></tr>
+                            <tr><td>1.3.1</td><td>Describe the Internet as a worldwide collection of networks: DNS, hosting, the cloud, web servers and clients</td></tr>
+                            <tr><td>1.3.1</td><td>Draw and explain star and mesh topologies, with advantages and disadvantages</td></tr>
+                            <tr><td>1.3.2</td><td>Compare wired (Ethernet) and wireless (Wi-Fi, Bluetooth) connections; explain encryption</td></tr>
+                            <tr><td>1.3.2</td><td>Describe IP addressing and MAC addressing</td></tr>
+                            <tr><td>1.3.2</td><td>Explain standards, and state the purpose of TCP/IP, HTTP, HTTPS, FTP, POP, IMAP and SMTP</td></tr>
+                            <tr><td>1.3.2</td><td>Explain the concept of layers and their benefits</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-3-1">
+                    <h2>1.3.1 Networks and topologies</h2>
+                    <div class="window-body">
+                        <p>A <strong>network</strong> is two or more computers connected together so they can share data and resources.</p>
+                        <table>
+                            <tr><th></th><th>LAN (local area network)</th><th>WAN (wide area network)</th></tr>
+                            <tr><td>Area</td><td>A small geographical area, e.g. one building or site</td><td>A large geographical area, e.g. across a country or the world</td></tr>
+                            <tr><td>Infrastructure</td><td>Hardware is <strong>owned and managed by the organisation</strong></td><td>Uses <strong>third-party</strong> infrastructure, e.g. leased telecoms lines, satellites</td></tr>
+                            <tr><td>Examples</td><td>A school network, a home network</td><td>A bank connecting its branches; the Internet is the largest WAN</td></tr>
+                        </table>
+
+                        <h3>Factors that affect network performance</h3>
+                        <table>
+                            <tr><th>Factor</th><th>Effect</th></tr>
+                            <tr><td>Bandwidth</td><td>The amount of data that can be transmitted per second. Higher bandwidth = more data, faster transfers.</td></tr>
+                            <tr><td>Number of users / devices</td><td>More devices sharing the bandwidth = less each, and more data collisions, so slower.</td></tr>
+                            <tr><td>Transmission media</td><td>Fibre optic is faster and carries data further than copper cable; wireless is usually slower than wired.</td></tr>
+                            <tr><td>Interference and errors</td><td>Walls, distance and other devices weaken wireless signals; errors mean data must be re-sent.</td></tr>
+                            <tr><td>Latency</td><td>The delay before data starts to arrive. High latency (e.g. data travelling a long way) makes video calls and games lag.</td></tr>
+                            <tr><td>Topology</td><td>How devices are connected; e.g. a mesh has more routes so traffic can avoid busy links.</td></tr>
+                        </table>
+
+                        <h3>Client-server and peer-to-peer</h3>
+                        <table>
+                            <tr><th></th><th>Client-server</th><th>Peer-to-peer</th></tr>
+                            <tr><td>Roles</td><td>A <strong>server</strong> provides services (files, email, web pages, logins) that <strong>clients</strong> request</td><td>All computers are <strong>equal</strong>: each can share its files and resources directly with the others</td></tr>
+                            <tr><td>Advantages</td><td>Files and backups managed centrally; security and user accounts controlled in one place; software updated centrally</td><td>Cheap and easy to set up; no expensive server or specialist needed; no single point of failure</td></tr>
+                            <tr><td>Disadvantages</td><td>Servers and network staff are expensive; if the server fails, clients lose access</td><td>Files are spread out, so hard to back up and manage; each user manages their own security; a computer that's switched off can't share</td></tr>
+                            <tr><td>Use</td><td>Schools, businesses, websites</td><td>Small home networks, file-sharing apps</td></tr>
+                        </table>
+
+                        <h3>Network hardware</h3>
+                        <table>
+                            <tr><th>Hardware</th><th>Job</th></tr>
+                            <tr><td>NIC (network interface controller/card)</td><td>Lets a device connect to a network (wired or wireless). Each NIC has a unique MAC address.</td></tr>
+                            <tr><td>Switch</td><td>Connects devices on a LAN. Receives data and sends it only to the device it is addressed to, using the MAC address.</td></tr>
+                            <tr><td>Router</td><td>Sends data between different networks, e.g. between a LAN and the Internet, using IP addresses. Chooses the route for packets.</td></tr>
+                            <tr><td>WAP (wireless access point)</td><td>Lets wireless devices connect to a wired network.</td></tr>
+                            <tr><td>Transmission media</td><td>What carries the data: copper (Ethernet) cable, fibre optic cable (light), or radio waves (wireless).</td></tr>
+                        </table>
+                        <p>A home "router" is usually a router, switch and WAP in one box.</p>
+
+                        <h3>Star and mesh topologies</h3>
+                        <div class="grid-2">
+                            <figure class="fig">
+                                <svg viewBox="0 0 260 220" role="img" aria-label="Star topology: a central switch with five devices, each connected to the switch by its own cable.">
+                                    <g class="line"><line x1="130" y1="110" x2="130" y2="30"/><line x1="130" y1="110" x2="40" y2="70"/><line x1="130" y1="110" x2="220" y2="70"/><line x1="130" y1="110" x2="60" y2="190"/><line x1="130" y1="110" x2="200" y2="190"/></g>
+                                    <rect class="shape" x="95" y="95" width="70" height="30"/><text x="130" y="115" text-anchor="middle" class="label">Switch</text>
+                                    <rect class="shape" x="105" y="14" width="50" height="28"/><text x="130" y="33" text-anchor="middle" class="label">PC</text>
+                                    <rect class="shape" x="12" y="56" width="56" height="28"/><text x="40" y="75" text-anchor="middle" class="label">PC</text>
+                                    <rect class="shape" x="192" y="56" width="56" height="28"/><text x="220" y="75" text-anchor="middle" class="label">Printer</text>
+                                    <rect class="shape" x="30" y="176" width="60" height="28"/><text x="60" y="195" text-anchor="middle" class="label">Laptop</text>
+                                    <rect class="shape" x="170" y="176" width="60" height="28"/><text x="200" y="195" text-anchor="middle" class="label">Server</text>
+                                </svg>
+                                <figcaption>Star: every device connects to a central switch</figcaption>
+                            </figure>
+                            <figure class="fig">
+                                <svg viewBox="0 0 260 220" role="img" aria-label="Full mesh topology: five devices, each connected directly to every other device.">
+                                    <g class="line">
+                                        <line x1="130" y1="30" x2="230" y2="95"/><line x1="130" y1="30" x2="190" y2="190"/><line x1="130" y1="30" x2="70" y2="190"/><line x1="130" y1="30" x2="30" y2="95"/>
+                                        <line x1="230" y1="95" x2="190" y2="190"/><line x1="230" y1="95" x2="70" y2="190"/><line x1="230" y1="95" x2="30" y2="95"/>
+                                        <line x1="190" y1="190" x2="70" y2="190"/><line x1="190" y1="190" x2="30" y2="95"/><line x1="70" y1="190" x2="30" y2="95"/>
+                                    </g>
+                                    <circle class="shape" cx="130" cy="30" r="18"/><circle class="shape" cx="230" cy="95" r="18"/><circle class="shape" cx="190" cy="190" r="18"/><circle class="shape" cx="70" cy="190" r="18"/><circle class="shape" cx="30" cy="95" r="18"/>
+                                </svg>
+                                <figcaption>Full mesh: every device connects to every other</figcaption>
+                            </figure>
+                        </div>
+                        <table>
+                            <tr><th></th><th>Star</th><th>Mesh</th></tr>
+                            <tr><td>Advantages</td><td>If one cable or device fails, the rest keep working; easy to add devices; fast, because the switch sends data only where it's needed; few collisions</td><td>No single point of failure: if one link fails, data takes another route; can carry lots of traffic; very reliable</td></tr>
+                            <tr><td>Disadvantages</td><td>If the central switch fails, the whole network fails; needs lots of cable, which costs more</td><td>Expensive: lots of cabling and connections (a full mesh of n devices needs n(n−1)/2 links); hard to set up and maintain</td></tr>
+                        </table>
+                        <p>Wireless mesh networks (e.g. home mesh Wi-Fi) avoid the cabling cost: each node passes data on to the others.</p>
+
+                        <dl class="recall">
+                            <dt>LAN</dt><dd>Local area network: a network over a small geographical area, using hardware owned by the organisation.</dd>
+                            <dt>WAN</dt><dd>Wide area network: a network over a large geographical area, often using third-party infrastructure.</dd>
+                            <dt>Bandwidth</dt><dd>The amount of data that can be transmitted over a network in a given time.</dd>
+                            <dt>Client-server network</dt><dd>A network in which servers provide services and resources that clients request.</dd>
+                            <dt>Peer-to-peer network</dt><dd>A network in which all computers have equal status and share resources directly with each other.</dd>
+                            <dt>Switch</dt><dd>Connects devices on a LAN and sends data only to the device it is addressed to, using MAC addresses.</dd>
+                            <dt>Router</dt><dd>Sends data packets between different networks, using IP addresses.</dd>
+                            <dt>WAP</dt><dd>Wireless access point: allows wireless devices to connect to a wired network.</dd>
+                            <dt>NIC</dt><dd>Network interface controller: hardware that allows a device to connect to a network.</dd>
+                            <dt>Star topology</dt><dd>A network layout in which every device is connected to a central switch.</dd>
+                            <dt>Mesh topology</dt><dd>A network layout in which devices are connected to many (or all) other devices, giving several routes for data.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-3-1b">
+                    <h2>1.3.1 The Internet</h2>
+                    <div class="window-body">
+                        <p>The <strong>Internet</strong> is a worldwide collection of interconnected networks. The World Wide Web is a service that runs on it: web pages accessed by browsers.</p>
+
+                        <h3>DNS: the Domain Name System</h3>
+                        <p>Computers find each other by IP address, but people remember names. DNS turns a domain name into an IP address.</p>
+                        <div class="flow">
+                            <div><strong>1</strong>You type a URL, e.g. www.ocr.org.uk</div>
+                            <span class="arrow" aria-hidden="true">→</span>
+                            <div><strong>2</strong>The browser sends a request to a DNS server</div>
+                            <span class="arrow" aria-hidden="true">→</span>
+                            <div><strong>3</strong>The DNS server looks up the domain name and returns its IP address (or asks another DNS server)</div>
+                            <span class="arrow" aria-hidden="true">→</span>
+                            <div><strong>4</strong>The browser uses the IP address to request the page from the web server</div>
+                        </div>
+                        <p>If no DNS server has the name, an error is returned. Results are cached so the next lookup is quicker.</p>
+<pre class="code">
+dns_cache = {"ocr.org.uk": "203.0.113.10"}
+dns_server = {"ocr.org.uk": "203.0.113.10", "bbc.co.uk": "203.0.113.25",
+              "ainsbury.art": "198.51.100.7"}
+
+def lookup(domain):
+    if domain in dns_cache:
+        return dns_cache[domain] + " (from cache)"
+    if domain in dns_server:
+        dns_cache[domain] = dns_server[domain]
+        return dns_server[domain] + " (from DNS server)"
+    return "not found: the browser shows an error"
+
+for site in ["bbc.co.uk", "bbc.co.uk", "ocr.org.uk", "nosuchsite.xyz"]:
+    print(site, "->", lookup(site))
+</pre>
+<pre class="out">
+bbc.co.uk -> 203.0.113.25 (from DNS server)
+bbc.co.uk -> 203.0.113.25 (from cache)
+ocr.org.uk -> 203.0.113.10 (from cache)
+nosuchsite.xyz -> not found: the browser shows an error
+</pre>
+
+                        <h3>Hosting, servers, clients and the cloud</h3>
+                        <table>
+                            <tr><th>Term</th><th>Meaning</th></tr>
+                            <tr><td>Web server</td><td>A computer that stores websites and sends web pages to clients when they request them</td></tr>
+                            <tr><td>Client</td><td>A device (e.g. a browser on a phone) that requests web pages and services from a server</td></tr>
+                            <tr><td>Hosting</td><td>Storing a website or files on a server owned by a hosting company, so it is available on the Internet all the time</td></tr>
+                            <tr><td>The cloud</td><td>Remote servers, accessed over the Internet, that store files and run software and services, e.g. OneDrive, Google Docs, Netflix</td></tr>
+                        </table>
+                        <table>
+                            <tr><th>Cloud: advantages</th><th>Cloud: disadvantages</th></tr>
+                            <tr><td><ul><li>Access files from any device, anywhere with an Internet connection</li><li>Easy to share and collaborate</li><li>Provider handles backups, security and maintenance</li><li>Storage can be increased easily; pay for what you use</li></ul></td><td><ul><li>Needs an Internet connection</li><li>Data is stored by a third party: security and privacy concerns</li><li>Ongoing subscription cost</li><li>If the provider has an outage or closes, you can't get your data</li></ul></td></tr>
+                        </table>
+
+                        <dl class="recall">
+                            <dt>Internet</dt><dd>A worldwide collection of interconnected computer networks.</dd>
+                            <dt>DNS</dt><dd>Domain Name System: translates domain names (e.g. www.bbc.co.uk) into IP addresses.</dd>
+                            <dt>Web server</dt><dd>A computer that stores web pages and sends them to clients that request them.</dd>
+                            <dt>Hosting</dt><dd>Storing websites or files on a server so they can be accessed over the Internet.</dd>
+                            <dt>The cloud</dt><dd>Remote servers accessed over the Internet that store data and provide software and services.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-3-2">
+                    <h2>1.3.2 Wired, wireless and addressing</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th></th><th>Wired (Ethernet)</th><th>Wi-Fi</th><th>Bluetooth</th></tr>
+                            <tr><td>How</td><td>Copper or fibre optic cable</td><td>Radio waves to a WAP</td><td>Short-range radio between two devices</td></tr>
+                            <tr><td>Speed / reliability</td><td>Fastest and most reliable; little interference</td><td>Slower; affected by walls, distance and other devices</td><td>Slow; short range (about 10 m)</td></tr>
+                            <tr><td>Mobility</td><td>Device must be near a socket</td><td>Move around freely within range</td><td>Pairs devices close together, e.g. earbuds</td></tr>
+                            <tr><td>Security</td><td>Must physically plug in to intercept</td><td>Signals can be intercepted, so must be encrypted</td><td>Short range limits who can connect</td></tr>
+                            <tr><td>Cost / set-up</td><td>Cables cost money and are hard to install</td><td>Cheap and easy to add devices</td><td>Built into most devices</td></tr>
+                        </table>
+
+                        <h3>Encryption</h3>
+                        <p><strong>Encryption</strong> scrambles data using a key so that if it is intercepted it can't be understood. Only a device with the correct key can decrypt it. Wi-Fi traffic is encrypted (e.g. WPA2/WPA3), so the password is needed to join. HTTPS encrypts web traffic.</p>
+
+                        <h3>IP and MAC addresses</h3>
+                        <table>
+                            <tr><th></th><th>IP address</th><th>MAC address</th></tr>
+                            <tr><td>What it identifies</td><td>A device on a network / the Internet. Used by routers to route packets between networks.</td><td>A device's NIC, uniquely. Used by switches to send data to the right device on a LAN.</td></tr>
+                            <tr><td>Assigned</td><td>By the network when the device connects; can change (dynamic) or be fixed (static)</td><td>At manufacture; doesn't normally change</td></tr>
+                            <tr><td>Format</td><td><strong>IPv4:</strong> 32 bits, written as four denary numbers 0–255, e.g. 192.168.0.12<br><strong>IPv6:</strong> 128 bits, written in hexadecimal, e.g. 2001:0db8:85a3::8a2e:0370:7334</td><td>48 bits, written as 12 hexadecimal digits in pairs, e.g. 3C:5A:B4:01:9F:2E</td></tr>
+                        </table>
+                        <p>IPv6 was introduced because IPv4 only allows about 4.3 billion addresses, which isn't enough for every device in the world.</p>
+
+                        <h3>Standards</h3>
+                        <p><strong>Standards</strong> are agreed rules and specifications for hardware and software (e.g. the size of an Ethernet plug, how Wi-Fi signals work). They allow hardware and software from <strong>different manufacturers to work together</strong>.</p>
+
+                        <dl class="recall">
+                            <dt>Ethernet</dt><dd>A standard for wired network connections.</dd>
+                            <dt>Encryption</dt><dd>Scrambling data using a key so that it can't be understood if intercepted.</dd>
+                            <dt>IP address</dt><dd>An address given to a device on a network, used to route data between networks.</dd>
+                            <dt>MAC address</dt><dd>A unique 48-bit hexadecimal address assigned to a network interface controller when it is made.</dd>
+                            <dt>Standards</dt><dd>Agreed rules for hardware and software so that products from different manufacturers work together.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-3-2b">
+                    <h2>1.3.2 Protocols and layers</h2>
+                    <div class="window-body">
+                        <p>A <strong>protocol</strong> is a set of rules for how devices communicate and how data is transmitted across a network.</p>
+                        <table>
+                            <tr><th>Protocol</th><th>Stands for</th><th>Purpose</th></tr>
+                            <tr><td>TCP/IP</td><td>Transmission Control Protocol / Internet Protocol</td><td>TCP splits data into packets, numbers them, checks they all arrive and reassembles them in order. IP addresses and routes each packet to its destination.</td></tr>
+                            <tr><td>HTTP</td><td>Hypertext Transfer Protocol</td><td>Used by browsers to request and receive web pages from web servers.</td></tr>
+                            <tr><td>HTTPS</td><td>Hypertext Transfer Protocol Secure</td><td>HTTP with encryption, so data such as passwords and card details can't be read if intercepted.</td></tr>
+                            <tr><td>FTP</td><td>File Transfer Protocol</td><td>Transfers files between computers, e.g. uploading a website to a web server.</td></tr>
+                            <tr><td>POP</td><td>Post Office Protocol</td><td>Downloads email from a mail server to one device, then usually deletes it from the server.</td></tr>
+                            <tr><td>IMAP</td><td>Internet Message Access Protocol</td><td>Accesses email that stays on the server, so it is synced across all your devices.</td></tr>
+                            <tr><td>SMTP</td><td>Simple Mail Transfer Protocol</td><td>Sends email from a client to a mail server, and between mail servers.</td></tr>
+                        </table>
+
+                        <h4>Match the protocol</h4>
+                        <div class="sorter" data-options="HTTP|HTTPS|FTP|POP|IMAP|SMTP|TCP/IP">
+                            <p data-a="HTTPS">Entering your bank card details on a shopping website.</p>
+                            <p data-a="SMTP">Pressing Send on an email.</p>
+                            <p data-a="IMAP">Reading the same inbox on your phone and your laptop.</p>
+                            <p data-a="FTP">Uploading the files of your website to a web server.</p>
+                            <p data-a="TCP/IP">Splitting a file into packets and checking they all arrived.</p>
+                            <p data-a="POP">Downloading emails to one computer so they can be read offline.</p>
+                        </div>
+
+                        <h3>Layers</h3>
+                        <p>Networking is split into <strong>layers</strong>. Each layer has a specific job and its own protocols. A layer only uses the layer directly below it and provides a service to the layer directly above it. The TCP/IP model has four layers:</p>
+                        <table>
+                            <tr><th>Layer</th><th>Job</th><th>Protocols</th></tr>
+                            <tr><td>Application</td><td>Provides network services to applications</td><td>HTTP, HTTPS, FTP, SMTP, IMAP, POP</td></tr>
+                            <tr><td>Transport</td><td>Splits data into packets, numbers and reassembles them, checks for errors</td><td>TCP</td></tr>
+                            <tr><td>Internet</td><td>Adds IP addresses and routes packets across networks</td><td>IP</td></tr>
+                            <tr><td>Link</td><td>Sends the data over the physical network hardware</td><td>Ethernet, Wi-Fi</td></tr>
+                        </table>
+                        <p><strong>Benefits of layers:</strong> a big, complex problem is broken into smaller parts (decomposition); each layer can be developed and changed <strong>independently</strong> without affecting the others; different manufacturers can make hardware and software for one layer that works with the rest (standards); it's easier to find and fix problems.</p>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: POP vs IMAP</h4>
+                            <p>A user who reads email on several devices needs <strong>IMAP</strong>, because the email stays on the server and is synchronised. <strong>POP</strong> downloads it to one device. Both <em>receive</em> email; <strong>SMTP</strong> <em>sends</em> it.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Protocol</dt><dd>A set of rules that govern how data is transmitted and how devices communicate on a network.</dd>
+                            <dt>TCP/IP</dt><dd>The protocols that split data into packets, address and route them, and reassemble them in order at the destination.</dd>
+                            <dt>HTTPS</dt><dd>The secure, encrypted version of HTTP, used to transfer web pages.</dd>
+                            <dt>SMTP</dt><dd>The protocol used to send email.</dd>
+                            <dt>IMAP</dt><dd>An email protocol that keeps mail on the server so it can be accessed from several devices.</dd>
+                            <dt>Layer</dt><dd>A division of network functionality with its own job and protocols, which works independently of the other layers.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>LAN vs WAN</h4><ul><li>LAN: small area, own hardware</li><li>WAN: large area, third-party infrastructure</li><li>Internet = biggest WAN</li></ul></div>
+                            <div><h4>PERFORMANCE</h4><ul><li>Bandwidth</li><li>Number of users</li><li>Transmission media</li><li>Interference / errors</li><li>Latency</li></ul></div>
+                            <div><h4>CLIENT-SERVER vs P2P</h4><ul><li>C-S: server provides, clients request; central control; server cost</li><li>P2P: all equal; cheap; hard to back up</li></ul></div>
+                            <div><h4>HARDWARE</h4><ul><li>NIC: connects device; has MAC</li><li>Switch: within a LAN, by MAC</li><li>Router: between networks, by IP</li><li>WAP: wireless to wired</li><li>Media: copper, fibre, radio</li></ul></div>
+                            <div><h4>INTERNET</h4><ul><li>DNS: domain name → IP address</li><li>Web server sends pages to clients</li><li>Hosting: site stored on a server</li><li>Cloud: remote servers via Internet</li></ul></div>
+                            <div><h4>TOPOLOGIES</h4><ul><li>Star: central switch; switch fails = all fail</li><li>Mesh: many routes; reliable; expensive</li></ul></div>
+                            <div><h4>ADDRESSES</h4><ul><li>IPv4: 4 × 0–255; IPv6: 128-bit hex</li><li>MAC: 48-bit, 12 hex digits, set at manufacture</li><li>Encryption: unreadable without key</li></ul></div>
+                            <div><h4>PROTOCOLS</h4><ul><li>TCP/IP: packets, routing</li><li>HTTP/HTTPS: web pages (S = encrypted)</li><li>FTP: files; SMTP: send email</li><li>POP: download email; IMAP: synced</li><li>Layers: independent, standard, easier</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 1.3 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="1.3"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 35 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic1-3">
+                            <div class="q" data-m="2">
+                                <p>Give <strong>two</strong> differences between a LAN and a WAN.</p>
+                                <div class="ms"><ul><li>LAN covers a small geographical area, WAN covers a large area (1).</li><li>LAN hardware is owned by the organisation, WAN uses third-party/leased infrastructure (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>State <strong>three</strong> factors that can affect the performance of a network.</p>
+                                <div class="ms"><ul><li>Any three, 1 each: bandwidth; number of users/devices; transmission media; interference; errors/packet loss; latency; distance; topology.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A small dental practice has four computers. Explain <strong>one</strong> advantage and <strong>one</strong> disadvantage of using a client-server network instead of peer-to-peer.</p>
+                                <div class="ms"><ul><li>Advantage: patient files stored/backed up centrally on the server (1) so they are not lost if one computer fails / easier to manage security (1).</li><li>Disadvantage: a server is expensive to buy/needs a specialist to manage (1) which is a big cost for a small practice / if the server fails no one can access files (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the role of a router.</p>
+                                <div class="ms"><ul><li>Sends/forwards data packets between different networks, e.g. a LAN and the Internet (1).</li><li>Uses IP addresses to decide the route (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe how DNS is used when a user enters a web address into a browser.</p>
+                                <div class="ms"><ul><li>The browser sends the domain name/URL to a DNS server (1).</li><li>The DNS server looks up the domain name in its database (1).</li><li>It returns the matching IP address (or passes the request to another DNS server if not found) (1).</li><li>The browser uses the IP address to contact/request the page from the web server (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A school connects its classrooms in a star topology. Explain <strong>one</strong> advantage and <strong>one</strong> disadvantage of a star topology for the school.</p>
+                                <div class="ms"><ul><li>Advantage: if one cable/computer fails the rest of the network keeps working (1) so other classrooms are not affected (1). Accept: easy to add new computers.</li><li>Disadvantage: if the central switch fails the whole network fails (1) so no classroom can access the network (1). Accept: lots of cable needed, which is expensive.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Compare IP addresses and MAC addresses.</p>
+                                <div class="ms"><ul><li>Any two linked comparisons, 1 each: MAC is assigned at manufacture, IP is assigned by the network; MAC is permanent, IP can change; MAC used within a LAN by switches, IP used to route between networks; MAC is 48-bit hex, IPv4 is 32-bit denary.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A user reads email on a phone and a laptop. State which protocol should be used to receive email, and explain why. Name the protocol used to send email.</p>
+                                <div class="ms"><ul><li>IMAP (1) because emails are kept on the server so the inbox is synchronised on both devices (1).</li><li>SMTP (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why HTTPS should be used on a shopping website.</p>
+                                <div class="ms"><ul><li>HTTPS encrypts the data sent between the browser and the web server (1) so card details/passwords can't be read if intercepted (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Explain <strong>three</strong> benefits of using layers in networking.</p>
+                                <div class="ms"><ul><li>Any three, 1 each: breaks a complex system into manageable parts; each layer can be changed without affecting others; manufacturers can develop for one layer (compatibility/standards); easier to find and fix errors; each layer has its own protocols.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A café offers Wi-Fi to customers. Discuss the advantages and disadvantages of using wireless rather than wired connections for this.</p>
+                                <div class="ms"><ul><li>Advantages: customers can connect their own phones/laptops anywhere in the café (1); no cables to install or trip over (1); easy to add many devices (1).</li><li>Disadvantages: slower/less reliable with many users (1); signals can be intercepted so must be encrypted (1); interference from walls/other devices (1). Max 4.</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Add a <code>time_to_live</code> for each cache entry in the DNS code, so old entries are looked up again.</li>
+                                <li>How many links does a full mesh of 10 devices need? Why does that make full mesh rare for wired networks?</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic1-3" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic1-3" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 1.3 Networks, connections and protocols · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

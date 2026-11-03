@@ -1,13 +1,21 @@
 /* ==========================================================
-   Core Revision Guide: shared script for every page in /revision/
-   It turns plain HTML into revision tools: contents, checklists,
+   Revision guides: shared script for /revision/ and /gcse/
+   Turns plain HTML into revision tools: contents, checklists,
    flashcards, mark schemes, self-marking, a mock timer and notes.
-   Everything you tick, type or score is saved in THIS browser only
-   (localStorage). Nothing is sent anywhere.
+   Everything is saved in this browser only (localStorage).
+
+   The GCSE guide loads gcse/guide.js first to set its own pages,
+   timers etc. Without it, the T Level settings below are used.
    ========================================================== */
 
+const guide = window.guideConfig || {};
+
+// Each guide saves under its own prefix so progress doesn't mix
+const storePrefix = guide.storagePrefix || 'rev:';
+
 // Every page in the guide, in reading order
-const pages = [
+// (tracked: true = show it on the progress dashboard)
+const pages = guide.pages || [
     { id: 'index', file: 'index.html', short: 'Home', title: 'Guide home' },
     { id: 'exams', file: 'exams.html', short: 'Exams', title: 'Part A: Your exams' },
     { id: 'ca1', file: 'ca1.html', short: 'CA1', title: 'Problem Solving' },
@@ -26,8 +34,12 @@ const pages = [
     { id: 'glossary', file: 'glossary.html', short: 'A–Z', title: 'Glossary' }
 ];
 
+function isTracked(page) {
+    return page.tracked !== undefined ? page.tracked : /^(ca|mock)/.test(page.id);
+}
+
 // Exam reminders from the guide, shown one at a time in the sidebar
-const reminders = [
+const reminders = guide.reminders || [
     ['Read the stem twice', 'Underline the command word, the number of marks and any context words before you start writing.'],
     ['Match the marks', "A 4-mark 'explain two' question wants two points, each with a linked reason. Separate them clearly."],
     ['Name the scenario', "In Section B, use the organisation's name and details in every answer. Generic answers are capped."],
@@ -43,14 +55,51 @@ const reminders = [
 ];
 
 // Levels-based mark scheme descriptors (the same for every * question)
-const levelText = [
+const levelText = guide.levelText || [
     'No rewardable material.',
     'Isolated knowledge with limited understanding. Points are generic and not linked to the context. Little or no balance. Any judgement is unsupported.',
     'Accurate knowledge and understanding, mostly applied to the context. Some development of points and some consideration of both sides. Judgement or conclusion partly supported.',
     'Accurate, thorough knowledge applied throughout to the context. Well-developed, linked points that consider different sides. Judgement or conclusion clearly supported by the points made.'
 ];
 
+// Marks for each level, e.g. a 9-marker is 1–3, 4–6, 7–9
+const levelMarks = guide.levelMarks || ((max, level) => {
+    const band = max / 3;
+    return level === 0 ? '0' : `${(level - 1) * band + 1}–${level * band}`;
+});
+
+// Mock timer length and the reminder shown at each point
+// (gcse/guide.js sets a different one for each paper)
+const mockTiming = (guide.mock && (guide.mock[document.body.dataset.page] || (guide.mock.minutes && guide.mock))) || {
+    minutes: 135,
+    phases: [
+        [5, 'First 5 min: read the paper.'],
+        [45, 'Section A (30 marks): about 40 min.'],
+        [125, 'Section B (60 marks): about 80 min.'],
+        [Infinity, 'Last 10 min: check your answers.']
+    ]
+};
+
+const guideName = guide.name || 'Core Revision Guide';
+const backupId = guide.backupId || 'core-revision-guide';
+
+// Link to the Microsoft Form students paste their progress summary into.
+// Leave as '' to hide the button. The GCSE guide's link is in gcse/guide.js.
+const summaryForm = 'summaryForm' in guide ? guide.summaryForm : '';
+
 const currentPage = document.body.dataset.page;
+
+// Anonymous usage counts in GoatCounter (js/analytics.js), e.g.
+// "tlevel/mock1: finished mock". Each is counted once per page visit and
+// nothing about the student is sent.
+const analyticsName = guide.analyticsName || 'tlevel';
+const counted = new Set();
+
+function track(action) {
+    if (counted.has(action) || !window.goatcounter || !window.goatcounter.count) return;
+    counted.add(action);
+    window.goatcounter.count({ path: `${analyticsName}/${currentPage}: ${action}`, title: action, event: true });
+}
 
 /* ----------------------------------------------------------
    Helpers
@@ -59,7 +108,7 @@ const currentPage = document.body.dataset.page;
 // Saving is wrapped in try/catch because private windows can block it
 function load(key, fallback) {
     try {
-        const value = localStorage.getItem('rev:' + key);
+        const value = localStorage.getItem(storePrefix + key);
         return value === null ? fallback : JSON.parse(value);
     } catch (error) {
         return fallback;
@@ -68,7 +117,7 @@ function load(key, fallback) {
 
 function save(key, value) {
     try {
-        localStorage.setItem('rev:' + key, JSON.stringify(value));
+        localStorage.setItem(storePrefix + key, JSON.stringify(value));
     } catch (error) {
         // The page still works, it just won't remember
     }
@@ -79,6 +128,13 @@ function make(tag, className, text) {
     if (className) element.className = className;
     if (text !== undefined) element.textContent = text;
     return element;
+}
+
+// A button with a pixel icon from images/icons/ (see .icon-btn in revision.css)
+function iconButton(icon, text, onClick) {
+    const button = makeButton(text, onClick);
+    button.classList.add('icon-btn', 'icon-' + icon);
+    return button;
 }
 
 function makeButton(text, onClick) {
@@ -254,6 +310,7 @@ function buildSpecChecklists() {
                 input.setAttribute('aria-label', level + ': ' + row.cells[0].textContent);
                 input.addEventListener('change', () => {
                     ratings[index] = level;
+                    track('rated checklist');
                     save(key, ratings);
                     update();
                 });
@@ -389,7 +446,7 @@ function makeFlashcards(holder, cards) {
         rateRow.hidden = !flipped || !order.length;
 
         if (!order.length) {
-            face.textContent = 'All caught up! 🎉';
+            face.textContent = 'All caught up!';
             hint.textContent = 'NOTHING DUE · CHOOSE "ALL CARDS" TO KEEP PRACTISING';
             card.classList.remove('flipped');
             counter.textContent = '0 due';
@@ -425,6 +482,7 @@ function makeFlashcards(holder, cards) {
             state.due = Date.now();
         }
         save('srs:' + term, state);
+        track('flashcards');
 
         order.splice(position, 1);
         if (!gotIt) {
@@ -481,7 +539,7 @@ function makeFlashcards(holder, cards) {
 
     const reset = makeConfirmButton('Reset progress for these cards', () => {
         cards.forEach(([term]) => {
-            try { localStorage.removeItem('rev:srs:' + term); } catch (error) { /* ignore */ }
+            try { localStorage.removeItem(storePrefix + 'srs:' + term); } catch (error) { /* ignore */ }
         });
         buildOrder();
         show();
@@ -524,7 +582,7 @@ function buildOrganisers() {
             });
         });
         const row = make('div', 'button-row');
-        const printLink = make('a', 'button', '🖨 Print every knowledge organiser');
+        const printLink = make('a', 'button icon-btn icon-printer', 'Print every knowledge organiser');
         printLink.href = 'organisers.html';
         row.append(button, printLink);
         organiser.before(row);
@@ -598,10 +656,8 @@ function buildCode() {
 function buildLevels() {
     document.querySelectorAll('.levels').forEach(holder => {
         const max = Number(holder.dataset.max);
-        const band = max / 3;
         const rows = levelText.map((text, level) => {
-            const marks = level === 0 ? '0' : `${(level - 1) * band + 1}–${level * band}`;
-            return `<tr><td>${level}</td><td>${marks}</td><td>${text}</td></tr>`;
+            return `<tr><td>${level}</td><td>${levelMarks(max, level)}</td><td>${text}</td></tr>`;
         }).join('');
         holder.innerHTML = `<table><thead><tr><th>Level</th><th>Marks</th><th>Descriptor</th></tr></thead><tbody>${rows}</tbody></table>`;
     });
@@ -672,11 +728,16 @@ function buildQuestionSets() {
                 save('answer:' + id, answers);
             });
 
+            // Ruled lines to write on, only shown when a mock paper is printed
+            const lines = make('div', 'print-lines');
+            lines.style.setProperty('--lines', Math.min(16, Math.max(2, marks * 2)));
+
             const row = make('div', 'button-row q-tools');
             const toggle = makeButton('Show mark scheme', () => {
                 scheme.hidden = !scheme.hidden;
                 toggle.dataset.open = scheme.hidden ? 'no' : 'yes';
                 toggle.textContent = scheme.hidden ? 'Show mark scheme' : 'Hide mark scheme';
+                if (!scheme.hidden) track('opened mark scheme');
             });
             toggle.classList.add('ms-toggle');
             toggle.hidden = locked;
@@ -690,16 +751,17 @@ function buildQuestionSets() {
                 if (select.value === '') delete scores[n];
                 else scores[n] = Number(select.value);
                 updateScore();
+                track('marked an answer');
             });
             markLabel.append(select, ` / ${marks}`);
 
             row.append(toggle, markLabel);
             if (scheme) {
                 scheme.hidden = true;
-                scheme.before(answer, row);
+                scheme.before(answer, lines, row);
             } else {
                 toggle.remove();
-                q.append(answer, row);
+                q.append(answer, lines, row);
             }
         });
 
@@ -708,14 +770,14 @@ function buildQuestionSets() {
 }
 
 /* ----------------------------------------------------------
-   Mock papers: 2 h 15 min timer and locked mark schemes
+   Mock papers: timer and locked mark schemes
    ---------------------------------------------------------- */
 function buildMockBar() {
     const bar = document.getElementById('mock-bar');
     if (!bar) return;
 
     const id = currentPage;
-    const limit = 135 * 60;
+    const limit = mockTiming.minutes * 60;
     let remaining = load('timer:' + id, null);
     if (remaining === null) remaining = limit;
     let timer = null;
@@ -731,10 +793,7 @@ function buildMockBar() {
 
         const used = (limit - remaining) / 60;
         if (remaining === 0) status.textContent = "Time's up! Pens down.";
-        else if (used < 5) status.textContent = 'First 5 min: read the paper.';
-        else if (used < 45) status.textContent = 'Section A (30 marks): about 40 min.';
-        else if (used < 125) status.textContent = 'Section B (60 marks): about 80 min.';
-        else status.textContent = 'Last 10 min: check your answers.';
+        else status.textContent = mockTiming.phases.find(([until]) => used < until)[1];
     }
 
     function stop() {
@@ -748,6 +807,7 @@ function buildMockBar() {
             stop();
             return;
         }
+        track('started mock');
         timer = setInterval(() => {
             remaining = Math.max(0, remaining - 1);
             save('timer:' + id, remaining);
@@ -770,13 +830,40 @@ function buildMockBar() {
         save('finished:' + id, true);
         document.querySelectorAll('.ms-toggle, .ms-all').forEach(button => { button.hidden = false; });
         finishButton.hidden = true;
+        printMarkScheme.hidden = false;
         status.textContent = 'Mark schemes unlocked. Mark each answer with the drop-down.';
+        track('finished mock');
     });
     finishButton.hidden = load('finished:' + id, false);
 
+    // Print the paper on its own (with answer lines), or just the mark scheme.
+    // The mark scheme button only appears once the paper is finished.
+    const printPaper = iconButton('printer', 'Print paper', () => {
+        document.body.classList.remove('print-ms');
+        track('printed paper');
+        window.print();
+    });
+    const printMarkScheme = iconButton('printer', 'Print mark scheme', () => {
+        document.body.classList.add('print-ms');
+        window.print();
+    });
+    printMarkScheme.hidden = !load('finished:' + id, false);
+    window.addEventListener('afterprint', () => document.body.classList.remove('print-ms'));
+
     if (remaining !== limit) startButton.textContent = 'Resume';
-    bar.append(display, startButton, resetButton, finishButton, status);
+    bar.append(display, startButton, resetButton, finishButton, printPaper, printMarkScheme, status);
     render();
+
+    // Opened from the Print page (organisers.html) as mock1.html#print-paper or #print-ms
+    const printRequest = location.hash;
+    if (printRequest === '#print-ms' && printMarkScheme.hidden) {
+        status.textContent = "To print the mark scheme, finish the paper first: press I've finished.";
+    } else if (printRequest === '#print-paper' || printRequest === '#print-ms') {
+        const button = printRequest === '#print-ms' ? printMarkScheme : printPaper;
+        // Wait for fonts and images so the printout looks right
+        if (document.readyState === 'complete') setTimeout(() => button.click(), 200);
+        else window.addEventListener('load', () => setTimeout(() => button.click(), 200));
+    }
 }
 
 /* ----------------------------------------------------------
@@ -857,7 +944,7 @@ function buildDashboard() {
     const body = table.createTBody();
     const reviseList = make('ul', 'revise-list');
 
-    pages.filter(page => page.id.startsWith('ca') || page.id.startsWith('mock')).forEach(page => {
+    pages.filter(isTracked).forEach(page => {
         const row = body.insertRow();
         const nameCell = row.insertCell();
         const link = make('a', null, page.short + ': ' + page.title);
@@ -913,7 +1000,7 @@ function buildDashboard() {
     const listHolder = document.getElementById('revise-list');
     if (listHolder) {
         if (reviseList.children.length) listHolder.replaceChildren(reviseList);
-        else listHolder.textContent = "Nothing on your 'Revise' list yet. Rate yourself on each content area's spec checklist and your 'Revise' points will appear here.";
+        else listHolder.textContent = "Nothing on your 'Revise' list yet. Rate yourself on each topic's spec checklist and your 'Revise' points will appear here.";
     }
 }
 
@@ -950,6 +1037,7 @@ function buildSearch() {
     form.addEventListener('submit', async event => {
         event.preventDefault();
         const query = input.value.trim().toLowerCase();
+        track('searched');
         if (query.length < 2) {
             results.textContent = 'Type at least two letters.';
             return;
@@ -987,9 +1075,9 @@ function buildSearch() {
 }
 
 /* ----------------------------------------------------------
-   Quiz me: random questions from the site's question bank
-   (js/questions.js + js/question-bank.js) for one content area.
-   <div class="quiz-me" data-area="1"></div>
+   Quiz me: random questions from the question bank
+   <div class="quiz-me" data-area="1"></div>     T Level CA1
+   <div class="quiz-me" data-topic="1.2"></div>  GCSE topic 1.2
    ---------------------------------------------------------- */
 function buildQuiz() {
     document.querySelectorAll('.quiz-me').forEach(holder => {
@@ -998,10 +1086,14 @@ function buildQuiz() {
             return;
         }
 
+        const topicPrefix = holder.dataset.topic;
         const area = Number(holder.dataset.area);
-        const key = 'quiz:ca' + area;
+        const key = topicPrefix ? 'quiz:' + currentPage : 'quiz:ca' + area;
+        const label = holder.dataset.label || (topicPrefix ? topicPrefix : 'CA' + area);
         const tally = load(key, { right: 0, asked: 0 });
-        const pool = questionBank.filter(q => q.area === area);
+        const pool = topicPrefix
+            ? questionBank.filter(q => q.mainTopic.split(' ')[0] === topicPrefix)
+            : questionBank.filter(q => q.area === area);
         const topics = [...new Set(pool.map(q => q.mainTopic))].sort(compareTopics);
 
         const topicSelect = make('select', 'quiz-select');
@@ -1044,8 +1136,8 @@ function buildQuiz() {
 
         function updateTally() {
             tallyText.textContent = tally.asked
-                ? `Your score for CA${area}: ${tally.right} / ${tally.asked} (${Math.round(tally.right / tally.asked * 100)}%)`
-                : `Your score for CA${area} will show here.`;
+                ? `Your score for ${label}: ${tally.right} / ${tally.asked} (${Math.round(tally.right / tally.asked * 100)}%)`
+                : `Your score for ${label} will show here.`;
         }
 
         function record(right) {
@@ -1056,6 +1148,7 @@ function buildQuiz() {
             save(key, tally);
             selfRow.hidden = true;
             updateTally();
+            track('quiz me');
         }
 
         function next() {
@@ -1132,10 +1225,10 @@ function buildQuiz() {
    computer, and copy a short summary to send to your teacher
    ---------------------------------------------------------- */
 function progressSummary(name) {
-    const lines = [`Core Revision Guide progress${name ? ' for ' + name : ''} (${new Date().toLocaleDateString('en-GB')})`, ''];
+    const lines = [`${guideName} progress${name ? ' for ' + name : ''} (${new Date().toLocaleDateString('en-GB')})`, ''];
     const revise = [];
 
-    pages.filter(page => page.id.startsWith('ca') || page.id.startsWith('mock')).forEach(page => {
+    pages.filter(isTracked).forEach(page => {
         const parts = [];
         const specText = load('specText:' + page.id, null);
         if (specText) {
@@ -1170,25 +1263,26 @@ function buildBackup() {
     status.setAttribute('aria-live', 'polite');
 
     // Export: every saved value from the guide, plus display settings
-    const exportButton = makeButton('💾 Download my progress file', () => {
+    const exportButton = iconButton('floppy', 'Download my progress file', () => {
         const data = {};
         try {
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
-                if (key.startsWith('rev:')) data[key] = localStorage.getItem(key);
+                if (key.startsWith(storePrefix)) data[key] = localStorage.getItem(key);
             }
         } catch (error) {
             status.textContent = 'Your browser is blocking saved data, so there is nothing to download.';
             return;
         }
-        const file = JSON.stringify({ app: 'core-revision-guide', version: 1, exported: new Date().toISOString(), data });
+        const file = JSON.stringify({ app: backupId, version: 1, exported: new Date().toISOString(), data });
         const link = make('a');
         link.href = URL.createObjectURL(new Blob([file], { type: 'application/json' }));
-        link.download = `revision-progress-${new Date().toISOString().slice(0, 10)}.json`;
+        link.download = `${backupId}-progress-${new Date().toISOString().slice(0, 10)}.json`;
         document.body.appendChild(link);
         link.click();
         link.remove();
         status.textContent = `Downloaded ${Object.keys(data).length} saved items. Keep the file somewhere safe, e.g. your OneDrive.`;
+        track('downloaded progress');
     });
 
     // Import: read the file, check it, then replace what's saved here
@@ -1200,9 +1294,9 @@ function buildBackup() {
 
     const applyButton = makeConfirmButton('Replace my progress with this file', () => {
         try {
-            Object.keys(localStorage).filter(key => key.startsWith('rev:')).forEach(key => localStorage.removeItem(key));
+            Object.keys(localStorage).filter(key => key.startsWith(storePrefix)).forEach(key => localStorage.removeItem(key));
             Object.entries(pending.data).forEach(([key, value]) => {
-                if (key.startsWith('rev:')) localStorage.setItem(key, value);
+                if (key.startsWith(storePrefix)) localStorage.setItem(key, value);
             });
             status.textContent = 'Progress loaded. Reloading...';
             setTimeout(() => location.reload(), 600);
@@ -1217,21 +1311,21 @@ function buildBackup() {
         if (!file) return;
         file.text().then(text => {
             const parsed = JSON.parse(text);
-            if (parsed.app !== 'core-revision-guide' || typeof parsed.data !== 'object') throw new Error('wrong file');
+            if (parsed.app !== backupId || typeof parsed.data !== 'object') throw new Error('wrong file');
             pending = parsed;
             applyButton.hidden = false;
             status.textContent = `This file was saved on ${new Date(parsed.exported).toLocaleString('en-GB')} with ${Object.keys(parsed.data).length} items. Loading it replaces the progress saved in this browser.`;
         }).catch(() => {
             pending = null;
             applyButton.hidden = true;
-            status.textContent = "That isn't a Core Revision Guide progress file.";
+            status.textContent = `That isn't a ${guideName} progress file.`;
         });
         fileInput.value = '';
     });
 
-    const importButton = makeButton('📂 Load a progress file', () => fileInput.click());
+    const importButton = iconButton('folder', 'Load a progress file', () => fileInput.click());
 
-    // Summary to paste into Teams, Forms or an email
+    // Summary to paste into the teacher's form, Teams or an email
     const nameLabel = make('label', 'sub-label', 'Your name: ');
     const nameInput = make('input', 'quiz-select');
     nameInput.dataset.save = 'summary-name';
@@ -1241,22 +1335,33 @@ function buildBackup() {
     summaryBox.readOnly = true;
     summaryBox.setAttribute('aria-label', 'Progress summary');
     summaryBox.hidden = true;
-    const summaryButton = makeButton('📋 Make my progress summary', () => {
+    // Appears once the summary is made, so it's already copied when the form opens
+    const formLink = make('a', 'button icon-btn icon-shortcut', 'Open the form and paste it in');
+    formLink.href = summaryForm;
+    formLink.target = '_blank';
+    formLink.rel = 'noopener';
+    formLink.hidden = true;
+    formLink.addEventListener('click', () => track('opened summary form'));
+
+    const summaryButton = iconButton('clipboard', 'Make my progress summary', () => {
         summaryBox.value = progressSummary(nameInput.value.trim());
         summaryBox.hidden = false;
+        formLink.hidden = !summaryForm;
+        track('made summary');
+        const where = summaryForm ? 'Now open the form and paste it in.' : 'Paste it wherever your teacher asked.';
         if (navigator.clipboard) {
             navigator.clipboard.writeText(summaryBox.value)
-                .then(() => { status.textContent = 'Summary copied. Paste it wherever your teacher asked.'; })
-                .catch(() => { status.textContent = 'Select the summary below and copy it.'; });
+                .then(() => { status.textContent = 'Summary copied. ' + where; })
+                .catch(() => { status.textContent = 'Select the summary below and copy it. ' + where; });
         } else {
-            status.textContent = 'Select the summary below and copy it.';
+            status.textContent = 'Select the summary below and copy it. ' + where;
         }
     });
 
     const backupRow = make('div', 'button-row');
     backupRow.append(exportButton, importButton, applyButton, fileInput);
     const summaryRow = make('div', 'button-row');
-    summaryRow.append(nameLabel, summaryButton);
+    summaryRow.append(nameLabel, summaryButton, formLink);
 
     holder.append(make('h3', null, 'Move your progress to another computer'), backupRow,
         make('h3', null, 'Send your progress to your teacher'), summaryRow, summaryBox, status);
@@ -1431,6 +1536,7 @@ function buildRunners() {
                     return;
                 }
                 pyBusy = true;
+                track('ran code');
                 output.textContent = '';
                 output.hidden = false;
                 images.replaceChildren();

@@ -1,0 +1,86 @@
+/* GCSE guide colours. Everything else comes from ../revision/revision.css.
+   Each page picks its colour with the class on <body>, e.g. "rev topic1-1". */
+
+.rev.gcse          { --ca: #3b1f5e; --ca-2: #6a4a94; --ca-light: #ebe4f4; }
+.rev.topic1-1      { --ca: #1f4e79; --ca-2: #4a7fb0; --ca-light: #dfeaf5; }
+.rev.topic1-2      { --ca: #005f73; --ca-2: #2f8ea3; --ca-light: #d8edf2; }
+.rev.topic1-3      { --ca: #00664f; --ca-2: #2f9a7f; --ca-light: #daf0e9; }
+.rev.topic1-4      { --ca: #333333; --ca-2: #666666; --ca-light: #e8e8e8; }
+.rev.topic1-5      { --ca: #5b2a86; --ca-2: #8a5bb5; --ca-light: #ece2f5; }
+.rev.topic1-6      { --ca: #7a5c00; --ca-2: #a8862a; --ca-light: #f6eed5; }
+.rev.topic2-1      { --ca: #8b3a00; --ca-2: #c0632a; --ca-light: #fbe6d9; }
+.rev.topic2-2      { --ca: #8b1e3f; --ca-2: #b8506f; --ca-light: #f7dfe6; }
+.rev.topic2-3      { --ca: #3d5a00; --ca-2: #6b8a2a; --ca-light: #e8f0d6; }
+.rev.topic2-4      { --ca: #6b2d5c; --ca-2: #9a5a8a; --ca-light: #f3e1ee; }
+.rev.topic2-5      { --ca: #2a4d69; --ca-2: #557a99; --ca-light: #e0e9f1; }
+.rev.programming   { --ca: #14213d; --ca-2: #3e5585; --ca-light: #e6eaf3; }
+
+/* Coloured tabs under the nav buttons */
+.rev-nav .tab-index, .rev-nav .tab-exams, .rev-nav .tab-mock1, .rev-nav .tab-mock2,
+.rev-nav .tab-glossary, .rev-nav .tab-organisers { border-bottom-color: #3b1f5e; }
+.rev-nav .tab-topic1-1 { border-bottom-color: #1f4e79; }
+.rev-nav .tab-topic1-2 { border-bottom-color: #005f73; }
+.rev-nav .tab-topic1-3 { border-bottom-color: #00664f; }
+.rev-nav .tab-topic1-4 { border-bottom-color: #333333; }
+.rev-nav .tab-topic1-5 { border-bottom-color: #5b2a86; }
+.rev-nav .tab-topic1-6 { border-bottom-color: #7a5c00; }
+.rev-nav .tab-topic2-1 { border-bottom-color: #8b3a00; }
+.rev-nav .tab-topic2-2 { border-bottom-color: #8b1e3f; }
+.rev-nav .tab-topic2-3 { border-bottom-color: #3d5a00; }
+.rev-nav .tab-topic2-4 { border-bottom-color: #6b2d5c; }
+.rev-nav .tab-topic2-5 { border-bottom-color: #2a4d69; }
+.rev-nav .tab-programming { border-bottom-color: #14213d; }
+
+/* Glossary tags */
+.tag-topic1-1 { background: #1f4e79; }
+.tag-topic1-2 { background: #005f73; }
+.tag-topic1-3 { background: #00664f; }
+.tag-topic1-4 { background: #333333; }
+.tag-topic1-5 { background: #5b2a86; }
+.tag-topic1-6 { background: #7a5c00; }
+.tag-topic2-1 { background: #8b3a00; }
+.tag-topic2-2 { background: #8b1e3f; }
+.tag-topic2-3 { background: #3d5a00; }
+.tag-topic2-4 { background: #6b2d5c; }
+.tag-topic2-5 { background: #2a4d69; }
+
+/* ERL and Python side by side */
+.code-pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0 14px;
+}
+
+.code-pair > div > h4:first-child {
+    margin-top: 0.4rem;
+}
+
+.lang-tag {
+    display: inline-block;
+    padding: 0 6px;
+    font-family: "Press Start 2P", monospace;
+    font-size: 0.5rem;
+    line-height: 1.8;
+    color: var(--white);
+    background: var(--ca);
+    vertical-align: middle;
+}
+
+/* Logic gate diagrams */
+.gate-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.gate-row figure {
+    margin: 0;
+    text-align: center;
+}
+
+/* Binary place-value tables */
+.place-values td,
+.place-values th {
+    text-align: center;
+    min-width: 2.4em;
+}

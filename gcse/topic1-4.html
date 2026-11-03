@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1.4 Network Security | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="The ways networks are attacked (malware, social engineering, brute force, denial of service, interception and SQL injection) and the ways to find and prevent vulnerabilities.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="1.4 Network Security | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="The ways networks are attacked (malware, social engineering, brute force, denial of service, interception and SQL injection) and the ways to find and prevent vulnerabilities.">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic1-4.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic1-4" data-page="topic1-4">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 1.4 · PAPER 1: COMPUTER SYSTEMS</p>
+            <h1>1.4 Network security</h1>
+            <p>The ways networks are attacked (malware, social engineering, brute force, denial of service, interception and SQL injection) and the ways to find and prevent vulnerabilities.</p>
+            <p class="links"><strong>Links to other topics:</strong> encryption also appears in <a href="topic1-3.html#s1-3-2">1.3.2</a> and as a utility in <a href="topic1-5.html#s1-5-2">1.5.2</a>. The Computer Misuse Act is in <a href="topic1-6.html#s1-6-1b">1.6.1</a>. Input validation and authentication: <a href="topic2-3.html#s2-3-1">2.3.1</a>. SQL itself: <a href="topic2-2.html#s2-2-3b">2.2.3</a>.</p>
+            <span class="big-num" aria-hidden="true">1.4</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>1.4.1</td><td>Describe malware and its forms (virus, worm, trojan, ransomware, spyware)</td></tr>
+                            <tr><td>1.4.1</td><td>Describe social engineering, including phishing, and why people are the 'weak point' in secure systems</td></tr>
+                            <tr><td>1.4.1</td><td>Describe brute-force attacks and denial of service attacks</td></tr>
+                            <tr><td>1.4.1</td><td>Describe data interception and theft, and SQL injection</td></tr>
+                            <tr><td>1.4.2</td><td>Explain how penetration testing, anti-malware and firewalls prevent attacks</td></tr>
+                            <tr><td>1.4.2</td><td>Explain how user access levels, passwords, encryption and physical security prevent attacks</td></tr>
+                            <tr><td>1.4.2</td><td>Choose suitable methods to protect against a given threat</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-4-1">
+                    <h2>1.4.1 Threats to computer systems and networks</h2>
+                    <div class="window-body">
+                        <h3>Malware</h3>
+                        <p><strong>Malware</strong> (malicious software) is any software written to harm a computer system, steal data or gain unauthorised access.</p>
+                        <table>
+                            <tr><th>Type</th><th>How it works</th></tr>
+                            <tr><td>Virus</td><td>Attaches itself to a file or program. Spreads when the infected file is run or copied. Deletes or corrupts files.</td></tr>
+                            <tr><td>Worm</td><td>Replicates itself and spreads across a network on its own, without the user doing anything. Uses up bandwidth and resources.</td></tr>
+                            <tr><td>Trojan</td><td>Disguised as legitimate, useful software. Once installed, it opens a 'back door' or does damage.</td></tr>
+                            <tr><td>Ransomware</td><td>Encrypts the victim's files and demands payment for the key.</td></tr>
+                            <tr><td>Spyware</td><td>Secretly records what the user does, e.g. keystrokes (a keylogger), and sends it to the attacker to steal passwords.</td></tr>
+                        </table>
+
+                        <h3>Social engineering</h3>
+                        <p><strong>Social engineering</strong> means tricking <strong>people</strong> into giving away information or access. People are the <strong>weak point</strong> in a secure system: strong technical protection is useless if a user tells an attacker their password, clicks a malicious link or holds the door open.</p>
+                        <table>
+                            <tr><th>Method</th><th>What happens</th></tr>
+                            <tr><td>Phishing</td><td>Fake emails or messages that look like they're from a trusted organisation, e.g. a bank, asking the user to click a link and enter personal details on a fake website.</td></tr>
+                            <tr><td>Blagging (pretexting)</td><td>Inventing a believable scenario to persuade someone to give out information, e.g. phoning a help desk pretending to be a manager who has forgotten their password.</td></tr>
+                            <tr><td>Shouldering</td><td>Watching someone enter a PIN or password over their shoulder.</td></tr>
+                        </table>
+                        <p><strong>Signs of phishing:</strong> generic greeting ("Dear customer"), urgency ("Your account will close in 24 hours"), spelling mistakes, a sender address or link that doesn't match the real organisation, a request for personal details.</p>
+
+                        <h3>Other attacks</h3>
+                        <table>
+                            <tr><th>Attack</th><th>How it works</th><th>Effect</th></tr>
+                            <tr><td>Brute-force attack</td><td>Software tries every possible password combination (or a list of common passwords) until one works.</td><td>Unauthorised access to accounts.</td></tr>
+                            <tr><td>Denial of service (DoS)</td><td>Floods a server with so many requests that it can't respond to genuine users. A <strong>distributed</strong> DoS (DDoS) uses thousands of infected computers (a botnet) at once.</td><td>Website or service goes offline; lost sales and reputation.</td></tr>
+                            <tr><td>Data interception and theft</td><td>Data packets travelling over a network are captured (e.g. with packet-sniffing software on public Wi-Fi) and read.</td><td>Passwords, personal and financial data stolen.</td></tr>
+                            <tr><td>SQL injection</td><td>The attacker types SQL code into an input box on a website. If the input isn't checked, the code becomes part of the database query and runs.</td><td>The attacker can view, change or delete data in the database.</td></tr>
+                        </table>
+
+                        <h4>How SQL injection works</h4>
+                        <p>The website builds a query by joining the user's input onto some SQL. Look at what happens when the "username" contains SQL:</p>
+<pre class="code">
+def build_query(username):
+    return "SELECT * FROM users WHERE username = '" + username + "'"
+
+print(build_query("amira"))
+print(build_query("' OR '1'='1"))
+</pre>
+<pre class="out">
+SELECT * FROM users WHERE username = 'amira'
+SELECT * FROM users WHERE username = '' OR '1'='1'
+</pre>
+                        <p>In the second query, <code>'1'='1'</code> is always true, so the database returns <strong>every</strong> user. Prevention: validate inputs (e.g. reject quote marks), and use <strong>parameterised queries</strong> so input is always treated as data, never as code.</p>
+
+                        <h4>How long does brute force take?</h4>
+                        <p>Each extra character, and each extra type of character, multiplies the number of passwords an attacker must try. This assumes a billion guesses per second.</p>
+<pre class="code">
+guesses_per_second = 1_000_000_000
+for name, size in [("digits only", 10), ("lowercase letters", 26),
+                   ("upper, lower and digits", 62), ("any keyboard character", 94)]:
+    total = size ** 8
+    seconds = total / guesses_per_second
+    print(f"8 characters, {name}: {total:,} options, {seconds:,.0f} seconds")
+</pre>
+<pre class="out">
+8 characters, digits only: 100,000,000 options, 0 seconds
+8 characters, lowercase letters: 208,827,064,576 options, 209 seconds
+8 characters, upper, lower and digits: 218,340,105,584,896 options, 218,340 seconds
+8 characters, any keyboard character: 6,095,689,385,410,816 options, 6,095,689 seconds
+</pre>
+
+                        <dl class="recall">
+                            <dt>Malware</dt><dd>Malicious software designed to damage a system, steal data or gain unauthorised access.</dd>
+                            <dt>Virus</dt><dd>Malware that attaches to a file or program and spreads when the infected file is run or copied.</dd>
+                            <dt>Worm</dt><dd>Malware that replicates itself and spreads across a network without user action.</dd>
+                            <dt>Trojan</dt><dd>Malware disguised as legitimate software.</dd>
+                            <dt>Ransomware</dt><dd>Malware that encrypts a victim's files and demands payment for the decryption key.</dd>
+                            <dt>Spyware</dt><dd>Malware that secretly monitors a user's activity, e.g. recording keystrokes, and sends it to the attacker.</dd>
+                            <dt>Social engineering</dt><dd>Manipulating people into revealing confidential information or giving access.</dd>
+                            <dt>Phishing</dt><dd>Fake emails or messages pretending to be from a trusted organisation to trick people into giving personal details.</dd>
+                            <dt>Brute-force attack</dt><dd>Trying every possible combination of characters until the correct password is found.</dd>
+                            <dt>Denial of service attack</dt><dd>Flooding a server with requests so it can't respond to genuine users.</dd>
+                            <dt>Data interception</dt><dd>Capturing data packets as they travel across a network so they can be read.</dd>
+                            <dt>SQL injection</dt><dd>Entering SQL code into an input box so it runs as part of a database query, giving access to the data.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-4-2">
+                    <h2>1.4.2 Identifying and preventing vulnerabilities</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Method</th><th>How it works</th><th>Protects against</th></tr>
+                            <tr><td>Penetration testing</td><td>The organisation pays (authorised) experts to attack its own system, the way a real hacker would, to find weaknesses so they can be fixed before they are exploited.</td><td>Finding any vulnerability, e.g. SQL injection, weak passwords</td></tr>
+                            <tr><td>Anti-malware software</td><td>Scans files and compares them with a database of known malware signatures; quarantines or deletes threats; monitors for suspicious behaviour. Must be updated regularly.</td><td>Viruses, worms, trojans, spyware, ransomware</td></tr>
+                            <tr><td>Firewall</td><td>Hardware or software that monitors incoming and outgoing network traffic and blocks anything that doesn't meet a set of rules, e.g. blocked ports or addresses.</td><td>Unauthorised access, hacking, some DoS and malware</td></tr>
+                            <tr><td>User access levels</td><td>Each user is given access only to the files and functions they need for their job. Admins can install software; most users can't.</td><td>Insiders accessing or deleting data they shouldn't; limits damage if an account is compromised</td></tr>
+                            <tr><td>Passwords</td><td>Authenticate users. Strong passwords are long, mix character types, aren't words; changed if compromised; locked out after several failed tries; use two-factor authentication.</td><td>Brute-force attacks, unauthorised access</td></tr>
+                            <tr><td>Encryption</td><td>Scrambles data using a key so it can't be understood without the key.</td><td>Data interception and theft (data is useless if stolen)</td></tr>
+                            <tr><td>Physical security</td><td>Locks, keycards, CCTV, security guards, biometric entry to server rooms.</td><td>Theft of hardware, unauthorised physical access</td></tr>
+                        </table>
+
+                        <h4>Match the threat to the best protection</h4>
+                        <div class="sorter" data-options="Penetration testing|Anti-malware|Firewall|User access levels|Strong passwords and lockout|Encryption|Physical security|Staff training">
+                            <p data-a="Encryption">Customers connect to a hotel's public Wi-Fi to check their bank accounts.</p>
+                            <p data-a="Strong passwords and lockout">An attacker's program tries thousands of passwords a second on the school login page.</p>
+                            <p data-a="Staff training">Staff keep clicking links in emails pretending to be from IT support.</p>
+                            <p data-a="User access levels">A receptionist can open and change every patient's medical records.</p>
+                            <p data-a="Physical security">Laptops keep disappearing from an office after hours.</p>
+                            <p data-a="Penetration testing">A bank wants to find weaknesses in its new app before criminals do.</p>
+                            <p data-a="Anti-malware">An employee downloads a "free game" that turns out to be a trojan.</p>
+                        </div>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: BE SPECIFIC</h4>
+                            <ul>
+                                <li>"Use a firewall" scores less than "a firewall checks incoming traffic against rules and blocks unauthorised access to the network".</li>
+                                <li>Match the protection to the threat in the question. Encryption doesn't stop malware; anti-malware doesn't stop phishing calls.</li>
+                                <li>For social engineering the best answer is usually <strong>training staff</strong> to spot it, plus a policy (e.g. IT never asks for your password).</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Penetration testing</dt><dd>Authorised simulated attacks on a system to find vulnerabilities so they can be fixed.</dd>
+                            <dt>Anti-malware</dt><dd>Software that scans for, detects and removes or quarantines malware.</dd>
+                            <dt>Firewall</dt><dd>Hardware or software that monitors network traffic and blocks traffic that doesn't meet set rules.</dd>
+                            <dt>User access levels</dt><dd>Controls on which files and functions each user can access, based on what they need.</dd>
+                            <dt>Physical security</dt><dd>Measures such as locks, keycards and CCTV that stop unauthorised people reaching hardware.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>MALWARE</h4><ul><li>Virus: attaches to files</li><li>Worm: self-replicates over network</li><li>Trojan: disguised as useful</li><li>Ransomware: encrypts, demands payment</li><li>Spyware: records activity</li></ul></div>
+                            <div><h4>SOCIAL ENGINEERING</h4><ul><li>People are the weak point</li><li>Phishing: fake emails/sites</li><li>Blagging: invented scenario</li><li>Shouldering: watching you type</li></ul></div>
+                            <div><h4>OTHER ATTACKS</h4><ul><li>Brute force: try every password</li><li>DoS/DDoS: flood a server</li><li>Interception: capture packets</li><li>SQL injection: code in input boxes</li></ul></div>
+                            <div><h4>PREVENTION 1</h4><ul><li>Penetration testing: find weaknesses first</li><li>Anti-malware: scan, quarantine, update</li><li>Firewall: block traffic by rules</li></ul></div>
+                            <div><h4>PREVENTION 2</h4><ul><li>Access levels: only what you need</li><li>Passwords: long, complex, lockout, 2FA</li><li>Encryption: stolen data unreadable</li><li>Physical: locks, CCTV, keycards</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 1.4 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="1.4"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 30 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic1-4">
+                            <div class="q" data-m="2">
+                                <p>Describe what is meant by a brute-force attack.</p>
+                                <div class="ms"><ul><li>Repeatedly trying different passwords/combinations (1) until the correct one is found, often using automated software (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why people are often described as the weak point in a secure system.</p>
+                                <div class="ms"><ul><li>People can be tricked/manipulated, e.g. by phishing or blagging (1) into giving away passwords or access, which gets round technical security (1). Accept: careless behaviour, e.g. weak passwords, leaving computers logged in.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe <strong>two</strong> features of an email that might show it is a phishing email.</p>
+                                <div class="ms"><ul><li>Any two features, each with a description, 2 marks each: generic greeting, e.g. "Dear customer", because the sender doesn't know your name; urgent/threatening tone to rush you; spelling/grammar mistakes; sender address doesn't match the organisation; link to a fake website; asks for personal details/passwords.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe what a denial of service attack is.</p>
+                                <div class="ms"><ul><li>A server/website is flooded with requests/traffic (1) so it can't respond to genuine users / goes offline (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>An online shop has a search box. Explain how an SQL injection attack could be carried out, and one way to prevent it.</p>
+                                <div class="ms"><ul><li>The attacker types SQL code into the search box (1).</li><li>If the input isn't validated, the code is run as part of the database query, letting them view/change/delete data (1).</li><li>Prevention: validate/sanitise input / use parameterised queries / restrict database access levels (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain the difference between a virus and a worm.</p>
+                                <div class="ms"><ul><li>A virus attaches to a file and needs a user to run/copy the file to spread (1).</li><li>A worm replicates and spreads across a network by itself (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Describe the purpose of penetration testing.</p>
+                                <div class="ms"><ul><li>Authorised people attempt to attack/hack the system (1) to find vulnerabilities so they can be fixed before they are exploited (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain how a firewall helps to protect a network.</p>
+                                <div class="ms"><ul><li>It monitors incoming and outgoing traffic (1) and blocks traffic that doesn't meet its rules / unauthorised access (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="6">
+                                <p>A doctors' surgery stores patient records on its network. Staff use computers in consulting rooms and at reception. Explain <strong>three</strong> methods the surgery could use to keep the patient records secure.</p>
+                                <div class="ms"><ul><li>Any three methods, each explained in the context, 2 marks each, e.g.: user access levels (1) so receptionists can see appointments but not medical notes (1); strong passwords with lockout (1) so a stolen login or brute force can't be used to view records (1); encryption (1) so records are unreadable if intercepted or a laptop is stolen (1); firewall (1) to block hackers from the Internet (1); anti-malware (1) to stop ransomware encrypting records (1); physical security, e.g. locked server room (1) so equipment can't be stolen (1); staff training (1) so staff don't fall for phishing (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Change the brute-force code to show 12-character passwords. Convert the seconds to years.</li>
+                                <li>Rewrite <code>build_query</code> so it rejects any username containing a quote mark or a space. Is that enough on its own? Why are parameterised queries better?</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic1-4" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic1-4" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 1.4 Network security · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

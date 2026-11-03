@@ -4,8 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>All Knowledge Organisers | Core Revision Guide</title>
-    <link rel="stylesheet" href="../css/style.css?v=2026-10-29">
-    <link rel="stylesheet" href="revision.css?v=2026-10-29">
+    <meta name="description" content="The knowledge organiser from every content area, ready to print: one content area per page. Stick them on your wall, or cover the facts and test yourself.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="All Knowledge Organisers | Core Revision Guide">
+    <meta property="og:description" content="The knowledge organiser from every content area, ready to print: one content area per page. Stick them on your wall, or cover the facts and test yourself.">
+    <meta property="og:url" content="https://ainsbury.art/revision/organisers.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/tlevel.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="revision.css?v=2026-11-04">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
 </head>
 <body class="rev" data-page="organisers">
 
@@ -19,7 +33,7 @@
             <p class="kicker">PRINT</p>
             <h1>All Knowledge Organisers</h1>
             <p>The knowledge organiser from every content area, ready to print: one content area per page. Stick them on your wall, or cover the facts and test yourself.</p>
-            <span class="big-num" aria-hidden="true">🖨</span>
+            <span class="big-num" aria-hidden="true">KO</span>
         </header>
 
         <div class="rev-layout">
@@ -33,9 +47,28 @@
                     <div class="window-body">
                         <p>Press the button, or use your browser's print option (Ctrl + P). For the best results, turn on <strong>Background graphics</strong> in the print settings so the colours print.</p>
                         <div class="button-row">
-                            <button type="button" class="button" id="print-button">🖨 Print all organisers</button>
+                            <button type="button" class="button icon-btn icon-printer" id="print-button">Print all organisers</button>
                         </div>
                         <p id="ko-status" role="status">Loading the organisers...</p>
+                    </div>
+                </section>
+
+                <!-- Each button opens the mock and prints it from there (see buildMockBar in revision.js) -->
+                <section class="window ko-print-intro" id="mocks">
+                    <h2>Mock papers</h2>
+                    <div class="window-body">
+                        <p>Print a mock to sit it on paper: just the questions, with lined space for answers and no mark schemes. You can print the mark scheme once the paper has been finished on this computer: open the mock and press <strong>I've finished: show mark schemes</strong>.</p>
+                        <table>
+                            <tr><th>Paper</th><th>Print</th></tr>
+                            <tr>
+                                <td><a href="mock1.html">Mock Paper 1: CA1–4</a><br>2 h 15 min · 90 marks</td>
+                                <td><div class="button-row"><a class="button icon-btn icon-printer" href="mock1.html#print-paper">Print paper</a> <a class="button icon-btn icon-printer" href="mock1.html#print-ms">Print mark scheme</a></div></td>
+                            </tr>
+                            <tr>
+                                <td><a href="mock2.html">Mock Paper 2: CA5–8</a><br>2 h 15 min · 90 marks</td>
+                                <td><div class="button-row"><a class="button icon-btn icon-printer" href="mock2.html#print-paper">Print paper</a> <a class="button icon-btn icon-printer" href="mock2.html#print-ms">Print mark scheme</a></div></td>
+                            </tr>
+                        </table>
                     </div>
                 </section>
 
@@ -50,7 +83,7 @@
 
     </div>
 
-    <script src="revision.js?v=2026-10-29"></script>
+    <script src="revision.js?v=2026-11-04b"></script>
     <script>
         // The organisers are copied from each content area page, so there's only one version of each to keep up to date
         const areas = [1, 2, 3, 4, 5, 6, 7, 8];

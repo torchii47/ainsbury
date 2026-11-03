@@ -1322,6 +1322,31 @@ textarea.notes {
     }
 }
 
+/* ----------------------------------------------------------
+   Buttons with a pixel icon (iconButton() in revision.js)
+   ---------------------------------------------------------- */
+.icon-btn::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: -3px;
+    background: no-repeat center / 16px 16px;
+    image-rendering: pixelated;
+}
+
+.icon-floppy::before    { background-image: url("../images/icons/floppy.svg"); }
+.icon-folder::before    { background-image: url("../images/icons/folder.svg"); }
+.icon-clipboard::before { background-image: url("../images/icons/clipboard.svg"); }
+.icon-printer::before   { background-image: url("../images/icons/printer.svg"); }
+.icon-shortcut::before  { background-image: url("../images/icons/shortcut.svg"); }
+
+/* Answer lines only exist on paper */
+.print-lines {
+    display: none;
+}
+
 /* Print: hide the clutter, show every mark scheme and output */
 @media print {
     body {
@@ -1373,5 +1398,46 @@ textarea.notes {
     .ko > div {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+    }
+
+    /* Mock papers print like a real exam paper: questions and answer
+       lines, no mark schemes. "Print mark scheme" adds class print-ms
+       to <body> to print the mark schemes instead of the lines. */
+    .mock .ms,
+    .mock #notes,
+    .mock .ms-all {
+        display: none !important;
+    }
+
+    .mock .window {
+        break-inside: auto;
+        border: none;
+        background: none;
+    }
+
+    .mock .window > .window-body {
+        margin: 0;
+        border: none;
+    }
+
+    .mock .q {
+        break-inside: avoid;
+    }
+
+    .mock .print-lines {
+        display: block;
+        height: calc(var(--lines) * 2em);
+        margin: 6px 0 14px;
+        background: repeating-linear-gradient(transparent 0 calc(2em - 1px), #888 calc(2em - 1px) 2em);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .mock.print-ms .ms {
+        display: block !important;
+    }
+
+    .mock.print-ms .print-lines {
+        display: none;
     }
 }

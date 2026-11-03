@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2.5 Programming Languages and IDEs | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="High-level and low-level languages, why programs must be translated, the difference between compilers and interpreters, and the tools an IDE gives a programmer.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="2.5 Programming Languages and IDEs | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="High-level and low-level languages, why programs must be translated, the difference between compilers and interpreters, and the tools an IDE gives a programmer.">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic2-5.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic2-5" data-page="topic2-5">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 2.5 · PAPER 2: COMPUTATIONAL THINKING, ALGORITHMS AND PROGRAMMING</p>
+            <h1>2.5 Programming languages and Integrated Development Environments</h1>
+            <p>High-level and low-level languages, why programs must be translated, the difference between compilers and interpreters, and the tools an IDE gives a programmer.</p>
+            <p class="links"><strong>Links to other topics:</strong> the CPU executes machine code with the fetch-execute cycle: <a href="topic1-1.html#s1-1-1">1.1.1</a>. Syntax and logic errors: <a href="topic2-1.html#s2-1-2">2.1.2</a> and <a href="topic2-3.html#s2-3-2">2.3.2</a>.</p>
+            <span class="big-num" aria-hidden="true">2.5</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>2.5.1</td><td>Describe the characteristics and purpose of high-level and low-level languages</td></tr>
+                            <tr><td>2.5.1</td><td>Explain the purpose of translators</td></tr>
+                            <tr><td>2.5.1</td><td>Compare compilers and interpreters, with advantages and disadvantages</td></tr>
+                            <tr><td>2.5.2</td><td>Describe the common tools and facilities of an IDE: editors, error diagnostics, run-time environment, translators</td></tr>
+                            <tr><td>2.5.2</td><td>Explain how IDE tools help a programmer develop and debug programs</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-5-1">
+                    <h2>2.5.1 Languages and translators</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th></th><th>High-level language</th><th>Low-level language</th></tr>
+                            <tr><td>Examples</td><td>Python, Java, C#, JavaScript</td><td><strong>Machine code</strong> (binary the CPU executes directly) and <strong>assembly language</strong> (short mnemonics like <code>LDA</code>, <code>ADD</code>)</td></tr>
+                            <tr><td>Looks like</td><td>English-like words and maths: <code>total = price * 2</code></td><td><code>LDA 5</code> / <code>10100101</code></td></tr>
+                            <tr><td>Ease of use</td><td>Easy to read, write, debug and maintain</td><td>Hard to read and write; one line does very little</td></tr>
+                            <tr><td>Portability</td><td>Portable: the same code runs on different types of CPU (after translation)</td><td>Written for one specific type of CPU</td></tr>
+                            <tr><td>Hardware control</td><td>Programmer doesn't need to know about the hardware</td><td>Direct control of hardware and memory</td></tr>
+                            <tr><td>Speed and size</td><td>Translated code may be less efficient</td><td>Can be very fast and use little memory</td></tr>
+                            <tr><td>Used for</td><td>Most software: apps, websites, games</td><td>Device drivers, embedded systems, parts of an OS where speed or tight memory matters</td></tr>
+                        </table>
+                        <p>One line of high-level code usually becomes <strong>several</strong> machine code instructions. One line of assembly becomes <strong>one</strong> machine code instruction.</p>
+
+                        <h3>Translators</h3>
+                        <p>The CPU can only execute <strong>machine code</strong>. A <strong>translator</strong> converts code written by a programmer (source code) into machine code. There are three types:</p>
+                        <table>
+                            <tr><th></th><th>Compiler</th><th>Interpreter</th></tr>
+                            <tr><td>How it works</td><td>Translates the <strong>whole</strong> program into machine code in one go, producing an executable file</td><td>Translates and runs the program <strong>one line at a time</strong></td></tr>
+                            <tr><td>Errors</td><td>Reports all the errors after trying to compile the whole program; no executable is made until they're fixed</td><td>Stops as soon as it reaches an error, showing the line, so errors are easy to find</td></tr>
+                            <tr><td>Running the program</td><td>The executable runs quickly, without the compiler or source code</td><td>Slower: every line is translated every time it runs; the interpreter is needed every time</td></tr>
+                            <tr><td>Sharing</td><td>The executable can be shared without giving away the source code</td><td>The source code must be shared, so it can be copied or changed</td></tr>
+                            <tr><td>Best for</td><td>Finished programs that are distributed to users</td><td>Developing and testing, learning to program</td></tr>
+                        </table>
+                        <p>An <strong>assembler</strong> translates assembly language into machine code.</p>
+
+                        <h4>An interpreter stops at the first error</h4>
+<pre class="code">
+program = ["x = 5", "print(x * 2)", "print(y)", "print('never reached')"]
+for number, line in enumerate(program, start=1):
+    try:
+        exec(line)
+    except NameError as error:
+        print("Error on line", number, ":", error)
+        break
+</pre>
+<pre class="out">
+10
+Error on line 3 : name 'y' is not defined
+</pre>
+                        <h4>A compiler checks everything first</h4>
+<pre class="code">
+program = ["x = 5", "print(x * 2", "y = = 3", "print('done')"]
+errors = 0
+for number, line in enumerate(program, start=1):
+    try:
+        compile(line, "program", "exec")
+    except SyntaxError:
+        print("Syntax error on line", number)
+        errors = errors + 1
+if errors > 0:
+    print(errors, "errors: no executable file is made")
+</pre>
+<pre class="out">
+Syntax error on line 2
+Syntax error on line 3
+2 errors: no executable file is made
+</pre>
+
+                        <dl class="recall">
+                            <dt>High-level language</dt><dd>A programming language with English-like statements that is portable and easy to read, e.g. Python.</dd>
+                            <dt>Low-level language</dt><dd>A language close to machine code, such as assembly or machine code, written for a specific CPU.</dd>
+                            <dt>Machine code</dt><dd>Binary instructions that the CPU can execute directly.</dd>
+                            <dt>Assembly language</dt><dd>A low-level language that uses short mnemonics, each translating to one machine code instruction.</dd>
+                            <dt>Translator</dt><dd>A program that converts source code into machine code.</dd>
+                            <dt>Compiler</dt><dd>A translator that converts the whole program into machine code at once, producing an executable file.</dd>
+                            <dt>Interpreter</dt><dd>A translator that translates and executes a program one line at a time.</dd>
+                            <dt>Assembler</dt><dd>A translator that converts assembly language into machine code.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-5-2">
+                    <h2>2.5.2 The Integrated Development Environment (IDE)</h2>
+                    <div class="window-body">
+                        <p>An <strong>IDE</strong> is software that gives programmers the tools to write, translate, run, test and debug programs in one place, e.g. IDLE, Thonny, Visual Studio Code, PyCharm.</p>
+                        <table>
+                            <tr><th>Tool</th><th>Features</th><th>How it helps</th></tr>
+                            <tr><td>Editor</td><td>Syntax highlighting (colours for keywords, strings, comments); automatic indentation; auto-complete; line numbers; bracket matching</td><td>Code is quicker to write and easier to read; mistakes like a missing bracket stand out</td></tr>
+                            <tr><td>Error diagnostics</td><td>Highlights errors; error messages with the line number and type of error; suggests fixes</td><td>Errors are found and fixed quickly</td></tr>
+                            <tr><td>Run-time environment</td><td>Runs the program inside the IDE; shows its output and lets you enter input; reports run-time errors (crashes)</td><td>The program can be tested without leaving the IDE</td></tr>
+                            <tr><td>Translator</td><td>A built-in compiler and/or interpreter</td><td>Code can be translated and run with one click</td></tr>
+                            <tr><td>Debugging tools</td><td><strong>Breakpoints</strong> pause the program at a chosen line; <strong>stepping</strong> runs one line at a time; <strong>variable watch</strong> shows the values of variables as it runs</td><td>Logic errors can be tracked down by seeing exactly where values go wrong (like an automatic trace table)</td></tr>
+                        </table>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: NAME THE TOOL AND SAY WHAT IT DOES</h4>
+                            <p>"Breakpoints" alone gets 1 mark. "Breakpoints stop the program at a set line, so the programmer can check the values of the variables at that point to find a logic error" gets 2.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>IDE</dt><dd>Integrated Development Environment: software providing tools to write, run, test and debug programs.</dd>
+                            <dt>Syntax highlighting</dt><dd>An editor feature that colours different parts of the code, such as keywords and strings, to make it easier to read.</dd>
+                            <dt>Error diagnostics</dt><dd>IDE tools that detect errors and report them, usually with a line number and a description.</dd>
+                            <dt>Run-time environment</dt><dd>A feature that lets a program run within the IDE, showing its output and any run-time errors.</dd>
+                            <dt>Breakpoint</dt><dd>A marker that pauses a program at a chosen line so its state can be inspected.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>HIGH-LEVEL</h4><ul><li>English-like: Python, Java</li><li>Easy to read, write, debug</li><li>Portable</li><li>Must be translated</li></ul></div>
+                            <div><h4>LOW-LEVEL</h4><ul><li>Machine code (binary), assembly (mnemonics)</li><li>Specific to one CPU</li><li>Direct hardware control, fast, small</li><li>Hard to write</li></ul></div>
+                            <div><h4>COMPILER</h4><ul><li>Whole program at once</li><li>Makes an executable; runs fast</li><li>Source code kept private</li><li>Errors reported at the end</li></ul></div>
+                            <div><h4>INTERPRETER</h4><ul><li>One line at a time</li><li>Stops at the first error: easy to debug</li><li>Slower; needed every run</li></ul></div>
+                            <div><h4>ASSEMBLER</h4><ul><li>Assembly → machine code</li><li>1 line → 1 instruction</li></ul></div>
+                            <div><h4>IDE TOOLS</h4><ul><li>Editor: highlighting, indentation, auto-complete</li><li>Error diagnostics: line numbers, messages</li><li>Run-time environment</li><li>Translator</li><li>Debugging: breakpoints, stepping, watch</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 2.5 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="2.5"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 20 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic2-5">
+                            <div class="q" data-m="2">
+                                <p>Give <strong>two</strong> characteristics of a high-level language.</p>
+                                <div class="ms"><ul><li>Any two: uses English-like keywords; easy for humans to read/write; portable across different CPUs; must be translated before running; one statement becomes many machine code instructions; programmer doesn't need to know about the hardware.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why a programmer might write part of a program in a low-level language.</p>
+                                <div class="ms"><ul><li>Gives direct control of the hardware/memory (1) so the code can run faster / use less memory, e.g. in an embedded system or device driver (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="1">
+                                <p>State why programs written in a high-level language must be translated.</p>
+                                <div class="ms"><ul><li>The CPU can only execute machine code/binary (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe <strong>two</strong> differences between a compiler and an interpreter.</p>
+                                <div class="ms"><ul><li>Compiler translates the whole program at once; interpreter translates one line at a time (2).</li><li>Compiler produces an executable file; interpreter doesn't (2). Accept: compiler reports errors at the end / interpreter stops at the first error; compiled code runs faster.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>A games company is about to sell its finished game. Explain why it should use a compiler.</p>
+                                <div class="ms"><ul><li>It produces an executable that can be distributed without the source code (1) so the code can't easily be copied/changed by others / the game runs faster / users don't need the translator (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe <strong>two</strong> features of an IDE that help a programmer to find and fix errors.</p>
+                                <div class="ms"><ul><li>Any two features with descriptions, 2 marks each: error diagnostics highlight errors and give line numbers/messages; breakpoints pause the program at a line to inspect variables; stepping runs one line at a time; variable watch shows values as the program runs; syntax highlighting shows mistyped keywords/unclosed strings.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>State the purpose of an assembler.</p>
+                                <div class="ms"><ul><li>Translates assembly language (1) into machine code (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Python is often called interpreted, but it actually compiles code to "bytecode" first. Find out what bytecode is and why Java uses it too.</li>
+                                <li>Open your IDE, set a breakpoint inside a loop, and step through it watching a variable change.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic2-5" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic2-5" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 2.5 Programming languages and IDEs · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

@@ -53,3 +53,18 @@ const keyDates = [
     details: "Written exam – 2 hours 15 mins, morning session."
   },
 ];
+
+// OCR GCSE Computer Science (J277) – summer 2027.
+// TODO: update these when OCR publishes the final timetable.
+const gcseDates = [
+  {
+    title: "GCSE Paper 1 (J277/01)",
+    date: "2027-05-13",
+    details: "Computer systems – 1 hour 30 mins."
+  },
+  {
+    title: "GCSE Paper 2 (J277/02)",
+    date: "2027-05-20",
+    details: "Computational thinking, algorithms and programming – 1 hour 30 mins."
+  },
+];

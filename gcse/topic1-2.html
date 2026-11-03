@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1.2 Memory and Storage | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="RAM, ROM and virtual memory; choosing secondary storage; units of data and file size calculations; how numbers, characters, images and sound are stored in binary; and why we compress files.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="1.2 Memory and Storage | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="RAM, ROM and virtual memory; choosing secondary storage; units of data and file size calculations; how numbers, characters, images and sound are stored in binary; and why we compress files.">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic1-2.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic1-2" data-page="topic1-2">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 1.2 · PAPER 1: COMPUTER SYSTEMS</p>
+            <h1>1.2 Memory and storage</h1>
+            <p>RAM, ROM and virtual memory; choosing secondary storage; units of data and file size calculations; how numbers, characters, images and sound are stored in binary; and why we compress files.</p>
+            <p class="links"><strong>Links to other topics:</strong> the CPU fetches from RAM: <a href="topic1-1.html#s1-1-1">1.1.1</a>. Compression software is a utility: <a href="topic1-5.html#s1-5-2">1.5.2</a>. Characters and ASCII appear again in string handling: <a href="topic2-2.html#s2-2-3a">2.2.3</a>.</p>
+            <span class="big-num" aria-hidden="true">1.2</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>1.2.1</td><td>Explain the need for primary storage, and the difference between RAM and ROM</td></tr>
+                            <tr><td>1.2.1</td><td>State the purpose of ROM and of RAM in a computer system</td></tr>
+                            <tr><td>1.2.1</td><td>Explain the need for virtual memory and how it works</td></tr>
+                            <tr><td>1.2.2</td><td>Explain the need for secondary storage; describe optical, magnetic and solid state storage</td></tr>
+                            <tr><td>1.2.2</td><td>Choose suitable storage for a given use, using capacity, speed, portability, durability, reliability and cost</td></tr>
+                            <tr><td>1.2.3</td><td>Use the units bit, nibble, byte, KB, MB, GB, TB, PB, and explain why data must be stored in binary</td></tr>
+                            <tr><td>1.2.3</td><td>Calculate file sizes for sound, images and text</td></tr>
+                            <tr><td>1.2.4</td><td>Convert between denary, 8-bit binary and 2-digit hexadecimal</td></tr>
+                            <tr><td>1.2.4</td><td>Add two 8-bit binary numbers and explain overflow; carry out binary shifts</td></tr>
+                            <tr><td>1.2.4</td><td>Explain character sets, ASCII and Unicode, and the link between bits per character and number of characters</td></tr>
+                            <tr><td>1.2.4</td><td>Explain how images are stored: pixels, colour depth, resolution, metadata, and the effect on size and quality</td></tr>
+                            <tr><td>1.2.4</td><td>Explain how sound is stored: sampling, sample rate, bit depth, duration, and the effect on size and quality</td></tr>
+                            <tr><td>1.2.5</td><td>Explain the need for compression and compare lossy and lossless</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-1">
+                    <h2>1.2.1 Primary storage (memory)</h2>
+                    <div class="window-body">
+                        <p><strong>Primary storage</strong> is memory the CPU can access directly. It is needed because the CPU has to fetch instructions and data from somewhere fast: secondary storage is far too slow to work from directly.</p>
+                        <table>
+                            <tr><th></th><th>RAM (random access memory)</th><th>ROM (read only memory)</th></tr>
+                            <tr><td>Volatile?</td><td><strong>Volatile</strong>: contents are lost when the power is turned off</td><td><strong>Non-volatile</strong>: contents are kept without power</td></tr>
+                            <tr><td>Read / write</td><td>Can be read from and written to</td><td>Can only be read (normally can't be changed)</td></tr>
+                            <tr><td>Purpose</td><td>Holds the operating system, programs and data <strong>currently in use</strong></td><td>Holds the <strong>start-up instructions</strong> (the BIOS / boot program) the computer needs when it is switched on</td></tr>
+                            <tr><td>Size</td><td>Large, e.g. 8–32 GB</td><td>Small, e.g. a few MB</td></tr>
+                        </table>
+
+                        <h3>Virtual memory</h3>
+                        <p>When <strong>RAM is full</strong>, the operating system uses part of <strong>secondary storage as if it were RAM</strong>. This is virtual memory.</p>
+                        <div class="flow">
+                            <div><strong>1</strong>RAM fills up with open programs</div>
+                            <span class="arrow" aria-hidden="true">→</span>
+                            <div><strong>2</strong>Data not being used right now is moved to virtual memory on the hard drive / SSD</div>
+                            <span class="arrow" aria-hidden="true">→</span>
+                            <div><strong>3</strong>That frees space in RAM for the program in use</div>
+                            <span class="arrow" aria-hidden="true">→</span>
+                            <div><strong>4</strong>When needed again, the data is swapped back into RAM</div>
+                        </div>
+                        <p><strong>Why it's needed:</strong> so the computer can keep running more programs than fit in RAM, instead of crashing. <strong>Drawback:</strong> secondary storage is much slower than RAM, so moving data back and forth slows the computer down. Lots of swapping ("disk thrashing") makes it very slow. The fix is to add more RAM.</p>
+
+                        <dl class="recall">
+                            <dt>Primary storage</dt><dd>Memory that the CPU can access directly, such as RAM, ROM and cache.</dd>
+                            <dt>RAM</dt><dd>Random access memory: volatile memory that holds the operating system, programs and data currently in use.</dd>
+                            <dt>ROM</dt><dd>Read only memory: non-volatile memory that holds the start-up (boot) instructions.</dd>
+                            <dt>Volatile</dt><dd>Memory that loses its contents when the power is switched off.</dd>
+                            <dt>Virtual memory</dt><dd>Part of secondary storage used as extra RAM when RAM is full.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-2">
+                    <h2>1.2.2 Secondary storage</h2>
+                    <div class="window-body">
+                        <p><strong>Secondary storage</strong> is needed because RAM is volatile: files, programs and the operating system must be kept <strong>permanently</strong> (non-volatile) when the computer is off. It also holds far more than RAM.</p>
+                        <table>
+                            <tr><th>Type</th><th>How it works</th><th>Examples</th><th>Strengths</th><th>Weaknesses</th></tr>
+                            <tr><td>Magnetic</td><td>Spinning platters coated in magnetic material; a read/write head magnetises tiny areas to store 1s and 0s</td><td>Hard disk drive (HDD), magnetic tape</td><td>Very high capacity; low cost per GB</td><td>Moving parts can break if dropped; slower than SSD; heavier</td></tr>
+                            <tr><td>Solid state</td><td>Flash memory: electrical charges trapped in transistors; no moving parts</td><td>SSD, USB memory stick, SD card</td><td>Very fast access; durable (no moving parts); light; silent; low power</td><td>Higher cost per GB; limited number of write cycles</td></tr>
+                            <tr><td>Optical</td><td>A laser reads pits and lands on the surface of a spinning disc</td><td>CD, DVD, Blu-ray</td><td>Very cheap per disc; portable; easy to post</td><td>Low capacity; slow; scratches easily; becoming obsolete</td></tr>
+                        </table>
+
+                        <h3>Characteristics to compare</h3>
+                        <table>
+                            <tr><th>Characteristic</th><th>Meaning</th></tr>
+                            <tr><td>Capacity</td><td>How much data it can hold</td></tr>
+                            <tr><td>Speed</td><td>How quickly data can be read and written</td></tr>
+                            <tr><td>Portability</td><td>How easy it is to carry: size and weight</td></tr>
+                            <tr><td>Durability</td><td>How well it survives being dropped, heat, water and wear</td></tr>
+                            <tr><td>Reliability</td><td>How consistently it works over time without failing or losing data</td></tr>
+                            <tr><td>Cost</td><td>Price per GB, and price of the device</td></tr>
+                        </table>
+
+                        <h4>Choose the best storage</h4>
+                        <div class="sorter" data-options="Magnetic (HDD)|Solid state (SSD/flash)|Optical (DVD/Blu-ray)|Magnetic tape">
+                            <p data-a="Solid state (SSD/flash)">A thin laptop that needs to start up quickly and survive being carried around.</p>
+                            <p data-a="Magnetic (HDD)">A home media server storing 8 TB of films as cheaply as possible.</p>
+                            <p data-a="Optical (DVD/Blu-ray)">A band selling copies of their album at a gig.</p>
+                            <p data-a="Magnetic tape">A bank making a full archive backup of all its data every night, to be kept for years.</p>
+                            <p data-a="Solid state (SSD/flash)">A photographer's camera that needs storage that is small and removable.</p>
+                        </div>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: JUSTIFY WITH THE SCENARIO</h4>
+                            <p>"SSD because it's fast" gets 1 mark at most. "SSD because it has no moving parts, so it won't be damaged if the delivery driver drops the tablet" links the characteristic to the scenario.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Secondary storage</dt><dd>Non-volatile storage used to keep data, programs and the operating system permanently.</dd>
+                            <dt>Solid state storage</dt><dd>Storage with no moving parts that uses flash memory, e.g. SSD, USB stick, SD card.</dd>
+                            <dt>Magnetic storage</dt><dd>Storage that records data by magnetising areas of a surface, e.g. hard disk drive, tape.</dd>
+                            <dt>Optical storage</dt><dd>Storage read by a laser from pits and lands on a disc, e.g. CD, DVD, Blu-ray.</dd>
+                            <dt>Durability</dt><dd>How well a storage device withstands physical damage and wear.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-3">
+                    <h2>1.2.3 Units and file sizes</h2>
+                    <div class="window-body">
+                        <p>Computers store everything in <strong>binary</strong> (1s and 0s) because they are made of billions of tiny switches (transistors) that can only be <strong>on or off</strong>. All data (numbers, text, images, sound, instructions) must be converted to binary to be processed.</p>
+                        <table>
+                            <tr><th>Unit</th><th>Size</th></tr>
+                            <tr><td>Bit</td><td>A single 1 or 0</td></tr>
+                            <tr><td>Nibble</td><td>4 bits</td></tr>
+                            <tr><td>Byte</td><td>8 bits</td></tr>
+                            <tr><td>Kilobyte (KB)</td><td>1,000 bytes</td></tr>
+                            <tr><td>Megabyte (MB)</td><td>1,000 KB</td></tr>
+                            <tr><td>Gigabyte (GB)</td><td>1,000 MB</td></tr>
+                            <tr><td>Terabyte (TB)</td><td>1,000 GB</td></tr>
+                            <tr><td>Petabyte (PB)</td><td>1,000 TB</td></tr>
+                        </table>
+                        <p>OCR accepts 1,000 or 1,024 for each step. 1,000 is easier without a calculator. Say which you've used.</p>
+                        <div class="flow">
+                            <div><strong>bits</strong></div><span class="arrow" aria-hidden="true">÷ 8 →</span>
+                            <div><strong>bytes</strong></div><span class="arrow" aria-hidden="true">÷ 1000 →</span>
+                            <div><strong>KB</strong></div><span class="arrow" aria-hidden="true">÷ 1000 →</span>
+                            <div><strong>MB</strong></div><span class="arrow" aria-hidden="true">÷ 1000 →</span>
+                            <div><strong>GB</strong></div>
+                        </div>
+
+                        <h3>File size formulas</h3>
+                        <table>
+                            <tr><th>File</th><th>Size in bits =</th></tr>
+                            <tr><td>Image</td><td>colour depth × image height (px) × image width (px)</td></tr>
+                            <tr><td>Sound</td><td>sample rate (Hz) × bit depth × duration (s)</td></tr>
+                            <tr><td>Text</td><td>bits per character × number of characters</td></tr>
+                        </table>
+
+                        <details class="box worked">
+                            <summary><strong>✎ WORKED EXAMPLE: an image is 200 × 100 pixels with a colour depth of 8 bits. Calculate its size in KB. Try it, then click.</strong></summary>
+                            <p>bits = 8 × 100 × 200 = 160,000 bits. bytes = 160,000 ÷ 8 = 20,000 bytes. KB = 20,000 ÷ 1,000 = <strong>20 KB</strong>.</p>
+                        </details>
+                        <details class="box worked">
+                            <summary><strong>✎ WORKED EXAMPLE: a 10-second sound clip is sampled at 1,000 Hz with a bit depth of 4 bits. Calculate its size in bytes.</strong></summary>
+                            <p>bits = 1,000 × 4 × 10 = 40,000 bits. bytes = 40,000 ÷ 8 = <strong>5,000 bytes</strong> (5 KB).</p>
+                        </details>
+                        <details class="box worked">
+                            <summary><strong>✎ WORKED EXAMPLE: how many 2 MB photos fit on a 4 GB memory card?</strong></summary>
+                            <p>4 GB = 4,000 MB. 4,000 ÷ 2 = <strong>2,000 photos</strong>.</p>
+                        </details>
+
+                        <h4>Check it in Python</h4>
+<pre class="code">
+# Image: colour depth x height x width
+width, height, colour_depth = 800, 600, 24
+image_bits = colour_depth * height * width
+print("Image:", image_bits / 8 / 1000, "KB")
+
+# Sound: sample rate x bit depth x duration
+sample_rate, bit_depth, seconds = 44100, 16, 30
+sound_bits = sample_rate * bit_depth * seconds
+print("Sound:", sound_bits / 8 / 1000 / 1000, "MB")
+
+# Text: bits per character x number of characters
+characters, bits_per_char = 2000, 8
+print("Text:", characters * bits_per_char / 8, "bytes")
+</pre>
+<pre class="out">
+Image: 1440.0 KB
+Sound: 2.646 MB
+Text: 2000.0 bytes
+</pre>
+
+                        <div class="box mistake">
+                            <h4>✗ COMMON MISTAKE</h4>
+                            <ul>
+                                <li>Forgetting to divide by 8 to get from bits to bytes.</li>
+                                <li>Mixing up b (bit) and B (byte): 8 Mb = 1 MB.</li>
+                                <li>Multiplying instead of dividing when going to a bigger unit.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Bit</dt><dd>A single binary digit, 1 or 0: the smallest unit of data.</dd>
+                            <dt>Nibble</dt><dd>4 bits.</dd>
+                            <dt>Byte</dt><dd>8 bits.</dd>
+                            <dt>Binary</dt><dd>Base 2: a number system using only the digits 0 and 1.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-4a">
+                    <h2>1.2.4 Numbers: binary and hexadecimal</h2>
+                    <div class="window-body">
+                        <h3>Denary ↔ binary (up to 8 bits, 0–255)</h3>
+                        <p>Each column in binary is worth double the one to its right.</p>
+                        <table class="place-values">
+                            <tr><th>128</th><th>64</th><th>32</th><th>16</th><th>8</th><th>4</th><th>2</th><th>1</th><th>Denary</th></tr>
+                            <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>64 + 32 + 2 = <strong>98</strong></td></tr>
+                            <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td><strong>255</strong> (the largest 8-bit number)</td></tr>
+                        </table>
+                        <p><strong>Denary to binary:</strong> work left to right. If the column value fits into what's left, write 1 and subtract it; otherwise write 0. E.g. 98: 128 no (0), 64 yes (1, 34 left), 32 yes (1, 2 left), 16 no, 8 no, 4 no, 2 yes (1, 0 left), 1 no → <code>01100010</code>.</p>
+
+                        <h3>Hexadecimal (base 16)</h3>
+                        <p>Hex uses 0–9 then A=10, B=11, C=12, D=13, E=14, F=15. Two hex digits represent one byte (00 to FF = 0 to 255). Programmers use hex because it is <strong>shorter</strong> and <strong>easier for humans to read and remember</strong> than binary, with <strong>fewer errors</strong> when copying it, and it converts easily to binary. Used for colour codes (#FF5FA2), MAC addresses and error codes.</p>
+                        <table>
+                            <tr><th>Conversion</th><th>Method</th><th>Example</th></tr>
+                            <tr><td>Hex → denary</td><td>First digit × 16, plus second digit</td><td>3C = 3 × 16 + 12 = <strong>60</strong></td></tr>
+                            <tr><td>Denary → hex</td><td>Divide by 16: the whole number is the first digit, the remainder the second</td><td>200 ÷ 16 = 12 r 8 → <strong>C8</strong></td></tr>
+                            <tr><td>Binary → hex</td><td>Split into two nibbles; convert each nibble (8 4 2 1) to one hex digit</td><td>1011 0110 → 11, 6 → <strong>B6</strong></td></tr>
+                            <tr><td>Hex → binary</td><td>Convert each digit into a 4-bit nibble</td><td>7E → 0111 1110</td></tr>
+                        </table>
+
+                        <h4>Try it: converter</h4>
+                        <div class="button-row">
+                            <label>Denary (0–255) <input id="conv-den" class="quiz-select" value="98" size="5" inputmode="numeric"></label>
+                            <label>Binary <input id="conv-bin" class="quiz-select" value="01100010" size="10"></label>
+                            <label>Hex <input id="conv-hex" class="quiz-select" value="62" size="4"></label>
+                        </div>
+                        <p id="conv-out" class="spec-summary" aria-live="polite"></p>
+
+                        <h3>Binary addition and overflow</h3>
+                        <table>
+                            <tr><th>Rule</th><th>Answer</th></tr>
+                            <tr><td>0 + 0</td><td>0</td></tr>
+                            <tr><td>0 + 1 or 1 + 0</td><td>1</td></tr>
+                            <tr><td>1 + 1</td><td>0, carry 1</td></tr>
+                            <tr><td>1 + 1 + 1</td><td>1, carry 1</td></tr>
+                        </table>
+                        <p><strong>Overflow</strong> happens when the result of a calculation needs <strong>more bits than are available</strong>, e.g. adding two 8-bit numbers gives a 9-bit answer. The extra bit is lost, so the stored result is wrong. 182 + 99 = 281, which is more than 255.</p>
+
+                        <h3>Binary shifts</h3>
+                        <table>
+                            <tr><th>Shift</th><th>Effect</th><th>Example</th></tr>
+                            <tr><td>Left shift by n</td><td>Multiplies by 2ⁿ (bits move left, 0s fill on the right)</td><td>00010110 (22) left 2 → 01011000 (88) = 22 × 4</td></tr>
+                            <tr><td>Right shift by n</td><td>Divides by 2ⁿ, losing any remainder (bits move right, 0s fill on the left)</td><td>00010110 (22) right 1 → 00001011 (11) = 22 ÷ 2</td></tr>
+                        </table>
+                        <p>Bits shifted off either end are lost, so a left shift can cause overflow and a right shift loses precision (e.g. 11 right 1 → 5, not 5.5).</p>
+
+<pre class="code">
+def to_binary(number):
+    bits = ""
+    for place in [128, 64, 32, 16, 8, 4, 2, 1]:
+        if number >= place:
+            bits = bits + "1"
+            number = number - place
+        else:
+            bits = bits + "0"
+    return bits
+
+for n in [5, 98, 255]:
+    print(n, "=", to_binary(n))
+
+a = 0b10110110   # 182
+b = 0b01100011   # 99
+total = a + b
+print(to_binary(a), "+", to_binary(b), "=", format(total, "b"))
+if total > 255:
+    print("Overflow: the answer needs", total.bit_length(), "bits")
+
+x = 0b00010110   # 22
+print("Left shift 2:", to_binary((x << 2) & 255), "=", (x << 2) & 255)
+print("Right shift 1:", to_binary(x >> 1), "=", x >> 1)
+print("Hex of 98:", format(98, "02X"), "| denary of 3C:", int("3C", 16))
+</pre>
+<pre class="out">
+5 = 00000101
+98 = 01100010
+255 = 11111111
+10110110 + 01100011 = 100011001
+Overflow: the answer needs 9 bits
+Left shift 2: 01011000 = 88
+Right shift 1: 00001011 = 11
+Hex of 98: 62 | denary of 3C: 60
+</pre>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: SHOW YOUR CARRIES</h4>
+                            <p>In binary addition questions, write the carries above the sum. If your final answer is wrong, the carries can still earn method marks. Always give 8-bit binary answers as 8 digits, with leading zeros.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Denary</dt><dd>Base 10: the number system using the digits 0–9.</dd>
+                            <dt>Hexadecimal</dt><dd>Base 16: uses the digits 0–9 and the letters A–F; each hex digit represents one nibble.</dd>
+                            <dt>Overflow</dt><dd>An error that occurs when the result of a calculation is too large to be stored in the number of bits available.</dd>
+                            <dt>Binary shift</dt><dd>Moving every bit left (multiply by 2 per place) or right (divide by 2 per place).</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-4b">
+                    <h2>1.2.4 Characters</h2>
+                    <div class="window-body">
+                        <p>A <strong>character set</strong> is a defined list of characters recognised by the computer, each with a unique binary code. Codes are <strong>logically ordered</strong>: if you know 'A' is 65, then 'B' is 66 and 'E' is 69.</p>
+                        <table>
+                            <tr><th></th><th>ASCII</th><th>Unicode</th></tr>
+                            <tr><td>Bits per character</td><td>7 bits (extended ASCII: 8 bits)</td><td>16 or 32 bits (variable)</td></tr>
+                            <tr><td>Number of characters</td><td>128 (extended: 256)</td><td>Over 1 million possible</td></tr>
+                            <tr><td>Covers</td><td>English letters, digits, punctuation and control codes</td><td>Almost every language in the world, maths symbols, emoji</td></tr>
+                            <tr><td>Drawback</td><td>Can't represent other alphabets (e.g. Arabic, Chinese)</td><td>Files take more storage space</td></tr>
+                        </table>
+                        <p>The more bits per character, the more different characters can be represented: n bits gives 2ⁿ characters. 7 bits → 128; 8 bits → 256; 16 bits → 65,536.</p>
+                        <table>
+                            <tr><th>Character</th><th>ASCII (denary)</th></tr>
+                            <tr><td>'0'</td><td>48</td></tr>
+                            <tr><td>'A'</td><td>65</td></tr>
+                            <tr><td>'a'</td><td>97 (lowercase = uppercase + 32)</td></tr>
+                        </table>
+<pre class="code">
+for char in "Az0":
+    print(char, ord(char), format(ord(char), "08b"))
+print(chr(ord("a") - 32))
+</pre>
+<pre class="out">
+A 65 01000001
+z 122 01111010
+0 48 00110000
+A
+</pre>
+                        <dl class="recall">
+                            <dt>Character set</dt><dd>A defined list of characters recognised by a computer, each with a unique binary code.</dd>
+                            <dt>ASCII</dt><dd>A character set that uses 7 bits (or 8 for extended ASCII) to represent 128 (or 256) characters, mainly English.</dd>
+                            <dt>Unicode</dt><dd>A character set using more bits per character, so it can represent characters from almost every language, plus symbols and emoji.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-4c">
+                    <h2>1.2.4 Images and sound</h2>
+                    <div class="window-body">
+                        <h3>Images</h3>
+                        <p>A bitmap image is a grid of <strong>pixels</strong> (picture elements). Each pixel's colour is stored as a binary number.</p>
+                        <table>
+                            <tr><th>Term</th><th>Meaning</th><th>If it increases...</th></tr>
+                            <tr><td>Colour depth</td><td>The number of bits used for each pixel</td><td>More colours can be shown (n bits = 2ⁿ colours), so better quality, but a larger file</td></tr>
+                            <tr><td>Resolution</td><td>The number of pixels in the image (width × height), or pixels per inch</td><td>More detail, sharper image, but a larger file</td></tr>
+                            <tr><td>Metadata</td><td>Data about the image stored in the file: width, height, colour depth, date taken, camera, location</td><td>Needed so the computer can display the image correctly</td></tr>
+                        </table>
+                        <figure class="fig">
+                            <svg viewBox="0 0 420 150" role="img" aria-label="A 4 by 4 pixel image using 1-bit colour depth. Each black pixel is stored as 1 and each white pixel as 0. Rows: 0110, 1001, 1001, 0110.">
+                                <g transform="translate(20,10)">
+                                    <rect x="0" y="0" width="30" height="30" fill="#fff" stroke="#2b031d"/><rect x="30" y="0" width="30" height="30" fill="#2b031d"/><rect x="60" y="0" width="30" height="30" fill="#2b031d"/><rect x="90" y="0" width="30" height="30" fill="#fff" stroke="#2b031d"/>
+                                    <rect x="0" y="30" width="30" height="30" fill="#2b031d"/><rect x="30" y="30" width="30" height="30" fill="#fff" stroke="#2b031d"/><rect x="60" y="30" width="30" height="30" fill="#fff" stroke="#2b031d"/><rect x="90" y="30" width="30" height="30" fill="#2b031d"/>
+                                    <rect x="0" y="60" width="30" height="30" fill="#2b031d"/><rect x="30" y="60" width="30" height="30" fill="#fff" stroke="#2b031d"/><rect x="60" y="60" width="30" height="30" fill="#fff" stroke="#2b031d"/><rect x="90" y="60" width="30" height="30" fill="#2b031d"/>
+                                    <rect x="0" y="90" width="30" height="30" fill="#fff" stroke="#2b031d"/><rect x="30" y="90" width="30" height="30" fill="#2b031d"/><rect x="60" y="90" width="30" height="30" fill="#2b031d"/><rect x="90" y="90" width="30" height="30" fill="#fff" stroke="#2b031d"/>
+                                </g>
+                                <text x="190" y="34" style="font-family: 'Courier New', monospace; font-size: 18px">0 1 1 0</text>
+                                <text x="190" y="64" style="font-family: 'Courier New', monospace; font-size: 18px">1 0 0 1</text>
+                                <text x="190" y="94" style="font-family: 'Courier New', monospace; font-size: 18px">1 0 0 1</text>
+                                <text x="190" y="124" style="font-family: 'Courier New', monospace; font-size: 18px">0 1 1 0</text>
+                                <text x="330" y="80" class="label">1 = black</text>
+                                <text x="330" y="96" class="label">0 = white</text>
+                            </svg>
+                            <figcaption>A 4 × 4 image with a colour depth of 1 bit: 16 pixels × 1 bit = 16 bits</figcaption>
+                        </figure>
+
+                        <h3>Sound</h3>
+                        <p>Sound is an <strong>analogue</strong> wave. To store it, the computer measures (<strong>samples</strong>) the amplitude of the wave at regular intervals and stores each measurement as a binary number.</p>
+                        <figure class="fig">
+                            <svg viewBox="0 0 520 170" role="img" aria-label="An analogue sound wave with vertical sample lines at regular intervals. Each sample measures the height of the wave and is stored as a binary number. More samples per second and more bits per sample give a closer match to the original wave.">
+                                <line class="line" x1="20" y1="85" x2="500" y2="85" style="stroke-dasharray: 3 3"/>
+                                <path class="line" d="M20,85 C60,10 100,10 140,85 S220,160 260,85 S340,10 380,85 S460,160 500,85" style="stroke: var(--ca); stroke-width: 2.5"/>
+                                <g style="stroke: #2b031d; stroke-width: 1.5">
+                                    <line x1="50" y1="85" x2="50" y2="37"/><line x1="90" y1="85" x2="90" y2="28"/><line x1="130" y1="85" x2="130" y2="66"/>
+                                    <line x1="170" y1="85" x2="170" y2="125"/><line x1="210" y1="85" x2="210" y2="142"/><line x1="250" y1="85" x2="250" y2="104"/>
+                                    <line x1="290" y1="85" x2="290" y2="45"/><line x1="330" y1="85" x2="330" y2="28"/><line x1="370" y1="85" x2="370" y2="66"/>
+                                    <line x1="410" y1="85" x2="410" y2="125"/><line x1="450" y1="85" x2="450" y2="142"/><line x1="490" y1="85" x2="490" y2="104"/>
+                                </g>
+                                <text x="260" y="166" text-anchor="middle" class="label">Each line is one sample: its height is stored as a binary number</text>
+                            </svg>
+                            <figcaption>Sampling an analogue sound wave</figcaption>
+                        </figure>
+                        <table>
+                            <tr><th>Term</th><th>Meaning</th><th>If it increases...</th></tr>
+                            <tr><td>Sample rate</td><td>The number of samples taken per second, in hertz (Hz). CD quality is 44,100 Hz.</td><td>The digital sound is closer to the original, so better quality, but a larger file</td></tr>
+                            <tr><td>Bit depth (sample resolution)</td><td>The number of bits used to store each sample</td><td>Each sample is measured more accurately, so better quality, but a larger file</td></tr>
+                            <tr><td>Duration</td><td>How many seconds of sound are recorded</td><td>Larger file; no change to quality</td></tr>
+                        </table>
+
+                        <dl class="recall">
+                            <dt>Pixel</dt><dd>A single dot of colour: the smallest element of a bitmap image.</dd>
+                            <dt>Colour depth</dt><dd>The number of bits used to represent the colour of each pixel.</dd>
+                            <dt>Resolution</dt><dd>The number of pixels in an image, often given as width × height.</dd>
+                            <dt>Metadata</dt><dd>Data about data, e.g. an image's width, height and colour depth stored in the file.</dd>
+                            <dt>Sample rate</dt><dd>The number of samples of a sound wave taken each second, measured in hertz.</dd>
+                            <dt>Bit depth</dt><dd>The number of bits used to store each sound sample (also called sample resolution).</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s1-2-5">
+                    <h2>1.2.5 Compression</h2>
+                    <div class="window-body">
+                        <p><strong>Compression</strong> reduces the size of a file. It is needed so that files take up <strong>less storage space</strong>, are <strong>quicker to upload, download and stream</strong>, use <strong>less bandwidth</strong>, and can be sent where there are size limits (e.g. email attachments).</p>
+                        <table>
+                            <tr><th></th><th>Lossy</th><th>Lossless</th></tr>
+                            <tr><td>How</td><td>Permanently removes data, e.g. detail the human eye or ear is unlikely to notice</td><td>Finds patterns and stores the data more efficiently; no data is lost</td></tr>
+                            <tr><td>Original restored?</td><td>No: the original file can't be recreated</td><td>Yes: the original can be rebuilt exactly</td></tr>
+                            <tr><td>File size</td><td>Much smaller</td><td>Not reduced as much</td></tr>
+                            <tr><td>Use for</td><td>Photos, music, video streaming where a small loss of quality is acceptable</td><td>Text documents, program files, spreadsheets, where losing any data would break the file</td></tr>
+                            <tr><td>Examples</td><td>JPEG, MP3, MP4</td><td>PNG, ZIP, FLAC, GIF</td></tr>
+                        </table>
+
+                        <h4>One lossless method: run-length encoding</h4>
+                        <p>Run-length encoding stores a run of repeated values once, with a count. It isn't named in the spec, but it shows how lossless compression can make a file smaller without losing anything.</p>
+<pre class="code">
+def rle(text):
+    result = ""
+    count = 1
+    for i in range(1, len(text) + 1):
+        if i < len(text) and text[i] == text[i - 1]:
+            count = count + 1
+        else:
+            result = result + str(count) + text[i - 1]
+            count = 1
+    return result
+
+row = "WWWWWWBBBWWWW"
+print(row, "->", rle(row))
+print(len(row), "characters ->", len(rle(row)), "characters")
+</pre>
+<pre class="out">
+WWWWWWBBBWWWW -> 6W3B4W
+13 characters -> 6 characters
+</pre>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: JUSTIFY LOSSY OR LOSSLESS</h4>
+                            <p>A program or text file must use <strong>lossless</strong>: losing even one bit could stop the program running or change the meaning of the text. A photo on a website can use <strong>lossy</strong>: a slight loss in quality won't be noticed, and the smaller file loads faster.</p>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Compression</dt><dd>Reducing the size of a file so it takes less storage space and transmits faster.</dd>
+                            <dt>Lossy compression</dt><dd>Compression that permanently removes some data, so the original file can't be restored exactly.</dd>
+                            <dt>Lossless compression</dt><dd>Compression that reduces file size without losing any data, so the original can be restored exactly.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>RAM vs ROM</h4><ul><li>RAM: volatile, read/write, programs in use</li><li>ROM: non-volatile, read only, boot instructions</li><li>Virtual memory: secondary storage used as RAM when full; slow</li></ul></div>
+                            <div><h4>SECONDARY STORAGE</h4><ul><li>Magnetic: HDD/tape, cheap, high capacity, moving parts</li><li>Solid state: SSD/flash, fast, durable, dearer</li><li>Optical: CD/DVD/Blu-ray, cheap, low capacity</li><li>Compare: capacity, speed, portability, durability, reliability, cost</li></ul></div>
+                            <div><h4>UNITS</h4><ul><li>Bit → nibble (4) → byte (8)</li><li>KB → MB → GB → TB → PB (× 1000)</li><li>bits ÷ 8 = bytes</li></ul></div>
+                            <div><h4>FILE SIZES (BITS)</h4><ul><li>Image = colour depth × height × width</li><li>Sound = sample rate × bit depth × seconds</li><li>Text = bits per char × no. of chars</li></ul></div>
+                            <div><h4>NUMBERS</h4><ul><li>8-bit binary: 0–255; columns 128 … 1</li><li>Hex: 0–F; 2 digits = 1 byte; nibble each</li><li>Overflow: result needs more bits than available</li><li>Left shift × 2ⁿ, right shift ÷ 2ⁿ</li></ul></div>
+                            <div><h4>CHARACTERS</h4><ul><li>Character set: unique binary code per character</li><li>ASCII: 7 bits, 128 chars; 'A' = 65</li><li>Unicode: 16/32 bits, all languages, emoji</li><li>n bits → 2ⁿ characters</li></ul></div>
+                            <div><h4>IMAGES AND SOUND</h4><ul><li>Pixels; colour depth; resolution; metadata</li><li>Sampling: sample rate (Hz), bit depth, duration</li><li>Higher = better quality, bigger file</li></ul></div>
+                            <div><h4>COMPRESSION</h4><ul><li>Smaller files: less space, faster transfer</li><li>Lossy: data removed for good (JPEG, MP3)</li><li>Lossless: restored exactly (PNG, ZIP)</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 1.2 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="1.2"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 40 minutes. No calculator. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic1-2">
+                            <div class="q" data-m="2">
+                                <p>Give <strong>two</strong> differences between RAM and ROM.</p>
+                                <div class="ms"><ul><li>Any two, 1 each: RAM is volatile, ROM is non-volatile; RAM can be written to, ROM is read only; RAM holds programs/data in use, ROM holds boot-up instructions/BIOS; RAM is usually larger.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Kai's computer runs slowly when he has many programs open. Explain how virtual memory is used, and why it makes his computer slow.</p>
+                                <div class="ms"><ul><li>When RAM is full (1), part of secondary storage is used as extra RAM (1).</li><li>Data/programs not currently in use are moved from RAM to virtual memory, and swapped back when needed (1).</li><li>Secondary storage is much slower to access than RAM, so swapping takes time (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A delivery company gives its drivers tablets. Explain why solid state storage is more suitable than magnetic storage for the tablets. Give <strong>two</strong> reasons.</p>
+                                <div class="ms"><ul><li>No moving parts / more durable (1) so it won't be damaged if the tablet is dropped or knocked in the van (1).</li><li>Smaller/lighter (1) so the tablet is easy to carry around all day (1).</li><li>Faster access (1) so delivery information loads quickly at each stop (1). Accept: lower power use → longer battery life.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="1">
+                                <p>Convert the denary number 179 to 8-bit binary.</p>
+                                <div class="ms"><ul><li>10110011 (1). (128 + 32 + 16 + 2 + 1)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="1">
+                                <p>Convert the hexadecimal number 9F to denary.</p>
+                                <div class="ms"><ul><li>159 (1). (9 × 16 = 144, + 15)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Convert the binary number 11010100 to hexadecimal. Show your working.</p>
+                                <div class="ms"><ul><li>Split into nibbles 1101 and 0100 / 13 and 4 (1). Answer D4 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Add the binary numbers 10011010 and 11001011. Give your answer in binary and explain the problem with the result.</p>
+                                <div class="ms"><ul><li>Correct addition: 101100101 (1). Accept 01100101 with carry out noted.</li><li>The answer needs 9 bits / is larger than 255 (1).</li><li>So overflow occurs: the 9th bit is lost and the stored answer is wrong (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>The binary number 00011100 is shifted 2 places to the left. Give the result and state the effect on the denary value.</p>
+                                <div class="ms"><ul><li>01110000 (1).</li><li>Multiplied by 4 (28 → 112) (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Give <strong>two</strong> reasons why programmers use hexadecimal instead of binary.</p>
+                                <div class="ms"><ul><li>Any two: shorter / fewer digits; easier for humans to read/remember; fewer mistakes when writing/copying; quick to convert to and from binary.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>An image is 400 pixels wide and 300 pixels high with a colour depth of 8 bits. Calculate the file size in kilobytes. Show your working.</p>
+                                <div class="ms"><ul><li>400 × 300 × 8 = 960,000 bits (1).</li><li>÷ 8 = 120,000 bytes (1).</li><li>÷ 1000 = 120 KB (1). (Accept 117.19 KB using 1024.)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Explain why increasing the sample rate of a sound recording improves its quality but increases its file size.</p>
+                                <div class="ms"><ul><li>More samples are taken per second (1).</li><li>So the digital recording is a closer match to the original analogue sound wave (1).</li><li>More samples means more data/bits must be stored (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain why Unicode is used instead of ASCII by a website used in many countries.</p>
+                                <div class="ms"><ul><li>Unicode uses more bits per character so can represent many more characters (1).</li><li>So it can display characters from other languages/alphabets, e.g. Arabic, Chinese (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A school sends a newsletter containing photos and a spreadsheet of dates. Explain which type of compression should be used for each.</p>
+                                <div class="ms"><ul><li>Photos: lossy (1) because a small loss of quality won't be noticed and the file is much smaller / downloads faster (1).</li><li>Spreadsheet: lossless (1) because no data can be lost or the dates/values would be wrong / the file wouldn't open (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Change <code>to_binary</code> so it works for any number up to 65,535 (16 bits).</li>
+                                <li>A 3-minute song is recorded at 44,100 Hz, 16-bit, in stereo (two channels). Work out the size in MB without a calculator, then check with Python.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic1-2" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic1-2" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 1.2 Memory and storage · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+    <script>
+        // Number converter
+        const convDen = document.getElementById('conv-den');
+        const convBin = document.getElementById('conv-bin');
+        const convHex = document.getElementById('conv-hex');
+        const convOut = document.getElementById('conv-out');
+
+        function showConversion(value, from) {
+            if (!Number.isInteger(value) || value < 0 || value > 255) {
+                convOut.textContent = 'Enter a whole number from 0 to 255 (binary up to 8 digits, hex up to 2 digits).';
+                return;
+            }
+            const bin = value.toString(2).padStart(8, '0');
+            const hex = value.toString(16).toUpperCase().padStart(2, '0');
+            if (from !== 'den') convDen.value = value;
+            if (from !== 'bin') convBin.value = bin;
+            if (from !== 'hex') convHex.value = hex;
+            const places = [128, 64, 32, 16, 8, 4, 2, 1].filter((place, i) => bin[i] === '1');
+            convOut.textContent = `${value} = ${places.length ? places.join(' + ') : '0'} → ${bin.slice(0, 4)} ${bin.slice(4)} → hex ${hex} (${Math.floor(value / 16)} × 16 + ${value % 16})`;
+        }
+
+        convDen.addEventListener('input', () => showConversion(/^\d+$/.test(convDen.value) ? Number(convDen.value) : NaN, 'den'));
+        convBin.addEventListener('input', () => showConversion(/^[01]{1,8}$/.test(convBin.value) ? parseInt(convBin.value, 2) : NaN, 'bin'));
+        convHex.addEventListener('input', () => showConversion(/^[0-9a-f]{1,2}$/i.test(convHex.value) ? parseInt(convHex.value, 16) : NaN, 'hex'));
+        showConversion(98, 'den');
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

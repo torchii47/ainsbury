@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2.4 Boolean Logic | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="The AND, OR and NOT logic gates, their symbols and truth tables; combining gates into logic diagrams; and using truth tables to solve problems.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="2.4 Boolean Logic | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="The AND, OR and NOT logic gates, their symbols and truth tables; combining gates into logic diagrams; and using truth tables to solve problems.">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic2-4.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic2-4" data-page="topic2-4">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 2.4 · PAPER 2: COMPUTATIONAL THINKING, ALGORITHMS AND PROGRAMMING</p>
+            <h1>2.4 Boolean logic</h1>
+            <p>The AND, OR and NOT logic gates, their symbols and truth tables; combining gates into logic diagrams; and using truth tables to solve problems.</p>
+            <p class="links"><strong>Links to other topics:</strong> the ALU carries out logical operations: <a href="topic1-1.html#s1-1-1">1.1.1</a>. AND, OR and NOT in program conditions: <a href="topic2-2.html#s2-2-1">2.2.1</a>.</p>
+            <span class="big-num" aria-hidden="true">2.4</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>2.4.1</td><td>Draw and recognise the symbols for AND, OR and NOT gates</td></tr>
+                            <tr><td>2.4.1</td><td>Complete truth tables for AND, OR and NOT</td></tr>
+                            <tr><td>2.4.1</td><td>Draw simple logic diagrams that combine gates, from a Boolean expression</td></tr>
+                            <tr><td>2.4.1</td><td>Write the Boolean expression for a logic diagram</td></tr>
+                            <tr><td>2.4.1</td><td>Complete truth tables for combined expressions with up to three inputs</td></tr>
+                            <tr><td>2.4.1</td><td>Apply logical operators in truth tables to solve problems</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-4-1">
+                    <h2>2.4.1 Logic gates and truth tables</h2>
+                    <div class="window-body">
+                        <p>Computers are built from billions of <strong>logic gates</strong>: tiny circuits that take one or more binary inputs (1 = on/True, 0 = off/False) and produce one output. A <strong>truth table</strong> shows the output for every possible combination of inputs. With n inputs there are 2ⁿ rows: 2 inputs → 4 rows; 3 inputs → 8 rows.</p>
+
+                        <div class="gate-row">
+                            <figure class="fig">
+                                <svg viewBox="0 0 120 80" role="img" aria-label="AND gate symbol: a D shape with two inputs on the flat left side and one output on the right.">
+                                    <path class="line" d="M0,25 H20 M0,55 H20 M80,40 H115"/>
+                                    <path class="shape" d="M20,10 H50 A30,30 0 0 1 50,70 H20 Z"/>
+                                    <text x="2" y="20" class="label">A</text><text x="2" y="50" class="label">B</text><text x="105" y="34" class="label">P</text>
+                                </svg>
+                                <figcaption>AND: P = A AND B</figcaption>
+                            </figure>
+                            <figure class="fig">
+                                <svg viewBox="0 0 120 80" role="img" aria-label="OR gate symbol: a curved shield shape pointing right, with two inputs on the curved left side and one output at the point.">
+                                    <path class="line" d="M0,25 H26 M0,55 H26 M88,40 H115"/>
+                                    <path class="shape" d="M18,10 Q62,10 88,40 Q62,70 18,70 Q36,40 18,10 Z"/>
+                                    <text x="2" y="20" class="label">A</text><text x="2" y="50" class="label">B</text><text x="105" y="34" class="label">P</text>
+                                </svg>
+                                <figcaption>OR: P = A OR B</figcaption>
+                            </figure>
+                            <figure class="fig">
+                                <svg viewBox="0 0 120 80" role="img" aria-label="NOT gate symbol: a triangle pointing right with a small circle at its tip, one input and one output.">
+                                    <path class="line" d="M0,40 H25 M87,40 H115"/>
+                                    <path class="shape" d="M25,15 L75,40 L25,65 Z"/>
+                                    <circle class="shape" cx="81" cy="40" r="6"/>
+                                    <text x="2" y="34" class="label">A</text><text x="105" y="34" class="label">P</text>
+                                </svg>
+                                <figcaption>NOT: P = NOT A</figcaption>
+                            </figure>
+                        </div>
+
+                        <div class="grid-2">
+                            <div>
+                                <h4>AND: 1 only if <em>both</em> inputs are 1</h4>
+                                <table>
+                                    <tr><th>A</th><th>B</th><th>A AND B</th></tr>
+                                    <tr><td>0</td><td>0</td><td>0</td></tr>
+                                    <tr><td>0</td><td>1</td><td>0</td></tr>
+                                    <tr><td>1</td><td>0</td><td>0</td></tr>
+                                    <tr><td>1</td><td>1</td><td>1</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <h4>OR: 1 if <em>either or both</em> inputs are 1</h4>
+                                <table>
+                                    <tr><th>A</th><th>B</th><th>A OR B</th></tr>
+                                    <tr><td>0</td><td>0</td><td>0</td></tr>
+                                    <tr><td>0</td><td>1</td><td>1</td></tr>
+                                    <tr><td>1</td><td>0</td><td>1</td></tr>
+                                    <tr><td>1</td><td>1</td><td>1</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <h4>NOT: reverses the input</h4>
+                                <table>
+                                    <tr><th>A</th><th>NOT A</th></tr>
+                                    <tr><td>0</td><td>1</td></tr>
+                                    <tr><td>1</td><td>0</td></tr>
+                                </table>
+                            </div>
+                            <div>
+                                <h4>Notation you may see</h4>
+                                <table>
+                                    <tr><th>Gate</th><th>Words</th><th>Symbol</th></tr>
+                                    <tr><td>AND</td><td>A AND B</td><td>A ∧ B</td></tr>
+                                    <tr><td>OR</td><td>A OR B</td><td>A ∨ B</td></tr>
+                                    <tr><td>NOT</td><td>NOT A</td><td>¬A</td></tr>
+                                </table>
+                            </div>
+                        </div>
+
+<pre class="code">
+print("A", "B", "AND", "OR", "NOT A")
+for a in [False, True]:
+    for b in [False, True]:
+        print(int(a), int(b), int(a and b), int(a or b), int(not a))
+</pre>
+<pre class="out">
+A B AND OR NOT A
+0 0 0 0 1
+0 1 0 1 1
+1 0 0 1 0
+1 1 1 1 0
+</pre>
+
+                        <dl class="recall">
+                            <dt>Logic gate</dt><dd>An electronic circuit that takes one or more binary inputs and produces one binary output.</dd>
+                            <dt>Truth table</dt><dd>A table showing the output of a logic gate or circuit for every possible combination of inputs.</dd>
+                            <dt>AND gate</dt><dd>Outputs 1 only when both inputs are 1.</dd>
+                            <dt>OR gate</dt><dd>Outputs 1 when either or both inputs are 1.</dd>
+                            <dt>NOT gate</dt><dd>Outputs the opposite of its single input.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-4-2">
+                    <h2>Combining gates</h2>
+                    <div class="window-body">
+                        <p>Gates can be joined so the output of one becomes the input of another. This circuit is <strong>P = (A AND B) OR NOT C</strong>.</p>
+                        <figure class="fig">
+                            <svg viewBox="0 0 400 190" role="img" aria-label="Logic diagram. Inputs A and B go into an AND gate. Input C goes into a NOT gate. The outputs of the AND gate and the NOT gate go into an OR gate, whose output is P.">
+                                <text x="6" y="49" class="label">A</text>
+                                <text x="6" y="79" class="label">B</text>
+                                <text x="6" y="154" class="label">C</text>
+                                <path class="line" d="M18,45 H70 M18,75 H70 M18,150 H70"/>
+                                <path class="shape" d="M70,30 H100 A30,30 0 0 1 100,90 H70 Z"/>
+                                <path class="shape" d="M70,128 L112,150 L70,172 Z"/>
+                                <circle class="shape" cx="118" cy="150" r="6"/>
+                                <path class="line" d="M130,60 H190 V90 H244 M124,150 H190 V120 H244"/>
+                                <path class="shape" d="M236,75 Q282,75 308,105 Q282,135 236,135 Q254,105 236,75 Z"/>
+                                <path class="line" d="M308,105 H370"/>
+                                <text x="376" y="109" class="label">P</text>
+                                <text x="150" y="52" class="label">A AND B</text>
+                                <text x="136" y="142" class="label">NOT C</text>
+                            </svg>
+                            <figcaption>P = (A AND B) OR NOT C</figcaption>
+                        </figure>
+
+                        <h4>Try it: switch the inputs</h4>
+                        <div class="button-row" id="gate-inputs">
+                            <button type="button" class="button" data-input="A">A = 0</button>
+                            <button type="button" class="button" data-input="B">B = 0</button>
+                            <button type="button" class="button" data-input="C">C = 0</button>
+                            <strong id="gate-out" aria-live="polite"></strong>
+                        </div>
+
+                        <h3>Completing a truth table step by step</h3>
+                        <p>Add a column for each part of the expression. Work out the brackets first, then NOT, then the final gate.</p>
+                        <details class="box worked">
+                            <summary><strong>✎ Complete the table for P = (A AND B) OR NOT C yourself, then click to check.</strong></summary>
+                            <table>
+                                <tr><th>A</th><th>B</th><th>C</th><th>A AND B</th><th>NOT C</th><th>P</th></tr>
+                                <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                <tr><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+                                <tr><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+                                <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+                            </table>
+                        </details>
+<pre class="code">
+print("A B C P")
+for a in [0, 1]:
+    for b in [0, 1]:
+        for c in [0, 1]:
+            p = (a and b) or (not c)
+            print(a, b, c, int(p))
+</pre>
+<pre class="out">
+A B C P
+0 0 0 1
+0 0 1 0
+0 1 0 1
+0 1 1 0
+1 0 0 1
+1 0 1 0
+1 1 0 1
+1 1 1 1
+</pre>
+
+                        <h3>Solving problems with logic</h3>
+                        <details class="box worked">
+                            <summary><strong>✎ WORKED EXAMPLE:</strong> A car alarm (A) sounds if the alarm is set (S) AND either a door is opened (D) OR a window is broken (W). Write the expression, then click.</summary>
+                            <p><strong>A = S AND (D OR W)</strong>. The brackets matter: <code>S AND D OR W</code> would sound the alarm whenever a window is broken, even when the alarm isn't set.</p>
+                        </details>
+                        <details class="box worked">
+                            <summary><strong>✎ WORKED EXAMPLE:</strong> A greenhouse fan (F) turns on when it is hot (H) and the window is NOT open (O). Write the expression, then click.</summary>
+                            <p><strong>F = H AND NOT O</strong>.</p>
+                        </details>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: DRAWING LOGIC DIAGRAMS</h4>
+                            <ul>
+                                <li>Use the correct shapes: AND has a flat back and round front; OR has a curved back and pointed front; NOT is a triangle with a circle.</li>
+                                <li>Label every input and the output. Draw neat straight lines with a ruler.</li>
+                                <li>Write 2ⁿ rows in a truth table and list the inputs in binary order: 000, 001, 010 ... 111.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Logic diagram</dt><dd>A diagram showing how logic gates are connected to form a circuit.</dd>
+                            <dt>Boolean expression</dt><dd>A statement using AND, OR and NOT, e.g. P = (A AND B) OR NOT C, that is either True or False.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>AND (∧)</h4><ul><li>1 only if both inputs are 1</li><li>D shape: flat back, round front</li></ul></div>
+                            <div><h4>OR (∨)</h4><ul><li>1 if either or both inputs are 1</li><li>Curved back, pointed front</li></ul></div>
+                            <div><h4>NOT (¬)</h4><ul><li>Reverses the single input</li><li>Triangle with a circle</li></ul></div>
+                            <div><h4>TRUTH TABLES</h4><ul><li>n inputs → 2ⁿ rows</li><li>Inputs in binary order</li><li>Add a column for each part</li><li>Brackets first</li></ul></div>
+                            <div><h4>COMBINING</h4><ul><li>Output of one gate → input of another</li><li>e.g. P = (A AND B) OR NOT C</li><li>Label inputs and output</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 2.4 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="2.4"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 20 minutes. Draw diagrams on paper. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic2-4">
+                            <div class="q" data-m="1">
+                                <p>State the output of an AND gate when its inputs are 1 and 0.</p>
+                                <div class="ms"><ul><li>0 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Draw the symbols for an OR gate and a NOT gate. Name the shape of each in the box.</p>
+                                <div class="ms"><ul><li>OR: curved back, pointed front, two inputs (1).</li><li>NOT: triangle with a small circle at the output, one input (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Complete the truth table for P = NOT (A OR B).</p>
+                                <div class="ms"><ul><li>A B → P: 0 0 → 1; 0 1 → 0; 1 0 → 0; 1 1 → 0. One mark per correct row.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Draw a logic diagram for P = (A OR B) AND NOT C.</p>
+                                <div class="ms"><ul><li>OR gate with inputs A and B (1).</li><li>NOT gate with input C (1).</li><li>AND gate taking the outputs of the OR and NOT gates, with output P (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>A light (L) comes on when a motion sensor (M) detects movement AND it is dark (D). Write the Boolean expression and state how many rows its truth table needs.</p>
+                                <div class="ms"><ul><li>L = M AND D (1).</li><li>4 rows (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>A machine starts (S) when the start button is pressed (B) and either the guard is closed (G) or the override key is turned (K). Write a Boolean expression for S.</p>
+                                <div class="ms"><ul><li>S = B AND (G OR K). 1 for B AND, 1 for G OR K, 1 for correct brackets/order.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Complete the truth table for P = A AND (B OR C). Show the column for B OR C.</p>
+                                <div class="ms"><ul><li>B OR C column: 0 1 1 1 0 1 1 1 (1).</li><li>P column: 0 0 0 0 0 1 1 1 (3 marks: rows 1–4 all 0 (1), row 5 = 0 (1), rows 6–8 = 1 (1)).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Show that NOT (A AND B) gives the same truth table as (NOT A) OR (NOT B). Change the Python code to prove it.</li>
+                                <li>Design a circuit for a vending machine that dispenses (D) if a coin is inserted (C) and a button is pressed (B), but not if it is empty (E).</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic2-4" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic2-4" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 2.4 Boolean logic · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+    <script>
+        // Logic circuit: click A, B or C to flip it
+        const gateValues = { A: 0, B: 0, C: 0 };
+        const gateOut = document.getElementById('gate-out');
+
+        function showGate() {
+            const { A, B, C } = gateValues;
+            const and = A & B;
+            const notC = 1 - C;
+            gateOut.textContent = `A AND B = ${and} · NOT C = ${notC} · P = ${and | notC}`;
+        }
+
+        document.querySelectorAll('#gate-inputs [data-input]').forEach(button => {
+            button.setAttribute('aria-pressed', 'false');
+            button.addEventListener('click', () => {
+                const name = button.dataset.input;
+                gateValues[name] = 1 - gateValues[name];
+                button.textContent = `${name} = ${gateValues[name]}`;
+                button.setAttribute('aria-pressed', String(gateValues[name] === 1));
+                showGate();
+            });
+        });
+        showGate();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

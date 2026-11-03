@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2.1 Algorithms | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="Computational thinking; designing algorithms with structure diagrams, flowcharts, pseudocode and code; finding errors; trace tables; and the standard searching (linear, binary) and sorting (bubble…">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="2.1 Algorithms | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="Computational thinking; designing algorithms with structure diagrams, flowcharts, pseudocode and code; finding errors; trace tables; and the standard searching (linear, binary) and sorting (bubble…">
+    <meta property="og:url" content="https://ainsbury.art/gcse/topic2-1.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev topic2-1" data-page="topic2-1">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">TOPIC 2.1 · PAPER 2: COMPUTATIONAL THINKING, ALGORITHMS AND PROGRAMMING</p>
+            <h1>2.1 Algorithms</h1>
+            <p>Computational thinking; designing algorithms with structure diagrams, flowcharts, pseudocode and code; finding errors; trace tables; and the standard searching (linear, binary) and sorting (bubble, merge, insertion) algorithms.</p>
+            <p class="links"><strong>Links to other topics:</strong> the code here uses the constructs in <a href="topic2-2.html">2.2 Programming fundamentals</a>. Testing and refining algorithms: <a href="topic2-3.html#s2-3-2">2.3.2</a>. Exam Reference Language: <a href="exams.html#a6">A6</a>.</p>
+            <span class="big-num" aria-hidden="true">2.1</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="spec">
+                    <h2>Spec checklist</h2>
+                    <div class="window-body">
+                        <p>Rate each point. Be honest: 'Secure' means you could answer an exam question on it now without notes.</p>
+                        <table class="spec">
+                            <tr><td>2.1.1</td><td>Explain abstraction, decomposition and algorithmic thinking</td></tr>
+                            <tr><td>2.1.2</td><td>Identify the inputs, processes and outputs for a problem</td></tr>
+                            <tr><td>2.1.2</td><td>Draw and use structure diagrams</td></tr>
+                            <tr><td>2.1.2</td><td>Create, interpret, correct, complete and refine algorithms using flowcharts, pseudocode / Exam Reference Language and a high-level language</td></tr>
+                            <tr><td>2.1.2</td><td>Identify syntax and logic errors in code</td></tr>
+                            <tr><td>2.1.2</td><td>Use trace tables to work out the output of an algorithm</td></tr>
+                            <tr><td>2.1.3</td><td>Describe and trace linear search and binary search, including the pre-requisite for binary search</td></tr>
+                            <tr><td>2.1.3</td><td>Describe and trace bubble sort, merge sort and insertion sort</td></tr>
+                            <tr><td>2.1.3</td><td>Identify a searching or sorting algorithm from its code, and compare them</td></tr>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-1-1">
+                    <h2>2.1.1 Computational thinking</h2>
+                    <div class="window-body">
+                        <p><strong>Computational thinking</strong> means thinking about a problem in a way that lets a computer help solve it. There are three principles in the specification:</p>
+                        <table>
+                            <tr><th>Principle</th><th>Meaning</th><th>Example: a school sat nav app</th></tr>
+                            <tr><td>Abstraction</td><td>Removing unnecessary detail and focusing on what matters for the problem</td><td>The map shows roads, corridors and rooms; it leaves out wall colours, furniture and posters</td></tr>
+                            <tr><td>Decomposition</td><td>Breaking a complex problem down into smaller, more manageable parts that can each be solved separately</td><td>Split into: get the start room, get the destination, find the shortest route, display directions</td></tr>
+                            <tr><td>Algorithmic thinking</td><td>Working out the logical steps needed to solve the problem, in the right order</td><td>The step-by-step method for finding the shortest route between two rooms</td></tr>
+                        </table>
+                        <p><strong>Benefits:</strong> decomposition makes each part easier to understand, code and test, and parts can be shared across a team and reused. Abstraction makes a problem simpler to solve and the program simpler to use.</p>
+
+                        <dl class="recall">
+                            <dt>Abstraction</dt><dd>Removing unnecessary detail from a problem to focus on the important parts.</dd>
+                            <dt>Decomposition</dt><dd>Breaking a complex problem down into smaller, more manageable sub-problems.</dd>
+                            <dt>Algorithmic thinking</dt><dd>Identifying the steps needed to solve a problem, in a logical order.</dd>
+                            <dt>Algorithm</dt><dd>A sequence of steps that can be followed to complete a task or solve a problem.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-1-2">
+                    <h2>2.1.2 Designing, creating and refining algorithms</h2>
+                    <div class="window-body">
+                        <h3>Inputs, processes and outputs</h3>
+                        <p>Before designing an algorithm, identify what goes in, what happens to it, and what comes out.</p>
+                        <table>
+                            <tr><th>Problem: a cinema ticket price calculator</th><th></th></tr>
+                            <tr><td>Inputs</td><td>Customer's age, number of tickets, film time</td></tr>
+                            <tr><td>Processes</td><td>Decide the price per ticket from the age (child / adult / senior) and time; multiply by number of tickets; apply any discount</td></tr>
+                            <tr><td>Outputs</td><td>Total price; printed ticket</td></tr>
+                        </table>
+
+                        <h3>Structure diagrams</h3>
+                        <p>A <strong>structure diagram</strong> shows decomposition: the whole problem at the top, broken down into smaller sub-problems underneath.</p>
+                        <div class="tree">
+                            <div class="tree-root">Quiz game</div>
+                            <div class="tree-kids">
+                                <div><strong>Start game</strong><ul><li>Show menu</li><li>Enter player name</li></ul></div>
+                                <div><strong>Play round</strong><ul><li>Pick a question</li><li>Get answer</li><li>Check answer</li><li>Update score</li></ul></div>
+                                <div><strong>End game</strong><ul><li>Show final score</li><li>Save to high score file</li></ul></div>
+                            </div>
+                        </div>
+
+                        <h3>Ways to write an algorithm</h3>
+                        <p>An algorithm that asks for a password until it is correct, written three ways:</p>
+                        <figure class="fig">
+                            <svg viewBox="0 0 420 380" style="max-width: 380px" role="img" aria-label="Flowchart: Start. Input password. Decision: is password equal to Secret1? If no, output Wrong, try again, and loop back to input password. If yes, output Access granted, then Stop.">
+                                <defs><marker id="arr-pw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b031d"/></marker></defs>
+                                <rect class="shape" x="140" y="10" width="120" height="36" rx="18"/><text x="200" y="33" text-anchor="middle">Start</text>
+                                <line class="line" x1="200" y1="46" x2="200" y2="76" marker-end="url(#arr-pw)"/>
+                                <polygon class="shape" points="135,78 285,78 265,114 115,114"/><text x="200" y="101" text-anchor="middle">INPUT password</text>
+                                <line class="line" x1="200" y1="114" x2="200" y2="140" marker-end="url(#arr-pw)"/>
+                                <polygon class="shape" points="200,142 290,182 200,222 110,182"/><text x="200" y="186" text-anchor="middle" style="font-size: 12px">password == "Secret1"?</text>
+                                <line class="line" x1="290" y1="182" x2="300" y2="182" marker-end="url(#arr-pw)"/><text x="296" y="172" text-anchor="middle" class="label">No</text>
+                                <polygon class="shape" points="316,164 414,164 400,200 302,200"/><text x="358" y="186" text-anchor="middle" style="font-size: 11px">OUTPUT "Wrong"</text>
+                                <path class="line" d="M355,164 V96 H277" marker-end="url(#arr-pw)"/>
+                                <line class="line" x1="200" y1="222" x2="200" y2="258" marker-end="url(#arr-pw)"/><text x="214" y="244" class="label">Yes</text>
+                                <polygon class="shape" points="125,260 295,260 275,296 105,296"/><text x="200" y="283" text-anchor="middle" style="font-size: 12px">OUTPUT "Access granted"</text>
+                                <line class="line" x1="200" y1="296" x2="200" y2="324" marker-end="url(#arr-pw)"/>
+                                <rect class="shape" x="140" y="326" width="120" height="36" rx="18"/><text x="200" y="349" text-anchor="middle">Stop</text>
+                            </svg>
+                            <figcaption>Flowchart</figcaption>
+                        </figure>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span> Exam Reference Language</h4>
+<pre class="code no-run">
+password = input("Password: ")
+while password != "Secret1"
+    print("Wrong, try again")
+    password = input("Password: ")
+endwhile
+print("Access granted")
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span> Python</h4>
+<pre class="code">
+password = input("Password: ")
+while password != "Secret1":
+    print("Wrong, try again")
+    password = input("Password: ")
+print("Access granted")
+</pre>
+<pre class="out">
+Password: secret1
+Wrong, try again
+Password: Secret1
+Access granted
+</pre>
+                            </div>
+                        </div>
+
+                        <h3>Syntax errors and logic errors</h3>
+                        <table>
+                            <tr><th></th><th>Syntax error</th><th>Logic error</th></tr>
+                            <tr><td>What</td><td>Code that breaks the rules (grammar) of the language</td><td>Code that runs but gives the wrong result</td></tr>
+                            <tr><td>Program runs?</td><td>No: the translator can't understand it, so it won't run</td><td>Yes, but the output is wrong, or it crashes or loops forever</td></tr>
+                            <tr><td>Examples</td><td>Missing colon or bracket; misspelt keyword (<code>whiel</code>); <code>=</code> instead of <code>==</code> in a condition</td><td>Using <code>&lt;</code> instead of <code>&gt;</code>; wrong loop range; adding instead of multiplying; wrong variable</td></tr>
+                            <tr><td>How found</td><td>The IDE/translator reports them with a line number</td><td>Testing with known data; trace tables</td></tr>
+                        </table>
+
+                        <h3>Trace tables</h3>
+                        <p>A <strong>trace table</strong> records the value of each variable, line by line, as an algorithm runs. Use it to find the output, or to find a logic error.</p>
+<pre class="code no-run">
+total = 0
+for i = 1 to 4
+    if i MOD 2 == 0 then
+        total = total + i
+    endif
+next i
+print(total)
+</pre>
+                        <details class="box worked">
+                            <summary><strong>✎ Complete the trace table yourself, then click to check.</strong></summary>
+                            <table>
+                                <tr><th>i</th><th>i MOD 2 == 0?</th><th>total</th><th>Output</th></tr>
+                                <tr><td>–</td><td>–</td><td>0</td><td></td></tr>
+                                <tr><td>1</td><td>False</td><td>0</td><td></td></tr>
+                                <tr><td>2</td><td>True</td><td>2</td><td></td></tr>
+                                <tr><td>3</td><td>False</td><td>2</td><td></td></tr>
+                                <tr><td>4</td><td>True</td><td>6</td><td></td></tr>
+                                <tr><td></td><td></td><td></td><td>6</td></tr>
+                            </table>
+                            <p>The algorithm adds up the even numbers from 1 to 4.</p>
+                        </details>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: TRACE TABLES</h4>
+                            <ul>
+                                <li>Make a column for every variable, plus one for output.</li>
+                                <li>Only write a value in a row when it changes.</li>
+                                <li>In ERL, <code>for i = 1 to 4</code> <strong>includes</strong> 4. In Python, <code>range(1, 4)</code> stops at 3.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Structure diagram</dt><dd>A diagram showing how a problem is decomposed into smaller sub-problems.</dd>
+                            <dt>Pseudocode</dt><dd>A way of writing an algorithm using structured English-like statements, not tied to one programming language.</dd>
+                            <dt>Flowchart</dt><dd>A diagram that represents an algorithm using standard symbols connected by arrows.</dd>
+                            <dt>Syntax error</dt><dd>An error that breaks the rules of the programming language, so the program won't run.</dd>
+                            <dt>Logic error</dt><dd>An error that lets the program run but produces an incorrect result.</dd>
+                            <dt>Trace table</dt><dd>A table used to record the values of variables as an algorithm is followed line by line.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-1-3a">
+                    <h2>2.1.3 Searching algorithms</h2>
+                    <div class="window-body">
+                        <h3>Try it: algorithm stepper</h3>
+                        <p>Pick an algorithm, type a list, then press <strong>Step</strong> to watch it work one step at a time.</p>
+                        <div class="button-row">
+                            <label>Algorithm
+                                <select id="viz-algo" class="quiz-select">
+                                    <option value="linear">Linear search</option>
+                                    <option value="binary">Binary search</option>
+                                    <option value="bubble">Bubble sort</option>
+                                    <option value="insertion">Insertion sort</option>
+                                    <option value="merge">Merge sort</option>
+                                </select>
+                            </label>
+                            <label>List <input id="viz-list" class="quiz-select" value="5, 1, 4, 2, 8"></label>
+                            <label id="viz-target-label">Find <input id="viz-target" class="quiz-select" value="4" size="4"></label>
+                        </div>
+                        <div class="viz-row" id="viz-row" aria-hidden="true"></div>
+                        <p class="viz-note" id="viz-note" aria-live="polite"></p>
+                        <div class="button-row">
+                            <button type="button" class="button" id="viz-back">◀ Back</button>
+                            <button type="button" class="button" id="viz-step">Step ▶</button>
+                            <button type="button" class="button" id="viz-reset">Reset</button>
+                            <span id="viz-count" class="flashcard-count"></span>
+                        </div>
+                        <p class="post-date">Yellow = being compared / just merged · Green = in its final place / found · Faded = discarded</p>
+
+                        <h3>Linear search</h3>
+                        <ol>
+                            <li>Start at the first item.</li>
+                            <li>Compare it with the item you're looking for.</li>
+                            <li>If it matches, stop: found.</li>
+                            <li>If not, move to the next item and repeat.</li>
+                            <li>If you reach the end of the list without a match, it isn't there.</li>
+                        </ol>
+                        <p>Works on <strong>unsorted</strong> lists. Simple, but slow on large lists: in the worst case every item is checked.</p>
+
+                        <h3>Binary search</h3>
+                        <p><strong>Pre-requisite: the list must be sorted.</strong></p>
+                        <ol>
+                            <li>Find the middle item (if there are two, pick either consistently; the code below rounds down).</li>
+                            <li>If it is the item you want, stop: found.</li>
+                            <li>If the item you want is smaller, discard the middle item and everything after it; if larger, discard the middle item and everything before it.</li>
+                            <li>Repeat with the half that's left until the item is found or there's nothing left.</li>
+                        </ol>
+                        <p>Much faster on large lists: each comparison halves the list. 1,000 items need at most 10 comparisons; a linear search could need 1,000.</p>
+
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span> Linear search</h4>
+<pre class="code no-run">
+function linearSearch(items, target)
+    for i = 0 to items.length - 1
+        if items[i] == target then
+            return i
+        endif
+    next i
+    return -1
+endfunction
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span> Linear search</h4>
+<pre class="code">
+def linear_search(items, target):
+    for i in range(len(items)):
+        if items[i] == target:
+            return i
+    return -1
+
+names = ["Zara", "Ben", "Ola", "Kit", "Amy"]
+print(linear_search(names, "Kit"))
+print(linear_search(names, "Sam"))
+</pre>
+<pre class="out">
+3
+-1
+</pre>
+                            </div>
+                        </div>
+
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span> Binary search</h4>
+<pre class="code no-run">
+function binarySearch(items, target)
+    low = 0
+    high = items.length - 1
+    while low <= high
+        mid = (low + high) DIV 2
+        if items[mid] == target then
+            return mid
+        elseif items[mid] < target then
+            low = mid + 1
+        else
+            high = mid - 1
+        endif
+    endwhile
+    return -1
+endfunction
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span> Binary search</h4>
+<pre class="code">
+def binary_search(items, target):
+    low = 0
+    high = len(items) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        print("Checking index", mid, "=", items[mid])
+        if items[mid] == target:
+            return mid
+        elif items[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+
+scores = [3, 8, 12, 19, 25, 31, 40, 47, 52]
+print("Found at", binary_search(scores, 40))
+</pre>
+<pre class="out">
+Checking index 4 = 25
+Checking index 6 = 40
+Found at 6
+</pre>
+                            </div>
+                        </div>
+
+                        <table>
+                            <tr><th></th><th>Linear search</th><th>Binary search</th></tr>
+                            <tr><td>List must be sorted?</td><td>No</td><td>Yes</td></tr>
+                            <tr><td>Speed on a large list</td><td>Slow: may check every item</td><td>Fast: halves the list each time</td></tr>
+                            <tr><td>Best for</td><td>Small or unsorted lists</td><td>Large, sorted lists</td></tr>
+                            <tr><td>Complexity to code</td><td>Simple</td><td>More complex</td></tr>
+                        </table>
+
+                        <dl class="recall">
+                            <dt>Linear search</dt><dd>A search that checks each item in turn, from the start, until the item is found or the end is reached.</dd>
+                            <dt>Binary search</dt><dd>A search of a sorted list that repeatedly checks the middle item and discards the half that can't contain the target.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="s2-1-3b">
+                    <h2>2.1.3 Sorting algorithms</h2>
+                    <div class="window-body">
+                        <p>Use the <a href="#s2-1-3a">algorithm stepper</a> above to watch each sort.</p>
+
+                        <h3>Bubble sort</h3>
+                        <ol>
+                            <li>Compare the first two items. If they are in the wrong order, swap them.</li>
+                            <li>Move along one place and compare the next pair. Repeat to the end of the list: that is one <strong>pass</strong>. The largest item is now at the end.</li>
+                            <li>Repeat passes until a whole pass is made with <strong>no swaps</strong>: the list is sorted.</li>
+                        </ol>
+                        <div class="code-pair">
+                            <div>
+                                <h4><span class="lang-tag">ERL</span> Bubble sort</h4>
+<pre class="code no-run">
+procedure bubbleSort(items)
+    n = items.length
+    do
+        swapped = false
+        for i = 0 to n - 2
+            if items[i] > items[i + 1] then
+                temp = items[i]
+                items[i] = items[i + 1]
+                items[i + 1] = temp
+                swapped = true
+            endif
+        next i
+        n = n - 1
+    until swapped == false
+endprocedure
+</pre>
+                            </div>
+                            <div>
+                                <h4><span class="lang-tag">PY</span> Bubble sort</h4>
+<pre class="code">
+def bubble_sort(items):
+    items = items.copy()
+    n = len(items)
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(n - 1):
+            if items[i] > items[i + 1]:
+                temp = items[i]
+                items[i] = items[i + 1]
+                items[i + 1] = temp
+                swapped = True
+        n = n - 1
+        print(items)
+    return items
+
+bubble_sort([5, 1, 4, 2, 8])
+</pre>
+<pre class="out">
+[1, 4, 2, 5, 8]
+[1, 2, 4, 5, 8]
+[1, 2, 4, 5, 8]
+</pre>
+                            </div>
+                        </div>
+                        <p>The third pass makes no swaps, which is how the algorithm knows it's finished.</p>
+
+                        <h3>Insertion sort</h3>
+                        <ol>
+                            <li>The first item is treated as a sorted list of one.</li>
+                            <li>Take the next item and compare it with the items in the sorted part, moving left.</li>
+                            <li>Shift larger items one place right and <strong>insert</strong> the item in its correct position.</li>
+                            <li>Repeat until every item has been inserted.</li>
+                        </ol>
+<pre class="code">
+def insertion_sort(items):
+    items = items.copy()
+    for i in range(1, len(items)):
+        current = items[i]
+        j = i - 1
+        while j >= 0 and items[j] > current:
+            items[j + 1] = items[j]
+            j = j - 1
+        items[j + 1] = current
+        print("After inserting", current, ":", items)
+    return items
+
+insertion_sort([7, 3, 9, 1])
+</pre>
+<pre class="out">
+After inserting 3 : [3, 7, 9, 1]
+After inserting 9 : [3, 7, 9, 1]
+After inserting 1 : [1, 3, 7, 9]
+</pre>
+
+                        <h3>Merge sort</h3>
+                        <ol>
+                            <li><strong>Divide:</strong> split the list in half, then split each half again, until every sub-list has one item (a list of one is sorted).</li>
+                            <li><strong>Merge:</strong> merge pairs of sub-lists into sorted lists twice the size. To merge, compare the first item of each list and move the smaller into the new list; repeat.</li>
+                            <li>Keep merging until there is one sorted list.</li>
+                        </ol>
+                        <figure class="fig">
+                            <svg viewBox="0 0 560 300" role="img" aria-label="Merge sort of 6, 2, 9, 4, 1, 7. Split into 6 2 9 and 4 1 7, then into single items. Merge: 2 6 9 and 1 4 7, then 1 2 4 6 7 9.">
+                                <g style="font-family: monospace; font-size: 14px">
+                                    <rect class="shape" x="170" y="10" width="220" height="30"/><text x="280" y="30" text-anchor="middle">6  2  9  4  1  7</text>
+                                    <rect class="shape" x="60" y="70" width="140" height="30"/><text x="130" y="90" text-anchor="middle">6  2  9</text>
+                                    <rect class="shape" x="360" y="70" width="140" height="30"/><text x="430" y="90" text-anchor="middle">4  1  7</text>
+                                    <rect class="shape" x="20" y="130" width="40" height="30"/><text x="40" y="150" text-anchor="middle">6</text>
+                                    <rect class="shape" x="80" y="130" width="40" height="30"/><text x="100" y="150" text-anchor="middle">2</text>
+                                    <rect class="shape" x="140" y="130" width="40" height="30"/><text x="160" y="150" text-anchor="middle">9</text>
+                                    <rect class="shape" x="380" y="130" width="40" height="30"/><text x="400" y="150" text-anchor="middle">4</text>
+                                    <rect class="shape" x="440" y="130" width="40" height="30"/><text x="460" y="150" text-anchor="middle">1</text>
+                                    <rect class="shape" x="500" y="130" width="40" height="30"/><text x="520" y="150" text-anchor="middle">7</text>
+                                    <rect class="shape" x="60" y="190" width="140" height="30"/><text x="130" y="210" text-anchor="middle">2  6  9</text>
+                                    <rect class="shape" x="360" y="190" width="140" height="30"/><text x="430" y="210" text-anchor="middle">1  4  7</text>
+                                    <rect class="shape" x="170" y="250" width="220" height="30" style="stroke-width: 3"/><text x="280" y="270" text-anchor="middle">1  2  4  6  7  9</text>
+                                </g>
+                                <g class="line">
+                                    <line x1="250" y1="40" x2="140" y2="70"/><line x1="310" y1="40" x2="420" y2="70"/>
+                                    <line x1="100" y1="100" x2="40" y2="130"/><line x1="130" y1="100" x2="100" y2="130"/><line x1="160" y1="100" x2="160" y2="130"/>
+                                    <line x1="400" y1="100" x2="400" y2="130"/><line x1="430" y1="100" x2="460" y2="130"/><line x1="460" y1="100" x2="520" y2="130"/>
+                                    <line x1="40" y1="160" x2="100" y2="190"/><line x1="100" y1="160" x2="130" y2="190"/><line x1="160" y1="160" x2="160" y2="190"/>
+                                    <line x1="400" y1="160" x2="400" y2="190"/><line x1="460" y1="160" x2="430" y2="190"/><line x1="520" y1="160" x2="460" y2="190"/>
+                                    <line x1="130" y1="220" x2="250" y2="250"/><line x1="430" y1="220" x2="310" y2="250"/>
+                                </g>
+                                <text x="545" y="90" text-anchor="end" class="label">divide</text>
+                                <text x="545" y="210" text-anchor="end" class="label">merge</text>
+                            </svg>
+                            <figcaption>Merge sort: divide into single items, then merge back in order</figcaption>
+                        </figure>
+                        <p>You need to be able to describe and trace merge sort, not write it. This Python version prints every merge:</p>
+<pre class="code">
+def merge_sort(items):
+    if len(items) <= 1:
+        return items
+    middle = len(items) // 2
+    left = merge_sort(items[:middle])
+    right = merge_sort(items[middle:])
+    merged = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i = i + 1
+        else:
+            merged.append(right[j])
+            j = j + 1
+    merged = merged + left[i:] + right[j:]
+    print("Merge", left, "and", right, "->", merged)
+    return merged
+
+merge_sort([6, 2, 9, 4, 1, 7])
+</pre>
+<pre class="out">
+Merge [2] and [9] -> [2, 9]
+Merge [6] and [2, 9] -> [2, 6, 9]
+Merge [1] and [7] -> [1, 7]
+Merge [4] and [1, 7] -> [1, 4, 7]
+Merge [2, 6, 9] and [1, 4, 7] -> [1, 2, 4, 6, 7, 9]
+</pre>
+
+                        <h3>Comparing the sorts</h3>
+                        <table>
+                            <tr><th></th><th>Bubble sort</th><th>Insertion sort</th><th>Merge sort</th></tr>
+                            <tr><td>How</td><td>Swap adjacent pairs, pass after pass</td><td>Insert each item into the sorted part</td><td>Divide into single items, merge back in order</td></tr>
+                            <tr><td>Speed</td><td>Slow on large lists</td><td>Slow on large lists; quick on small or nearly sorted lists</td><td>Much faster on large lists</td></tr>
+                            <tr><td>Memory</td><td>Sorts in place: no extra memory</td><td>Sorts in place: no extra memory</td><td>Needs extra memory for the sub-lists</td></tr>
+                            <tr><td>Ease of coding</td><td>Simplest</td><td>Simple</td><td>Most complex</td></tr>
+                            <tr><td>Already sorted list</td><td>One pass with no swaps, then stops</td><td>Very quick: each item is compared once</td><td>Still splits and merges everything</td></tr>
+                        </table>
+
+                        <div class="box tip">
+                            <h4>★ EXAM TIP: IDENTIFY THE ALGORITHM FROM CODE</h4>
+                            <ul>
+                                <li><strong>Binary search:</strong> look for <code>low</code>, <code>high</code> and <code>mid</code>.</li>
+                                <li><strong>Bubble sort:</strong> compares <code>items[i]</code> with <code>items[i + 1]</code> and swaps, with a <code>swapped</code> flag.</li>
+                                <li><strong>Insertion sort:</strong> stores a <code>current</code> item and shifts items right in an inner while loop.</li>
+                                <li><strong>Merge sort:</strong> splits into <code>left</code> and <code>right</code> halves and merges.</li>
+                            </ul>
+                        </div>
+
+                        <dl class="recall">
+                            <dt>Bubble sort</dt><dd>A sort that repeatedly compares adjacent pairs and swaps them if in the wrong order, until a pass is made with no swaps.</dd>
+                            <dt>Insertion sort</dt><dd>A sort that takes each item in turn and inserts it into the correct position in the already sorted part of the list.</dd>
+                            <dt>Merge sort</dt><dd>A sort that splits a list into single items, then repeatedly merges pairs of sub-lists into sorted order.</dd>
+                            <dt>Pass</dt><dd>One complete run through the list in a bubble sort.</dd>
+                        </dl>
+                    </div>
+                </section>
+
+                <section class="window" id="ko">
+                    <h2>Knowledge organiser</h2>
+                    <div class="window-body">
+                        <div class="ko">
+                            <div><h4>COMPUTATIONAL THINKING</h4><ul><li>Abstraction: remove unnecessary detail</li><li>Decomposition: break into sub-problems</li><li>Algorithmic thinking: logical steps</li></ul></div>
+                            <div><h4>DESIGNING</h4><ul><li>Inputs, processes, outputs</li><li>Structure diagrams show decomposition</li><li>Flowcharts, pseudocode/ERL, Python</li></ul></div>
+                            <div><h4>ERRORS AND TRACING</h4><ul><li>Syntax: breaks the rules, won't run</li><li>Logic: runs, wrong result</li><li>Trace table: variables line by line</li></ul></div>
+                            <div><h4>SEARCHING</h4><ul><li>Linear: each item in turn; any list</li><li>Binary: middle, discard half; sorted list only; much faster</li></ul></div>
+                            <div><h4>BUBBLE SORT</h4><ul><li>Compare adjacent pairs, swap</li><li>Largest bubbles to the end each pass</li><li>Stop after a pass with no swaps</li></ul></div>
+                            <div><h4>INSERTION SORT</h4><ul><li>Sorted part grows from the left</li><li>Insert each item in its place</li><li>Good for small/nearly sorted lists</li></ul></div>
+                            <div><h4>MERGE SORT</h4><ul><li>Divide to single items</li><li>Merge pairs in order</li><li>Fast on big lists; more memory</li></ul></div>
+                        </div>
+                        <h3>Flashcards</h3>
+                        <p>Every Quick recall definition on this page. Click the card to flip it; use the arrow keys to move.</p>
+                        <div class="flashcards"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="quiz">
+                    <h2>Quiz me</h2>
+                    <div class="window-body">
+                        <p>Random questions on 2.1 from the GCSE question bank. Your score is saved on this device.</p>
+                        <div class="quiz-me" data-topic="2.1"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="qs">
+                    <h2>Exam-style questions</h2>
+                    <div class="window-body">
+                        <p>Allow about 40 minutes. Answer each question before you look at its mark scheme.</p>
+                        <div class="qset" data-set="topic2-1">
+                            <div class="q" data-m="2">
+                                <p>Define the term 'decomposition'.</p>
+                                <div class="ms"><ul><li>Breaking a problem down (1) into smaller, more manageable sub-problems/parts (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>A program is being written to control a lift. Give <strong>one</strong> example of abstraction the programmer might use.</p>
+                                <div class="ms"><ul><li>Identifies a relevant detail kept or an irrelevant detail removed (1), with reason (1). E.g. only the floor numbers and button presses are needed; the colour of the lift/the names of the people are ignored because they don't affect how the lift moves.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>State the inputs, processes and outputs for a program that calculates the area of a rectangle.</p>
+                                <div class="ms"><ul><li>Inputs: length and width (1).</li><li>Process: multiply length by width (1).</li><li>Output: the area (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Explain the difference between a syntax error and a logic error.</p>
+                                <div class="ms"><ul><li>A syntax error breaks the rules of the language, so the program won't run/translate (1).</li><li>A logic error lets the program run but gives an incorrect output/unexpected result (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Complete a trace table for this algorithm and give its output.</p>
+<pre class="code no-run">
+x = 1
+count = 0
+while x &lt; 20
+    x = x * 3
+    count = count + 1
+endwhile
+print(count)
+</pre>
+                                <div class="ms"><ul><li>x values: 1, 3, 9, 27 (1 for 3 and 9, 1 for 27).</li><li>count values: 0, 1, 2, 3 (1).</li><li>Output: 3 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="1">
+                                <p>State the pre-requisite for a binary search.</p>
+                                <div class="ms"><ul><li>The data/list must be sorted (in order) (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Show the stages of a binary search to find 'Owl' in this list: Ant, Bat, Cat, Dog, Elk, Fox, Gnu, Hen, Owl.</p>
+                                <div class="ms"><ul><li>Middle item is Elk (index 4) (1).</li><li>Owl comes after Elk, so discard Elk and everything before it (1).</li><li>Remaining: Fox, Gnu, Hen, Owl; middle is Gnu (rounding down) (1). Owl is after Gnu, so discard; left with Hen, Owl.</li><li>Middle is Hen, discard; Owl is checked and found (1). Accept consistent rounding up.</li></ul></div>
+                            </div>
+                            <div class="q" data-m="3">
+                                <p>Show the result after each pass of a bubble sort on the list: 8, 3, 6, 1.</p>
+                                <div class="ms"><ul><li>Pass 1: 3, 6, 1, 8 (1).</li><li>Pass 2: 3, 1, 6, 8 (1).</li><li>Pass 3: 1, 3, 6, 8 (1). (A fourth pass with no swaps confirms it's sorted.)</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>Describe how a merge sort would sort the list: 5, 9, 2, 7.</p>
+                                <div class="ms"><ul><li>Split into 5, 9 and 2, 7 (1).</li><li>Split into single items 5 | 9 | 2 | 7 (1).</li><li>Merge pairs in order: 5, 9 and 2, 7 (1).</li><li>Merge into 2, 5, 7, 9 by comparing the first items of each list (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="4">
+                                <p>A music app stores 2 million song titles in alphabetical order. Compare linear search and binary search for finding a song.</p>
+                                <div class="ms"><ul><li>Binary search can be used because the list is sorted (1).</li><li>Binary search halves the list each comparison, so needs at most about 21 comparisons (1).</li><li>Linear search may need to check all 2 million titles (1).</li><li>So binary search is much faster / linear search is simpler to code but too slow here (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-m="2">
+                                <p>Give <strong>one</strong> advantage of insertion sort over merge sort, and <strong>one</strong> advantage of merge sort over insertion sort.</p>
+                                <div class="ms"><ul><li>Insertion: uses less memory / simpler to code / fast on small or nearly sorted lists (1).</li><li>Merge: much faster on large lists (1).</li></ul></div>
+                            </div>
+                        </div>
+
+                        <div class="box stretch">
+                            <h4>▲ STRETCH</h4>
+                            <ul>
+                                <li>Add a counter to <code>linear_search</code> and <code>binary_search</code> to count comparisons. Test both on <code>list(range(1, 1001))</code> looking for 999.</li>
+                                <li>Change <code>bubble_sort</code> to sort names into reverse alphabetical order.</li>
+                            </ul>
+                        </div>
+
+                        <h3>My corrections: what I need to go back over</h3>
+                        <textarea class="notes" data-save="corrections-topic2-1" aria-label="My corrections"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-topic2-1" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · 2.1 Algorithms · Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="questions.js?v=2026-11-03"></script>
+    <script src="../js/question-bank.js?v=2026-10-29"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+    <script>
+        /* ---------- Algorithm stepper ----------
+           Each algorithm is run once up front and every step is recorded,
+           so Back and Step just move through the list of steps. */
+        const vizAlgo = document.getElementById('viz-algo');
+        const vizList = document.getElementById('viz-list');
+        const vizTarget = document.getElementById('viz-target');
+        const vizRow = document.getElementById('viz-row');
+        const vizNote = document.getElementById('viz-note');
+        const vizCount = document.getElementById('viz-count');
+        let steps = [];
+        let stepIndex = 0;
+
+        function bubbleSteps(list) {
+            const a = [...list];
+            const out = [{ a: [...a], hi: [], fixed: a.length, note: 'Start. Press Step to compare the first pair.' }];
+            let n = a.length;
+            let swapped = true;
+            let pass = 0;
+            while (swapped) {
+                swapped = false;
+                pass++;
+                for (let i = 0; i < n - 1; i++) {
+                    const x = a[i], y = a[i + 1];
+                    const swap = x > y;
+                    if (swap) {
+                        [a[i], a[i + 1]] = [a[i + 1], a[i]];
+                        swapped = true;
+                    }
+                    out.push({ a: [...a], hi: [i, i + 1], fixed: n, note: `Pass ${pass}: compare ${x} and ${y} → ${swap ? 'wrong order, swap' : 'right order, no swap'}` });
+                }
+                n--;
+                out.push({ a: [...a], hi: [], fixed: swapped ? n : 0, note: `End of pass ${pass}: ${swapped ? 'swaps were made, so do another pass.' : 'no swaps, so the list is sorted.'}` });
+            }
+            return out;
+        }
+
+        function insertionSteps(list) {
+            const a = [...list];
+            const out = [{ a: [...a], hi: [], sorted: 1, note: 'Start. The first item is a sorted list of one.' }];
+            for (let i = 1; i < a.length; i++) {
+                const current = a[i];
+                let j = i - 1;
+                out.push({ a: [...a], hi: [i], sorted: i, note: `Take ${current} and find where it belongs in the sorted part.` });
+                while (j >= 0 && a[j] > current) {
+                    a[j + 1] = a[j];
+                    out.push({ a: [...a], hi: [j, j + 1], sorted: i, note: `${a[j]} is bigger than ${current}, so move ${a[j]} one place right.` });
+                    j--;
+                }
+                a[j + 1] = current;
+                out.push({ a: [...a], hi: [j + 1], sorted: i + 1, note: `Insert ${current} at position ${j + 1}.` });
+            }
+            out.push({ a: [...a], hi: [], sorted: a.length, note: 'Every item has been inserted: sorted.' });
+            return out;
+        }
+
+        // Merge pairs of 1, then 2, then 4...
+        function mergeSteps(list) {
+            let a = [...list];
+            const out = [{ a: [...a], hi: [], note: `Divide: split the list into ${a.length} single items. A list of one is already sorted.` }];
+            for (let width = 1; width < a.length; width *= 2) {
+                for (let lo = 0; lo < a.length - width; lo += width * 2) {
+                    const mid = lo + width;
+                    const hi = Math.min(lo + width * 2, a.length);
+                    const left = a.slice(lo, mid);
+                    const right = a.slice(mid, hi);
+                    const merged = [];
+                    let i = 0, j = 0;
+                    while (i < left.length && j < right.length) merged.push(left[i] <= right[j] ? left[i++] : right[j++]);
+                    const result = merged.concat(left.slice(i), right.slice(j));
+                    a.splice(lo, result.length, ...result);
+                    out.push({ a: [...a], hi: [...Array(hi - lo).keys()].map(k => k + lo), note: `Merge [${left.join(', ')}] and [${right.join(', ')}] → [${result.join(', ')}]` });
+                }
+            }
+            out.push({ a: [...a], hi: [], fixed: 0, note: 'One list left: sorted.' });
+            return out;
+        }
+
+        function linearSteps(list, target) {
+            const out = [{ a: list, hi: [], note: `Look for ${target}, starting at the first item.` }];
+            for (let i = 0; i < list.length; i++) {
+                if (list[i] === target) {
+                    out.push({ a: list, hi: [], found: i, note: `Comparison ${i + 1}: ${list[i]} = ${target}. Found at index ${i}.` });
+                    return out;
+                }
+                out.push({ a: list, hi: [i], note: `Comparison ${i + 1}: ${list[i]} ≠ ${target}, move to the next item.` });
+            }
+            out.push({ a: list, hi: [], note: `Reached the end after ${list.length} comparisons: ${target} is not in the list (return -1).` });
+            return out;
+        }
+
+        function binarySteps(list, target) {
+            const a = [...list].sort((x, y) => x - y);
+            const sortedNote = a.join() === list.join() ? '' : ' (The list was sorted first: binary search needs sorted data.)';
+            const out = [{ a, hi: [], low: 0, high: a.length - 1, note: `Look for ${target}. low = 0, high = ${a.length - 1}.${sortedNote}` }];
+            let low = 0;
+            let high = a.length - 1;
+            let count = 0;
+            while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                count++;
+                if (a[mid] === target) {
+                    out.push({ a, hi: [], found: mid, low, high, note: `Comparison ${count}: mid = (${low} + ${high}) DIV 2 = ${mid}. items[${mid}] = ${a[mid]}: found!` });
+                    return out;
+                }
+                const smaller = target < a[mid];
+                out.push({ a, hi: [mid], low, high, note: `Comparison ${count}: mid = ${mid}, items[${mid}] = ${a[mid]}. ${target} is ${smaller ? 'smaller, so discard mid and everything above (high = ' + (mid - 1) + ')' : 'larger, so discard mid and everything below (low = ' + (mid + 1) + ')'}.` });
+                if (smaller) high = mid - 1;
+                else low = mid + 1;
+            }
+            out.push({ a, hi: [], low, high, note: `Nothing left to check: ${target} is not in the list (return -1).` });
+            return out;
+        }
+
+        function resetViz() {
+            const list = vizList.value.split(',').map(s => Number(s.trim())).filter(n => !Number.isNaN(n) && vizList.value.trim() !== '').slice(0, 14);
+            const target = Number(vizTarget.value);
+            const algo = vizAlgo.value;
+            document.getElementById('viz-target-label').hidden = !['linear', 'binary'].includes(algo);
+            if (!list.length) {
+                steps = [{ a: [], hi: [], note: 'Type some numbers separated by commas.' }];
+            } else if (algo === 'bubble') steps = bubbleSteps(list);
+            else if (algo === 'insertion') steps = insertionSteps(list);
+            else if (algo === 'merge') steps = mergeSteps(list);
+            else if (algo === 'linear') steps = linearSteps(list, target);
+            else steps = binarySteps(list, target);
+            stepIndex = 0;
+            drawViz();
+        }
+
+        function drawViz() {
+            const step = steps[stepIndex];
+            vizRow.innerHTML = '';
+            step.a.forEach((value, i) => {
+                const cell = document.createElement('span');
+                cell.className = 'viz-cell';
+                cell.textContent = value;
+                if (step.hi.includes(i)) cell.classList.add('hi');
+                if (step.fixed !== undefined && i >= step.fixed) cell.classList.add('fixed');
+                if (step.sorted !== undefined && i < step.sorted) cell.classList.add('part');
+                if (step.found === i) cell.classList.add('fixed');
+                if (step.low !== undefined && (i < step.low || i > step.high) && step.found !== i) cell.classList.add('out');
+                vizRow.appendChild(cell);
+            });
+            vizNote.textContent = step.note;
+            vizCount.textContent = `Step ${stepIndex + 1} / ${steps.length}`;
+        }
+
+        document.getElementById('viz-step').addEventListener('click', () => {
+            if (stepIndex < steps.length - 1) stepIndex++;
+            drawViz();
+        });
+        document.getElementById('viz-back').addEventListener('click', () => {
+            if (stepIndex > 0) stepIndex--;
+            drawViz();
+        });
+        document.getElementById('viz-reset').addEventListener('click', resetViz);
+        vizAlgo.addEventListener('change', () => {
+            if (vizAlgo.value === 'binary' && vizList.value === '5, 1, 4, 2, 8') {
+                vizList.value = '3, 8, 12, 19, 25, 31, 40, 47, 52';
+                vizTarget.value = '40';
+            }
+            resetViz();
+        });
+        vizList.addEventListener('change', resetViz);
+        vizTarget.addEventListener('change', resetViz);
+        resetViz();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

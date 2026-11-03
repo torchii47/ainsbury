@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mock Paper 2 | GCSE Computer Science Revision Guide</title>
+    <meta name="description" content="Topics 2.1–2.5 · 1 hour 30 minutes · 80 marks · Section A (50) and Section B (30) · No calculator">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Mock Paper 2 | GCSE Computer Science Revision Guide">
+    <meta property="og:description" content="Topics 2.1–2.5 · 1 hour 30 minutes · 80 marks · Section A (50) and Section B (30) · No calculator">
+    <meta property="og:url" content="https://ainsbury.art/gcse/mock2.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/gcse.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="stylesheet" href="../revision/revision.css?v=2026-11-04">
+    <link rel="stylesheet" href="gcse.css?v=2026-11-03">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+</head>
+<body class="rev gcse mock" data-page="mock2">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">PART C · OCR GCSE (9–1) COMPUTER SCIENCE STYLE PRACTICE PAPER</p>
+            <h1>Mock Paper 2: Computational thinking, algorithms and programming</h1>
+            <p>Topics 2.1–2.5 · 1 hour 30 minutes · 80 marks · Section A (50) and Section B (30) · No calculator</p>
+            <span class="big-num" aria-hidden="true">C</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <div class="mock-bar" id="mock-bar"></div>
+
+                <section class="window" id="info">
+                    <h2>Read this first</h2>
+                    <div class="window-body">
+                        <table>
+                            <tr><th>Time</th><th>Total marks</th><th>You will need</th></tr>
+                            <tr><td>1 hour 30 minutes</td><td>80</td><td>Black pen, pencil, ruler. <strong>No calculator</strong>, notes or electronic devices.</td></tr>
+                        </table>
+                        <h3>Instructions</h3>
+                        <ul>
+                            <li>Press <strong>Start timer</strong> above and work in silence, without notes.</li>
+                            <li>Answer <strong>all</strong> the questions in Section A and Section B.</li>
+                            <li>In Section B, questions that ask for code must be answered in <strong>OCR Exam Reference Language</strong> or a <strong>high-level programming language</strong> such as Python.</li>
+                            <li>Mark schemes stay locked until you press <strong>I've finished: show mark schemes</strong>.</li>
+                        </ul>
+                        <div class="box">
+                            <h4>■ MOCK EXAMINATION</h4>
+                            <p>This is a practice paper written to match the style and structure of the live assessment. It is not an OCR paper. For code questions, award marks for each point of logic shown, accept any correct alternative, and don't penalise small syntax slips unless the question is about syntax. Spec references show where to revise if you lost marks.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="qset" data-set="mock2" data-locked>
+
+                    <section class="window" id="secA">
+                        <h2>SECTION A (50 marks)</h2>
+                        <div class="window-body">
+
+                            <div class="q" data-n="1 (a)" data-m="2">
+                                <p>Define the term 'abstraction' and give an example.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.1</p><ul><li>Removing unnecessary detail to focus on what's important (1).</li><li>Any valid example, e.g. a map shows roads but not individual buildings (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (b)" data-m="2">
+                                <p>Explain <strong>one</strong> benefit of decomposition when writing a large program.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.1</p><ul><li>Each smaller part is easier to solve/code/test (1) and parts can be given to different programmers so it's finished sooner / parts can be reused (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (c)" data-m="3">
+                                <p>A program calculates the cost of a taxi journey from the distance travelled and the time of day. Identify the inputs, a process and the output.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.2</p><ul><li>Inputs: distance and time of day (1).</li><li>Process: e.g. multiply distance by the rate for that time / add a night surcharge (1).</li><li>Output: cost of the journey (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (d)" data-m="4">
+                                <p>Complete a trace table for this algorithm and give its output.</p>
+<pre class="code no-run">
+count = 0
+total = 0
+for i = 3 to 9 step 3
+    total = total + i
+    count = count + 1
+next i
+print(total / count)
+</pre>
+                                <div class="ms"><p class="ref">Spec 2.1.2</p><ul><li>i takes the values 3, 6, 9 (1).</li><li>total: 3, 9, 18 (1).</li><li>count: 1, 2, 3 (1).</li><li>Output 6 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (e)" data-m="3">
+                                <p>A bubble sort is used on the list 6, 2, 8, 3, 5. Show the list after each of the first two passes, and state how the algorithm knows the list is sorted.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.3</p><ul><li>After pass 1: 2, 6, 3, 5, 8 (1).</li><li>After pass 2: 2, 3, 5, 6, 8 (1).</li><li>A pass is made with no swaps (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (f)" data-m="2">
+                                <p>Explain why a binary search can't be used on the list 7, 3, 9, 1.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.3</p><ul><li>The list isn't sorted (1).</li><li>Binary search discards half the list based on whether the target is bigger or smaller than the middle item, which only works if the data is in order (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="1 (g)" data-m="4">
+                                <p>Describe how a merge sort would sort the list 8, 4, 6, 1.</p>
+                                <div class="ms"><p class="ref">Spec 2.1.3</p><ul><li>Split into 8, 4 and 6, 1 (1).</li><li>Split again into single items 8 | 4 | 6 | 1 (1).</li><li>Merge pairs in order: 4, 8 and 1, 6 (1).</li><li>Merge, comparing the first item of each list, to give 1, 4, 6, 8 (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 1 = 20 marks)</p>
+
+                            <div class="q" data-n="2 (a)" data-m="4">
+                                <p>A sports club stores data about each member. State the most suitable data type for: (i) the number of matches played (ii) the member's height in metres (iii) whether the member has paid (iv) the member's first initial.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.2</p><ul><li>(i) integer (ii) real/float (iii) Boolean (iv) character. 1 mark each.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (b)" data-m="2">
+                                <p>Give the result of: (i) <code>47 MOD 6</code> (ii) <code>47 DIV 6</code></p>
+                                <div class="ms"><p class="ref">Spec 2.2.1</p><ul><li>(i) 5 (1) (ii) 7 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (c)" data-m="2">
+                                <p>Explain why casting is needed in the line <code>age = int(input("Enter age"))</code>.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.2</p><ul><li>input returns a string (1) which must be converted to an integer so calculations/comparisons can be done with the age (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (d)" data-m="3">
+                                <p>The club's database has a table called <code>Members</code> with the fields <code>MemberID</code>, <code>Name</code>, <code>Age</code> and <code>Level</code>. Write an SQL query to show the name and age of every member whose level is "Gold".</p>
+                                <div class="ms"><p class="ref">Spec 2.2.3</p><ul><li><code>SELECT Name, Age</code> (1)</li><li><code>FROM Members</code> (1)</li><li><code>WHERE Level = "Gold"</code> (1)</li></ul></div>
+                            </div>
+                            <div class="q" data-n="2 (e)" data-m="2">
+                                <p>Describe the difference between a function and a procedure.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.3</p><ul><li>A function returns a value to where it was called (1); a procedure does not return a value, it just carries out a task (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 2 = 13 marks)</p>
+
+                            <div class="q" data-n="3 (a)" data-m="3">
+                                <p>Users of a website must choose a username that is 6 to 15 characters long. Describe <strong>three</strong> validation checks that could be used on the username.</p>
+                                <div class="ms"><p class="ref">Spec 2.3.1</p><ul><li>Any three: presence check, something has been entered; length check, 6–15 characters; format/type check, e.g. only letters and digits / no spaces; lookup check that it isn't already taken.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="3 (b)" data-m="4">
+                                <p>A program accepts ages from 16 to 65 inclusive. Give an example of normal, boundary, invalid and erroneous test data for this program.</p>
+                                <div class="ms"><p class="ref">Spec 2.3.2</p><ul><li>Normal: 17–64, e.g. 30 (1).</li><li>Boundary: 16 or 65 (1).</li><li>Invalid: e.g. 15, 66, 0 (1).</li><li>Erroneous: e.g. "thirty", 20.5 (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="3 (c)" data-m="2">
+                                <p>Give <strong>two</strong> ways a programmer can make their code easier to maintain.</p>
+                                <div class="ms"><p class="ref">Spec 2.3.1</p><ul><li>Any two: comments; meaningful variable names; indentation; sub programs; constants.</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 3 = 9 marks)</p>
+
+                            <div class="q" data-n="4 (a)" data-m="4">
+                                <p>Complete the truth table for P = (A OR B) AND NOT C. List the 8 rows in binary order of A, B, C.</p>
+                                <div class="ms"><p class="ref">Spec 2.4.1</p><ul><li>P column for ABC = 000 to 111: 0, 0, 1, 0, 1, 0, 1, 0. One mark for each correct pair of rows.</li></ul></div>
+                            </div>
+                            <div class="q" data-n="4 (b)" data-m="2">
+                                <p>A heater (H) turns on when it is cold (C) and either someone is at home (P) or frost protection is switched on (F). Write a Boolean expression for H.</p>
+                                <div class="ms"><p class="ref">Spec 2.4.1</p><ul><li>H = C AND (P OR F). 1 for C AND ..., 1 for (P OR F) with brackets.</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 4 = 6 marks)</p>
+
+                            <div class="q" data-n="5" data-m="2">
+                                <p>Explain why a programmer might use an interpreter rather than a compiler while they are still developing a program.</p>
+                                <div class="ms"><p class="ref">Spec 2.5.1</p><ul><li>An interpreter stops at the first error and shows the line (1) so errors are quicker to find and fix / the program can be run without compiling it all each time (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Question 5 = 2 marks)</p>
+                            <p class="paper-total"><strong>TOTAL FOR SECTION A = 50 MARKS</strong></p>
+                        </div>
+                    </section>
+
+                    <section class="window" id="secB">
+                        <h2>SECTION B (30 marks)</h2>
+                        <div class="window-body">
+                            <p>Answer code questions in OCR Exam Reference Language or a high-level programming language.</p>
+                            <div class="box scenario">
+                                <h4>SCENARIO: STEPUP FITNESS CLUB</h4>
+                                <p>StepUp is a fitness club. Its app records how many steps each member walks every day. Members earn an award at the end of each week based on their total steps.</p>
+                            </div>
+
+                            <div class="q" data-n="6 (a)" data-m="2">
+                                <p>Write code that asks a member for their name and then outputs "Welcome, " followed by their name.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.1</p><ul><li>Input name stored in a variable (1).</li><li>Output "Welcome, " concatenated with the name (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="6 (b)" data-m="5">
+                                <p>Write a program that asks the member to enter their step count for each of the 7 days of the week, stores them in an array called <code>steps</code>, then outputs the total and the average for the week.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.1, 2.2.3</p><ul><li>Array declared/used for 7 values (1).</li><li>Loop that runs 7 times (1).</li><li>Input cast to integer and stored in steps[i] (1).</li><li>Total calculated (1).</li><li>Total and average (total / 7) output (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="6 (c)" data-m="4">
+                                <p>Refine your program so that each step count must be between 0 and 50,000 inclusive. If it isn't, the member is told it's invalid and asked to enter it again.</p>
+                                <div class="ms"><p class="ref">Spec 2.3.1</p><ul><li>Condition-controlled loop around the input (1).</li><li>Correct condition: &lt; 0 OR &gt; 50000 (1).</li><li>Error message output (1).</li><li>Input repeated until valid, then stored (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="6 (d)" data-m="3">
+                                <p>Complete a test plan for your validation with <strong>three</strong> tests: one normal, one boundary and one erroneous. Give the test data and the expected result for each.</p>
+                                <div class="ms"><p class="ref">Spec 2.3.2</p><ul><li>Normal, e.g. 8000 → accepted (1).</li><li>Boundary: 0 or 50000 → accepted (1).</li><li>Erroneous, e.g. "lots" or 12.5 → rejected/error message (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="7 (a)" data-m="4">
+                                <p>Write a function <code>award(total)</code> that returns "Gold" if the weekly total is 70,000 or more, "Silver" if it is 50,000 or more, and "Bronze" otherwise.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.3</p><ul><li>Function header with parameter total (1).</li><li>Checks &gt;= 70000 first and returns "Gold" (1).</li><li>elseif &gt;= 50000 returns "Silver" (1).</li><li>else returns "Bronze" (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="7 (b)" data-m="3">
+                                <p>Write code that adds a line to the end of a text file called <code>results.txt</code> containing the member's name and weekly total, separated by a comma.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.3</p><ul><li>Opens results.txt (in append mode in Python) (1).</li><li>Writes name + "," + str(total) (1).</li><li>Closes the file (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="7 (c)" data-m="3">
+                                <p>The club stores every member's steps in a 2D array <code>allSteps[member, day]</code>, with days 0 to 6. Write code to output the total steps for member 5.</p>
+                                <div class="ms"><p class="ref">Spec 2.2.3</p><ul><li>Loop through days 0 to 6 (1).</li><li>Add allSteps[5, day] to a total initialised to 0 (1).</li><li>Output the total after the loop (1).</li></ul></div>
+                            </div>
+                            <div class="q" data-n="7 (d)" data-m="6">
+                                <p>This algorithm should output the highest daily step count in the array <code>steps</code>. It contains <strong>three</strong> errors. Identify the line number of each error and give the corrected line.</p>
+<pre class="code no-run">
+01 highest = 0
+02 for i = 0 to 6
+03     if steps[i] &lt; highest then
+04         highest = steps[i]
+05     endif
+06 next
+07 print("Highest: " + highest)
+</pre>
+                                <div class="ms"><p class="ref">Spec 2.1.2, 2.3.2</p><ul><li>Line 03 (1): should be <code>if steps[i] &gt; highest then</code> (1).</li><li>Line 06 (1): should be <code>next i</code> (1).</li><li>Line 07 (1): highest must be cast to a string: <code>print("Highest: " + str(highest))</code> (1).</li></ul></div>
+                            </div>
+                            <p class="paper-total">(Total for Section B = 30 marks)</p>
+                            <p class="paper-total"><strong>TOTAL FOR PAPER = 80 MARKS</strong></p>
+                        </div>
+                    </section>
+
+                </div>
+
+                <section class="window" id="notes">
+                    <h2>my_notes.txt</h2>
+                    <div class="window-body">
+                        <textarea class="notes" data-save="notes-mock2" aria-label="My notes"></textarea>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>GCSE Computer Science Revision Guide 2026–27 · Mock Paper 2 · A practice paper, not an OCR paper. Not produced or endorsed by OCR or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="guide.js?v=2026-11-04"></script>
+    <script src="../revision/revision.js?v=2026-11-04b"></script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>
