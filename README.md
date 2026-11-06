@@ -1,18 +1,21 @@
 # Rowan's Website
 
-Teaching resources and student portfolio hub for T Level Digital, live at **[ainsbury.art](https://ainsbury.art)**.
+Free revision guides and study tools for computing students, live at **[ainsbury.art](https://ainsbury.art)**. Written by a T Level Digital specialist who has previously taught GCSE Computer Science.
 
 It's a plain static site: hand-written HTML, CSS and vanilla JavaScript, with no build step, framework or dependencies. The look is a 90s desktop: every section is a draggable-looking "window" with working `_ □ ×` buttons and a taskbar footer.
 
 ## What's on it
 
-- **Homepage** (`index.html`): a landing page with one big button per revision guide (T Level Digital Software Development and OCR GCSE Computer Science are live; T Level Digital Support & Security and V Level Digital are marked *coming soon*), the core exam countdown, class demos and student portfolio sites. Below those is a compact row with the guidelines, student toolkit, question of the day, key dates, lesson posts and useful links.
+- **Homepage** (`index.html`): a landing page with one big button per revision guide (T Level Digital Software Development and OCR GCSE Computer Science are live; T Level Digital Support & Security and V Level Digital are marked *coming soon*), the exam countdowns, interactive demos and the student toolkit. Below those is a compact row with the about box, question of the day, key dates and useful links.
 - **Core Revision Guide** (`revision/`): T Level Digital Software Development. It has interactive notes for content areas CA1–CA8, exam technique, two timed mock papers, the ESP, the occupational specialism, organisers and an A–Z glossary. Checklists, flashcards, answers, marks and notes are saved in the visitor's browser (`localStorage`) and are never sent anywhere.
 - **GCSE Computer Science Revision Guide** (`gcse/`): OCR J277, built the same way as the T Level guide and using the same engine. It has a page for each spec topic (1.1–1.6, 2.1–2.5), exam technique with an Exam Reference Language reference, practical programming tasks, two timed 80-mark mock papers, printable organisers and an A–Z glossary. Its progress is saved separately from the T Level guide's.
-- **Student toolkit** (`pages/`): starter template, submission checklist, HTML & CSS cheat sheet, common mistakes, glossary, term planner, placement prep and a random question page.
+- **Student toolkit** (`pages/`): starter template, submission checklist, HTML & CSS cheat sheet, common mistakes, glossary, placement prep, placement tracker and a random question page.
+- **For teachers** (`pages/teachers.html`): how to use the guides with a class.
+- **Site information** (`pages/`): `search.html`, `about.html`, `accessibility.html`, `report.html`, `terms.html` and `privacy.html`, linked from the strip at the bottom of every page.
+- **Class page** (`pages/class.html`): for Rowan's own classes, linked from the homepage about box. It holds the term planner (`pages/term.html`) and lesson posts. These pages are marked `noindex`, which keeps them out of search results, but they're still public, so don't put anything private on them.
 - **Starter site** (`starter/`): a heavily commented `index.html` + `style.css` that students can copy as the base for their own portfolio.
-- **Posts** (`posts/`): lesson resources and notes.
-- **Demos**: class demo pages such as `cargopulse.html`.
+- **Posts** (`posts/`): lesson resources and notes, listed on the class page.
+- **Demos**: interactive demo pages such as `cargopulse.html`.
 
 ## Project structure
 
@@ -27,6 +30,7 @@ favicon.svg/.ico      Site icon (pixel-art window), plus apple-touch-icon.png
 css/style.css         Main site styles
 js/
   analytics.js        GoatCounter visit counting (set your code at the top)
+  site-info.js        Report / terms / privacy strip on every page. Set reportDestination here
   demos.js            Class demos list for the homepage
   windows.js          Makes the _ □ × window buttons work (load last)
   dates.js            Key dates and exam dates for both courses
@@ -39,12 +43,17 @@ posts/                Lesson posts, posts.js index and template.html
 revision/             Core Revision Guide pages, plus the shared guide engine:
   revision.css        Styles for every revision guide
   revision.js         Checklists, flashcards, mark schemes, mocks, search...
+  debug-challenges.js The debugging tasks, including the practice ESP code tasks
+  practice.js         Question generators for the endless practice page
 gcse/                 GCSE Computer Science Revision Guide
   guide.js            Settings for the engine: pages, timers, summary form (load first)
   gcse.css            Topic colours, on top of ../revision/revision.css
   questions.js        GCSE question bank for the "Quiz me" boxes
   topic1-1.html ...   One page per spec topic, plus exams, programming, mocks
 starter/              Student starter site
+sw.js                 Offline support (network first, saved copy when offline)
+manifest.webmanifest  Lets the site be added to a home screen
+sitemap.xml           Public pages for search engines
 ```
 
 ## Running locally
@@ -71,7 +80,7 @@ then visit [http://localhost:8000](http://localhost:8000).
    },
    ```
 
-   The homepage sorts posts newest first and tags the latest one **NEW!**.
+   The class page sorts posts newest first and tags the latest one **NEW!**.
 
 ### Add a key date
 
@@ -85,11 +94,7 @@ Add a string to the `tips` array in `js/tips.js`.
 
 Export the bank as CSV and paste it between the backticks in `js/questions.js`, keeping the header row (`id,topic,type,question,answer,options,correct,marks,source,needs_check`). It feeds the question of the day, `pages/question.html` and the "Quiz me" boxes in the revision guide.
 
-### Add a student site
-
-Add a link inside `.student-list` in the `#students` section of `index.html`. The **Random site** button picks from these links automatically.
-
-### Add a class demo
+### Add a demo
 
 Put the page in the root folder (or a `demos/` folder) and add an entry to `js/demos.js`:
 
@@ -122,6 +127,10 @@ The homepage's `#guides` section has a big button per course. Planned guides are
 
 Anything a guide's `guide.js` leaves out falls back to the T Level settings, so the T Level guide needs no config file.
 
+## Reporting problems
+
+Every page has a **Report a problem** link, and so does every question. They open `pages/report.html` with the page and question filled in. Students copy their report and paste it into the Google Form set in `reportDestination` at the top of `js/site-info.js`. Responses are in the form's Responses tab.
+
 ## Analytics
 
 Visits are counted with [GoatCounter](https://www.goatcounter.com), which is free for non-commercial sites. It sets no cookies and stores no personal data, so no cookie banner is needed. Every page (except the student `starter/` template) loads `js/analytics.js`.
@@ -132,15 +141,16 @@ Visits are counted with [GoatCounter](https://www.goatcounter.com), which is fre
 2. Open `js/analytics.js` and replace `YOUR-CODE` with that code.
 3. Upload the site. Your dashboard is at `https://YOUR-CODE.goatcounter.com`.
 
-The dashboard shows views per page, referrers, browsers, screen sizes and countries. Clicks on links to other sites (such as student portfolios and the **Random site** button) appear as events named `outbound: …`. Visits from `file://` and `localhost` aren't counted, so local testing doesn't skew the numbers. If you'd rather not count your own visits online, use GoatCounter's *Settings → Ignore IPs*.
+The dashboard shows views per page, referrers, browsers, screen sizes and countries. Clicks on links to other sites appear as events named `outbound: …`. Visits from `file://` and `localhost` aren't counted, so local testing doesn't skew the numbers. If you'd rather not count your own visits online, use GoatCounter's *Settings → Ignore IPs*.
 
-Every new page needs the script in its `<head>` (`posts/template.html` already has it):
+Every new page needs both scripts in its `<head>` (`posts/template.html` already has them):
 
 ```html
 <script src="../js/analytics.js"></script>
+<script src="../js/site-info.js"></script>
 ```
 
-Use `js/analytics.js` from the root folder and `/js/analytics.js` on the error pages.
+Use `js/...` from the root folder and `/js/...` on the error pages.
 
 ### What students do in the revision guides
 
@@ -166,7 +176,27 @@ On each guide's home page, **backup_progress.exe** makes a progress summary and 
 1. Make a Microsoft Form with a long-answer question, e.g. "Paste your progress summary here".
 2. Copy the form's share link and paste it in as `summaryForm`: in `revision/revision.js` (near the top) for the T Level guide, and in `gcse/guide.js` for the GCSE guide.
 
+Leave `summaryForm` blank on the public site, or every visitor's summary would come to you as personal data. With it blank, students copy the summary and share it themselves.
+
 An **Open the form and paste it in** button then appears after a student makes their summary. With no link set, the button stays hidden.
+
+## Python self-test
+
+The debugging challenges and the code tasks in the practice ESP are in `revision/debug-challenges.js`. After changing them, open `revision/debug.html?selftest` in a browser and press **Run the self-test**. It checks that every faulty program fails and every fixed program passes.
+
+## Offline use and search
+
+`sw.js` saves the pages in `sitemap.xml` and the files in its `files` list so the site works offline. It always tries the network first, so corrections reach students straight away. If you add a new shared script, add it to `files` and change `cacheName`.
+
+When you add a public page, add it to `sitemap.xml`, and give it a `<link rel="canonical">` and the manifest link in its `<head>`.
+
+## Last reviewed labels
+
+Guide pages show a "Last reviewed" label. Change `lastReviewed` in `revision/revision.js` or `gcse/guide.js` after reviewing a guide. Pages with `reviewed: false` in the page list show no label until you remove that setting.
+
+## Provisional dates
+
+While `keyDatesProvisional` or `gcseDatesProvisional` in `js/dates.js` is `true`, the countdowns and key dates are labelled as provisional. Set them to `false` when the final timetables are published. The T Level planner pauses for the ESP in the two weeks before week 7. It counts back from Paper 1, so check `pause` in `js/countdown.js` if the ESP dates change.
 
 ## Printing mock papers
 
@@ -192,7 +222,7 @@ Upload the files to Neocities (or push to the GitHub Pages repository), keeping 
 
 ## Notes
 
-The Core Revision Guide is an independent teaching resource, not produced, checked or endorsed by Pearson or JCQ. The GCSE Computer Science Revision Guide is likewise not produced, checked or endorsed by OCR or JCQ. Both are for students on the course and not for resale.
+The Core Revision Guide is an independent teaching resource, not produced, checked or endorsed by Pearson or JCQ. The GCSE Computer Science Revision Guide is likewise not produced, checked or endorsed by OCR or JCQ. Both are free for students and teachers to use and not for resale: see `pages/terms.html`.
 
 Every new page should also link the favicon in its `<head>` (with `../` in front from a subfolder):
 

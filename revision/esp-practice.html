@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <title>Practice ESP: Moorside Bike Hire | Core Revision Guide</title>
+    <meta name="description" content="A full practice Employer Set Project for T Level Digital Software Development, with pre-release material, timed tasks, automatic code checks and example responses at three levels.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Practice ESP: Moorside Bike Hire | Core Revision Guide">
+    <meta property="og:description" content="A full practice Employer Set Project for T Level Digital Software Development, with pre-release material, timed tasks, automatic code checks and example responses at three levels.">
+    <meta property="og:url" content="https://ainsbury.art/revision/esp-practice.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/tlevel.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://ainsbury.art/revision/esp-practice.html">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
+    <link rel="stylesheet" href="revision.css?v=2026-11-06e">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
+</head>
+<body class="rev" data-page="esp-practice">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CORE COMPONENT · PRACTICE PROJECT</p>
+            <h1>Practice ESP: Moorside Bike Hire</h1>
+            <p>A complete practice Employer Set Project: a made-up employer, pre-release material, five timed tasks and example responses at three levels.</p>
+            <span class="big-num" aria-hidden="true">P</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" id="start">
+                    <h2>How to use this practice</h2>
+                    <div class="window-body">
+                        <div class="box mistake">
+                            <h4>✗ THIS IS NOT A REAL ESP</h4>
+                            <p>This practice project was written for this guide. It isn't from Pearson and it doesn't predict your real project. The task lengths come from the provisional ESP dates, but the way the work is split between tasks is a practice version, so always follow your real paper. The example responses are guidance, not official marking.</p>
+                        </div>
+                        <ol>
+                            <li>Read the pre-release material and make your own notes.</li>
+                            <li>Do each task under the same conditions as the real thing: no internet, no AI tools and the timer running. You can do one task at a time on different days.</li>
+                            <li>Only open the example responses after you've finished a task.</li>
+                            <li>Compare your work, then write down one thing to improve before the next task.</li>
+                        </ol>
+                        <table>
+                            <tr><th>Task</th><th>Time</th><th>Kind of task</th></tr>
+                            <tr><td><a href="#task1">Task 1</a></td><td>3 hours</td><td>Planning</td></tr>
+                            <tr><td><a href="#task2">Task 2</a></td><td>3 hours</td><td>Fixing defects in code</td></tr>
+                            <tr><td><a href="#task3">Task 3</a></td><td>2 hours 30 minutes</td><td>Design</td></tr>
+                            <tr><td><a href="#task4a">Task 4a</a></td><td>4 hours</td><td>Development</td></tr>
+                            <tr><td><a href="#task4b">Task 4b</a></td><td>2 hours</td><td>Reflective evaluation</td></tr>
+                        </table>
+                        <p>Your notes and code are saved on this device only. Use <a href="esp.html">the ESP page</a> to revise what each kind of task needs.</p>
+                    </div>
+                </section>
+
+                <section class="window" id="prerelease">
+                    <h2>Pre-release material</h2>
+                    <div class="window-body">
+                        <div class="box scenario">
+                            <h4>MOORSIDE BIKE HIRE</h4>
+                            <p>Moorside Bike Hire is a small community interest company in a fictional Yorkshire market town. It hires standard and electric bikes to visitors and local people. All of its profit pays for free cycling lessons for local children.</p>
+                            <p>It has three hire points: <strong>Station</strong>, <strong>Castle</strong> and <strong>Riverside</strong>. There is one manager, Priya, and six part-time staff, four of whom are volunteers. Some volunteers are over 70 and aren't confident with computers.</p>
+                        </div>
+
+                        <h3>The problem</h3>
+                        <p>Each hire is written on a paper form. Priya collects the forms every Friday and types the totals into a spreadsheet. This causes problems:</p>
+                        <ul>
+                            <li>Staff can't see how many bikes are free at another hire point, so customers are sometimes sent to a site with none left.</li>
+                            <li>Prices are worked out by hand, and mistakes happen. Last summer around 1 in 20 forms had the wrong price.</li>
+                            <li>Forms containing customers' names and phone numbers are kept in an unlocked drawer.</li>
+                            <li>Priya can't easily see which hire points or bike types make the most money, which she needs for funding bids.</li>
+                        </ul>
+
+                        <h3>What Moorside wants</h3>
+                        <p>Moorside wants a simple prototype, written in Python, that staff can use on a shared laptop at each hire point.</p>
+                        <table>
+                            <tr><th>Ref</th><th>Requirement</th></tr>
+                            <tr><td>R1</td><td>Record a hire: hire point, bike type, number of hours and whether the customer is a member.</td></tr>
+                            <tr><td>R2</td><td>Work out the cost using the price list.</td></tr>
+                            <tr><td>R3</td><td>Reject invalid input with a clear message.</td></tr>
+                            <tr><td>R4</td><td>Show how many bikes are available at a hire point.</td></tr>
+                            <tr><td>R5</td><td>Report the total income for each hire point.</td></tr>
+                            <tr><td>R6</td><td>Be simple enough for a volunteer to use after a short demonstration.</td></tr>
+                            <tr><td>R7</td><td>Protect customers' personal data.</td></tr>
+                        </table>
+
+                        <h3>Price list</h3>
+                        <table>
+                            <tr><th>Item</th><th>Price</th></tr>
+                            <tr><td>First hour</td><td>£6</td></tr>
+                            <tr><td>Each extra hour</td><td>£4</td></tr>
+                            <tr><td>Electric bike</td><td>£10 extra for each hire</td></tr>
+                            <tr><td>Members</td><td>10% off the whole price</td></tr>
+                            <tr><td>Hire length</td><td>1 to 8 whole hours</td></tr>
+                        </table>
+
+                        <h3>Sample data: hires.csv</h3>
+<pre class="code no-run">
+date,location,bike_type,hours,member,cost
+2027-05-01,Station,standard,1,no,6.00
+2027-05-01,Station,electric,3,no,24.00
+2027-05-01,Castle,standard,2,yes,9.00
+2027-05-02,Riverside,electric,1,yes,14.40
+2027-05-02,Castle,standard,4,no,18.00
+</pre>
+
+                        <h3>Your notes</h3>
+                        <textarea class="notes" data-save="esp-practice-prerelease" aria-label="My notes on the pre-release material"></textarea>
+                    </div>
+                </section>
+
+                <section class="window" id="task1">
+                    <h2>Task 1: Planning</h2>
+                    <div class="window-body">
+                        <div class="task-timer" data-id="task1" data-minutes="180"></div>
+                        <p>Produce a plan for the prototype. Your plan must include:</p>
+                        <ol type="a">
+                            <li>a decomposition of the problem into smaller parts</li>
+                            <li>functional and non-functional requirements, linked to R1–R7</li>
+                            <li>three SMARTER objectives for the project</li>
+                            <li>a feasibility assessment, including the main risks and how you'd reduce them</li>
+                            <li>a justified development timeline</li>
+                        </ol>
+                        <textarea class="notes" data-save="esp-practice-task1" aria-label="My Task 1 plan"></textarea>
+                        <details class="level-example">
+                            <summary>Example responses: requirements and objectives</summary>
+                            <h4>Weak</h4>
+                            <blockquote>The system must work well and be easy to use. It should be finished on time. It needs to be secure.</blockquote>
+                            <p><strong>Why:</strong> these could describe any project. Nothing can be measured or tested, and Moorside isn't mentioned.</p>
+                            <h4>Middling</h4>
+                            <blockquote>The system must calculate the cost of a hire using the price list (R2). It must stop staff entering hours outside 1 to 8 (R3). Objective: finish the prototype by the end of June.</blockquote>
+                            <p><strong>Why:</strong> the requirements are linked to the brief and can be tested. The objective has a date, but it doesn't say what success looks like or why it matters.</p>
+                            <h4>Strong</h4>
+                            <blockquote>Functional: calculate the correct cost for all 32 combinations of hours, bike type and membership (R2), so the 1 in 20 pricing errors are removed. Non-functional: a new volunteer can record a hire correctly within 2 minutes after a 10-minute demonstration (R6), because some volunteers lack confidence with computers. Objective: by 30 June, Station staff record every hire in the prototype for two weeks with no pricing errors, checked by Priya against a sample of 50 hires.</blockquote>
+                            <p><strong>Why:</strong> each point is specific and measurable, and it's justified using evidence from the scenario. It also separates what the system does from how well it does it.</p>
+                        </details>
+                    </div>
+                </section>
+
+                <section class="window" id="task2">
+                    <h2>Task 2: Fixing defects</h2>
+                    <div class="window-body">
+                        <div class="task-timer" data-id="task2" data-minutes="180"></div>
+                        <p>A previous developer started the prototype, but their code has defects. For each program, find and fix the defects. Then record each one in your defect log: the line number, the problem, the type of error (syntax, runtime or logic) and the correction.</p>
+                        <h3>Program 1: Hire cost</h3>
+                        <div class="debug-task" data-id="esp-cost"></div>
+                        <h3>Program 2: Bikes available</h3>
+                        <div class="debug-task" data-id="esp-available"></div>
+                        <h3>Program 3: Income by hire point</h3>
+                        <div class="debug-task" data-id="esp-income"></div>
+                        <h3>Your defect log</h3>
+                        <textarea class="notes" data-save="esp-practice-task2" aria-label="My defect log"></textarea>
+                        <details class="level-example">
+                            <summary>Example responses: one defect log entry</summary>
+                            <h4>Weak</h4>
+                            <blockquote>Line 8 was wrong so I changed it.</blockquote>
+                            <p><strong>Why:</strong> this gives no problem, no error type and no correction, so nobody could check the work.</p>
+                            <h4>Middling</h4>
+                            <blockquote>Line 8: the discount is wrong. Logic error. Changed 0.1 to 0.9.</blockquote>
+                            <p><strong>Why:</strong> the entry is accurate, but it doesn't explain why the code was wrong or how the fix was tested.</p>
+                            <h4>Strong</h4>
+                            <blockquote>Line 8, logic error: multiplying by 0.1 charges members 10% of the price instead of taking 10% off, so a £10 hire cost £1. Changed to cost * 0.9. Tested with a 2-hour standard hire for a member: expected £9.00, got £9.00.</blockquote>
+                            <p><strong>Why:</strong> it explains the effect of the defect and gives evidence from a test that the fix works.</p>
+                        </details>
+                    </div>
+                </section>
+
+                <section class="window" id="task3">
+                    <h2>Task 3: Design</h2>
+                    <div class="window-body">
+                        <div class="task-timer" data-id="task3" data-minutes="150"></div>
+                        <p>Design the prototype. On paper or in your notes, produce:</p>
+                        <ol type="a">
+                            <li>a flowchart or written algorithm for recording a hire, including validation</li>
+                            <li>a data model showing the data to be stored, with field names and data types</li>
+                            <li>a sketch of the screen or menu staff will use, with reasons based on the users</li>
+                            <li>a test plan with valid, invalid, boundary and erroneous data for the number of hours</li>
+                        </ol>
+                        <textarea class="notes" data-save="esp-practice-task3" aria-label="My Task 3 design"></textarea>
+                        <details class="level-example">
+                            <summary>Example responses: test plan for hours</summary>
+                            <h4>Weak</h4>
+                            <blockquote>Test 1: enter some hours and see if it works. Test 2: enter something wrong.</blockquote>
+                            <p><strong>Why:</strong> this has no actual test data and no expected results, so the tests can't be repeated.</p>
+                            <h4>Middling</h4>
+                            <table>
+                                <tr><th>Data</th><th>Type</th><th>Expected result</th></tr>
+                                <tr><td>4</td><td>Valid</td><td>Accepted</td></tr>
+                                <tr><td>12</td><td>Invalid</td><td>Rejected</td></tr>
+                                <tr><td>nine</td><td>Erroneous</td><td>Rejected</td></tr>
+                            </table>
+                            <p><strong>Why:</strong> the data and results are clear, but there's no boundary testing and a limit is where errors are most likely.</p>
+                            <h4>Strong</h4>
+                            <table>
+                                <tr><th>Data</th><th>Type</th><th>Expected result</th></tr>
+                                <tr><td>4</td><td>Valid</td><td>Accepted, cost calculated</td></tr>
+                                <tr><td>1 and 8</td><td>Boundary</td><td>Accepted</td></tr>
+                                <tr><td>0 and 9</td><td>Boundary</td><td>Rejected: "Enter 1 to 8 hours"</td></tr>
+                                <tr><td>12 and -3</td><td>Invalid</td><td>Rejected: "Enter 1 to 8 hours"</td></tr>
+                                <tr><td>nine, 2.5, blank</td><td>Erroneous</td><td>Rejected: "Enter a whole number"</td></tr>
+                            </table>
+                            <p><strong>Why:</strong> it covers every type of test data, including both sides of each limit. The expected messages are specific enough to check.</p>
+                        </details>
+                    </div>
+                </section>
+
+                <section class="window" id="task4a">
+                    <h2>Task 4a: Development</h2>
+                    <div class="window-body">
+                        <div class="task-timer" data-id="task4a" data-minutes="240"></div>
+                        <p>Build the prototype from your design. Start with the four functions below, which the automatic checks test. Then, if you have time, add a simple menu so staff can use it, and a labelled chart of income for each hire point (see <a href="esp.html#pandas">pandas and matplotlib</a>).</p>
+                        <div class="debug-task" data-id="esp-build"></div>
+                        <p>Use clear names and comments, as you would in the real task. Keep evidence of your testing, because you'll need it in Task 4b.</p>
+                    </div>
+                </section>
+
+                <section class="window" id="task4b">
+                    <h2>Task 4b: Reflective evaluation</h2>
+                    <div class="window-body">
+                        <div class="task-timer" data-id="task4b" data-minutes="120"></div>
+                        <p>Evaluate your prototype. Judge how well it meets R1–R7, using your test results as evidence. Include its limitations, what you'd improve and what you'd do differently next time. Use the <a href="esp.html#evaluation">evaluation guide</a> to help you.</p>
+                        <textarea class="notes" data-save="esp-practice-task4b" aria-label="My reflective evaluation"></textarea>
+                        <details class="level-example">
+                            <summary>Example responses: evaluating one requirement</summary>
+                            <h4>Weak</h4>
+                            <blockquote>I made a function that works out the price. It works well. I used if statements and it was hard at first but I fixed it.</blockquote>
+                            <p><strong>Why:</strong> this describes what happened instead of judging it. "Works well" has no evidence, and it doesn't mention Moorside or a requirement.</p>
+                            <h4>Middling</h4>
+                            <blockquote>R2 is met because the cost function passed my tests. A weakness is that prices are written into the code, so it would be better to store them in a file.</blockquote>
+                            <p><strong>Why:</strong> it makes a judgement, mentions evidence and gives a weakness. It doesn't say what the tests showed or why the improvement would help Moorside.</p>
+                            <h4>Strong</h4>
+                            <blockquote>R2 is fully met: all 14 cost tests passed, including members hiring electric bikes and the 1 and 8 hour limits, so this should remove the 1 in 20 pricing errors from the paper forms. However, the prices are written into the code, which means Priya would need a developer every time prices change. Storing them in a CSV file would let her update them herself, so the system would stay accurate without extra cost. Overall the pricing is reliable enough to trial, but this limitation should be fixed before Moorside's next price change.</blockquote>
+                            <p><strong>Why:</strong> it uses specific evidence, links back to the problem in the brief, balances a strength and a limitation, and ends with a supported judgement.</p>
+                        </details>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · Practice ESP · A fictional practice project. Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="debug-challenges.js?v=2026-11-06c"></script>
+    <script src="revision.js?v=2026-11-06g"></script>
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

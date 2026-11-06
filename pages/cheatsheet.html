@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
     <title>HTML &amp; CSS Cheat Sheet | Rowan's Website</title>
-    <meta name="description" content="The tags and properties we use most in class. For anything else, check MDN.">
+    <meta name="description" content="The tags and properties you'll use most. For anything else, check MDN.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Rowan&#x27;s Website">
     <meta property="og:title" content="HTML &amp; CSS Cheat Sheet | Rowan&#x27;s Website">
-    <meta property="og:description" content="The tags and properties we use most in class. For anything else, check MDN.">
+    <meta property="og:description" content="The tags and properties you'll use most. For anything else, check MDN.">
     <meta property="og:url" content="https://ainsbury.art/pages/cheatsheet.html">
+    <link rel="canonical" href="https://ainsbury.art/pages/cheatsheet.html">
     <meta property="og:image" content="https://ainsbury.art/images/og/site.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -17,10 +19,14 @@
     <link rel="icon" href="../favicon.ico" sizes="any">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
     <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
 </head>
 <body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="site post-page">
 
@@ -32,13 +38,12 @@
             <a href="cheatsheet.html" aria-current="page">Cheat Sheet</a>
             <a href="mistakes.html">Mistakes</a>
             <a href="glossary.html">Glossary</a>
-            <a href="term.html">Term Planner</a>
             <a href="placement.html">Placement</a>
             <a href="question.html">Random Question</a>
         </nav>
 
         <!-- HTML -->
-        <main>
+        <main id="main">
         <section class="window">
             <div class="title-bar">
                 <span class="title-bar-text">html_cheatsheet.txt</span>
@@ -46,7 +51,7 @@
             </div>
             <div class="window-body">
                 <h1 class="site-title">Cheat Sheet</h1>
-                <p class="page-intro">The tags and properties we use most in class. For anything else, check <a href="https://developer.mozilla.org" target="_blank">MDN</a>.</p>
+                <p class="page-intro">The tags and properties you'll use most. For anything else, check <a href="https://developer.mozilla.org" target="_blank">MDN</a>.</p>
 
                 <h3>Page structure</h3>
 <pre><code>&lt;!DOCTYPE html&gt;

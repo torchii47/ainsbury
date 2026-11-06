@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <meta name="robots" content="noindex">
     <title>Term Planner | Rowan's Website</title>
     <meta name="description" content="What we&#x27;re covering and when. Missed a lesson? Find the week here and catch up with the resources.">
     <meta property="og:type" content="website">
@@ -17,10 +19,14 @@
     <link rel="icon" href="../favicon.ico" sizes="any">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
     <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
 </head>
 <body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="site post-page">
 
@@ -33,11 +39,12 @@
             <a href="mistakes.html">Mistakes</a>
             <a href="glossary.html">Glossary</a>
             <a href="term.html" aria-current="page">Term Planner</a>
+            <a href="class.html">Class Page</a>
             <a href="placement.html">Placement</a>
             <a href="question.html">Random Question</a>
         </nav>
 
-        <main>
+        <main id="main">
         <section class="window">
             <div class="title-bar">
                 <span class="title-bar-text">term_planner.cal</span>
@@ -104,7 +111,7 @@
 
     </div>
 
-    <script src="../js/dates.js?v=2026-11-04"></script>
+    <script src="../js/dates.js?v=2026-11-06c"></script>
     <script>
         const datesTable = document.getElementById('dates-table');
         const today = new Date().toISOString().slice(0, 10);

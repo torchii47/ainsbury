@@ -40,6 +40,11 @@ body {
     background-position: 0 0, 12px 12px;
 }
 
+/* Anything marked hidden stays hidden, even if a class sets display */
+[hidden] {
+    display: none !important;
+}
+
 /* Keeps everything centred, like the good old 800px days */
 .site {
     max-width: 1100px;
@@ -593,7 +598,7 @@ a.course-button:active {
     box-shadow: none;
 }
 
-/* Demos and student sites side by side */
+/* Demos and the toolkit side by side */
 .landing-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -706,7 +711,7 @@ a.course-button:active {
     align-items: center;
     gap: 8px;
     padding: 3px 4px 3px 8px;
-    background: linear-gradient(90deg, var(--magenta), var(--hot-pink));
+    background: linear-gradient(90deg, var(--magenta), #c2185b);
     color: var(--white);
 }
 
@@ -957,7 +962,7 @@ code {
 }
 
 .post-date {
-    color: #8a3a69;
+    color: #6f2a54;
     font-family: "Courier New", monospace;
     font-size: 13px;
 }
@@ -986,68 +991,6 @@ code {
     font-family: "VT323", "Courier New", monospace;
     font-size: 1.4rem;
     font-weight: normal;
-}
-
-/* ----------------------------------------------------------
-   Student websites: a grid of Windows 95 style buttons
-   ---------------------------------------------------------- */
-.student-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-    gap: 8px;
-    margin: 10px 0 12px;
-}
-
-.student-list a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 4px 6px;
-    color: var(--ink);
-    background: var(--grey);
-    font-size: 0.85rem;
-    text-align: center;
-    text-decoration: none;
-    overflow-wrap: anywhere;
-    border: 2px solid;
-    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
-    box-shadow: 1px 1px 0 #000;
-}
-
-/* Web page icon above each name; the header colour cycles through four */
-.student-list a::before {
-    content: "";
-    width: 32px;
-    height: 32px;
-    background: url("../images/icons/webpage-pink.svg") no-repeat center / 32px 32px;
-    image-rendering: pixelated;
-}
-
-.student-list a:nth-child(4n + 2)::before { background-image: url("../images/icons/webpage-blue.svg"); }
-.student-list a:nth-child(4n + 3)::before { background-image: url("../images/icons/webpage-green.svg"); }
-.student-list a:nth-child(4n + 4)::before { background-image: url("../images/icons/webpage-red.svg"); }
-
-.student-list a:visited {
-    color: var(--ink);
-}
-
-.student-list a:hover,
-.student-list a:focus-visible {
-    color: var(--ink);
-    background: var(--yellow);
-}
-
-/* Pressed in when clicked */
-.student-list a:active {
-    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
-    box-shadow: none;
-    transform: translate(1px, 1px);
-}
-
-.webring-random {
-    width: 100%;
-    text-align: center;
 }
 
 /* Old-school LCD visit counter */
@@ -1504,4 +1447,55 @@ pre code {
     .marquee-track [aria-hidden="true"] {
         display: none;
     }
+}
+
+/* "Report a problem" links on questions */
+.report-link {
+    font-size: 0.85rem;
+}
+
+/* Boxes on the report a problem page */
+.report-input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 640px;
+    padding: 6px;
+    font: inherit;
+}
+
+/* Entries on the placement tracker */
+.log-entry {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--grey-dark);
+}
+
+/* Search box on the homepage and search page */
+.site-search {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.site-search input {
+    flex: 1 1 200px;
+    max-width: 420px;
+    padding: 6px;
+    font: inherit;
+}
+
+.search-results {
+    padding-left: 18px;
+}
+
+.search-results li {
+    margin-bottom: 10px;
+}
+
+.search-results .post-date {
+    display: block;
+    font-size: 0.85rem;
 }

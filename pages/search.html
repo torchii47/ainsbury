@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <title>Search | Rowan's Website</title>
+    <meta name="description" content="Search the revision guides, tools and demos.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Site">
+            <a href="../index.html">&larr; Home</a>
+        </nav>
+
+        <main class="window" id="main">
+            <div class="title-bar">
+                <span class="title-bar-text">search.exe</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Search</h1>
+                <form id="search-form" class="site-search" role="search">
+                    <label for="search-input">Search the whole site:</label>
+                    <input type="search" id="search-input" name="q">
+                    <button type="submit" class="button">Search</button>
+                </form>
+                <p id="search-status" role="status"></p>
+                <ul class="search-results" id="search-results"></ul>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        // Reads every public page listed in sitemap.xml, then searches their sections.
+        // The words searched for stay in this browser and are never counted.
+        const input = document.getElementById('search-input');
+        const status = document.getElementById('search-status');
+        const results = document.getElementById('search-results');
+        let index = null;
+
+        function tidyTitle(title) {
+            return title.replace(/ \| Rowan's Website$/, '').replace(/ \| Core Revision Guide$/, ' (T Level)').replace(/ \| GCSE Computer Science.*$/, ' (GCSE)');
+        }
+
+        async function readPage(path) {
+            const response = await fetch('..' + path);
+            if (!response.ok) return [];
+
+            const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
+            const title = tidyTitle(doc.title);
+            const sections = [...doc.querySelectorAll('main section.window[id]')];
+
+            if (!sections.length) {
+                const main = doc.querySelector('main') || doc.body;
+                return [{ path, title, heading: '', hash: '', text: main.textContent.replace(/\s+/g, ' ') }];
+            }
+
+            return sections.map(section => {
+                const heading = section.querySelector('h2');
+                return {
+                    path,
+                    title,
+                    heading: heading ? heading.textContent.trim() : '',
+                    hash: '#' + section.id,
+                    text: section.textContent.replace(/\s+/g, ' ')
+                };
+            });
+        }
+
+        async function getIndex() {
+            if (index) return index;
+            const sitemap = await (await fetch('../sitemap.xml')).text();
+            const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)]
+                .map(match => new URL(match[1]).pathname)
+                .filter(path => path !== '/');
+            const pages = await Promise.all(paths.map(path => readPage(path).catch(() => [])));
+            index = pages.flat();
+            return index;
+        }
+
+        // A match in a heading or page title counts for more than one in the text
+        function score(entry, words) {
+            const heading = (entry.title + ' ' + entry.heading).toLowerCase();
+            return words.filter(word => heading.includes(word)).length;
+        }
+
+        async function search(query) {
+            results.replaceChildren();
+            const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+
+            if (query.length < 2) {
+                status.textContent = 'Type at least two letters.';
+                return;
+            }
+
+            status.textContent = 'Searching...';
+
+            try {
+                const matches = (await getIndex())
+                    .filter(entry => {
+                        const text = (entry.title + ' ' + entry.heading + ' ' + entry.text).toLowerCase();
+                        return words.every(word => text.includes(word));
+                    })
+                    .sort((a, b) => score(b, words) - score(a, words));
+
+                if (!matches.length) {
+                    status.textContent = `Nothing found for "${query}". Try a shorter word.`;
+                    return;
+                }
+
+                status.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'}${matches.length > 40 ? ' (showing the first 40)' : ''}:`;
+
+                matches.slice(0, 40).forEach(entry => {
+                    const item = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = '..' + entry.path + entry.hash;
+                    link.textContent = entry.heading ? `${entry.title}: ${entry.heading}` : entry.title;
+
+                    const at = entry.text.toLowerCase().indexOf(words[0]);
+                    const start = Math.max(0, at - 60);
+                    const snippet = document.createElement('span');
+                    snippet.className = 'post-date';
+                    snippet.textContent = (start > 0 ? '…' : '') + entry.text.slice(start, Math.max(at, 0) + 100) + '…';
+
+                    item.append(link, snippet);
+                    results.appendChild(item);
+                });
+            } catch (error) {
+                status.textContent = 'Search only works when the site is online, not when it is opened from a file.';
+            }
+        }
+
+        document.getElementById('search-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const query = input.value.trim();
+            history.replaceState(null, '', '?q=' + encodeURIComponent(query));
+            search(query);
+        });
+
+        const startQuery = new URLSearchParams(location.search).get('q');
+        if (startQuery) {
+            input.value = startQuery;
+            search(startQuery.trim());
+        }
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

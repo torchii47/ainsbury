@@ -15,21 +15,27 @@ const storePrefix = guide.storagePrefix || 'rev:';
 
 // Every page in the guide, in reading order
 // (tracked: true = show it on the progress dashboard)
+// (menu: the dropdown it sits in at the top of the page. No menu = its own button)
+// (reviewed: false = don't show the last reviewed label yet)
 const pages = guide.pages || [
     { id: 'index', file: 'index.html', short: 'Home', title: 'Guide home' },
     { id: 'exams', file: 'exams.html', short: 'Exams', title: 'Part A: Your exams' },
-    { id: 'ca1', file: 'ca1.html', short: 'CA1', title: 'Problem Solving' },
-    { id: 'ca2', file: 'ca2.html', short: 'CA2', title: 'Introduction to Programming' },
-    { id: 'ca3', file: 'ca3.html', short: 'CA3', title: 'Emerging Issues' },
-    { id: 'ca4', file: 'ca4.html', short: 'CA4', title: 'Legislation' },
-    { id: 'ca5', file: 'ca5.html', short: 'CA5', title: 'Business Context' },
-    { id: 'ca6', file: 'ca6.html', short: 'CA6', title: 'Data' },
-    { id: 'ca7', file: 'ca7.html', short: 'CA7', title: 'Digital Environments' },
-    { id: 'ca8', file: 'ca8.html', short: 'CA8', title: 'Security' },
-    { id: 'esp', file: 'esp.html', short: 'ESP', title: 'Employer Set Project' },
-    { id: 'specialism', file: 'specialism.html', short: 'OS', title: 'Occupational specialism' },
-    { id: 'mock1', file: 'mock1.html', short: 'Mock 1', title: 'Mock Paper 1' },
-    { id: 'mock2', file: 'mock2.html', short: 'Mock 2', title: 'Mock Paper 2' },
+    { id: 'ca1', file: 'ca1.html', short: 'CA1', title: 'Problem Solving', menu: 'Paper 1' },
+    { id: 'ca2', file: 'ca2.html', short: 'CA2', title: 'Introduction to Programming', menu: 'Paper 1' },
+    { id: 'ca3', file: 'ca3.html', short: 'CA3', title: 'Emerging Issues', menu: 'Paper 1' },
+    { id: 'ca4', file: 'ca4.html', short: 'CA4', title: 'Legislation', menu: 'Paper 1' },
+    { id: 'ca5', file: 'ca5.html', short: 'CA5', title: 'Business Context', menu: 'Paper 2' },
+    { id: 'ca6', file: 'ca6.html', short: 'CA6', title: 'Data', menu: 'Paper 2' },
+    { id: 'ca7', file: 'ca7.html', short: 'CA7', title: 'Digital Environments', menu: 'Paper 2' },
+    { id: 'ca8', file: 'ca8.html', short: 'CA8', title: 'Security', menu: 'Paper 2' },
+    { id: 'esp', file: 'esp.html', short: 'ESP', title: 'Employer Set Project', menu: 'Projects' },
+    { id: 'esp-practice', file: 'esp-practice.html', short: 'Practice ESP', title: 'Practice ESP: Moorside Bike Hire', menu: 'Projects', reviewed: false },
+    { id: 'debug', file: 'debug.html', short: 'Debug', title: 'Debugging challenges', menu: 'Practice', reviewed: false },
+    { id: 'drill', file: 'practice.html', short: 'Drills', title: 'Endless practice', menu: 'Practice', reviewed: false },
+    { id: 'answers', file: 'long-answers.html', short: 'Answers', title: 'Worked long answers', menu: 'Practice', reviewed: false },
+    { id: 'specialism', file: 'specialism.html', short: 'OS', title: 'Occupational specialism', menu: 'Projects' },
+    { id: 'mock1', file: 'mock1.html', short: 'Mock 1', title: 'Mock Paper 1', menu: 'Practice' },
+    { id: 'mock2', file: 'mock2.html', short: 'Mock 2', title: 'Mock Paper 2', menu: 'Practice' },
     { id: 'organisers', file: 'organisers.html', short: 'Print', title: 'All knowledge organisers' },
     { id: 'glossary', file: 'glossary.html', short: 'A–Z', title: 'Glossary' }
 ];
@@ -79,6 +85,10 @@ const mockTiming = (guide.mock && (guide.mock[document.body.dataset.page] || (gu
         [Infinity, 'Last 10 min: check your answers.']
     ]
 };
+
+// Shown at the top of each page. Change the date after you review the guide
+const lastReviewed = guide.lastReviewed || 'November 2026';
+const specLabel = guide.specLabel || 'Pearson specification version 1.1';
 
 const guideName = guide.name || 'Core Revision Guide';
 const backupId = guide.backupId || 'core-revision-guide';
@@ -144,6 +154,15 @@ function makeButton(text, onClick) {
     return button;
 }
 
+// A link to the report page. It opens a new tab so it doesn't interrupt a timed mock.
+function makeReportLink(item) {
+    const link = make('a', 'report-link', 'Report a problem');
+    link.href = reportLink(item);
+    link.target = '_blank';
+    link.rel = 'noopener';
+    return link;
+}
+
 // A button that needs two clicks, for anything that deletes your work
 function makeConfirmButton(text, onConfirm) {
     const button = makeButton(text, () => {
@@ -180,13 +199,62 @@ function buildNav() {
     home.href = '../index.html';
     nav.appendChild(home);
 
+    const menus = {};
+
     pages.forEach(page => {
-        const link = make('a', 'tab-' + page.id, page.short);
+        const link = make('a', 'tab-' + page.id, page.menu ? navMenuLabel(page) : page.short);
         link.href = page.file;
         link.title = page.title;
-        if (page.id === currentPage) link.setAttribute('aria-current', 'page');
-        nav.appendChild(link);
+        const isCurrent = page.id === currentPage;
+        if (isCurrent) link.setAttribute('aria-current', 'page');
+
+        if (!page.menu) {
+            nav.appendChild(link);
+            return;
+        }
+
+        if (!menus[page.menu]) {
+            menus[page.menu] = makeNavMenu(page.menu);
+            nav.appendChild(menus[page.menu]);
+        }
+        menus[page.menu].lastChild.appendChild(link);
+        if (isCurrent) menus[page.menu].classList.add('is-current');
     });
+
+    // Only one menu stays open, and clicking elsewhere or pressing Esc closes it
+    function closeMenus(except) {
+        nav.querySelectorAll('.nav-menu[open]').forEach(menu => {
+            if (menu !== except) menu.open = false;
+        });
+    }
+
+    document.addEventListener('click', event => closeMenus(event.target.closest('.nav-menu')));
+    document.addEventListener('keydown', event => {
+        if (event.key !== 'Escape') return;
+        const open = nav.querySelector('.nav-menu[open]');
+        if (open) {
+            closeMenus();
+            open.querySelector('summary').focus();
+        }
+    });
+}
+
+// Topics keep their number, e.g. "CA1 Problem Solving" or "1.2 Memory and storage"
+function navMenuLabel(page) {
+    return /^(CA|\d)/.test(page.short) ? `${page.short} ${page.title}` : page.title;
+}
+
+function makeNavMenu(name) {
+    const menu = make('details', 'nav-menu');
+    menu.append(make('summary', null, name), make('div', 'nav-menu-list'));
+    return menu;
+}
+
+function buildReviewed() {
+    const header = document.querySelector('.rev-header');
+    const page = pages.find(item => item.id === currentPage);
+    if (!header || !page || page.id === 'index' || page.reviewed === false) return;
+    header.appendChild(make('p', 'links', `Last reviewed: ${lastReviewed} · ${specLabel}`));
 }
 
 function buildSidebar() {
@@ -755,7 +823,7 @@ function buildQuestionSets() {
             });
             markLabel.append(select, ` / ${marks}`);
 
-            row.append(toggle, markLabel);
+            row.append(toggle, markLabel, makeReportLink('Question ' + n));
             if (scheme) {
                 scheme.hidden = true;
                 scheme.before(answer, lines, row);
@@ -1004,6 +1072,135 @@ function buildDashboard() {
     }
 }
 
+/* ----------------------------------------------------------
+   Today's revision: up to three next steps from the student's
+   own progress. Works out what's most useful in this order:
+   due flashcards, Revise points, weak quizzes, unrated topics,
+   then a mock.
+   ---------------------------------------------------------- */
+function dueCardCount() {
+    const start = storePrefix + 'srs:';
+    let count = 0;
+    try {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith(start) && load(key.slice(storePrefix.length), { due: 0 }).due <= Date.now()) count++;
+        }
+    } catch (error) { /* storage is blocked, so there's nothing to count */ }
+    return count;
+}
+
+function todaySteps() {
+    const steps = [];
+    const topics = pages.filter(page => isTracked(page) && !page.id.startsWith('mock'));
+    const mocks = pages.filter(page => isTracked(page) && page.id.startsWith('mock'));
+
+    const due = dueCardCount();
+    if (due) steps.push([`Review your ${due} due flashcard${due === 1 ? '' : 's'}`, 'glossary.html#g-cards', 'They are ready to be tested again.']);
+
+    // The first two points rated Revise
+    const revise = [];
+    topics.forEach(page => {
+        const specText = load('specText:' + page.id, null);
+        if (!specText) return;
+        Object.entries(load('spec:' + page.id, {})).forEach(([index, level]) => {
+            if (level === 'revise' && specText[index]) revise.push([page, specText[index]]);
+        });
+    });
+    revise.slice(0, 2).forEach(([page, point]) => {
+        steps.push([`Revise ${page.short} ${point[0]}`, page.file + '#spec', point[1]]);
+    });
+
+    // The weakest quiz with enough answers to be worth trusting
+    const quizzes = topics
+        .map(page => [page, load('quiz:' + page.id, null)])
+        .filter(([, quiz]) => quiz && quiz.asked >= 5 && quiz.right / quiz.asked < 0.7)
+        .sort(([, a], [, b]) => a.right / a.asked - b.right / b.asked);
+    if (quizzes.length) {
+        const [page, quiz] = quizzes[0];
+        steps.push([`Quiz yourself on ${page.short} ${page.title}`, page.file + '#quiz', `Your score so far is ${quiz.right} out of ${quiz.asked}.`]);
+    }
+
+    const unrated = topics.find(page => {
+        const specText = load('specText:' + page.id, null);
+        return !specText || Object.keys(load('spec:' + page.id, {})).length < specText.length;
+    });
+    if (unrated) steps.push([`Rate yourself on ${unrated.short} ${unrated.title}`, unrated.file + '#spec', 'This tells the guide what to suggest next.']);
+
+    const mock = mocks.find(page => !Object.keys(load('score:' + page.id, {})).length);
+    if (mock) steps.push([`Try ${mock.title}`, mock.file, 'Timed practice shows what you can do under exam conditions.']);
+
+    return steps.slice(0, 3);
+}
+
+function buildToday() {
+    const holder = document.getElementById('today-list');
+    if (!holder) return;
+
+    const steps = todaySteps();
+    if (!steps.length) {
+        holder.textContent = "You're all caught up. Come back when your flashcards are due, or re-do your weakest mock questions.";
+        return;
+    }
+
+    const list = make('ol', 'today-steps');
+    steps.forEach(([text, href, why]) => {
+        const item = make('li');
+        const link = make('a', null, text);
+        link.href = href;
+        link.addEventListener('click', () => track('used today'));
+        item.append(link, make('span', 'today-why', why));
+        list.appendChild(item);
+    });
+    holder.replaceChildren(list);
+}
+
+/* ----------------------------------------------------------
+   Task timers on the practice ESP. The end time is saved, so a
+   timer keeps counting if the page is closed or reloaded.
+   <div class="task-timer" data-id="task1" data-minutes="180"></div>
+   ---------------------------------------------------------- */
+function buildTaskTimers() {
+    document.querySelectorAll('.task-timer').forEach(holder => {
+        const key = 'tasktimer:' + holder.dataset.id;
+        const fullTime = Number(holder.dataset.minutes) * 60000;
+        let state = load(key, { end: null, left: fullTime });
+        let ticking = null;
+
+        const display = make('span', 'task-time');
+        display.setAttribute('role', 'timer');
+
+        const toggle = makeButton('Start', () => {
+            if (state.end) state = { end: null, left: Math.max(0, state.end - Date.now()) };
+            else state = { end: Date.now() + state.left, left: state.left };
+            save(key, state);
+            update();
+        });
+        const reset = makeConfirmButton('Reset timer', () => {
+            state = { end: null, left: fullTime };
+            save(key, state);
+            update();
+        });
+
+        function update() {
+            const left = state.end ? Math.max(0, state.end - Date.now()) : state.left;
+            const seconds = Math.ceil(left / 1000);
+            const part = number => String(number).padStart(2, '0');
+            display.textContent = left
+                ? `${Math.floor(seconds / 3600)}:${part(Math.floor(seconds / 60) % 60)}:${part(seconds % 60)}`
+                : "Time's up";
+            toggle.textContent = state.end ? 'Pause' : state.left < fullTime ? 'Resume' : 'Start';
+            toggle.disabled = !left;
+
+            clearInterval(ticking);
+            if (state.end && left) ticking = setInterval(update, 1000);
+        }
+
+        holder.append(display, toggle, reset);
+        update();
+    });
+}
+
 function buildSearch() {
     const form = document.getElementById('search-form');
     if (!form) return;
@@ -1118,6 +1315,7 @@ function buildQuiz() {
         const answerText = make('p');
         answerBox.append(make('strong', null, 'Answer'), answerText);
         const tallyText = make('span', 'spec-summary');
+        const report = makeReportLink();
 
         const showButton = makeButton('Show answer', () => {
             answerBox.hidden = false;
@@ -1171,6 +1369,7 @@ function buildQuiz() {
             }
             current = pick;
             answered = false;
+            report.href = reportLink('Quiz question ' + pick.id);
 
             const marks = Number(pick.marks) || 1;
             meta.textContent = `${pick.mainTopic} · ${questionTypeNames[pick.type] || pick.type} · ${marks} mark${marks === 1 ? '' : 's'}`;
@@ -1212,7 +1411,7 @@ function buildQuiz() {
             tally.asked = 0;
             save(key, tally);
             updateTally();
-        }));
+        }), report);
 
         holder.replaceChildren(top, meta, question, options, showButton, answerBox, selfRow, bottom);
         updateTally();
@@ -1348,7 +1547,7 @@ function buildBackup() {
         summaryBox.hidden = false;
         formLink.hidden = !summaryForm;
         track('made summary');
-        const where = summaryForm ? 'Now open the form and paste it in.' : 'Paste it wherever your teacher asked.';
+        const where = summaryForm ? 'Now open the form and paste it in.' : 'Paste it wherever you want to share it, such as a message to your teacher or tutor.';
         if (navigator.clipboard) {
             navigator.clipboard.writeText(summaryBox.value)
                 .then(() => { status.textContent = 'Summary copied. ' + where; })
@@ -1364,7 +1563,7 @@ function buildBackup() {
     summaryRow.append(nameLabel, summaryButton, formLink);
 
     holder.append(make('h3', null, 'Move your progress to another computer'), backupRow,
-        make('h3', null, 'Send your progress to your teacher'), summaryRow, summaryBox, status);
+        make('h3', null, 'Share your progress'), summaryRow, summaryBox, status);
 }
 
 /* ----------------------------------------------------------
@@ -1605,10 +1804,178 @@ function buildRunners() {
 }
 
 /* ----------------------------------------------------------
+   Debugging challenges. The tasks are in debug-challenges.js:
+   <div class="debug-task" data-id="ticket"></div>
+   The student's code runs with a set of checks added to the end,
+   and the task is solved when every check passes.
+   ---------------------------------------------------------- */
+
+// Runs a program with no typed input. Stops it if it's stuck in a loop.
+async function runPythonProgram(code, timeout) {
+    if (pyBusy) throw new Error('Another program is still running. Wait for it to finish.');
+    pyBusy = true;
+
+    let worker;
+    try {
+        worker = await getPython();
+    } catch (error) {
+        stopPython();
+        throw error;
+    }
+
+    return new Promise(resolve => {
+        let text = '';
+
+        function onMessage(event) {
+            const message = event.data;
+            if (message.type === 'out') text += message.text;
+            if (message.type === 'done') {
+                clearTimeout(timer);
+                worker.removeEventListener('message', onMessage);
+                pyBusy = false;
+                resolve({ text, error: Boolean(message.error), timedOut: false });
+            }
+        }
+
+        const timer = setTimeout(() => {
+            worker.removeEventListener('message', onMessage);
+            stopPython();
+            resolve({ text, error: true, timedOut: true });
+        }, timeout);
+
+        worker.addEventListener('message', onMessage);
+        worker.postMessage({ code, inputs: [], setup: pySetup, saveFigures: pySaveFigures });
+    });
+}
+
+// The code plus its checks. The checks go last so error line numbers still
+// match the student's code. JSON strings are also valid Python strings.
+function debugProgram(code, task) {
+    return code + `
+
+_failed = 0
+print()
+print('--- Checks ---')
+for _test, _want in ${JSON.stringify(task.tests)}:
+    try:
+        _got = eval(_test)
+        _expected = eval(_want)
+        if _got == _expected:
+            print('PASS: ' + _test)
+        else:
+            _failed = _failed + 1
+            print('FAIL: ' + _test + ' gave ' + repr(_got) + ' but should give ' + repr(_expected))
+    except Exception as _error:
+        _failed = _failed + 1
+        print('FAIL: ' + _test + ' crashed: ' + type(_error).__name__ + ': ' + str(_error))
+print('ALL CHECKS PASSED' if _failed == 0 else str(_failed) + ' check(s) failed')
+`;
+}
+
+async function checkDebugCode(code, task) {
+    const result = await runPythonProgram(debugProgram(code, task), task.timeout || 15000);
+    return Object.assign(result, { passed: !result.error && result.text.includes('ALL CHECKS PASSED') });
+}
+
+function updateDebugProgress() {
+    const holder = document.getElementById('debug-progress');
+    if (!holder || typeof debugChallenges === 'undefined') return;
+    const solved = load('debug:solved', {});
+    const onPage = [...document.querySelectorAll('.debug-task')].map(task => task.dataset.id);
+    holder.textContent = `Solved on this device: ${onPage.filter(id => solved[id]).length} of ${onPage.length}`;
+}
+
+function buildDebugChallenges() {
+    if (typeof debugChallenges === 'undefined') return;
+
+    document.querySelectorAll('.debug-task').forEach(holder => {
+        const task = debugChallenges.find(item => item.id === holder.dataset.id);
+        if (!task) return;
+
+        const editor = make('textarea', 'code-edit');
+        editor.value = load('debug:code:' + task.id, task.code);
+        editor.rows = Math.min(30, task.code.split('\n').length + 2);
+        editor.spellcheck = false;
+        editor.setAttribute('aria-label', 'Python code for ' + task.title);
+        editor.addEventListener('input', () => save('debug:code:' + task.id, editor.value));
+
+        const status = make('span', 'runner-status');
+        status.setAttribute('role', 'status');
+        const output = make('pre', 'run-out');
+        output.hidden = true;
+
+        const checkButton = makeButton('▶ Check my code', async () => {
+            checkButton.disabled = true;
+            status.textContent = pyWorker ? 'Checking...' : 'Loading Python (about 10 MB the first time, then it is cached)...';
+            track('checked debug code');
+
+            try {
+                const result = await checkDebugCode(editor.value, task);
+                output.textContent = result.text || '(no output)';
+                output.hidden = false;
+                if (result.timedOut) status.textContent = 'Stopped: the code ran for too long. Look for a loop that never ends.';
+                else if (result.passed) status.textContent = '✔ Every check passed.';
+                else if (result.error) status.textContent = 'The code crashed. Read the last line of the error.';
+                else status.textContent = 'Not yet. Read the FAIL lines above.';
+
+                if (result.passed) {
+                    const solved = load('debug:solved', {});
+                    solved[task.id] = true;
+                    save('debug:solved', solved);
+                    updateDebugProgress();
+                }
+            } catch (error) {
+                status.textContent = error.message;
+            }
+            checkButton.disabled = false;
+        });
+
+        const resetButton = makeConfirmButton('↺ Reset code', () => {
+            editor.value = task.code;
+            save('debug:code:' + task.id, task.code);
+            resetButton.textContent = '↺ Reset code';
+            delete resetButton.dataset.armed;
+        });
+
+        const buttons = make('div', 'button-row');
+        buttons.append(checkButton, resetButton, status);
+        const parts = [make('p', 'debug-brief', task.brief), editor, buttons, output];
+
+        if (task.hint) {
+            const hint = make('details', 'debug-more');
+            hint.append(make('summary', null, 'Show a hint'), make('p', null, task.hint));
+            parts.push(hint);
+        }
+
+        const answer = make('details', 'debug-more');
+        answer.append(make('summary', null, task.fixes.length ? 'Show the defects and the fixed code' : 'Show an example solution'));
+        if (task.fixes.length) {
+            const table = make('table');
+            table.innerHTML = '<thead><tr><th>Line</th><th>Defect</th><th>Type</th><th>Correction</th></tr></thead>';
+            const body = table.createTBody();
+            task.fixes.forEach(cells => {
+                const row = body.insertRow();
+                cells.forEach(cell => { row.insertCell().textContent = cell; });
+            });
+            answer.append(table);
+        }
+        const fixed = make('pre', 'run-out');
+        fixed.textContent = task.fix;
+        answer.append(fixed);
+        parts.push(answer);
+
+        holder.replaceChildren(...parts);
+    });
+
+    updateDebugProgress();
+}
+
+/* ----------------------------------------------------------
    Run everything (order matters a little: levels and checklists
    add tables before they are wrapped)
    ---------------------------------------------------------- */
 buildNav();
+buildReviewed();
 buildPageFlashcards();
 buildRecall();
 buildSpecChecklists();
@@ -1626,4 +1993,7 @@ wrapTables();
 buildSidebar();
 buildPager();
 buildDashboard();
+buildToday();
+buildTaskTimers();
+buildDebugChallenges();
 buildSearch();

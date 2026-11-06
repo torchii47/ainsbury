@@ -9,6 +9,11 @@
 //     details: "Upload to Neocities and submit your link."
 //   },
 
+// Set these to false when the final timetables are published.
+// While true, the countdowns and key dates are labelled as provisional.
+const keyDatesProvisional = true;
+const gcseDatesProvisional = true;
+
 const keyDates = [
   // T Level Digital Software Development – Summer 2027 series
   // Source: Pearson Key Dates Schedule 2025-2027 Generation 2 (V4). Dates are provisional.

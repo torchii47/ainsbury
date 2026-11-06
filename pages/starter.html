@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
     <title>Starter Template | Rowan's Website</title>
     <meta name="description" content="A bare-bones portfolio page to build from. Every line is commented so you can see what it does.">
     <meta property="og:type" content="website">
@@ -10,6 +11,7 @@
     <meta property="og:title" content="Starter Template | Rowan&#x27;s Website">
     <meta property="og:description" content="A bare-bones portfolio page to build from. Every line is commented so you can see what it does.">
     <meta property="og:url" content="https://ainsbury.art/pages/starter.html">
+    <link rel="canonical" href="https://ainsbury.art/pages/starter.html">
     <meta property="og:image" content="https://ainsbury.art/images/og/site.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -17,10 +19,14 @@
     <link rel="icon" href="../favicon.ico" sizes="any">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-    <link rel="stylesheet" href="../css/style.css?v=2026-11-04">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
     <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
 </head>
 <body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <div class="site post-page">
 
@@ -32,12 +38,11 @@
             <a href="cheatsheet.html">Cheat Sheet</a>
             <a href="mistakes.html">Mistakes</a>
             <a href="glossary.html">Glossary</a>
-            <a href="term.html">Term Planner</a>
             <a href="placement.html">Placement</a>
             <a href="question.html">Random Question</a>
         </nav>
 
-        <main class="window">
+        <main class="window" id="main">
             <div class="title-bar">
                 <span class="title-bar-text">starter_template.zip</span>
                 <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
@@ -70,7 +75,7 @@
                     <li>Open <code>index.html</code> in your editor and replace the placeholder text.</li>
                     <li>Make more pages (e.g. <code>about.html</code>) by copying <code>index.html</code> and changing the content and <code>&lt;title&gt;</code>.</li>
                     <li>Change the colours at the top of <code>style.css</code>, then make the design your own.</li>
-                    <li>Upload everything to your Neocities dashboard, keeping the same folder structure.</li>
+                    <li>Upload everything to your web host (for example Neocities), keeping the same folder structure.</li>
                 </ol>
 
                 <h3>Folder structure</h3>

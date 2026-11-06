@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <title>Debugging Challenges | Core Revision Guide</title>
+    <meta name="description" content="Fix broken Python programs in your browser and have your code checked automatically. Practice for the fixing defects task in the T Level Employer Set Project.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Debugging Challenges | Core Revision Guide">
+    <meta property="og:description" content="Fix broken Python programs in your browser and have your code checked automatically. Practice for the fixing defects task in the T Level Employer Set Project.">
+    <meta property="og:url" content="https://ainsbury.art/revision/debug.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/tlevel.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://ainsbury.art/revision/debug.html">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
+    <link rel="stylesheet" href="revision.css?v=2026-11-06e">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
+</head>
+<body class="rev" data-page="debug">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 2 · ESP PRACTICE</p>
+            <h1>Debugging Challenges</h1>
+            <p>Each program has at least one defect. Fix the code, press Check and see which tests pass. It's practice for the fixing defects task in the Employer Set Project.</p>
+            <span class="big-num" aria-hidden="true">D</span>
+        </header>
+
+        <div class="rev-layout">
+
+            <aside class="rev-toc" id="rev-toc" aria-label="Page tools"></aside>
+
+            <main id="main">
+
+                <section class="window" data-selftest hidden>
+                    <h2>Python self-test</h2>
+                    <div class="window-body">
+                        <p>This checks that every faulty program fails its checks and every fixed program passes them. It takes a few minutes, because the last task loads pandas.</p>
+                        <div class="button-row"><button type="button" class="button" id="selftest-run">Run the self-test</button></div>
+                        <p id="selftest-status" role="status"></p>
+                        <table>
+                            <thead><tr><th>Task</th><th>Faulty code fails</th><th>Fixed code passes</th></tr></thead>
+                            <tbody id="selftest-results"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="window" id="how">
+                    <h2>How it works</h2>
+                    <div class="window-body">
+                        <ol>
+                            <li>Read what the code is meant to do.</li>
+                            <li>Press <strong>Check my code</strong> and read the results. A <strong>FAIL</strong> line shows what the code gave and what it should give.</li>
+                            <li>Fix one defect at a time, then check again.</li>
+                            <li>For each defect, say which line it's on and whether it's a syntax, runtime or logic error. See <a href="ca2.html#s2-10">2.10 Robust code</a>.</li>
+                        </ol>
+                        <p>Your code runs in your browser and is saved on this device. Python downloads the first time you use it, so you need internet for that. In the real ESP you won't have automatic checks, so get used to choosing your own test data too.</p>
+                        <p id="debug-progress"></p>
+                    </div>
+                </section>
+
+                <section class="window" id="level1">
+                    <h2>Level 1: one defect</h2>
+                    <div class="window-body">
+                        <h3>Missing punctuation</h3>
+                        <div class="debug-task" data-id="adult"></div>
+                        <h3>Ticket prices</h3>
+                        <div class="debug-task" data-id="ticket"></div>
+                        <h3>Adding up</h3>
+                        <div class="debug-task" data-id="total"></div>
+                        <h3>Safe division</h3>
+                        <div class="debug-task" data-id="divide"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="level2">
+                    <h2>Level 2: trace it</h2>
+                    <div class="window-body">
+                        <h3>Finding a name</h3>
+                        <div class="debug-task" data-id="find"></div>
+                        <h3>Highest temperature</h3>
+                        <div class="debug-task" data-id="highest"></div>
+                        <h3>Top three</h3>
+                        <div class="debug-task" data-id="top"></div>
+                        <h3>Binary search</h3>
+                        <div class="debug-task" data-id="binary"></div>
+                    </div>
+                </section>
+
+                <section class="window" id="level3">
+                    <h2>Level 3: more than one defect</h2>
+                    <div class="window-body">
+                        <h3>Receipt line</h3>
+                        <div class="debug-task" data-id="receipt"></div>
+                        <h3>Average</h3>
+                        <div class="debug-task" data-id="average"></div>
+                        <h3>Password rules</h3>
+                        <div class="debug-task" data-id="password"></div>
+                        <h3>Reading a file</h3>
+                        <div class="debug-task" data-id="quantity"></div>
+                        <p>Ready for more? Try the <a href="esp-practice.html#task2">defects task in the practice ESP</a>.</p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · Debugging challenges · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script src="debug-challenges.js?v=2026-11-06c"></script>
+    <script src="revision.js?v=2026-11-06g"></script>
+    <script>
+        // Maintenance check: open debug.html?selftest after changing debug-challenges.js
+        if (new URLSearchParams(location.search).has('selftest')) {
+            const panel = document.querySelector('[data-selftest]');
+            const status = document.getElementById('selftest-status');
+            const results = document.getElementById('selftest-results');
+            const runButton = document.getElementById('selftest-run');
+            panel.hidden = false;
+
+            runButton.addEventListener('click', async () => {
+                runButton.disabled = true;
+                results.replaceChildren();
+                let problems = 0;
+
+                for (const task of debugChallenges) {
+                    status.textContent = `Testing ${task.title}...`;
+                    const faulty = await checkDebugCode(task.code, task);
+                    const fixed = await checkDebugCode(task.fix, task);
+                    const faultyOk = !faulty.passed;
+                    const fixedOk = fixed.passed;
+                    if (!faultyOk || !fixedOk) {
+                        problems++;
+                        console.log(task.id, fixed.text);
+                    }
+
+                    const row = results.insertRow();
+                    row.insertCell().textContent = task.title;
+                    row.insertCell().textContent = faultyOk ? '✔ Yes' : '✘ NO';
+                    row.insertCell().textContent = fixedOk ? '✔ Yes' : '✘ NO: ' + fixed.text.slice(-200);
+                }
+
+                status.textContent = problems
+                    ? `${problems} task(s) have a problem. See the table.`
+                    : `All ${debugChallenges.length} tasks passed.`;
+                runButton.disabled = false;
+            });
+        }
+    </script>
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

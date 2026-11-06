@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>2.11 Common Algorithms | Class Demo</title>
+    <meta name="theme-color" content="#860c5d">
+    <title>2.11 Common Algorithms | Interactive Demo</title>
     <meta name="description" content="Linear search, binary search, bubble sort, insertion sort and merge sort: how they work, the Python, a stepper and endless practice questions.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Rowan&#x27;s Website">
-    <meta property="og:title" content="2.11 Common Algorithms | Class Demo">
+    <meta property="og:title" content="2.11 Common Algorithms | Interactive Demo">
     <meta property="og:description" content="Linear search, binary search, bubble sort, insertion sort and merge sort: how they work, the Python, a stepper and endless practice questions.">
     <meta property="og:url" content="https://ainsbury.art/algorithms.html">
+    <link rel="canonical" href="https://ainsbury.art/algorithms.html">
     <meta property="og:image" content="https://ainsbury.art/images/og/tlevel.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -17,7 +19,9 @@
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
     <script src="js/analytics.js?v=2026-11-04"></script>
+    <script src="js/site-info.js?v=2026-11-06g"></script>
     <style>
         :root {
             --ink: #1d2330;
@@ -179,9 +183,13 @@
             #worksheet .ws-a { margin-bottom: 10px; break-inside: avoid; }
             #worksheet pre { border-left-width: 2px; }
         }
+        .skip-link { position: absolute; left: -9999px; }
+        .skip-link:focus { left: 16px; top: 16px; z-index: 10; padding: 6px 10px; background: #fff36b; color: #000; }
     </style>
 </head>
 <body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="top">
         <div class="wrap">
@@ -210,7 +218,7 @@
         </div>
     </header>
 
-    <main class="wrap">
+    <main class="wrap" id="main">
 
         <section class="algo" id="linear" style="--c: #1f6fb2; --tint: #e6f0fa">
             <h2><span class="num">1</span>Linear search</h2>
@@ -380,7 +388,7 @@
     </main>
 
     <footer class="wrap">
-        Class demo for T Level Digital content area 2.11 Common algorithms. Every question is made up on the spot, so press <strong>New question</strong> as many times as you like.
+        Interactive demo for T Level Digital content area 2.11 Common algorithms. Every question is made up on the spot, so press <strong>New question</strong> as many times as you like.
         <a href="index.html">Back to Rowan's Website</a>
     </footer>
 

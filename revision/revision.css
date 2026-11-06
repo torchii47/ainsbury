@@ -122,6 +122,68 @@
 .rev-nav .tab-ca7 { border-bottom-color: #8b1e3f; }
 .rev-nav .tab-ca8 { border-bottom-color: #333333; }
 
+/* Dropdown menus in the nav. The summary looks like the other nav buttons */
+.nav-menu {
+    position: relative;
+}
+
+.nav-menu summary {
+    display: inline-block;
+    padding: 6px 14px;
+    color: var(--ink);
+    background: var(--grey);
+    font-family: Verdana, Tahoma, sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 1px 1px 0 #000;
+}
+
+.nav-menu summary::-webkit-details-marker {
+    display: none;
+}
+
+.nav-menu summary::after {
+    content: " ▾";
+}
+
+.nav-menu summary:hover,
+.nav-menu summary:focus-visible {
+    background: var(--yellow);
+}
+
+/* The menu holding the current page looks pressed in, like a current nav button */
+.nav-menu.is-current summary,
+.nav-menu[open] summary {
+    background: var(--grey-light);
+    border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+    box-shadow: none;
+}
+
+.nav-menu-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 50;
+    display: grid;
+    gap: 4px;
+    min-width: 280px;
+    margin-top: 2px;
+    padding: 6px;
+    background: var(--grey);
+    border: 2px solid;
+    border-color: var(--white) var(--grey-dark) var(--grey-dark) var(--white);
+    box-shadow: 2px 2px 0 #000;
+}
+
+.rev-nav .nav-menu-list a {
+    text-align: left;
+    box-shadow: none;
+}
+
 /* ----------------------------------------------------------
    Layout: contents sidebar + main column
    ---------------------------------------------------------- */
@@ -1290,18 +1352,17 @@ textarea.notes {
 }
 
 /* ----------------------------------------------------------
-   Phones: scrolling nav, scoreboard that doesn't stick
+   Phones: open menus fill the row, scoreboard that doesn't stick
    ---------------------------------------------------------- */
 @media (max-width: 600px) {
-    .rev-nav {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow-x: auto;
-        padding-bottom: 6px;
+    .nav-menu[open] {
+        flex-basis: 100%;
     }
 
-    .rev-nav a {
-        flex-shrink: 0;
+    .nav-menu-list {
+        position: static;
+        min-width: 0;
+        margin-top: 4px;
     }
 
     .scoreboard {
@@ -1440,4 +1501,67 @@ textarea.notes {
     .mock.print-ms .print-lines {
         display: none;
     }
+}
+
+/* ----------------------------------------------------------
+   Today's revision
+   ---------------------------------------------------------- */
+.today-steps li {
+    margin-bottom: 8px;
+}
+
+.today-why {
+    display: block;
+    font-size: 0.9rem;
+}
+
+/* ----------------------------------------------------------
+   Practice ESP and worked answers
+   ---------------------------------------------------------- */
+.task-timer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.task-time {
+    min-width: 7ch;
+    font-family: "Courier New", monospace;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.level-example,
+.debug-more {
+    margin: 12px 0;
+}
+
+.level-example summary,
+.debug-more summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.level-example blockquote {
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: #f2f2f2;
+    border-left: 4px solid var(--ca, #14213d);
+}
+
+.level-example blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------
+   Debugging challenges
+   ---------------------------------------------------------- */
+.debug-task {
+    margin-bottom: 24px;
+}
+
+.debug-task .code-edit {
+    margin-bottom: 8px;
 }

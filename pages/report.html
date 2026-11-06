@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <title>Report a Problem | Rowan's Website</title>
+    <meta name="description" content="Spotted a mistake in a question, mark scheme or revision note? Tell me so it can be fixed for everyone.">
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Site">
+            <a href="../index.html">&larr; Home</a>
+        </nav>
+
+        <main class="window" id="main">
+            <div class="title-bar">
+                <span class="title-bar-text">report_a_problem.txt</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Report a Problem</h1>
+                <p class="page-intro">Found a wrong answer, a mark scheme that doesn't look right, a broken link or something confusing? Tell me and I'll fix it for everyone.</p>
+
+                <p><strong>Please don't include your name, email address, school or anything else that identifies you.</strong> I don't need it to fix the problem.</p>
+
+                <form id="report-form">
+                    <p>
+                        <label for="report-where"><strong>Where is the problem?</strong></label><br>
+                        <input type="text" id="report-where" class="report-input">
+                    </p>
+                    <p>
+                        <label for="report-problem"><strong>What's wrong?</strong></label><br>
+                        <textarea id="report-problem" class="report-input" rows="5"></textarea>
+                    </p>
+                    <p>
+                        <label for="report-fix"><strong>What should it say? (optional)</strong></label><br>
+                        <textarea id="report-fix" class="report-input" rows="3"></textarea>
+                    </p>
+                    <div class="button-row">
+                        <button type="submit" class="button" id="report-send">Copy my report</button>
+                        <a class="button" id="report-open" target="_blank" rel="noopener" hidden>Open the report form</a>
+                    </div>
+                </form>
+
+                <p id="report-status" role="status"></p>
+                <p id="report-closed" hidden>Reporting isn't open yet, so there's nowhere to send this at the moment. Please try again soon.</p>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        const details = new URLSearchParams(location.search);
+        const destination = window.reportDestination;
+        const isEmail = destination && !destination.startsWith('http');
+
+        const whereInput = document.getElementById('report-where');
+        const problemInput = document.getElementById('report-problem');
+        const fixInput = document.getElementById('report-fix');
+        const openLink = document.getElementById('report-open');
+        const status = document.getElementById('report-status');
+
+        whereInput.value = [details.get('page'), details.get('item')].filter(Boolean).join(', ');
+        document.getElementById('report-closed').hidden = Boolean(destination);
+        document.getElementById('report-send').hidden = !destination;
+
+        function reportText() {
+            const lines = [`Where: ${whereInput.value.trim()}`, `Problem: ${problemInput.value.trim()}`];
+            if (fixInput.value.trim()) lines.push(`Should say: ${fixInput.value.trim()}`);
+            return lines.join('\n');
+        }
+
+        document.getElementById('report-form').addEventListener('submit', async event => {
+            event.preventDefault();
+
+            if (!problemInput.value.trim()) {
+                status.textContent = "Please say what's wrong first.";
+                problemInput.focus();
+                return;
+            }
+
+            const text = reportText();
+            openLink.textContent = isEmail ? 'Open it in my email' : 'Open the report form';
+            openLink.href = isEmail
+                ? `mailto:${destination}?subject=${encodeURIComponent('Website problem report')}&body=${encodeURIComponent(text)}`
+                : destination;
+            openLink.hidden = false;
+
+            try {
+                await navigator.clipboard.writeText(text);
+                status.textContent = isEmail ? 'Report copied. Now open it in your email and send it.' : 'Report copied. Now open the form and paste it in.';
+            } catch (error) {
+                status.textContent = 'Your browser blocked copying, so please copy what you wrote above, then open the form.';
+            }
+        });
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

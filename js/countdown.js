@@ -11,6 +11,14 @@
             paper1: /paper 1/i,
             paper2: /paper 2/i,
             extra: /^ESP/i,
+            provisional: () => typeof keyDatesProvisional !== 'undefined' && keyDatesProvisional,
+            // The two ESP weeks come after planner week 6, so the planner pauses for them.
+            // Counted back from Paper 1, so check this if the ESP dates change.
+            pause: {
+                after: 6,
+                weeks: 2,
+                text: base => `<strong>ESP weeks:</strong> put your time into your <a href="${base}esp.html">ESP tasks</a>. The revision planner pauses until they're finished, so keep other revision light: just your <a href="${base}index.html#today">due flashcards</a>.`
+            },
             // Same as the planner on revision/exams.html
             planner: [
                 [['CA1 Problem solving', 'ca1.html'], ['CA5 Business context', 'ca5.html']],
@@ -29,6 +37,7 @@
             paper1: /J277\/01/,
             paper2: /J277\/02/,
             extra: null,
+            provisional: () => typeof gcseDatesProvisional !== 'undefined' && gcseDatesProvisional,
             // Same as the planner on gcse/exams.html
             planner: [
                 [['1.1 Systems architecture', 'topic1-1.html'], ['2.1 Algorithms', 'topic2-1.html']],
@@ -91,21 +100,33 @@
         let plan = '';
         if (paper1) {
             const toPaper1 = daysUntil(paper1.when);
-            const plannerStart = new Date(paper1.when.getTime() - 56 * 86400000);
+            const pause = course.pause;
+            const pauseWeeks = pause ? pause.weeks : 0;
+            const totalWeeks = course.planner.length + pauseWeeks;
+            // Counts calendar days, so the clocks changing can't move it to the day before
+            const plannerStart = new Date(paper1.when);
+            plannerStart.setDate(plannerStart.getDate() - totalWeeks * 7);
 
-            if (toPaper1 > 56) {
-                plan = `The 8-week revision planner starts on <strong>${nice(plannerStart)}</strong>. Until then, rate yourself on each spec checklist and keep up with the questions.`;
+            if (toPaper1 > totalWeeks * 7) {
+                const break_ = pause ? ', with a break for the ESP' : '';
+                plan = `The ${course.planner.length}-week revision planner starts on <strong>${nice(plannerStart)}</strong>${break_}. Until then, follow <a href="${base}index.html#today">today's revision</a>.`;
             } else if (toPaper1 >= 0) {
-                const week = Math.min(8, 8 - Math.floor((toPaper1 - 1) / 7));
-                const [p1, p2] = course.planner[week - 1];
-                plan = `<strong>Revision planner week ${week} of 8:</strong> Paper 1: ${link(base, p1)} · Paper 2: ${link(base, p2)}`;
+                const calendarWeek = Math.min(totalWeeks, totalWeeks - Math.floor((toPaper1 - 1) / 7));
+                if (pause && calendarWeek > pause.after && calendarWeek <= pause.after + pauseWeeks) {
+                    plan = pause.text(base);
+                } else {
+                    const week = pause && calendarWeek > pause.after ? calendarWeek - pauseWeeks : calendarWeek;
+                    const [p1, p2] = course.planner[week - 1];
+                    plan = `<strong>Revision planner week ${week} of ${course.planner.length}:</strong> Paper 1: ${link(base, p1)} · Paper 2: ${link(base, p2)}`;
+                }
             } else if (paper2 && daysUntil(paper2.when) >= 0) {
                 const links = course.afterPaper1.map(item => link(base, item));
                 plan = `Paper 1 is done. Now focus on Paper 2: ${links.slice(0, -1).join(', ')} and ${links[links.length - 1]}.`;
             }
         }
 
-        holder.innerHTML = `<ul class="countdown-list">${lines.join('')}</ul>${plan ? `<p class="countdown-plan">${plan}</p>` : ''}`;
+        const note = course.provisional() ? '<p class="post-date">These dates are provisional. Check them with your school or college.</p>' : '';
+        holder.innerHTML = `<ul class="countdown-list">${lines.join('')}</ul>${note}${plan ? `<p class="countdown-plan">${plan}</p>` : ''}`;
     }
 
     document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <title>Placement Tracker | Rowan's Website</title>
+    <meta name="description" content="A private log for your T Level industry placement: track your hours, skills, feedback and reflections. Everything is saved on your device.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Placement Tracker | Rowan&#x27;s Website">
+    <meta property="og:description" content="A private log for your T Level industry placement: track your hours, skills, feedback and reflections. Everything is saved on your device.">
+    <meta property="og:url" content="https://ainsbury.art/pages/placement-log.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/site.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://ainsbury.art/pages/placement-log.html">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site post-page">
+
+        <nav class="nav" aria-label="Toolkit">
+            <a href="../index.html">&larr; Home</a>
+            <a href="placement.html">Placement Prep</a>
+            <a href="placement-log.html" aria-current="page">Placement Tracker</a>
+        </nav>
+
+        <main id="main">
+        <section class="window">
+            <div class="title-bar">
+                <span class="title-bar-text">placement_tracker.log</span>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <h1 class="site-title">Placement Tracker</h1>
+                <p class="page-intro">Log your hours, skills and reflections as you go. It's useful evidence for your portfolio and interviews.</p>
+                <p><strong id="log-total">0 of 315 hours logged</strong></p>
+                <div class="progress" aria-hidden="true"><div class="progress-bar" id="log-bar"></div></div>
+                <p><strong>This is your own record.</strong> It doesn't replace the official log your school, college or employer asks you to keep. Don't record anything confidential, such as client details, passwords or other people's names.</p>
+            </div>
+        </section>
+
+        <section class="window">
+            <div class="title-bar">
+                <h2>Add an entry</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <form id="log-form">
+                    <p><label for="log-date"><strong>Date</strong></label><br><input type="date" id="log-date" class="report-input" required></p>
+                    <p><label for="log-hours"><strong>Hours worked</strong></label><br><input type="number" id="log-hours" class="report-input" min="0.25" max="24" step="0.25" required></p>
+                    <p><label for="log-work"><strong>What I did</strong></label><br><textarea id="log-work" class="report-input" rows="3" required></textarea></p>
+                    <p><label for="log-skills"><strong>Skills I used</strong></label><br><input type="text" id="log-skills" class="report-input"></p>
+                    <p><label for="log-feedback"><strong>Feedback I got</strong></label><br><textarea id="log-feedback" class="report-input" rows="2"></textarea></p>
+                    <p><label for="log-reflection"><strong>What I learned, or would do differently</strong></label><br><textarea id="log-reflection" class="report-input" rows="3"></textarea></p>
+                    <div class="button-row"><button type="submit" class="button">Save entry</button></div>
+                </form>
+                <p id="log-status" role="status"></p>
+            </div>
+        </section>
+
+        <section class="window">
+            <div class="title-bar">
+                <h2>My entries</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <div id="log-list"></div>
+            </div>
+        </section>
+
+        <section class="window">
+            <div class="title-bar">
+                <h2>Keep your log safe</h2>
+                <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+            </div>
+            <div class="window-body">
+                <p>Your log is saved in this browser only. Nobody else can see it, but it won't follow you to another device, and clearing your browser data deletes it. Download a backup regularly.</p>
+                <div class="button-row">
+                    <button type="button" class="button" id="log-backup">Download a backup</button>
+                    <button type="button" class="button" id="log-load">Load a backup</button>
+                    <button type="button" class="button" id="log-csv">Download as a spreadsheet (CSV)</button>
+                    <input type="file" id="log-file" accept=".json,application/json" hidden>
+                </div>
+                <p id="log-file-status" role="status"></p>
+            </div>
+        </section>
+        </main>
+
+    </div>
+
+    <script>
+        const logKey = 'placementLog';
+        const targetHours = 315;
+        const fields = ['date', 'hours', 'work', 'skills', 'feedback', 'reflection'];
+        const logStatus = document.getElementById('log-status');
+        const fileStatus = document.getElementById('log-file-status');
+        const list = document.getElementById('log-list');
+
+        function readLog() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(logKey) || '[]');
+                return Array.isArray(saved) ? saved : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function writeLog(entries) {
+            try {
+                localStorage.setItem(logKey, JSON.stringify(entries));
+                return true;
+            } catch (error) {
+                logStatus.textContent = "This browser wouldn't save your log. Download what you can and try another browser.";
+                return false;
+            }
+        }
+
+        let entries = readLog();
+
+        function line(label, text) {
+            const paragraph = document.createElement('p');
+            const strong = document.createElement('strong');
+            strong.textContent = label + ': ';
+            paragraph.append(strong, text);
+            return paragraph;
+        }
+
+        function draw() {
+            const total = entries.reduce((sum, entry) => sum + (Number(entry.hours) || 0), 0);
+            document.getElementById('log-total').textContent = `${total} of ${targetHours} hours logged`;
+            document.getElementById('log-bar').style.width = Math.min(100, total / targetHours * 100) + '%';
+
+            list.replaceChildren();
+            if (!entries.length) {
+                list.textContent = 'No entries yet.';
+                return;
+            }
+
+            entries
+                .map((entry, index) => ({ entry, index }))
+                .sort((a, b) => String(b.entry.date).localeCompare(String(a.entry.date)))
+                .forEach(({ entry, index }) => {
+                    const box = document.createElement('div');
+                    box.className = 'log-entry';
+                    const title = document.createElement('h3');
+                    title.textContent = `${entry.date}: ${entry.hours} hours`;
+                    box.append(title, line('What I did', entry.work));
+                    if (entry.skills) box.append(line('Skills', entry.skills));
+                    if (entry.feedback) box.append(line('Feedback', entry.feedback));
+                    if (entry.reflection) box.append(line('Reflection', entry.reflection));
+
+                    const remove = document.createElement('button');
+                    remove.type = 'button';
+                    remove.className = 'button';
+                    remove.textContent = 'Delete entry';
+                    remove.addEventListener('click', () => {
+                        if (remove.dataset.armed) {
+                            entries.splice(index, 1);
+                            writeLog(entries);
+                            draw();
+                        } else {
+                            remove.dataset.armed = 'yes';
+                            remove.textContent = 'Click again to delete';
+                        }
+                    });
+                    box.append(remove);
+                    list.appendChild(box);
+                });
+        }
+
+        document.getElementById('log-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const entry = {};
+            fields.forEach(name => { entry[name] = document.getElementById('log-' + name).value.trim(); });
+            entry.hours = Number(entry.hours);
+            entries.push(entry);
+            if (writeLog(entries)) {
+                event.target.reset();
+                logStatus.textContent = 'Entry saved.';
+            }
+            draw();
+        });
+
+        function download(name, type, text) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(new Blob([text], { type }));
+            link.download = name;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
+        document.getElementById('log-backup').addEventListener('click', () => {
+            download('placement-log.json', 'application/json', JSON.stringify(entries, null, 2));
+        });
+
+        // A leading ' stops a spreadsheet treating text such as =SUM() as a formula
+        function csvCell(value) {
+            const text = String(value === undefined ? '' : value);
+            const safe = /^[=+\-@]/.test(text) ? "'" + text : text;
+            return '"' + safe.replace(/"/g, '""') + '"';
+        }
+
+        document.getElementById('log-csv').addEventListener('click', () => {
+            const rows = [fields, ...entries.map(entry => fields.map(name => entry[name]))];
+            download('placement-log.csv', 'text/csv', rows.map(row => row.map(csvCell).join(',')).join('\r\n'));
+        });
+
+        const fileInput = document.getElementById('log-file');
+        document.getElementById('log-load').addEventListener('click', () => fileInput.click());
+
+        // Adds entries from a backup, skipping any that are already in the log
+        fileInput.addEventListener('change', async () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+            try {
+                const loaded = JSON.parse(await file.text());
+                if (!Array.isArray(loaded)) throw new Error('Not a log');
+                const known = new Set(entries.map(entry => JSON.stringify(entry)));
+                const fresh = loaded.filter(entry => entry && entry.date && !known.has(JSON.stringify(entry)));
+                entries = entries.concat(fresh);
+                writeLog(entries);
+                draw();
+                fileStatus.textContent = `Added ${fresh.length} entr${fresh.length === 1 ? 'y' : 'ies'} from the backup.`;
+            } catch (error) {
+                fileStatus.textContent = "That file isn't a placement log backup.";
+            }
+            fileInput.value = '';
+        });
+
+        draw();
+    </script>
+
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

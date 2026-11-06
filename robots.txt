@@ -47,3 +47,5 @@ User-agent: VelenPublicWebCrawler
 User-agent: Webzio-Extended
 User-agent: YouBot
 Disallow: /
+
+Sitemap: https://ainsbury.art/sitemap.xml

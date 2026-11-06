@@ -3,23 +3,38 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Rowan's Website</title>
+    <title>Rowan's Website | Free T Level Digital Revision Guides</title>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Rowan&#x27;s Website">
     <meta property="og:title" content="Rowan&#x27;s Website">
-    <meta property="og:description" content="Revision guides, class demos, teaching resources and student portfolios for T Level Digital, GCSE Computer Science and V Level Digital.">
+    <meta property="og:description" content="Free revision guides, interactive demos and study tools for T Level Digital and GCSE Computer Science, from a T Level specialist.">
     <meta property="og:url" content="https://ainsbury.art/">
+    <link rel="canonical" href="https://ainsbury.art/">
     <meta property="og:image" content="https://ainsbury.art/images/og/site.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="description" content="Revision guides, class demos, teaching resources and student portfolios for T Level Digital, GCSE Computer Science and V Level Digital.">
+    <meta name="description" content="Free revision guides, interactive demos and study tools for T Level Digital and GCSE Computer Science, from a T Level specialist.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=2026-11-04">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="css/style.css?v=2026-11-06h">
     <script src="js/analytics.js?v=2026-11-04"></script>
+    <script src="js/site-info.js?v=2026-11-06g"></script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Rowan's Website",
+        "url": "https://ainsbury.art/",
+        "description": "Free revision guides, interactive demos and study tools for T Level Digital and GCSE Computer Science.",
+        "inLanguage": "en-GB",
+        "author": { "@type": "Person", "name": "Rowan Ainsbury" }
+    }
+    </script>
 </head>
 
 <body>
@@ -30,25 +45,31 @@
 
         <header class="site-header">
             <h1 class="site-title">Rowan's Website</h1>
-            <p class="subtitle">Revision Guides, Class Demos &amp; Student Portfolios</p>
+            <p class="subtitle">Free T Level Digital Revision Guides, Demos &amp; Study Tools</p>
         </header>
 
         <!-- Scrolling marquee: the text is written twice so the loop is seamless -->
         <div class="marquee">
             <div class="marquee-track">
-                <span>Pick your course below to open its revision guide &bull; More guides coming soon &bull; Save your work regularly &bull; Validate your HTML before submitting &bull; Keep your file names lowercase with no spaces &bull;&nbsp;</span>
-                <span aria-hidden="true">Pick your course below to open its revision guide &bull; More guides coming soon &bull; Save your work regularly &bull; Validate your HTML before submitting &bull; Keep your file names lowercase with no spaces &bull;&nbsp;</span>
+                <span>Pick your course below to open its revision guide &bull; More guides coming soon &bull; Rate yourself on each spec checklist &bull; Practise with a timed mock &bull; Spotted a mistake? Report it at the bottom of any page &bull;&nbsp;</span>
+                <span aria-hidden="true">Pick your course below to open its revision guide &bull; More guides coming soon &bull; Rate yourself on each spec checklist &bull; Practise with a timed mock &bull; Spotted a mistake? Report it at the bottom of any page &bull;&nbsp;</span>
             </div>
         </div>
 
         <nav class="nav" aria-label="Sections">
             <a href="#guides" class="nav-featured"><img class="pix" src="images/icons/books.svg" alt="" width="16" height="16"> Revision Guides</a>
             <a href="#demos">Demos</a>
-            <a href="#students">Students</a>
             <a href="#toolkit">Toolkit</a>
-            <a href="#resources">Resources</a>
+            <a href="pages/teachers.html">For Teachers</a>
+            <a href="pages/about.html">About</a>
             <a href="#learning-links">Links</a>
         </nav>
+
+        <form class="site-search" action="pages/search.html" role="search">
+            <label for="site-search-box">Search the site:</label>
+            <input type="search" id="site-search-box" name="q">
+            <button type="submit" class="button">Search</button>
+        </form>
 
         <main id="main">
 
@@ -116,55 +137,11 @@
                 <!-- Demos are listed in js/demos.js -->
                 <section class="window" id="demos">
                     <div class="title-bar">
-                        <h2>class_demos/</h2>
+                        <h2>interactive_demos/</h2>
                         <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
                     </div>
                     <div class="window-body">
                         <ul class="demo-grid" id="demo-list"></ul>
-                    </div>
-                </section>
-
-                <section class="window" id="students">
-                    <div class="title-bar">
-                        <h2>Student Websites</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p>Explore individual portfolio sites:</p>
-                        <div class="student-list">
-                            <a href="https://massive4m1.neocities.org" target="_blank">Masif</a>
-                            <a href="https://cclayton.neocities.org" target="_blank">Caiden</a>
-                            <a href="https://theday.neocities.org" target="_blank">Theo</a>
-                            <a href="https://bogoff.neocities.org" target="_blank">Kai</a>
-                            <a href="https://ereng.neocities.org" target="_blank">Eren</a>
-                            <a href="https://hep26005532.neocities.org" target="_blank">Zac</a>
-                            <a href="https://aarron.neocities.org" target="_blank">Aarron</a>
-                            <a href="https://devemmanuel.neocities.org" target="_blank">Emmanuel</a>
-                            <a href="https://my4portfolio.neocities.org" target="_blank">Charlie</a>
-                            <a href="https://donfeurportfolio.neocities.org" target="_blank">Balazs</a>
-                            <a href="https://niksportfolio.neocities.org" target="_blank">Nik</a>
-                        </div>
-                        <button type="button" class="button webring-random" id="random-site"><img class="pix" src="images/icons/dice.svg" alt="" width="16" height="16"> Random site</button>
-                    </div>
-                </section>
-
-            </div>
-
-            <!-- Smaller windows -->
-            <div class="landing-extras">
-
-                <section class="window" id="welcome">
-                    <div class="title-bar">
-                        <h2>welcome.txt</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <p>Teaching resources signposted from class. Feel free to use any of the HTML here as a base for your portfolio: right-click &rarr; <strong>View Page Source</strong>.</p>
-                        <ul class="info-list">
-                            <li><strong>No AI code:</strong> writing code yourself is essential practice for the course.</li>
-                            <li><strong>Use the docs:</strong> MDN and W3Schools for syntax questions.</li>
-                            <li><strong>Standards:</strong> clean, valid HTML.</li>
-                        </ul>
                     </div>
                 </section>
 
@@ -179,9 +156,32 @@
                         <a href="pages/cheatsheet.html"><img class="pix icon" src="images/icons/book.svg" alt="" width="48" height="48"><span class="label">HTML &amp; CSS Cheat Sheet</span></a>
                         <a href="pages/mistakes.html"><img class="pix icon" src="images/icons/warning.svg" alt="" width="48" height="48"><span class="label">Common Mistakes</span></a>
                         <a href="pages/glossary.html"><img class="pix icon" src="images/icons/dictionary.svg" alt="" width="48" height="48"><span class="label">Glossary</span></a>
-                        <a href="pages/term.html"><img class="pix icon" src="images/icons/calendar.svg" alt="" width="48" height="48"><span class="label">Term Planner</span></a>
                         <a href="pages/placement.html"><img class="pix icon" src="images/icons/briefcase.svg" alt="" width="48" height="48"><span class="label">Placement Prep</span></a>
+                        <a href="pages/placement-log.html"><img class="pix icon" src="images/icons/clipboard.svg" alt="" width="48" height="48"><span class="label">Placement Tracker</span></a>
                         <a href="pages/question.html"><img class="pix icon" src="images/icons/help.svg" alt="" width="48" height="48"><span class="label">Random Question</span></a>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Smaller windows -->
+            <div class="landing-extras">
+
+                <section class="window" id="about">
+                    <div class="title-bar">
+                        <h2>about.txt</h2>
+                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
+                    </div>
+                    <div class="window-body">
+                        <p>Free revision guides and study tools by Rowan Ainsbury, a T Level Digital specialist who has previously taught GCSE Computer Science.</p>
+                        <ul class="info-list">
+                            <li><strong>Independent:</strong> not produced or endorsed by Pearson, OCR or JCQ.</li>
+                            <li><strong>Free to use:</strong> see the <a href="pages/terms.html">terms of use</a>.</li>
+                            <li><strong>Private:</strong> your answers stay in your browser. See the <a href="pages/privacy.html">privacy page</a>.</li>
+                            <li><strong>Works offline:</strong> after your first visit, most pages open without internet.</li>
+                        </ul>
+                        <p><a href="pages/about.html">More about this site &rarr;</a></p>
+                        <p>In one of my classes? Go to the <a href="pages/class.html">class page</a>.</p>
                     </div>
                 </section>
 
@@ -197,6 +197,7 @@
                         <button type="button" class="button" id="qotd-show">Show answer</button>
                         <p class="quiz-answer" id="qotd-answer" hidden></p>
                         <p><a href="pages/question.html">More random questions &rarr;</a></p>
+                        <p><a class="report-link" id="qotd-report" target="_blank" rel="noopener">Report a problem with this question</a></p>
                     </div>
                 </section>
 
@@ -211,17 +212,7 @@
                             <button type="button" class="button" role="tab" id="dates-tab-gcse" data-course="gcse" aria-controls="dates-list">GCSE</button>
                         </div>
                         <ul class="dates-list" id="dates-list" role="tabpanel"></ul>
-                        <p id="term-link"><a href="pages/term.html">See the full term planner &rarr;</a></p>
-                    </div>
-                </section>
-
-                <section class="window" id="resources">
-                    <div class="title-bar">
-                        <h2>resources_and_notes/</h2>
-                        <div class="title-bar-controls" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div>
-                    </div>
-                    <div class="window-body">
-                        <ul id="post-list"></ul>
+                        <p class="post-date" id="dates-note" hidden>These dates are provisional. Check them with your school or college.</p>
                     </div>
                 </section>
 
@@ -241,7 +232,6 @@
                             <li><a href="https://cssgridgarden.com" target="_blank">CSS Grid Garden</a></li>
                             <li><a href="https://fonts.google.com" target="_blank">Google Fonts</a></li>
                             <li><a href="https://tinypng.com" target="_blank">TinyPNG</a></li>
-                            <li><a href="https://neocities.org/dashboard" target="_blank">Neocities Dashboard</a></li>
                             <li><a href="https://www.tlevels.gov.uk/students" target="_blank">tlevels.gov.uk</a></li>
                         </ul>
                     </div>
@@ -260,14 +250,13 @@
     </div>
 
     <!-- Scripts -->
-    <script src="posts/posts.js?v=2026-10-29"></script>
     <script src="js/demos.js?v=2026-11-05"></script>
-    <script src="js/dates.js?v=2026-11-04"></script>
-    <script src="js/countdown.js?v=2026-11-04"></script>
+    <script src="js/dates.js?v=2026-11-06c"></script>
+    <script src="js/countdown.js?v=2026-11-06d"></script>
     <script src="js/questions.js?v=2026-10-29"></script>
     <script src="js/question-bank.js?v=2026-10-29"></script>
     <script>
-        // Class demos, newest first
+        // Demos, newest first
         const demoList = document.getElementById('demo-list');
 
         if (typeof demos !== 'undefined' && Array.isArray(demos) && demos.length > 0) {
@@ -300,6 +289,7 @@
             document.getElementById('qotd-meta').textContent = `${qotd.mainTopic} · ${marks} mark${marks === 1 ? '' : 's'}`;
             document.getElementById('qotd-text').textContent = qotd.question;
             qotdAnswer.textContent = qotd.answer;
+            document.getElementById('qotd-report').href = reportLink(`Question of the day ${qotd.id}`);
 
             const mcq = questionOptions(qotd);
             if (mcq) {
@@ -326,29 +316,13 @@
         } else {
             document.getElementById('qotd-text').textContent = 'The question bank did not load.';
             qotdShow.hidden = true;
+            document.getElementById('qotd-report').hidden = true;
         }
 
         qotdShow.addEventListener('click', () => {
             qotdAnswer.hidden = false;
             qotdShow.hidden = true;
         });
-
-        // Lesson posts, newest first
-        const listContainer = document.getElementById('post-list');
-
-        if (typeof posts !== 'undefined' && Array.isArray(posts) && posts.length > 0) {
-            listContainer.innerHTML = posts
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .map((post, index) => `
-                    <li>
-                        <a href="${post.filename}">${post.title}</a>
-                        <span class="post-date"> — ${post.date}</span>
-                        ${index === 0 ? '<span class="new-tag blink">NEW!</span>' : ''}
-                    </li>
-                `).join('');
-        } else {
-            listContainer.innerHTML = '<li>No resources currently available.</li>';
-        }
 
         // Key dates for each course: the next 3, with the soonest flagged.
         // The tab you pick is remembered on this device.
@@ -363,7 +337,7 @@
         function showDates(course) {
             dateTabs.forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.course === course)));
             datesList.setAttribute('aria-labelledby', 'dates-tab-' + course);
-            document.getElementById('term-link').hidden = course !== 'tlevel';
+            document.getElementById('dates-note').hidden = !(course === 'gcse' ? gcseDatesProvisional : keyDatesProvisional);
 
             const upcoming = courseDates[course]
                 .filter(item => item.date >= today)
@@ -385,17 +359,6 @@
         let savedCourse = 'tlevel';
         try { savedCourse = localStorage.getItem('datesCourse') || 'tlevel'; } catch (error) { /* use the default */ }
         showDates(courseDates[savedCourse] ? savedCourse : 'tlevel');
-
-        // Open a random student site
-        const studentLinks = document.querySelectorAll('.student-list a');
-
-        document.getElementById('random-site').addEventListener('click', () => {
-            const pick = studentLinks[Math.floor(Math.random() * studentLinks.length)];
-            if (window.goatcounter && window.goatcounter.count) {
-                window.goatcounter.count({ path: `outbound: ${pick.hostname} (random)`, title: pick.textContent, event: true });
-            }
-            window.open(pick.href, '_blank');
-        });
 
         // Taskbar clock
         const clock = document.getElementById('clock');

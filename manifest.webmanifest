@@ -1,0 +1,14 @@
+{
+    "name": "Rowan's Website: Free T Level Digital Revision Guides",
+    "short_name": "Revision",
+    "description": "Free revision guides and study tools for T Level Digital and GCSE Computer Science.",
+    "start_url": "/index.html",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#008080",
+    "theme_color": "#000080",
+    "icons": [
+        { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    ]
+}
