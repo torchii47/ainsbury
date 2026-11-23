@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#860c5d">
+    <title>Algorithm Visualiser | Core Revision Guide</title>
+    <meta name="description" content="Watch searching and sorting algorithms run step by step, with the Python line that's running highlighted. Covers the T Level 2.11 common algorithms, plus more for interest.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rowan&#x27;s Website">
+    <meta property="og:title" content="Algorithm Visualiser | Core Revision Guide">
+    <meta property="og:description" content="Watch searching and sorting algorithms run step by step, with the Python line that's running highlighted. Covers the T Level 2.11 common algorithms, plus more for interest.">
+    <meta property="og:url" content="https://ainsbury.art/revision/visualiser.html">
+    <meta property="og:image" content="https://ainsbury.art/images/og/tlevel.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://ainsbury.art/revision/visualiser.html">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-23x">
+    <link rel="stylesheet" href="revision.css?v=2026-11-23">
+    <script src="../js/analytics.js?v=2026-11-04"></script>
+    <script src="../js/site-info.js?v=2026-11-06g"></script>
+    <script src="../js/season.js?v=2026-11-23d"></script>
+    <style>
+        /* Algorithm visualiser: only used on this page.
+           The canvas reads its colours from these variables. */
+        .vis {
+            --bg: #ffffff;
+            --fg: #2b031d;
+            --muted: #6b5563;
+            --line: #808080;
+            --bar: #9a9aa2;
+            --cmp: #e69f00;
+            --write: #2b031d;
+            --sorted: #0072b2;
+            --pivot: #56b4e9;
+            --found: #009e73;
+            --elim: #e4e4e4;
+        }
+
+        /* No sidebar on this page, so the visualiser gets the full width */
+        .rev-layout.rev-wide {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .vis-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px 16px;
+            margin-bottom: 12px;
+        }
+
+        .vis .ctl {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .vis .grp {
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vis .seg {
+            display: inline-flex;
+        }
+
+        .vis .button[aria-pressed="true"] {
+            background: var(--yellow);
+            border-color: var(--grey-dark) var(--white) var(--white) var(--grey-dark);
+            box-shadow: none;
+        }
+
+        .vis .button[aria-pressed="true"]::before {
+            content: "● ";
+        }
+
+        .vis input[type="number"] {
+            width: 6em;
+        }
+
+        .vis-spacer {
+            flex: 1;
+        }
+
+        /* ★ On the spec / Beyond the spec labels */
+        .spec-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            font-family: "Press Start 2P", "Courier New", monospace;
+            font-size: 0.55rem;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            border: 2px solid;
+        }
+
+        .spec-badge.on {
+            color: var(--yellow);
+            background: var(--magenta);
+            border-color: var(--magenta);
+        }
+
+        .spec-badge.off {
+            color: var(--ink);
+            background: var(--grey-light);
+            border-color: var(--grey-dark);
+            border-style: dashed;
+        }
+
+        .vis-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 16px;
+        }
+
+        .vis-stage {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        #status {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+        }
+
+        #act {
+            min-width: 120px;
+            padding: 0 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white);
+            background: var(--ca);
+            font-family: "VT323", "Courier New", monospace;
+            font-size: 1.5rem;
+        }
+
+        #msg {
+            flex: 1;
+            min-width: 200px;
+            font-weight: bold;
+        }
+
+        #note {
+            min-height: 1.5em;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        #canvasWrap {
+            position: relative;
+            height: clamp(300px, 55vh, 560px);
+            border: 1px solid var(--grey);
+        }
+
+        #cv {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            padding-top: 8px;
+            font-size: 0.8rem;
+        }
+
+        #legend .k {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #legend i {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--ink);
+        }
+
+        #controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px 16px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px dashed var(--ca-2);
+        }
+
+        #speed {
+            accent-color: var(--ca);
+        }
+
+        #speedLbl {
+            display: inline-block;
+            min-width: 8em;
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+        }
+
+        .vis-side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        #stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        #stats div {
+            padding: 4px 8px;
+            background: var(--ca-light);
+            border: 1px solid var(--ca);
+        }
+
+        #stats small {
+            display: block;
+            font-size: 0.75rem;
+        }
+
+        #stats b {
+            font-family: "VT323", "Courier New", monospace;
+            font-size: 1.7rem;
+            font-weight: normal;
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Python code, with the running line lit up */
+        #code {
+            overflow-x: auto;
+            padding: 6px 0;
+            color: #ffd6e8;
+            background: var(--ink);
+            font: 0.8rem/1.5 "Courier New", monospace;
+            border: 2px inset var(--grey);
+        }
+
+        #code div {
+            display: flex;
+            padding-right: 8px;
+            white-space: pre;
+        }
+
+        #code .g {
+            flex: none;
+            width: 20px;
+            text-align: center;
+        }
+
+        #code .n {
+            flex: none;
+            width: 24px;
+            padding-right: 8px;
+            text-align: right;
+            color: #b07a98;
+        }
+
+        #code div.on {
+            color: var(--ink);
+            background: var(--yellow);
+            font-weight: bold;
+        }
+
+        #code div.on .n {
+            color: var(--ink);
+        }
+
+        #cx td:first-child {
+            width: 45%;
+            font-weight: bold;
+        }
+
+        /* Maximised (□ button): the bars fill the screen */
+        #visualiser.win-maximised > .window-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #visualiser.win-maximised .vis-grid {
+            flex: 1;
+            min-height: 0;
+        }
+
+        #visualiser.win-maximised #canvasWrap {
+            flex: 1;
+            height: auto;
+            min-height: 260px;
+        }
+
+        #visualiser.win-maximised .vis-side {
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1000px) {
+            .vis-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        #selftest {
+            position: fixed;
+            inset: 20px;
+            z-index: 200;
+            overflow: auto;
+            padding: 10px;
+            white-space: pre;
+            background: var(--white);
+            border: 2px solid var(--ink);
+            font: 12px "Courier New", monospace;
+        }
+    </style>
+</head>
+<body class="rev ca2" data-page="visualiser">
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site rev-site">
+
+        <nav class="nav rev-nav" id="rev-nav" aria-label="Revision guide"></nav>
+
+        <header class="rev-header">
+            <p class="kicker">CONTENT AREA 2 · 2.11 COMMON ALGORITHMS</p>
+            <h1>Algorithm Visualiser</h1>
+            <p>Watch searching and sorting algorithms run, one step at a time, with the Python line that's running lit up.</p>
+            <p class="links"><a href="ca2.html#s2-11">Read the 2.11 notes</a> · <a href="ca2.html#algo-practice">Practise with endless questions</a></p>
+            <span class="big-num" aria-hidden="true">V</span>
+        </header>
+
+        <div class="rev-layout rev-wide">
+
+            <main id="main">
+
+                <section class="window vis" id="visualiser">
+                    <h2>visualiser.exe</h2>
+                    <div class="window-body">
+
+                        <div class="vis-toolbar">
+                            <div class="seg" role="group" aria-label="Sort or search">
+                                <button type="button" class="button" id="kSort" aria-pressed="true">Sorting</button>
+                                <button type="button" class="button" id="kSearch" aria-pressed="false">Searching</button>
+                            </div>
+                            <label class="ctl">Algorithm <select id="algo" class="quiz-select"></select></label>
+                            <span class="spec-badge on" id="specBadge">★ On the spec</span>
+                            <label class="ctl">Items <select id="size" class="quiz-select"></select></label>
+                            <label class="ctl">List <select id="ltype" class="quiz-select"></select></label>
+                            <span id="targetBox" class="grp" hidden>
+                                <label class="ctl">Target <input type="number" id="target" class="quiz-select" min="0"></label>
+                                <button type="button" class="button" id="tRand" title="Pick a value that is in the list">In list</button>
+                                <button type="button" class="button" id="tMiss" title="Pick a value that is not in the list">Not in list</button>
+                            </span>
+                        </div>
+                        <div class="vis-toolbar">
+                            <button type="button" class="button" id="showAll">Show non-specification algorithms</button>
+                            <span class="vis-spacer"></span>
+                            <label class="ctl"><input type="checkbox" id="sound"> Sound</label>
+                        </div>
+
+                        <div class="vis-grid">
+                            <div class="vis-stage">
+                                <div id="status"><div id="act">Ready</div><div id="msg"></div></div>
+                                <div id="note"></div>
+                                <div id="canvasWrap"><canvas id="cv" aria-label="Bar chart of the list. Each bar's height is its value." role="img"></canvas></div>
+                                <div id="legend"></div>
+                                <div id="controls">
+                                    <div class="seg" role="group" aria-label="Mode">
+                                        <button type="button" class="button" id="mAuto" aria-pressed="true">Automatic</button>
+                                        <button type="button" class="button" id="mStep" aria-pressed="false">Step</button>
+                                    </div>
+                                    <div class="grp" id="autoCtl">
+                                        <button type="button" class="button" id="play">▶ Play</button>
+                                        <label class="ctl">Speed <input type="range" id="speed" min="0" max="110" value="66"></label>
+                                        <span id="speedLbl"></span>
+                                    </div>
+                                    <div class="grp" id="stepCtl" hidden>
+                                        <button type="button" class="button" id="back">◀ Back</button>
+                                        <button type="button" class="button" id="step">Step ▶</button>
+                                        <button type="button" class="button" id="step10">+10 ▶▶</button>
+                                    </div>
+                                    <div class="grp">
+                                        <button type="button" class="button" id="restart">↺ Restart</button>
+                                        <button type="button" class="button" id="newList">New list</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vis-side">
+                                <div>
+                                    <h3>Counters</h3>
+                                    <div id="stats">
+                                        <div><small>Steps</small><b id="sSteps">0</b></div>
+                                        <div><small id="lComps">Comparisons</small><b id="sComps">0</b></div>
+                                        <div><small id="lWrites">Swaps / writes</small><b id="sWrites">0</b></div>
+                                        <div><small>Items</small><b id="sN">0</b></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3>Python code</h3>
+                                    <div id="code"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="window" id="about-algo">
+                    <h2>About this algorithm</h2>
+                    <div class="window-body">
+                        <h3><span id="infoTitle">Bubble sort</span> <span class="spec-badge on" id="aboutBadge">★ On the spec</span></h3>
+                        <p id="about"></p>
+                        <table id="cx"></table>
+                        <div class="box">
+                            <h4>■ BIG O IS FOR INTEREST ONLY</h4>
+                            <p>Big O notation isn't on the T Level spec. In the exam, compare algorithms by reasoning about how many comparisons they make, how long they take and how much memory they need. See <a href="ca2.html#s2-11">2.11 Common algorithms</a>.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="window" id="how">
+                    <h2>How to use it</h2>
+                    <div class="window-body">
+                        <p>Only five algorithms are on the T Level spec, and they're marked <span class="spec-badge on">★ On the spec</span>:</p>
+                        <ul>
+                            <li><strong>Searching:</strong> linear search and binary search.</li>
+                            <li><strong>Sorting:</strong> bubble sort, insertion sort and merge sort.</li>
+                        </ul>
+                        <p>Press <strong>Show non-specification algorithms</strong> to see quick sort, heap sort and the rest. They're good for seeing why some algorithms are faster than others, but you won't be asked about them.</p>
+                        <ol>
+                            <li>Choose <strong>Sorting</strong> or <strong>Searching</strong>, then an algorithm, a list size and a list type.</li>
+                            <li><strong>Automatic</strong> plays it at the speed you set. <strong>Step</strong> goes one comparison at a time, so you can predict what happens next.</li>
+                            <li>Watch the <strong>Python code</strong>: the highlighted line is the one running.</li>
+                            <li>Compare the <strong>Counters</strong> for different algorithms on the same list size. That's the reasoning the exam wants.</li>
+                        </ol>
+                        <h3>Keyboard</h3>
+                        <p><kbd>Space</kbd> play / pause · <kbd>→</kbd> step · <kbd>←</kbd> back · <kbd>R</kbd> restart · <kbd>N</kbd> new list</p>
+                        <p>Use the □ button on the visualiser window to fill the screen, for example on a projector.</p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="taskbar">
+            <p>Core Revision Guide 2026–27 · Algorithm Visualiser · Not produced or endorsed by Pearson or JCQ.</p>
+        </footer>
+
+    </div>
+
+    <script>
+(() => {
+"use strict";
+/* ---------- algorithms ----------
+   Each run(a, c) is a generator. It changes the array a in place and yields one
+   object per step: {line, act, msg, cmp:[], write:[], pivot, ptr:{name:index}, range:[lo,hi,label]}.
+   c holds counters and the sorted / eliminated flags. */
+const swap = (a, i, j) => { const t = a[i]; a[i] = a[j]; a[j] = t; };
+const PLACE = ["units", "tens", "hundreds", "thousands", "ten thousands"];
+
+const ALGOS = {
+bubble: { kind: "sort", name: "Bubble sort",
+  cx: ["O(n)", "O(n²)", "O(n²)", "O(1)", "Yes"],
+  about: "Walks through the list comparing each pair of neighbours and swaps them if they are the wrong way round. After each pass the largest unsorted item has 'bubbled' to the end. Stops early if a pass makes no swaps.",
+  code: `def bubble_sort(items):
+    n = len(items)
+    for i in range(n - 1):
+        swapped = False
+        for j in range(n - 1 - i):
+            if items[j] > items[j + 1]:
+                items[j], items[j + 1] = items[j + 1], items[j]
+                swapped = True
+        if not swapped:
+            break
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    for (let i = 0; i < n - 1; i++) {
+      let swapped = false;
+      for (let j = 0; j < n - 1 - i; j++) {
+        c.comps++;
+        yield { line: 6, act: "Compare", cmp: [j, j + 1], ptr: { j: j, "j+1": j + 1 }, msg: `Pass ${i + 1}: is ${a[j]} > ${a[j + 1]}?` };
+        if (a[j] > a[j + 1]) {
+          swap(a, j, j + 1); c.writes += 2; swapped = true;
+          yield { line: 7, act: "Swap", write: [j, j + 1], ptr: { j: j, "j+1": j + 1 }, msg: `Yes, so swap them` };
+        }
+      }
+      c.sorted[n - 1 - i] = 1;
+      if (!swapped) {
+        c.sorted.fill(1);
+        yield { line: 10, act: "Stop", msg: `No swaps in pass ${i + 1}, so the list is sorted` };
+        return;
+      }
+    }
+    c.sorted.fill(1);
+  }},
+
+selection: { kind: "sort", name: "Selection sort",
+  cx: ["O(n²)", "O(n²)", "O(n²)", "O(1)", "No"],
+  about: "Finds the smallest item in the unsorted part and swaps it to the front of that part. The sorted part grows by one each pass. It always makes the same number of comparisons, however the list starts.",
+  code: `def selection_sort(items):
+    n = len(items)
+    for i in range(n - 1):
+        smallest = i
+        for j in range(i + 1, n):
+            if items[j] < items[smallest]:
+                smallest = j
+        items[i], items[smallest] = items[smallest], items[i]
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    for (let i = 0; i < n - 1; i++) {
+      let s = i;
+      for (let j = i + 1; j < n; j++) {
+        c.comps++;
+        yield { line: 6, act: "Compare", cmp: [j, s], ptr: { i: i, smallest: s, j: j }, msg: `Is ${a[j]} < ${a[s]} (smallest so far)?` };
+        if (a[j] < a[s]) s = j;
+      }
+      const moved = s !== i;
+      swap(a, i, s); c.writes += 2; c.sorted[i] = 1;
+      yield { line: 8, act: "Swap", write: [i, s], ptr: { i: i, smallest: s },
+        msg: moved ? `Swap the smallest, ${a[i]}, into position ${i}` : `${a[i]} is already the smallest, so it stays at position ${i}` };
+    }
+    c.sorted.fill(1);
+  }},
+
+insertion: { kind: "sort", name: "Insertion sort",
+  cx: ["O(n)", "O(n²)", "O(n²)", "O(1)", "Yes"],
+  about: "Builds a sorted part at the left. Takes the next item, shifts every larger item in the sorted part one place right, then drops the item into the gap. Very quick on lists that are nearly sorted.",
+  code: `def insertion_sort(items):
+    for i in range(1, len(items)):
+        current = items[i]
+        j = i - 1
+        while j >= 0 and items[j] > current:
+            items[j + 1] = items[j]
+            j -= 1
+        items[j + 1] = current
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    for (let i = 1; i < n; i++) {
+      const cur = a[i]; let j = i - 1;
+      yield { line: 3, act: "Pick", cmp: [i], ptr: { i: i }, range: [0, i - 1, "sorted part"], msg: `Take ${cur} and find where it goes in the sorted part` };
+      while (j >= 0) {
+        c.comps++;
+        yield { line: 5, act: "Compare", cmp: [j], ptr: { j: j }, range: [0, i - 1, "sorted part"], msg: `Is ${a[j]} > ${cur}?` };
+        if (!(a[j] > cur)) break;
+        a[j + 1] = a[j]; c.writes++;
+        yield { line: 6, act: "Shift", write: [j + 1], ptr: { j: j }, range: [0, i - 1, "sorted part"], msg: `Yes, so move ${a[j]} one place right` };
+        j--;
+      }
+      a[j + 1] = cur; c.writes++;
+      yield { line: 8, act: "Insert", write: [j + 1], ptr: { "j+1": j + 1 }, range: [0, i, "sorted part"], msg: `Put ${cur} in position ${j + 1}` };
+    }
+    c.sorted.fill(1);
+  }},
+
+merge: { kind: "sort", name: "Merge sort",
+  cx: ["O(n log n)", "O(n log n)", "O(n log n)", "O(n)", "Yes"],
+  about: "Divide and conquer. Splits the list in half again and again until each part has one item, then merges the parts back together in order. Needs extra memory for the merged list.",
+  code: `def merge_sort(items, left=0, right=None):
+    if right is None:
+        right = len(items) - 1
+    if left >= right:
+        return items
+    mid = (left + right) // 2
+    merge_sort(items, left, mid)
+    merge_sort(items, mid + 1, right)
+    merged = []
+    i, j = left, mid + 1
+    while i <= mid and j <= right:
+        if items[i] <= items[j]:
+            merged.append(items[i])
+            i += 1
+        else:
+            merged.append(items[j])
+            j += 1
+    merged.extend(items[i:mid + 1])
+    merged.extend(items[j:right + 1])
+    items[left:right + 1] = merged
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    function* rec(l, r) {
+      if (l >= r) return;
+      const m = (l + r) >> 1;
+      yield* rec(l, m);
+      yield* rec(m + 1, r);
+      const merged = []; let i = l, j = m + 1;
+      const rg = [l, r, `merging ${l}–${r}`];
+      while (i <= m && j <= r) {
+        c.comps++;
+        yield { line: 12, act: "Compare", cmp: [i, j], ptr: { i: i, j: j }, range: rg, msg: `Which is smaller, ${a[i]} or ${a[j]}?` };
+        if (a[i] <= a[j]) merged.push(a[i++]); else merged.push(a[j++]);
+      }
+      while (i <= m) merged.push(a[i++]);
+      while (j <= r) merged.push(a[j++]);
+      const last = l === 0 && r === n - 1;
+      for (let k = 0; k < merged.length; k++) {
+        a[l + k] = merged[k]; c.writes++;
+        if (last) c.sorted[l + k] = 1;
+        yield { line: 20, act: "Write", write: [l + k], range: rg, msg: `Copy ${merged[k]} back into position ${l + k}` };
+      }
+    }
+    yield* rec(0, n - 1);
+    c.sorted.fill(1);
+  }},
+
+quick: { kind: "sort", name: "Quick sort",
+  cx: ["O(n log n)", "O(n log n)", "O(n²)", "O(log n)", "No"],
+  about: "Divide and conquer. Picks a pivot (here the middle item), moves everything smaller than it to the left, then puts the pivot between the two parts. The pivot is now in its final place. Repeats on each part.",
+  code: `def quick_sort(items, low=0, high=None):
+    if high is None:
+        high = len(items) - 1
+    if low < high:
+        mid = (low + high) // 2
+        items[mid], items[high] = items[high], items[mid]
+        pivot = items[high]
+        i = low
+        for j in range(low, high):
+            if items[j] < pivot:
+                items[i], items[j] = items[j], items[i]
+                i += 1
+        items[i], items[high] = items[high], items[i]
+        quick_sort(items, low, i - 1)
+        quick_sort(items, i + 1, high)
+    return items`,
+  *run(a, c) {
+    // An explicit stack does the same job as the recursion in the Python version.
+    const stack = [[0, a.length - 1]];
+    while (stack.length) {
+      const [lo, hi] = stack.pop();
+      if (lo > hi) continue;
+      if (lo === hi) { c.sorted[lo] = 1; continue; }
+      const rg = [lo, hi, `partition ${lo}–${hi}`];
+      const mid = (lo + hi) >> 1;
+      swap(a, mid, hi); c.writes += 2;
+      yield { line: 6, act: "Swap", write: [mid, hi], pivot: hi, ptr: { mid: mid, pivot: hi }, range: rg, msg: `Use the middle item, ${a[hi]}, as the pivot and move it to the end` };
+      const p = a[hi]; let i = lo;
+      for (let j = lo; j < hi; j++) {
+        c.comps++;
+        yield { line: 10, act: "Compare", cmp: [j], pivot: hi, ptr: { i: i, j: j, pivot: hi }, range: rg, msg: `Is ${a[j]} < pivot ${p}?` };
+        if (a[j] < p) {
+          swap(a, i, j); c.writes += 2;
+          yield { line: 11, act: "Swap", write: [i, j], pivot: hi, ptr: { i: i, j: j, pivot: hi }, range: rg, msg: `Yes, so move it into the left part` };
+          i++;
+        }
+      }
+      swap(a, i, hi); c.writes += 2; c.sorted[i] = 1;
+      yield { line: 13, act: "Swap", write: [i, hi], pivot: i, ptr: { pivot: i }, range: rg, msg: `Put the pivot ${p} into its final place, position ${i}` };
+      stack.push([i + 1, hi]);
+      stack.push([lo, i - 1]);
+    }
+    c.sorted.fill(1);
+  }},
+
+heap: { kind: "sort", name: "Heap sort",
+  cx: ["O(n log n)", "O(n log n)", "O(n log n)", "O(1)", "No"],
+  about: "Treats the list as a binary tree where each parent is bigger than its children (a max heap). The largest item is always at the front, so it is swapped to the end and the heap is repaired. Repeats until the heap is empty.",
+  code: `def heap_sort(items):
+    n = len(items)
+    for start in range(n // 2 - 1, -1, -1):
+        sift_down(items, start, n)
+    for end in range(n - 1, 0, -1):
+        items[0], items[end] = items[end], items[0]
+        sift_down(items, 0, end)
+    return items
+
+def sift_down(items, root, size):
+    while True:
+        largest = root
+        left = 2 * root + 1
+        right = 2 * root + 2
+        if left < size and items[left] > items[largest]:
+            largest = left
+        if right < size and items[right] > items[largest]:
+            largest = right
+        if largest == root:
+            return
+        items[root], items[largest] = items[largest], items[root]
+        root = largest`,
+  *run(a, c) {
+    const n = a.length;
+    function* sift(root, size, phase) {
+      const rg = [0, size - 1, phase];
+      while (true) {
+        let big = root; const l = 2 * root + 1, r = l + 1;
+        if (l < size) {
+          c.comps++;
+          yield { line: 15, act: "Compare", cmp: [l, big], ptr: { root: root, left: l }, range: rg, msg: `Is the left child ${a[l]} > ${a[big]}?` };
+          if (a[l] > a[big]) big = l;
+        }
+        if (r < size) {
+          c.comps++;
+          yield { line: 17, act: "Compare", cmp: [r, big], ptr: { root: root, right: r }, range: rg, msg: `Is the right child ${a[r]} > ${a[big]}?` };
+          if (a[r] > a[big]) big = r;
+        }
+        if (big === root) return;
+        swap(a, root, big); c.writes += 2;
+        yield { line: 21, act: "Swap", write: [root, big], ptr: { root: root, child: big }, range: rg, msg: `Swap ${a[big]} down below the bigger child ${a[root]}` };
+        root = big;
+      }
+    }
+    for (let s = (n >> 1) - 1; s >= 0; s--) yield* sift(s, n, "building heap");
+    for (let e = n - 1; e > 0; e--) {
+      swap(a, 0, e); c.writes += 2; c.sorted[e] = 1;
+      yield { line: 6, act: "Swap", write: [0, e], ptr: { front: 0, end: e }, range: [0, e, "heap"], msg: `Move the largest, ${a[e]}, from the front to position ${e}` };
+      yield* sift(0, e, "heap");
+    }
+    c.sorted.fill(1);
+  }},
+
+shell: { kind: "sort", name: "Shell sort",
+  cx: ["O(n log n)", "about O(n^1.5)", "O(n²)", "O(1)", "No"],
+  about: "An insertion sort that first compares items a long way apart (the gap), then halves the gap each round. Big items move a long way early on, so the final gap-1 round has very little left to do.",
+  code: `def shell_sort(items):
+    gap = len(items) // 2
+    while gap > 0:
+        for i in range(gap, len(items)):
+            current = items[i]
+            j = i
+            while j >= gap and items[j - gap] > current:
+                items[j] = items[j - gap]
+                j -= gap
+            items[j] = current
+        gap //= 2
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    let gap = n >> 1;
+    while (gap > 0) {
+      for (let i = gap; i < n; i++) {
+        const cur = a[i]; let j = i;
+        while (j >= gap) {
+          c.comps++;
+          yield { line: 7, act: "Compare", cmp: [j - gap], ptr: { "j-gap": j - gap, j: j }, msg: `Gap ${gap}: is ${a[j - gap]} > ${cur}?` };
+          if (!(a[j - gap] > cur)) break;
+          a[j] = a[j - gap]; c.writes++;
+          yield { line: 8, act: "Shift", write: [j], ptr: { "j-gap": j - gap, j: j }, msg: `Gap ${gap}: yes, so move ${a[j]} up ${gap} places` };
+          j -= gap;
+        }
+        a[j] = cur; c.writes++;
+        yield { line: 10, act: "Insert", write: [j], ptr: { j: j }, msg: `Gap ${gap}: put ${cur} in position ${j}` };
+      }
+      gap >>= 1;
+    }
+    c.sorted.fill(1);
+  }},
+
+cocktail: { kind: "sort", name: "Cocktail shaker sort",
+  cx: ["O(n)", "O(n²)", "O(n²)", "O(1)", "Yes"],
+  about: "A bubble sort that goes forwards then backwards. The forward pass carries the largest item to the end, the backward pass carries the smallest to the front. Helps when small items are stuck near the end.",
+  code: `def cocktail_sort(items):
+    start = 0
+    end = len(items) - 1
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(start, end):
+            if items[i] > items[i + 1]:
+                items[i], items[i + 1] = items[i + 1], items[i]
+                swapped = True
+        end -= 1
+        if not swapped:
+            break
+        swapped = False
+        for i in range(end, start, -1):
+            if items[i - 1] > items[i]:
+                items[i - 1], items[i] = items[i], items[i - 1]
+                swapped = True
+        start += 1
+    return items`,
+  *run(a, c) {
+    let start = 0, end = a.length - 1, swapped = true;
+    while (swapped) {
+      swapped = false;
+      for (let i = start; i < end; i++) {
+        c.comps++;
+        yield { line: 8, act: "Compare", cmp: [i, i + 1], ptr: { i: i, "i+1": i + 1 }, msg: `Forwards: is ${a[i]} > ${a[i + 1]}?` };
+        if (a[i] > a[i + 1]) {
+          swap(a, i, i + 1); c.writes += 2; swapped = true;
+          yield { line: 9, act: "Swap", write: [i, i + 1], ptr: { i: i, "i+1": i + 1 }, msg: `Yes, so swap them` };
+        }
+      }
+      c.sorted[end] = 1; end--;
+      if (!swapped) break;
+      swapped = false;
+      for (let i = end; i > start; i--) {
+        c.comps++;
+        yield { line: 16, act: "Compare", cmp: [i - 1, i], ptr: { "i-1": i - 1, i: i }, msg: `Backwards: is ${a[i - 1]} > ${a[i]}?` };
+        if (a[i - 1] > a[i]) {
+          swap(a, i - 1, i); c.writes += 2; swapped = true;
+          yield { line: 17, act: "Swap", write: [i - 1, i], ptr: { "i-1": i - 1, i: i }, msg: `Yes, so swap them` };
+        }
+      }
+      c.sorted[start] = 1; start++;
+    }
+    c.sorted.fill(1);
+  }},
+
+radix: { kind: "sort", name: "Radix sort (LSD)",
+  cx: ["O(nk)", "O(nk)", "O(nk)", "O(n + k)", "Yes"],
+  note: "Radix sort makes no comparisons. Watch the comparisons counter.",
+  about: "Never compares two items. Puts each number in a bucket by its units digit, writes the buckets back in order, then repeats for the tens digit, hundreds and so on. k is the number of digits in the largest value.",
+  code: `def radix_sort(items):
+    largest = max(items)
+    place = 1
+    while largest // place > 0:
+        buckets = [[] for _ in range(10)]
+        for value in items:
+            digit = (value // place) % 10
+            buckets[digit].append(value)
+        i = 0
+        for bucket in buckets:
+            for value in bucket:
+                items[i] = value
+                i += 1
+        place *= 10
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    let largest = 0; for (const v of a) if (v > largest) largest = v;
+    let place = 1, round = 0;
+    while (Math.floor(largest / place) > 0) {
+      const buckets = Array.from({ length: 10 }, () => []);
+      for (let k = 0; k < n; k++) {
+        const d = Math.floor(a[k] / place) % 10;
+        buckets[d].push(a[k]);
+        yield { line: 7, act: "Read", cmp: [k], ptr: { value: k }, msg: `${a[k]}: ${PLACE[round] || "next"} digit is ${d}, so it goes in bucket ${d}` };
+      }
+      let i = 0;
+      for (let b = 0; b < 10; b++) for (const v of buckets[b]) {
+        a[i] = v; c.writes++;
+        yield { line: 12, act: "Write", write: [i], ptr: { i: i }, msg: `Write ${v} back from bucket ${b} to position ${i}` };
+        i++;
+      }
+      place *= 10; round++;
+    }
+    c.sorted.fill(1);
+  }},
+
+gnome: { kind: "sort", name: "Gnome sort",
+  cx: ["O(n)", "O(n²)", "O(n²)", "O(1)", "Yes"],
+  about: "Like a garden gnome sorting flower pots. If the pot in front is in order, step forward. If not, swap them and step back one. Keeps stepping back until the pot is in the right place.",
+  code: `def gnome_sort(items):
+    i = 0
+    while i < len(items):
+        if i == 0 or items[i - 1] <= items[i]:
+            i += 1
+        else:
+            items[i - 1], items[i] = items[i], items[i - 1]
+            i -= 1
+    return items`,
+  *run(a, c) {
+    const n = a.length; let i = 0;
+    while (i < n) {
+      if (i === 0) { i++; continue; }
+      c.comps++;
+      yield { line: 4, act: "Compare", cmp: [i - 1, i], ptr: { "i-1": i - 1, i: i }, msg: `Is ${a[i - 1]} <= ${a[i]}?` };
+      if (a[i - 1] <= a[i]) i++;
+      else {
+        swap(a, i - 1, i); c.writes += 2;
+        yield { line: 7, act: "Swap", write: [i - 1, i], ptr: { "i-1": i - 1, i: i }, msg: `No, so swap them and step back one` };
+        i--;
+      }
+    }
+    c.sorted.fill(1);
+  }},
+
+comb: { kind: "sort", name: "Comb sort",
+  cx: ["O(n log n)", "about O(n²/2^p)", "O(n²)", "O(1)", "No"],
+  about: "A bubble sort that compares items a gap apart instead of neighbours. The gap starts at the length of the list and shrinks by 1.3 each pass. Small values near the end (called turtles) get moved forward quickly.",
+  code: `def comb_sort(items):
+    gap = len(items)
+    swapped = True
+    while gap > 1 or swapped:
+        gap = max(1, int(gap / 1.3))
+        swapped = False
+        for i in range(len(items) - gap):
+            if items[i] > items[i + gap]:
+                items[i], items[i + gap] = items[i + gap], items[i]
+                swapped = True
+    return items`,
+  *run(a, c) {
+    const n = a.length; let gap = n, swapped = true;
+    while (gap > 1 || swapped) {
+      gap = Math.max(1, Math.floor(gap / 1.3)); swapped = false;
+      for (let i = 0; i < n - gap; i++) {
+        c.comps++;
+        yield { line: 8, act: "Compare", cmp: [i, i + gap], ptr: { i: i, "i+gap": i + gap }, msg: `Gap ${gap}: is ${a[i]} > ${a[i + gap]}?` };
+        if (a[i] > a[i + gap]) {
+          swap(a, i, i + gap); c.writes += 2; swapped = true;
+          yield { line: 9, act: "Swap", write: [i, i + gap], ptr: { i: i, "i+gap": i + gap }, msg: `Gap ${gap}: yes, so swap them` };
+        }
+      }
+    }
+    c.sorted.fill(1);
+  }},
+
+oddeven: { kind: "sort", name: "Odd–even sort",
+  cx: ["O(n)", "O(n²)", "O(n²)", "O(1)", "Yes"],
+  about: "Compares pairs starting at odd positions (1–2, 3–4, ...), then pairs starting at even positions (0–1, 2–3, ...), and repeats until nothing swaps. Each pair is independent, so on parallel hardware every pair can be checked at the same time.",
+  code: `def odd_even_sort(items):
+    done = False
+    while not done:
+        done = True
+        for i in range(1, len(items) - 1, 2):
+            if items[i] > items[i + 1]:
+                items[i], items[i + 1] = items[i + 1], items[i]
+                done = False
+        for i in range(0, len(items) - 1, 2):
+            if items[i] > items[i + 1]:
+                items[i], items[i + 1] = items[i + 1], items[i]
+                done = False
+    return items`,
+  *run(a, c) {
+    const n = a.length; let done = false;
+    while (!done) {
+      done = true;
+      for (const [start, line, label] of [[1, 6, "Odd pairs"], [0, 10, "Even pairs"]]) {
+        for (let i = start; i < n - 1; i += 2) {
+          c.comps++;
+          yield { line: line, act: "Compare", cmp: [i, i + 1], ptr: { i: i, "i+1": i + 1 }, msg: `${label}: is ${a[i]} > ${a[i + 1]}?` };
+          if (a[i] > a[i + 1]) {
+            swap(a, i, i + 1); c.writes += 2; done = false;
+            yield { line: line + 1, act: "Swap", write: [i, i + 1], ptr: { i: i, "i+1": i + 1 }, msg: `${label}: yes, so swap them` };
+          }
+        }
+      }
+    }
+    c.sorted.fill(1);
+  }},
+
+pancake: { kind: "sort", name: "Pancake sort",
+  cx: ["O(n²)", "O(n²)", "O(n²)", "O(1)", "No"],
+  about: "The only move allowed is a flip: reverse the first k items, like sliding a spatula under a stack of pancakes. Find the biggest, flip it to the front, then flip it down into place. Repeat with one fewer.",
+  code: `def pancake_sort(items):
+    for size in range(len(items), 1, -1):
+        biggest = 0
+        for i in range(1, size):
+            if items[i] > items[biggest]:
+                biggest = i
+        flip(items, biggest)
+        flip(items, size - 1)
+    return items
+
+def flip(items, k):
+    left = 0
+    while left < k:
+        items[left], items[k] = items[k], items[left]
+        left += 1
+        k -= 1`,
+  *run(a, c) {
+    const n = a.length;
+    function* flip(k, why) {
+      const rg = [0, k, `flip 0–${k}`]; let l = 0;
+      while (l < k) {
+        swap(a, l, k); c.writes += 2;
+        yield { line: 14, act: "Flip", write: [l, k], ptr: { left: l, k: k }, range: rg, msg: why };
+        l++; k--;
+      }
+    }
+    for (let size = n; size > 1; size--) {
+      let big = 0;
+      for (let i = 1; i < size; i++) {
+        c.comps++;
+        yield { line: 5, act: "Compare", cmp: [i, big], ptr: { i: i, biggest: big }, range: [0, size - 1, "unsorted part"], msg: `Is ${a[i]} > ${a[big]} (biggest so far)?` };
+        if (a[i] > a[big]) big = i;
+      }
+      const v = a[big];
+      yield* flip(big, `Flip the first ${big + 1} items so ${v} comes to the front`);
+      yield* flip(size - 1, `Flip the first ${size} items so ${v} drops into position ${size - 1}`);
+      c.sorted[size - 1] = 1;
+    }
+    c.sorted.fill(1);
+  }},
+
+counting: { kind: "sort", name: "Counting sort",
+  cx: ["O(n + k)", "O(n + k)", "O(n + k)", "O(k)", "n/a"],
+  about: "Counts how many of each value there are, then writes the values back out in order. No comparisons at all. k is the largest value, so it suits whole numbers in a small range. This simple version rebuilds the values rather than moving items, so stability does not apply.",
+  note: "Counting sort makes no comparisons. Watch the comparisons counter.",
+  code: `def counting_sort(items):
+    largest = max(items)
+    counts = [0] * (largest + 1)
+    for value in items:
+        counts[value] += 1
+    i = 0
+    for value in range(largest + 1):
+        for _ in range(counts[value]):
+            items[i] = value
+            i += 1
+    return items`,
+  *run(a, c) {
+    const n = a.length;
+    let largest = 0; for (const v of a) if (v > largest) largest = v;
+    const counts = new Array(largest + 1).fill(0);
+    for (let k = 0; k < n; k++) {
+      counts[a[k]]++;
+      yield { line: 5, act: "Count", cmp: [k], ptr: { value: k }, msg: `One more ${a[k]}. That makes ${counts[a[k]]} so far` };
+    }
+    let i = 0;
+    for (let v = 0; v <= largest; v++) for (let r = 0; r < counts[v]; r++) {
+      a[i] = v; c.writes++; c.sorted[i] = 1;
+      yield { line: 9, act: "Write", write: [i], ptr: { i: i }, msg: `There ${counts[v] === 1 ? "is 1" : "are " + counts[v]} of ${v}. Write ${v} into position ${i}` };
+      i++;
+    }
+    c.sorted.fill(1);
+  }},
+
+stooge: { kind: "sort", name: "Stooge sort",
+  cx: ["O(n^2.71)", "O(n^2.71)", "O(n^2.71)", "O(log n)", "No"],
+  about: "A deliberately bad recursive sort. Fix the first and last items, then sort the first two thirds, the last two thirds, and the first two thirds again. It works, but it is slower than bubble sort.",
+  note: "Stooge sort is very slow. Use 100 items or fewer unless you want to wait.",
+  testSizes: [8, 37, 150],
+  code: `def stooge_sort(items, low=0, high=None):
+    if high is None:
+        high = len(items) - 1
+    if items[low] > items[high]:
+        items[low], items[high] = items[high], items[low]
+    if high - low + 1 > 2:
+        third = (high - low + 1) // 3
+        stooge_sort(items, low, high - third)
+        stooge_sort(items, low + third, high)
+        stooge_sort(items, low, high - third)
+    return items`,
+  *run(a, c) {
+    function* rec(lo, hi) {
+      const rg = [lo, hi, `sorting ${lo}–${hi}`];
+      c.comps++;
+      yield { line: 4, act: "Compare", cmp: [lo, hi], ptr: { low: lo, high: hi }, range: rg, msg: `Is the first item ${a[lo]} > the last item ${a[hi]}?` };
+      if (a[lo] > a[hi]) {
+        swap(a, lo, hi); c.writes += 2;
+        yield { line: 5, act: "Swap", write: [lo, hi], ptr: { low: lo, high: hi }, range: rg, msg: `Yes, so swap them` };
+      }
+      if (hi - lo + 1 > 2) {
+        const t = Math.floor((hi - lo + 1) / 3);
+        yield* rec(lo, hi - t); yield* rec(lo + t, hi); yield* rec(lo, hi - t);
+      }
+    }
+    if (a.length) yield* rec(0, a.length - 1);
+    c.sorted.fill(1);
+  }},
+
+bogo: { kind: "sort", name: "Bogo sort",
+  cx: ["O(n)", "O(n × n!)", "never finishes", "O(1)", "No"],
+  about: "Checks if the list is sorted. If not, shuffles the whole list at random and checks again. With 8 items there are 40,320 possible orders, so expect tens of thousands of shuffles. With 15 items it could take longer than the age of the universe.",
+  note: "Bogo sort shuffles at random until the list happens to be sorted. Above about 8 items it will almost never finish.",
+  testSizes: [5, 6],
+  code: `import random
+
+def is_sorted(items):
+    for i in range(len(items) - 1):
+        if items[i] > items[i + 1]:
+            return False
+    return True
+
+def bogo_sort(items):
+    while not is_sorted(items):
+        random.shuffle(items)
+    return items`,
+  *run(a, c) {
+    const n = a.length; let tries = 0;
+    while (true) {
+      let ok = true;
+      for (let i = 0; i < n - 1; i++) {
+        c.comps++;
+        yield { line: 5, act: "Check", cmp: [i, i + 1], ptr: { i: i, "i+1": i + 1 }, msg: `Is ${a[i]} > ${a[i + 1]}? (after ${tries.toLocaleString()} shuffle${tries === 1 ? "" : "s"})` };
+        if (a[i] > a[i + 1]) { ok = false; break; }
+      }
+      if (ok) break;
+      shuffle(a); c.writes += n; tries++;
+      yield { line: 11, act: "Shuffle", msg: `Not sorted, so shuffle everything at random (shuffle ${tries.toLocaleString()})` };
+    }
+    c.sorted.fill(1);
+    yield { line: 12, act: "Sorted!", msg: `Sorted by luck after ${tries.toLocaleString()} shuffle${tries === 1 ? "" : "s"}` };
+  }},
+
+/* ---------- searches ---------- */
+linear: { kind: "search", name: "Linear search", needsSorted: false,
+  cx: ["O(1)", "O(n)", "O(n)", "O(1)", "No"],
+  about: "Checks every item in turn from the start until it finds the target or runs out of items. Works on any list, sorted or not.",
+  code: `def linear_search(items, target):
+    for i in range(len(items)):
+        if items[i] == target:
+            return i
+    return -1`,
+  *run(a, c) {
+    const n = a.length, t = c.target;
+    for (let i = 0; i < n; i++) {
+      c.comps++;
+      yield { line: 3, act: "Check", cmp: [i], ptr: { i: i }, msg: `Is ${a[i]} equal to ${t}?` };
+      if (a[i] === t) { c.found = i; yield { line: 4, act: "Found", ptr: { found: i }, msg: `Found ${t} at index ${i} after ${i + 1} checks` }; return; }
+      c.elim[i] = 1;
+    }
+    yield { line: 5, act: "Not found", msg: `${t} is not in the list. All ${n} items were checked` };
+  }},
+
+binary: { kind: "search", name: "Binary search", needsSorted: true,
+  cx: ["O(1)", "O(log n)", "O(log n)", "O(1)", "Yes"],
+  about: "Checks the middle item. If the target is bigger, the left half is thrown away. If it is smaller, the right half goes. Halving each time means 1,000 items need at most 10 checks. The list must be sorted.",
+  code: `def binary_search(items, target):
+    low = 0
+    high = len(items) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if items[mid] == target:
+            return mid
+        elif items[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1`,
+  *run(a, c) {
+    const t = c.target; let low = 0, high = a.length - 1;
+    while (low <= high) {
+      const mid = (low + high) >> 1; c.comps++;
+      yield { line: 6, act: "Check", cmp: [mid], ptr: { low: low, mid: mid, high: high }, range: [low, high, "still in play"], msg: `Middle of ${low}–${high} is index ${mid}. Is ${a[mid]} equal to ${t}?` };
+      if (a[mid] === t) { c.found = mid; yield { line: 7, act: "Found", ptr: { found: mid }, msg: `Found ${t} at index ${mid} after ${c.comps} checks` }; return; }
+      if (a[mid] < t) {
+        for (let k = low; k <= mid; k++) c.elim[k] = 1;
+        low = mid + 1;
+        yield { line: 9, act: "Go right", ptr: { low: low, high: high }, range: [low, high, "still in play"], msg: `${a[mid]} < ${t}, so throw away the left half. low = ${low}` };
+      } else {
+        for (let k = mid; k <= high; k++) c.elim[k] = 1;
+        high = mid - 1;
+        yield { line: 11, act: "Go left", ptr: { low: low, high: high }, range: [low, high, "still in play"], msg: `${a[mid]} > ${t}, so throw away the right half. high = ${high}` };
+      }
+    }
+    yield { line: 12, act: "Not found", msg: `low has passed high, so ${t} is not in the list (${c.comps} checks)` };
+  }},
+
+jump: { kind: "search", name: "Jump search", needsSorted: true,
+  cx: ["O(1)", "O(√n)", "O(√n)", "O(1)", "No"],
+  about: "Jumps ahead in blocks of √n items, checking the last item of each block. Once that item is not smaller than the target, it does a linear search inside that block. The list must be sorted.",
+  code: `import math
+
+def jump_search(items, target):
+    n = len(items)
+    step = int(math.sqrt(n))
+    prev = 0
+    while prev < n and items[min(prev + step, n) - 1] < target:
+        prev += step
+    for i in range(prev, min(prev + step, n)):
+        if items[i] == target:
+            return i
+    return -1`,
+  *run(a, c) {
+    const n = a.length, t = c.target, step = Math.max(1, Math.floor(Math.sqrt(n)));
+    let prev = 0;
+    while (prev < n) {
+      const k = Math.min(prev + step, n) - 1; c.comps++;
+      yield { line: 7, act: "Check", cmp: [k], ptr: { prev: prev, "block end": k }, range: [prev, k, `block of ${step}`], msg: `Is the last item in this block, ${a[k]}, less than ${t}?` };
+      if (!(a[k] < t)) break;
+      for (let x = prev; x <= k; x++) c.elim[x] = 1;
+      prev += step;
+      yield { line: 8, act: "Jump", ptr: { prev: Math.min(prev, n - 1) }, msg: `Yes, so ${t} cannot be in that block. Jump ahead ${step}` };
+    }
+    const endB = Math.min(prev + step, n);
+    for (let i = prev; i < endB; i++) {
+      c.comps++;
+      yield { line: 10, act: "Check", cmp: [i], ptr: { i: i }, range: [prev, endB - 1, "search this block"], msg: `Linear search in the block: is ${a[i]} equal to ${t}?` };
+      if (a[i] === t) { c.found = i; yield { line: 11, act: "Found", ptr: { found: i }, msg: `Found ${t} at index ${i} after ${c.comps} checks` }; return; }
+      c.elim[i] = 1;
+    }
+    yield { line: 12, act: "Not found", msg: `${t} is not in the list (${c.comps} checks)` };
+  }},
+
+interpolation: { kind: "search", name: "Interpolation search", needsSorted: true,
+  cx: ["O(1)", "O(log log n)", "O(n)", "O(1)", "No"],
+  about: "Guesses where the target should be from its value, like opening a dictionary near the back for a word starting with W. Very fast when values are evenly spread, slow when they are bunched up. The list must be sorted.",
+  code: `def interpolation_search(items, target):
+    low = 0
+    high = len(items) - 1
+    while low <= high and items[low] <= target <= items[high]:
+        if items[high] == items[low]:
+            pos = low
+        else:
+            pos = low + (target - items[low]) * (high - low) // (items[high] - items[low])
+        if items[pos] == target:
+            return pos
+        elif items[pos] < target:
+            low = pos + 1
+        else:
+            high = pos - 1
+    return -1`,
+  *run(a, c) {
+    const t = c.target; let low = 0, high = a.length - 1;
+    while (low <= high) {
+      yield { line: 4, act: "Range", cmp: [low, high], ptr: { low: low, high: high }, range: [low, high, "still in play"], msg: `Is ${t} between ${a[low]} and ${a[high]}?` };
+      if (!(a[low] <= t && t <= a[high])) break;
+      const pos = a[high] === a[low] ? low : low + Math.floor((t - a[low]) * (high - low) / (a[high] - a[low]));
+      c.comps++;
+      yield { line: 9, act: "Check", cmp: [pos], ptr: { low: low, pos: pos, high: high }, range: [low, high, "still in play"], msg: `Estimate from the values: try index ${pos}. Is ${a[pos]} equal to ${t}?` };
+      if (a[pos] === t) { c.found = pos; yield { line: 10, act: "Found", ptr: { found: pos }, msg: `Found ${t} at index ${pos} after ${c.comps} checks` }; return; }
+      if (a[pos] < t) {
+        for (let k = low; k <= pos; k++) c.elim[k] = 1;
+        low = pos + 1;
+        yield { line: 12, act: "Go right", ptr: { low: Math.min(low, a.length - 1), high: high }, range: [low, high, "still in play"], msg: `${a[pos]} < ${t}, so low = ${low}` };
+      } else {
+        for (let k = pos; k <= high; k++) c.elim[k] = 1;
+        high = pos - 1;
+        yield { line: 14, act: "Go left", ptr: { low: low, high: Math.max(high, 0) }, range: [low, high, "still in play"], msg: `${a[pos]} > ${t}, so high = ${high}` };
+      }
+    }
+    for (let k = 0; k < a.length; k++) c.elim[k] = 1;
+    yield { line: 15, act: "Not found", msg: `${t} is outside the range left, so it is not in the list (${c.comps} checks)` };
+  }},
+exponential: { kind: "search", name: "Exponential search", needsSorted: true,
+  cx: ["O(1)", "O(log i)", "O(log n)", "O(1)", "No"],
+  about: "Checks positions 1, 2, 4, 8, 16 and so on until it passes the target, then does a binary search in that last range. Good when the target is likely near the start, or when you do not know how long the list is. The list must be sorted.",
+  code: `def exponential_search(items, target):
+    if items[0] == target:
+        return 0
+    bound = 1
+    while bound < len(items) and items[bound] < target:
+        bound *= 2
+    low = bound // 2
+    high = min(bound, len(items) - 1)
+    while low <= high:
+        mid = (low + high) // 2
+        if items[mid] == target:
+            return mid
+        elif items[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1`,
+  *run(a, c) {
+    const n = a.length, t = c.target;
+    c.comps++;
+    yield { line: 2, act: "Check", cmp: [0], ptr: { first: 0 }, msg: `Is the first item, ${a[0]}, equal to ${t}?` };
+    if (a[0] === t) { c.found = 0; yield { line: 3, act: "Found", ptr: { found: 0 }, msg: `Found ${t} at index 0 after 1 check` }; return; }
+    let bound = 1;
+    while (bound < n) {
+      c.comps++;
+      yield { line: 5, act: "Check", cmp: [bound], ptr: { bound: bound }, range: [0, bound, "jumped so far"], msg: `Is ${a[bound]} (index ${bound}) less than ${t}?` };
+      if (!(a[bound] < t)) break;
+      for (let k = 0; k <= bound; k++) c.elim[k] = 1;
+      bound *= 2;
+      yield { line: 6, act: "Double", ptr: { bound: Math.min(bound, n - 1) }, msg: `Yes, so double the bound to ${bound}` };
+    }
+    let low = bound >> 1, high = Math.min(bound, n - 1);
+    for (let k = 0; k < n; k++) if (k < low || k > high) c.elim[k] = 1;
+    while (low <= high) {
+      const mid = (low + high) >> 1; c.comps++;
+      yield { line: 11, act: "Check", cmp: [mid], ptr: { low: low, mid: mid, high: high }, range: [low, high, "binary search here"], msg: `Binary search ${low}–${high}: is ${a[mid]} equal to ${t}?` };
+      if (a[mid] === t) { c.found = mid; yield { line: 12, act: "Found", ptr: { found: mid }, msg: `Found ${t} at index ${mid} after ${c.comps} checks` }; return; }
+      if (a[mid] < t) {
+        for (let k = low; k <= mid; k++) c.elim[k] = 1;
+        low = mid + 1;
+        yield { line: 14, act: "Go right", ptr: { low: Math.min(low, n - 1), high: high }, range: [low, high, "binary search here"], msg: `${a[mid]} < ${t}, so low = ${low}` };
+      } else {
+        for (let k = mid; k <= high; k++) c.elim[k] = 1;
+        high = mid - 1;
+        yield { line: 16, act: "Go left", ptr: { low: low, high: Math.max(high, 0) }, range: [low, high, "binary search here"], msg: `${a[mid]} > ${t}, so high = ${high}` };
+      }
+    }
+    yield { line: 17, act: "Not found", msg: `${t} is not in the list (${c.comps} checks)` };
+  }},
+
+ternary: { kind: "search", name: "Ternary search", needsSorted: true,
+  cx: ["O(1)", "O(log₃ n)", "O(log₃ n)", "O(1)", "No"],
+  about: "Like binary search but splits the range into three parts using two midpoints. Fewer rounds than binary search, but more checks per round, so it usually makes more comparisons overall. The list must be sorted.",
+  code: `def ternary_search(items, target):
+    low = 0
+    high = len(items) - 1
+    while low <= high:
+        third = (high - low) // 3
+        mid1 = low + third
+        mid2 = high - third
+        if items[mid1] == target:
+            return mid1
+        if items[mid2] == target:
+            return mid2
+        if target < items[mid1]:
+            high = mid1 - 1
+        elif target > items[mid2]:
+            low = mid2 + 1
+        else:
+            low = mid1 + 1
+            high = mid2 - 1
+    return -1`,
+  *run(a, c) {
+    const t = c.target; let low = 0, high = a.length - 1;
+    while (low <= high) {
+      const third = Math.floor((high - low) / 3), m1 = low + third, m2 = high - third;
+      const rg = [low, high, "still in play"];
+      c.comps++;
+      yield { line: 8, act: "Check", cmp: [m1], ptr: { low: low, mid1: m1, mid2: m2, high: high }, range: rg, msg: `Split ${low}–${high} into thirds. Is ${a[m1]} (mid1) equal to ${t}?` };
+      if (a[m1] === t) { c.found = m1; yield { line: 9, act: "Found", ptr: { found: m1 }, msg: `Found ${t} at index ${m1} after ${c.comps} checks` }; return; }
+      c.comps++;
+      yield { line: 10, act: "Check", cmp: [m2], ptr: { low: low, mid1: m1, mid2: m2, high: high }, range: rg, msg: `Is ${a[m2]} (mid2) equal to ${t}?` };
+      if (a[m2] === t) { c.found = m2; yield { line: 11, act: "Found", ptr: { found: m2 }, msg: `Found ${t} at index ${m2} after ${c.comps} checks` }; return; }
+      if (t < a[m1]) {
+        for (let k = m1; k <= high; k++) c.elim[k] = 1;
+        high = m1 - 1;
+        yield { line: 13, act: "Left third", ptr: { low: low, high: Math.max(high, 0) }, range: [low, high, "still in play"], msg: `${t} < ${a[m1]}, so keep only the left third` };
+      } else if (t > a[m2]) {
+        for (let k = low; k <= m2; k++) c.elim[k] = 1;
+        low = m2 + 1;
+        yield { line: 15, act: "Right third", ptr: { low: Math.min(low, a.length - 1), high: high }, range: [low, high, "still in play"], msg: `${t} > ${a[m2]}, so keep only the right third` };
+      } else {
+        for (let k = low; k <= m1; k++) c.elim[k] = 1;
+        for (let k = m2; k <= high; k++) c.elim[k] = 1;
+        low = m1 + 1; high = m2 - 1;
+        yield { line: 17, act: "Middle third", ptr: { low: Math.min(low, a.length - 1), high: Math.max(high, 0) }, range: [low, high, "still in play"], msg: `${t} is between ${a[m1]} and ${a[m2]}, so keep only the middle third` };
+      }
+    }
+    yield { line: 19, act: "Not found", msg: `low has passed high, so ${t} is not in the list (${c.comps} checks)` };
+  }},
+};
+
+// The algorithms on the T Level spec (2.11 Common algorithms). Everything else is for interest.
+const SPEC = new Set(["linear", "binary", "bubble", "insertion", "merge"]);
+const EXTRA_COUNT = Object.keys(ALGOS).filter(k => !SPEC.has(k)).length;
+const DEFAULT_ALGO = { sort: "bubble", search: "binary" };
+
+/* ---------- list generation ---------- */
+const rnd = n => Math.floor(Math.random() * n);
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) swap(a, i, rnd(i + 1)); return a; }
+const LISTS = {
+  sort: { random: "Random", nearly: "Nearly sorted", reversed: "Reversed", few: "Few unique values" },
+  search: { sorted: "Sorted, even spread", uneven: "Sorted, bunched up", unsorted: "Random order" },
+};
+function makeList(kind, type, n) {
+  const seq = Array.from({ length: n }, (_, i) => i + 1);
+  if (kind === "sort") {
+    if (type === "random") return shuffle(seq);
+    if (type === "reversed") return seq.reverse();
+    if (type === "nearly") { for (let k = 0; k < Math.max(1, n / 20); k++) { const i = rnd(n - 3); swap(seq, i, i + 1 + rnd(3)); } return seq; }
+    if (type === "few") { const k = Math.max(2, Math.min(8, Math.round(n / 4))); return shuffle(seq.map(() => Math.floor(rnd(k) * n / k) + Math.ceil(n / k))); }
+  }
+  // search lists: distinct values
+  let a;
+  if (type === "uneven") a = seq.map((_, i) => Math.floor(Math.pow(i / n, 4) * n * 8) + i + 1);
+  else { a = []; let v = rnd(3); for (let i = 0; i < n; i++) { v += 1 + rnd(4); a.push(v); } }
+  return type === "unsorted" ? shuffle(a) : a;
+}
+
+/* ---------- state ---------- */
+const $ = id => document.getElementById(id);
+const cv = $("cv"), ctx = cv.getContext("2d");
+const SIZES = [8, 16, 32, 50, 100, 200, 500, 1000, 2000];
+const st = {
+  kind: "sort", algo: "bubble", n: 100, ltype: { sort: "random", search: "sorted" },
+  base: [], init: [], a: [], c: null, gen: null, op: null, steps: 0, done: false,
+  playing: false, mode: "auto", sweep: -1, target: 0, dirty: true, showAll: false,
+};
+function newCounters(n) { return { comps: 0, writes: 0, sorted: new Uint8Array(n), elim: new Uint8Array(n), found: -1, target: st.target }; }
+
+function fillSelectors() {
+  const algo = $("algo"); algo.innerHTML = "";
+  const keys = Object.keys(ALGOS).filter(k => ALGOS[k].kind === st.kind);
+  const addGroup = (label, list) => {
+    const g = document.createElement("optgroup"); g.label = label;
+    for (const k of list) g.append(new Option(ALGOS[k].name, k));
+    algo.append(g);
+  };
+  addGroup("★ On the T Level spec", keys.filter(k => SPEC.has(k)));
+  if (st.showAll) addGroup("Beyond the spec (for interest)", keys.filter(k => !SPEC.has(k)));
+  algo.value = st.algo;
+  const lt = $("ltype"); lt.innerHTML = "";
+  for (const [k, v] of Object.entries(LISTS[st.kind])) lt.add(new Option(v, k));
+  lt.value = st.ltype[st.kind];
+}
+
+function newList() {
+  st.base = makeList(st.kind, st.ltype[st.kind], st.n);
+  if (st.kind === "search") pickTarget(true);
+  prepare();
+}
+
+// Works out the list the algorithm actually runs on.
+function prepare() {
+  const al = ALGOS[st.algo];
+  let a = st.base.slice(), note = "";
+  if (st.kind === "search" && al.needsSorted && st.ltype.search === "unsorted") {
+    a.sort((x, y) => x - y);
+    note = `${al.name} only works on a sorted list, so the list has been sorted first.`;
+  }
+  if (st.kind === "search" && !al.needsSorted && st.ltype.search !== "unsorted") note = "Linear search does not need a sorted list. Try it with 'Random order' too.";
+  if (al.note) note = al.note;
+  st.init = a; $("note").textContent = note;
+  restart();
+}
+
+function restart() {
+  st.a = st.init.slice();
+  st.c = newCounters(st.a.length);
+  st.gen = ALGOS[st.algo].run(st.a, st.c);
+  st.op = null; st.steps = 0; st.done = false; st.sweep = -1;
+  setPlaying(false);
+  showOp(); showCode(); st.dirty = true;
+}
+
+// One step of the algorithm. Returns false when there is nothing left to do.
+function advance() {
+  if (st.done) return false;
+  const r = st.gen.next();
+  if (r.done) {
+    st.done = true; st.op = null;
+    if (st.kind === "sort") {
+      if (st.playing) { st.sweep = 0; st.c.sorted.fill(0); }
+      else st.c.sorted.fill(1);
+    }
+    return false;
+  }
+  st.op = r.value; st.steps++;
+  return true;
+}
+
+function stepBack() {
+  const target = st.steps - 1;
+  if (target < 0) return;
+  restart();
+  while (st.steps < target && advance());
+  showOp(); showCode(); st.dirty = true;
+}
+
+function pickTarget(inList) {
+  const a = st.base;
+  if (inList) st.target = a[rnd(a.length)];
+  else {
+    const set = new Set(a), max = Math.max(...a);
+    let t; do { t = 1 + rnd(max); } while (set.has(t));
+    st.target = t;
+  }
+  $("target").value = st.target;
+}
+
+/* ---------- display ---------- */
+const ACT_DONE = { sort: "Sorted", search: "" };
+function showOp() {
+  const op = st.op;
+  if (op) { $("act").textContent = op.act; $("msg").textContent = op.msg; }
+  else if (st.done) {
+    if (st.kind === "sort") { $("act").textContent = "Done"; $("msg").textContent = `Sorted ${st.a.length} items in ${st.steps.toLocaleString()} steps`; }
+  } else { $("act").textContent = "Ready"; $("msg").textContent = st.mode === "auto" ? "Press Play to start" : "Press Step to go one step at a time"; }
+  $("sSteps").textContent = st.steps.toLocaleString();
+  $("sComps").textContent = st.c.comps.toLocaleString();
+  $("sWrites").textContent = st.c.writes.toLocaleString();
+  $("sN").textContent = st.a.length.toLocaleString();
+}
+let codeLines = [], lastLine = -1;
+function buildCode() {
+  const al = ALGOS[st.algo], box = $("code");
+  box.innerHTML = "";
+  codeLines = al.code.split("\n").map((t, i) => {
+    const d = document.createElement("div");
+    d.innerHTML = `<span class="g"></span><span class="n">${i + 1}</span>`;
+    d.append(document.createTextNode(t || " "));
+    box.append(d); return d;
+  });
+  lastLine = -1;
+  const names = ["Best case", "Average case", "Worst case", "Extra memory", st.kind === "sort" ? "Stable" : "Needs sorted list"];
+  const vals = al.cx.slice(); if (st.kind === "search") vals[4] = al.needsSorted ? "Yes" : "No";
+  $("cx").innerHTML = names.map((nm, i) => `<tr><td>${nm}</td><td>${vals[i]}</td></tr>`).join("");
+  $("infoTitle").textContent = al.name;
+  $("about").textContent = al.about;
+  const onSpec = SPEC.has(st.algo);
+  for (const id of ["specBadge", "aboutBadge"]) {
+    $(id).className = "spec-badge " + (onSpec ? "on" : "off");
+    $(id).textContent = onSpec ? "★ On the spec" : "Beyond the spec";
+  }
+  $("lComps").textContent = st.kind === "sort" ? "Comparisons" : "Items checked";
+  $("lWrites").textContent = st.kind === "sort" ? "Swaps / writes" : "—";
+  $("lWrites").parentElement.hidden = st.kind === "search";
+}
+function showCode() {
+  const ln = st.op ? st.op.line - 1 : -1;
+  if (ln === lastLine) return;
+  if (codeLines[lastLine]) { codeLines[lastLine].classList.remove("on"); codeLines[lastLine].firstChild.textContent = ""; }
+  if (codeLines[ln]) { codeLines[ln].classList.add("on"); codeLines[ln].firstChild.textContent = "▶"; }
+  lastLine = ln;
+}
+function buildLegend() {
+  const items = st.kind === "sort"
+    ? [["--bar", "Not sorted yet"], ["--cmp", "Being compared / read"], ["--write", "Being swapped / written"], ["--pivot", "Pivot (quick sort)"], ["--sorted", "In final place (also marked by the bar under it)"]]
+    : [["--bar", "Still in play"], ["--cmp", "Being checked"], ["--elim", "Ruled out (faded, outline only)"], ["--found", "Found (marked ★)"]];
+  $("legend").innerHTML = items.map(([v, t]) => `<span class="k"><i style="background:var(${v})"></i>${t}</span>`).join("")
+    + `<span class="k">▲ name = where each variable points</span>`
+    + (st.kind === "search" ? `<span class="k">- - - dashed line = target value</span>` : "");
+}
+
+const css = n => getComputedStyle($("visualiser")).getPropertyValue(n).trim();
+let C = {};
+function readColours() { for (const k of ["bg", "fg", "muted", "bar", "cmp", "write", "sorted", "pivot", "found", "elim", "line"]) C[k] = css("--" + k); st.dirty = true; }
+
+function resize() {
+  const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
+  ctx.setTransform(d, 0, 0, d, 0, 0); st.dirty = true;
+}
+
+function draw() {
+  const W = cv.clientWidth, H = cv.clientHeight;
+  ctx.clearRect(0, 0, W, H);
+  const a = st.a, n = a.length; if (!n) return;
+  const c = st.c, op = st.op || {};
+  const TOP = 22, STRIP = st.kind === "sort" ? 8 : 0, PTR = 46, RANGE = 26;
+  const barBottom = H - STRIP - PTR - RANGE - 4;
+  const hArea = barBottom - TOP;
+  let max = 0; for (const v of a) if (v > max) max = v;
+  if (st.kind === "search" && st.target > max) max = st.target;
+  const w = W / n, gap = w > 6 ? Math.max(1, w * 0.12) : 0;
+  const hl = new Map();
+  for (const i of op.cmp || []) hl.set(i, C.cmp);
+  for (const i of op.write || []) hl.set(i, C.write);
+  const showVals = w >= 24;
+  ctx.font = `${Math.min(14, w * 0.45)}px Consolas, monospace`; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+
+  for (let i = 0; i < n; i++) {
+    const h = Math.max(1, a[i] / max * hArea), x = i * w, y = barBottom - h, bw = Math.max(w - gap, w < 1 ? w : 1);
+    let col = C.bar, hollow = false;
+    if (st.sweep >= 0 && i < st.sweep) col = C.sorted;
+    else if (c.sorted[i]) col = C.sorted;
+    if (c.elim[i]) { col = C.elim; hollow = true; }
+    if (op.pivot === i) col = C.pivot;
+    if (hl.has(i)) { col = hl.get(i); hollow = false; }
+    if (c.found === i) { col = C.found; hollow = false; }
+    ctx.fillStyle = col; ctx.fillRect(x, y, bw, h);
+    if (hollow && w >= 4) { ctx.strokeStyle = C.muted; ctx.lineWidth = 1; ctx.strokeRect(x + .5, y + .5, bw - 1, h - 1); }
+    if (showVals) { ctx.fillStyle = C.fg; ctx.fillText(a[i], x + w / 2, y - 2); }
+    if (STRIP && (c.sorted[i] || (st.sweep >= 0 && i < st.sweep))) { ctx.fillStyle = C.fg; ctx.fillRect(x, barBottom + 3, Math.max(w, 1), STRIP - 3); }
+  }
+  if (STRIP) { ctx.strokeStyle = C.line; ctx.lineWidth = 1; ctx.strokeRect(.5, barBottom + 2.5, W - 1, STRIP - 2); }
+
+  // target line
+  if (st.kind === "search") {
+    const y = barBottom - st.target / max * hArea;
+    ctx.setLineDash([6, 5]); ctx.strokeStyle = C.fg; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.font = "bold 13px Verdana, Tahoma, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+    const lbl = `target ${st.target}`, tw = ctx.measureText(lbl).width;
+    ctx.fillStyle = C.bg; ctx.fillRect(W - tw - 8, y - 18, tw + 8, 16);
+    ctx.fillStyle = C.fg; ctx.fillText(lbl, W - 4, y - 3);
+  }
+  if (c.found >= 0) {
+    const i = c.found, h = a[i] / max * hArea;
+    ctx.font = "bold 20px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "bottom"; ctx.fillStyle = C.fg;
+    ctx.fillText("★", Math.min(W - 10, Math.max(10, i * w + w / 2)), barBottom - h - (showVals ? 16 : 2));
+  }
+
+  // pointers
+  const groups = new Map();
+  const ptr = st.sweep >= 0 ? { check: Math.min(st.sweep, n - 1) } : (op.ptr || {});
+  for (const [name, idx] of Object.entries(ptr)) { if (idx < 0 || idx >= n) continue; if (!groups.has(idx)) groups.set(idx, []); groups.get(idx).push(name); }
+  const py = barBottom + STRIP + 4;
+  ctx.font = "bold 13px Consolas, monospace"; ctx.textBaseline = "top";
+  const rowsEnd = [-1e9, -1e9];
+  [...groups.entries()].sort((x, y) => x[0] - y[0]).forEach(([idx, names]) => {
+    const x = idx * w + w / 2;
+    ctx.fillStyle = C.fg;
+    ctx.beginPath(); ctx.moveTo(x, py); ctx.lineTo(x - 6, py + 10); ctx.lineTo(x + 6, py + 10); ctx.closePath(); ctx.fill();
+    const label = names.join(", ") + (w < 22 && names.length ? ` [${idx}]` : ""), tw = ctx.measureText(label).width;
+    let lx = Math.min(W - tw / 2 - 2, Math.max(tw / 2 + 2, x));
+    for (let r = 0; r < 2; r++) {
+      if (lx - tw / 2 > rowsEnd[r] + 6) {
+        ctx.textAlign = "center"; ctx.fillText(label, lx, py + 13 + r * 15); rowsEnd[r] = lx + tw / 2; break;
+      }
+    }
+  });
+
+  // range bracket
+  const rg = st.sweep >= 0 ? null : op.range;
+  if (rg && rg[0] <= rg[1]) {
+    const x1 = rg[0] * w + 1, x2 = (rg[1] + 1) * w - 1, y = H - RANGE + 6;
+    ctx.strokeStyle = C.fg; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x1, y - 6); ctx.lineTo(x1, y); ctx.lineTo(x2, y); ctx.lineTo(x2, y - 6); ctx.stroke();
+    ctx.font = "13px Verdana, Tahoma, sans-serif"; ctx.textBaseline = "top";
+    const tw = ctx.measureText(rg[2]).width;
+    const lx = Math.min(W - tw / 2 - 2, Math.max(tw / 2 + 2, (x1 + x2) / 2));
+    ctx.fillStyle = C.bg; ctx.fillRect(lx - tw / 2 - 4, y + 1, tw + 8, 16);
+    ctx.fillStyle = C.fg; ctx.textAlign = "center"; ctx.fillText(rg[2], lx, y + 2);
+  }
+}
+
+/* ---------- sound ---------- */
+let audio = null;
+function beep(v) {
+  if (!$("sound").checked) return;
+  if (!audio) audio = new (window.AudioContext || window.webkitAudioContext)();
+  let max = 1; for (const x of st.a) if (x > max) max = x;
+  const o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime;
+  o.type = "triangle"; o.frequency.value = 160 + (v / max) * 1100;
+  g.gain.setValueAtTime(0.06, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+  o.connect(g).connect(audio.destination); o.start(t); o.stop(t + 0.08);
+}
+function beepOp() {
+  const op = st.op; if (!op) return;
+  const i = (op.write && op.write[0] !== undefined) ? op.write[0] : (op.cmp && op.cmp[0] !== undefined ? op.cmp[0] : -1);
+  if (i >= 0) beep(st.a[i]);
+}
+
+/* ---------- loop ---------- */
+const speedOf = () => Math.round(Math.pow(10, $("speed").value / 22)); // 1 to 100,000 steps a second
+function showSpeed() { const s = speedOf(); $("speedLbl").textContent = `${s.toLocaleString()} step${s === 1 ? "" : "s"}/s`; }
+let acc = 0, lastT = performance.now();
+function frame(t) {
+  const dt = Math.min(100, t - lastT); lastT = t;
+  if (st.playing) {
+    if (st.sweep >= 0) {
+      st.sweep += Math.max(1, Math.ceil(st.a.length / 60));
+      beep(st.a[Math.min(st.sweep, st.a.length - 1)]);
+      if (st.sweep >= st.a.length) { st.sweep = -1; st.c.sorted.fill(1); setPlaying(false); }
+      st.dirty = true;
+    } else {
+      acc += dt / 1000 * speedOf();
+      let k = Math.floor(acc); acc -= k;
+      if (k > 0) {
+        while (k-- > 0) if (!advance()) { if (st.sweep < 0) setPlaying(false); break; }
+        beepOp(); showOp(); showCode(); st.dirty = true;
+      }
+    }
+  }
+  if (st.dirty) { draw(); st.dirty = false; }
+  requestAnimationFrame(frame);
+}
+
+function setPlaying(p) {
+  st.playing = p; acc = p ? 1 : 0;
+  $("play").textContent = p ? "❚❚ Pause" : (st.done ? "↺ Replay" : "▶ Play");
+}
+function togglePlay() {
+  if (st.mode !== "auto") return;
+  if (st.done && !st.playing) { restart(); setPlaying(true); return; }
+  setPlaying(!st.playing);
+}
+function doStep(k) {
+  setPlaying(false);
+  let moved = false;
+  while (k-- > 0) { if (!advance()) break; moved = true; }
+  if (moved) beepOp();
+  showOp(); showCode(); st.dirty = true;
+}
+function setMode(m) {
+  st.mode = m; setPlaying(false);
+  $("mAuto").setAttribute("aria-pressed", m === "auto"); $("mStep").setAttribute("aria-pressed", m === "step");
+  $("autoCtl").hidden = m !== "auto"; $("stepCtl").hidden = m !== "step";
+  if (st.sweep >= 0) { st.sweep = -1; st.c.sorted.fill(1); }
+  showOp(); st.dirty = true;
+}
+function setKind(k) {
+  st.kind = k;
+  $("kSort").setAttribute("aria-pressed", k === "sort"); $("kSearch").setAttribute("aria-pressed", k === "search");
+  st.algo = DEFAULT_ALGO[k];
+  if (k === "search" && st.n < 50) st.n = 100;
+  $("size").value = st.n;
+  $("targetBox").hidden = k !== "search";
+  fillSelectors(); buildCode(); buildLegend(); newList();
+}
+
+/* ---------- wiring ---------- */
+for (const s of SIZES) $("size").add(new Option(s, s));
+$("size").value = st.n;
+$("kSort").onclick = () => setKind("sort");
+$("kSearch").onclick = () => setKind("search");
+$("algo").onchange = e => {
+  st.algo = e.target.value; buildCode();
+  // Bogo sort on a big list would never finish, so start it small. The size can still be changed.
+  if (st.algo === "bogo" && st.n > 8) { st.n = 8; $("size").value = 8; newList(); } else prepare();
+};
+$("size").onchange = e => { st.n = +e.target.value; newList(); };
+$("ltype").onchange = e => { st.ltype[st.kind] = e.target.value; newList(); };
+$("target").onchange = e => { st.target = Math.max(0, Math.round(+e.target.value || 0)); e.target.value = st.target; restart(); };
+$("tRand").onclick = () => { pickTarget(true); restart(); };
+$("tMiss").onclick = () => { pickTarget(false); restart(); };
+$("mAuto").onclick = () => setMode("auto");
+$("mStep").onclick = () => setMode("step");
+$("play").onclick = togglePlay;
+$("step").onclick = () => doStep(1);
+$("step10").onclick = () => doStep(10);
+$("back").onclick = () => { setPlaying(false); stepBack(); };
+$("restart").onclick = () => restart();
+$("newList").onclick = () => newList();
+$("speed").oninput = showSpeed;
+// Show or hide the algorithms that aren't on the spec. Remembered on this device.
+function setShowAll(on) {
+  st.showAll = on;
+  $("showAll").textContent = on ? "Hide non-specification algorithms" : `Show non-specification algorithms (${EXTRA_COUNT} more)`;
+  try { localStorage.setItem("algoVis:showAll", on ? "1" : "0"); } catch (e) {}
+}
+$("showAll").onclick = () => {
+  setShowAll(!st.showAll);
+  if (!st.showAll && !SPEC.has(st.algo)) { st.algo = DEFAULT_ALGO[st.kind]; fillSelectors(); buildCode(); prepare(); }
+  else fillSelectors();
+};
+
+// After a mouse click, give focus back to the page so Space and the arrow keys drive the visualiser
+$("visualiser").addEventListener("click", e => {
+  const b = e.target.closest("button, input[type=checkbox]");
+  if (b && e.detail > 0) b.blur();
+});
+
+// Keyboard shortcuts only work while the visualiser is on screen,
+// and never while you're typing, choosing from a list or using a link or menu
+let onScreen = true;
+if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; }).observe($("canvasWrap"));
+document.addEventListener("keydown", e => {
+  if (!onScreen || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.target.closest && e.target.closest("input, select, textarea, button, a, summary, [contenteditable]")) return;
+  if (e.key === " ") { e.preventDefault(); if (st.mode === "auto") togglePlay(); else doStep(1); }
+  else if (e.key === "ArrowRight") { e.preventDefault(); if (st.mode !== "step") setMode("step"); doStep(1); }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); if (st.mode !== "step") setMode("step"); stepBack(); }
+  else if (e.key === "r" || e.key === "R") restart();
+  else if (e.key === "n" || e.key === "N") newList();
+});
+// Redraw at the right size when the window is resized or maximised
+if ("ResizeObserver" in window) new ResizeObserver(resize).observe($("canvasWrap"));
+else window.addEventListener("resize", resize);
+// Pick up the new colours when the theme is changed from the taskbar (js/season.js)
+document.addEventListener("themechange", readColours);
+
+let showAllSaved = false;
+try { showAllSaved = localStorage.getItem("algoVis:showAll") === "1"; } catch (e) {}
+setShowAll(showAllSaved);
+readColours(); resize(); showSpeed();
+setKind("sort");
+requestAnimationFrame(frame);
+
+/* ---------- self test: open index.html#selftest ---------- */
+if (location.hash === "#selftest") {
+  const out = [], fail = [];
+  const sortedCopy = a => a.slice().sort((x, y) => x - y);
+  for (const [key, al] of Object.entries(ALGOS)) {
+    const kinds = al.kind === "sort" ? Object.keys(LISTS.sort) : Object.keys(LISTS.search);
+    for (const type of kinds) for (const n of (al.testSizes || [8, 37, 200, 1000])) {
+      let a = makeList(al.kind, type, n);
+      if (al.kind === "sort") {
+        const want = sortedCopy(a), c = newCounters(n); let steps = 0;
+        for (const op of al.run(a, c)) { steps++; if (!op.msg || !op.line) { fail.push(`${key} bad op`); break; } }
+        if (JSON.stringify(a) !== JSON.stringify(want)) fail.push(`${key} ${type} ${n}: not sorted`);
+        out.push(`${key} ${type} ${n}: ${steps} steps, ${c.comps} comps`);
+      } else {
+        if (al.needsSorted) a = sortedCopy(a);
+        const tries = [a[0], a[n - 1], a[n >> 1], a[rnd(n)], 0, a[n - 1] + 5];
+        const set = new Set(a); let miss = 1; while (set.has(miss)) miss++; tries.push(miss);
+        for (const t of tries) {
+          const c = newCounters(n); c.target = t; let steps = 0;
+          for (const op of al.run(a, c)) { steps++; if (steps > 5 * n + 20) { fail.push(`${key} runaway`); break; } }
+          const ok = set.has(t) ? a[c.found] === t : c.found === -1;
+          if (!ok) fail.push(`${key} ${type} ${n} target ${t}: got ${c.found}`);
+        }
+        out.push(`${key} ${type} ${n}: ok`);
+      }
+    }
+  }
+  const box = document.createElement("div"); box.id = "selftest";
+  box.textContent = (fail.length ? "SELFTEST FAIL\n" + fail.join("\n") : "SELFTEST PASS") + "\n\n" + out.join("\n");
+  document.body.append(box);
+  document.title = fail.length ? "SELFTEST FAIL" : "SELFTEST PASS";
+  fetch("/__results", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pass: !fail.length, fail, out }) }).catch(() => {});
+}
+})();
+    </script>
+    <script src="revision.js?v=2026-11-23"></script>
+    <script src="../js/windows.js?v=2026-10-29"></script>
+
+</body>
+</html>

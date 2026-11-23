@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ainsbury.art/algorithms.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://ainsbury.art/cargopulse.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://ainsbury.art/gcse/exams.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://ainsbury.art/gcse/glossary.html</loc><lastmod>2026-11-06</lastmod></url>
@@ -52,6 +51,7 @@
   <url><loc>https://ainsbury.art/revision/organisers.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://ainsbury.art/revision/practice.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://ainsbury.art/revision/specialism.html</loc><lastmod>2026-11-06</lastmod></url>
+  <url><loc>https://ainsbury.art/revision/visualiser.html</loc><lastmod>2026-11-23</lastmod></url>
   <url><loc>https://ainsbury.art/pages/about.html</loc><lastmod>2026-11-06</lastmod></url>
   <url><loc>https://ainsbury.art/pages/accessibility.html</loc><lastmod>2026-11-06</lastmod></url>
 </urlset>

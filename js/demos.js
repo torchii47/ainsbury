@@ -2,8 +2,14 @@
 // Date format: YYYY-MM-DD. Description is optional.
 const demos = [
   {
+    title: "Algorithm Visualiser",
+    file: "revision/visualiser.html",
+    date: "2026-11-23",
+    description: "Watch searching and sorting algorithms run, step by step"
+  },
+  {
     title: "Common Algorithms",
-    file: "algorithms.html",
+    file: "revision/ca2.html#s2-11",
     date: "2026-11-05",
     description: "2.11 searching and sorting, with endless practice questions"
   },

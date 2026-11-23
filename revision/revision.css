@@ -1001,6 +1001,67 @@ details.box[open] > summary {
     font-weight: bold;
 }
 
+/* Merge sort: each sub-list in a dashed box, yellow once merged */
+.viz-group {
+    display: flex;
+    gap: 3px;
+    padding: 4px;
+    border: 2px dashed var(--ca);
+}
+
+.viz-group .viz-cell {
+    min-width: 36px;
+}
+
+.viz-group.merged {
+    background: #fff6c2;
+}
+
+/* CA2 2.11 practice questions (algorithms.js) */
+.algo-practice {
+    padding: 10px 14px;
+    background: var(--ca-light);
+    border: 2px solid var(--ca);
+}
+
+.algo-practice .ap-from,
+#worksheet .ap-from {
+    margin: 10px 0 4px;
+    color: var(--ca);
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.55rem;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.algo-practice .ap-question {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+.algo-practice .ap-answer {
+    background: var(--white);
+}
+
+.algo-practice .ap-print {
+    margin-top: 12px;
+    padding-top: 10px;
+    font-size: 0.85rem;
+    border-top: 2px dashed var(--ca-2);
+}
+
+.algo-practice pre .ln,
+#worksheet pre .ln {
+    color: #b07a98;
+    user-select: none;
+}
+
+/* Worksheet: only printed after pressing "Print a worksheet" */
+#worksheet {
+    display: none;
+}
+
 /* Live output boxes on CA8 (SQL query, hash) */
 .rev pre.sqli-out {
     white-space: pre-wrap;
@@ -1412,6 +1473,45 @@ textarea.notes {
 @media print {
     body {
         background: none;
+    }
+
+    /* 2.11 worksheet: print only the worksheet, answers on a new page */
+    body.printing-ws > *:not(#worksheet) {
+        display: none !important;
+    }
+
+    body.printing-ws #worksheet {
+        display: block;
+    }
+
+    #worksheet .ws-q {
+        margin-bottom: 14px;
+        padding-left: 8px;
+        border-left: 4px solid var(--ca);
+        break-inside: avoid;
+    }
+
+    #worksheet .ws-space {
+        height: 7em;
+    }
+
+    #worksheet .ws-answers {
+        break-before: page;
+    }
+
+    #worksheet .ws-a {
+        margin-bottom: 10px;
+        break-inside: avoid;
+    }
+
+    #worksheet pre {
+        color: #000;
+        background: none;
+        border: 1px solid var(--grey-dark);
+    }
+
+    .algo-practice {
+        display: none !important;
     }
 
     .rev-nav,

@@ -32,6 +32,7 @@ const pages = guide.pages || [
     { id: 'esp-practice', file: 'esp-practice.html', short: 'Practice ESP', title: 'Practice ESP: Moorside Bike Hire', menu: 'Projects', reviewed: false },
     { id: 'debug', file: 'debug.html', short: 'Debug', title: 'Debugging challenges', menu: 'Practice', reviewed: false },
     { id: 'drill', file: 'practice.html', short: 'Drills', title: 'Endless practice', menu: 'Practice', reviewed: false },
+    { id: 'visualiser', file: 'visualiser.html', short: 'Visualiser', title: 'Algorithm visualiser', menu: 'Practice', reviewed: false },
     { id: 'answers', file: 'long-answers.html', short: 'Answers', title: 'Worked long answers', menu: 'Practice', reviewed: false },
     { id: 'specialism', file: 'specialism.html', short: 'OS', title: 'Occupational specialism', menu: 'Projects' },
     { id: 'mock1', file: 'mock1.html', short: 'Mock 1', title: 'Mock Paper 1', menu: 'Practice' },

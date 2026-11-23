@@ -20,10 +20,11 @@
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <link rel="manifest" href="../manifest.webmanifest">
-    <link rel="stylesheet" href="../css/style.css?v=2026-11-06h">
-    <link rel="stylesheet" href="revision.css?v=2026-11-06e">
+    <link rel="stylesheet" href="../css/style.css?v=2026-11-23x">
+    <link rel="stylesheet" href="revision.css?v=2026-11-23">
     <script src="../js/analytics.js?v=2026-11-04"></script>
     <script src="../js/site-info.js?v=2026-11-06g"></script>
+    <script src="../js/season.js?v=2026-11-23d"></script>
 </head>
 <body class="rev ca2" data-page="ca2">
 
@@ -982,18 +983,20 @@ Pass rate: 60.0%
                         <p>You need to know how each algorithm works, be able to trace it, and judge when to use it. Big O notation is <strong>not</strong> required: compare using logical reasoning about comparisons, time and memory.</p>
 
                         <h3>Try it: algorithm stepper</h3>
-                        <p>Pick an algorithm, type a list, then press <strong>Step</strong> to watch it work one comparison at a time.</p>
+                        <p>Pick an algorithm, type a list (or press <strong>Random list</strong>), then press <strong>Step</strong> to watch it work one comparison at a time. Each algorithm starts on the worked example from the notes below.</p>
                         <div class="button-row">
                             <label>Algorithm
                                 <select id="viz-algo" class="quiz-select">
                                     <option value="bubble">Bubble sort</option>
                                     <option value="insertion">Insertion sort</option>
+                                    <option value="merge">Merge sort</option>
                                     <option value="linear">Linear search</option>
                                     <option value="binary">Binary search</option>
                                 </select>
                             </label>
                             <label>List <input id="viz-list" class="quiz-select" value="5, 1, 4, 2, 8"></label>
                             <label id="viz-target-label">Find <input id="viz-target" class="quiz-select" value="4" size="4"></label>
+                            <button type="button" class="button" id="viz-random">Random list</button>
                         </div>
                         <div class="viz-row" id="viz-row" aria-hidden="true"></div>
                         <p class="viz-note" id="viz-note" aria-live="polite"></p>
@@ -1003,7 +1006,12 @@ Pass rate: 60.0%
                             <button type="button" class="button" id="viz-reset">Reset</button>
                             <span id="viz-count" class="flashcard-count"></span>
                         </div>
-                        <p class="post-date">Yellow = being compared · Green = in its final place / found · Faded = discarded</p>
+                        <p class="post-date">Yellow = being compared · Green = in its final place / found · Faded = discarded · Dashed boxes = merge sort's sub-lists</p>
+                        <div class="box">
+                            <h4>▶ WATCH THEM RUN: ALGORITHM VISUALISER</h4>
+                            <p>See every 2.11 algorithm run on lists of up to 2,000 items, with the Python line that's running lit up and a count of comparisons and swaps. Run two algorithms on the same size of list and compare the counters: that's the reasoning the exam wants.</p>
+                            <p><a class="button" href="visualiser.html">Open the Algorithm Visualiser →</a></p>
+                        </div>
 
                         <h3>Linear search</h3>
                         <ol>
@@ -1135,6 +1143,7 @@ print(insertion_sort([7, 3, 9, 1, 5]))
                             <li>Merge pairs of lists back together: compare the front item of each list and take the smaller one each time.</li>
                             <li>Keep merging until there is one sorted list.</li>
                         </ol>
+                        <p>In Python, <code>mid = len(items) // 2</code>, so when a list doesn't split evenly the right half gets the extra item. Split it the same way when you trace it.</p>
 <pre class="code">
 def merge_sort(items):
     if len(items) &lt;= 1:
@@ -1198,6 +1207,10 @@ print(merge_sort([38, 27, 43, 3, 9, 82, 10]))
                                 <li>An embedded device with very little memory: an in-place sort (insertion or bubble).</li>
                             </ul>
                         </div>
+
+                        <h3 id="algo-practice">Practice questions</h3>
+                        <p>Every question is made up on the spot, so you'll never run out. Try it on paper first, writing the list down after every pass, insertion or merge (method marks are available), then check the worked answer.</p>
+                        <div class="algo-practice" id="algo-practice-box"><p>Loading questions...</p></div>
 
                         <dl class="recall">
                             <dt>Linear search</dt><dd>Checks each item in turn from the start until the target is found or the list ends.</dd>
@@ -1536,7 +1549,7 @@ print(count_vowels("Wakefield"))
 
     <script src="../js/questions.js?v=2026-10-29"></script>
     <script src="../js/question-bank.js?v=2026-10-29"></script>
-    <script src="revision.js?v=2026-11-06g"></script>
+    <script src="revision.js?v=2026-11-23"></script>
     <script>
         /* ---------- ISBN-13 checker (same rule as valid_isbn13) ---------- */
         const isbnIn = document.getElementById('isbn-in');
@@ -1582,151 +1595,8 @@ print(count_vowels("Wakefield"))
             });
         });
         dataQuiz.appendChild(dataTable);
-
-        /* ---------- Algorithm stepper ----------
-           Each algorithm is run once up front and every step is recorded,
-           so Back and Step just move through the list of steps. */
-        const vizAlgo = document.getElementById('viz-algo');
-        const vizList = document.getElementById('viz-list');
-        const vizTarget = document.getElementById('viz-target');
-        const vizRow = document.getElementById('viz-row');
-        const vizNote = document.getElementById('viz-note');
-        const vizCount = document.getElementById('viz-count');
-        let steps = [];
-        let stepIndex = 0;
-
-        function bubbleSteps(list) {
-            const a = [...list];
-            const out = [{ a: [...a], hi: [], fixed: a.length, note: 'Start. Press Step to compare the first pair.' }];
-            let n = a.length;
-            let swapped = true;
-            let pass = 0;
-            while (swapped) {
-                swapped = false;
-                pass++;
-                for (let i = 0; i < n - 1; i++) {
-                    const x = a[i], y = a[i + 1];
-                    const swap = x > y;
-                    if (swap) {
-                        [a[i], a[i + 1]] = [a[i + 1], a[i]];
-                        swapped = true;
-                    }
-                    out.push({ a: [...a], hi: [i, i + 1], fixed: n, note: `Pass ${pass}: compare ${x} and ${y} → ${swap ? 'wrong order, swap' : 'right order, no swap'}` });
-                }
-                n--;
-                out.push({ a: [...a], hi: [], fixed: swapped ? n : 0, note: `End of pass ${pass}: ${swapped ? 'swaps were made, so do another pass.' : 'no swaps, so the list is sorted.'}` });
-            }
-            return out;
-        }
-
-        function insertionSteps(list) {
-            const a = [...list];
-            const out = [{ a: [...a], hi: [], sorted: 1, note: 'Start. The first item is a sorted list of one.' }];
-            for (let i = 1; i < a.length; i++) {
-                const current = a[i];
-                let j = i - 1;
-                out.push({ a: [...a], hi: [i], sorted: i, note: `Take ${current} and find where it belongs in the sorted part.` });
-                while (j >= 0 && a[j] > current) {
-                    a[j + 1] = a[j];
-                    out.push({ a: [...a], hi: [j, j + 1], sorted: i, note: `${a[j]} is bigger than ${current}, so move ${a[j]} one place right.` });
-                    j--;
-                }
-                a[j + 1] = current;
-                out.push({ a: [...a], hi: [j + 1], sorted: i + 1, note: `Insert ${current} at position ${j + 1}.` });
-            }
-            out.push({ a: [...a], hi: [], sorted: a.length, note: 'Every item has been inserted: sorted.' });
-            return out;
-        }
-
-        function linearSteps(list, target) {
-            const out = [{ a: list, hi: [], note: `Look for ${target}, starting at the first item.` }];
-            for (let i = 0; i < list.length; i++) {
-                if (list[i] === target) {
-                    out.push({ a: list, hi: [], found: i, note: `Comparison ${i + 1}: ${list[i]} = ${target}. Found at index ${i}.` });
-                    return out;
-                }
-                out.push({ a: list, hi: [i], note: `Comparison ${i + 1}: ${list[i]} ≠ ${target}, move to the next item.` });
-            }
-            out.push({ a: list, hi: [], note: `Reached the end after ${list.length} comparisons: ${target} is not in the list (return -1).` });
-            return out;
-        }
-
-        function binarySteps(list, target) {
-            const a = [...list].sort((x, y) => x - y);
-            const sortedNote = a.join() === list.join() ? '' : ' (The list was sorted first: binary search needs sorted data.)';
-            const out = [{ a, hi: [], low: 0, high: a.length - 1, note: `Look for ${target}. low = 0, high = ${a.length - 1}.${sortedNote}` }];
-            let low = 0;
-            let high = a.length - 1;
-            let count = 0;
-            while (low <= high) {
-                const mid = Math.floor((low + high) / 2);
-                count++;
-                if (a[mid] === target) {
-                    out.push({ a, hi: [], found: mid, low, high, note: `Comparison ${count}: mid = (${low} + ${high}) // 2 = ${mid}. items[${mid}] = ${a[mid]}: found!` });
-                    return out;
-                }
-                const smaller = target < a[mid];
-                out.push({ a, hi: [mid], low, high, note: `Comparison ${count}: mid = ${mid}, items[${mid}] = ${a[mid]}. ${target} is ${smaller ? 'smaller, so discard mid and everything above (high = ' + (mid - 1) + ')' : 'larger, so discard mid and everything below (low = ' + (mid + 1) + ')'}.` });
-                if (smaller) high = mid - 1;
-                else low = mid + 1;
-            }
-            out.push({ a, hi: [], low, high, note: `Nothing left to check: ${target} is not in the list (return -1).` });
-            return out;
-        }
-
-        function resetViz() {
-            const list = vizList.value.split(',').map(s => Number(s.trim())).filter(n => !Number.isNaN(n) && vizList.value.trim() !== '').slice(0, 14);
-            const target = Number(vizTarget.value);
-            const algo = vizAlgo.value;
-            document.getElementById('viz-target-label').hidden = algo === 'bubble' || algo === 'insertion';
-            if (!list.length) {
-                steps = [{ a: [], hi: [], note: 'Type some numbers separated by commas.' }];
-            } else if (algo === 'bubble') steps = bubbleSteps(list);
-            else if (algo === 'insertion') steps = insertionSteps(list);
-            else if (algo === 'linear') steps = linearSteps(list, target);
-            else steps = binarySteps(list, target);
-            stepIndex = 0;
-            drawViz();
-        }
-
-        function drawViz() {
-            const step = steps[stepIndex];
-            vizRow.innerHTML = '';
-            step.a.forEach((value, i) => {
-                const cell = document.createElement('span');
-                cell.className = 'viz-cell';
-                cell.textContent = value;
-                if (step.hi.includes(i)) cell.classList.add('hi');
-                if (step.fixed !== undefined && i >= step.fixed) cell.classList.add('fixed');
-                if (step.sorted !== undefined && i < step.sorted) cell.classList.add('part');
-                if (step.found === i) cell.classList.add('fixed');
-                if (step.low !== undefined && (i < step.low || i > step.high) && step.found !== i) cell.classList.add('out');
-                vizRow.appendChild(cell);
-            });
-            vizNote.textContent = step.note;
-            vizCount.textContent = `Step ${stepIndex + 1} / ${steps.length}`;
-        }
-
-        document.getElementById('viz-step').addEventListener('click', () => {
-            if (stepIndex < steps.length - 1) stepIndex++;
-            drawViz();
-        });
-        document.getElementById('viz-back').addEventListener('click', () => {
-            if (stepIndex > 0) stepIndex--;
-            drawViz();
-        });
-        document.getElementById('viz-reset').addEventListener('click', resetViz);
-        vizAlgo.addEventListener('change', () => {
-            if (vizAlgo.value === 'binary' && vizList.value === '5, 1, 4, 2, 8') {
-                vizList.value = '3, 8, 12, 19, 25, 31, 40, 47, 52';
-                vizTarget.value = '40';
-            }
-            resetViz();
-        });
-        vizList.addEventListener('change', resetViz);
-        vizTarget.addEventListener('change', resetViz);
-        resetViz();
     </script>
+    <script src="algorithms.js?v=2026-11-23"></script>
 
     <script src="../js/windows.js?v=2026-10-29"></script>
 

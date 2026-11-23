@@ -1,0 +1,913 @@
+/* ==========================================================
+   CA2 2.11 Common algorithms (ca2.html)
+   1. The step-through stepper (#viz-...)
+   2. Endless practice questions (#algo-practice-box)
+   3. A printable worksheet (#worksheet)
+   Every question is made up on the spot, with a worked answer.
+   Wrapped in a function so its names can't clash with revision.js.
+   ========================================================== */
+(() => {
+    'use strict';
+
+    const NAMES = { linear: 'Linear search', binary: 'Binary search', bubble: 'Bubble sort', insertion: 'Insertion sort', merge: 'Merge sort' };
+    const TOWNS = ['Leeds', 'York', 'Hull', 'Wakefield', 'Bradford', 'Sheffield', 'Doncaster', 'Halifax', 'Harrogate', 'Selby',
+        'Ripon', 'Barnsley', 'Goole', 'Whitby', 'Pontefract', 'Castleford', 'Keighley', 'Otley', 'Ilkley', 'Batley'];
+
+    const settings = { size: 7 };
+    const binarySize = () => ({ 5: 7, 7: 11, 9: 15 })[settings.size] || 11;
+
+    const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+    const pick = list => list[Math.floor(Math.random() * list.length)];
+
+    function shuffle(list) {
+        const a = [...list];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // n different whole numbers from 1 to hi
+    function randomList(n, hi = 60) {
+        const values = new Set();
+        while (values.size < n) values.add(rand(1, hi));
+        return [...values];
+    }
+
+    const sortedList = n => randomList(n, n * 7).sort((x, y) => x - y);
+
+    function missingFrom(list, hi) {
+        let v;
+        do { v = rand(1, hi); } while (list.includes(v));
+        return v;
+    }
+
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const py = v => typeof v === 'string' ? `"${v}"` : String(v);
+    const fmt = list => '[' + list.map(py).join(', ') + ']';
+    const code = s => `<code>${esc(s)}</code>`;
+    const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+    const big = n => n.toLocaleString('en-GB');
+    const spaced = list => list.join(' ');
+    const boldPart = (list, k) => `<b>${list.slice(0, k).join(' ')}</b> ${list.slice(k).join(' ')}`;
+    const groupText = groups => groups.map(g => '[' + g.join(' ') + ']').join(' ');
+
+    function table(head, rows) {
+        return '<div class="table-wrap"><table><tr>' + head.map(h => `<th>${h}</th>`).join('') + '</tr>'
+            + rows.map(r => '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>').join('') + '</table></div>';
+    }
+
+    function numbered(src) {
+        return '<pre>' + src.split('\n').map((line, i) => `<span class="ln">${String(i + 1).padStart(2, ' ')}</span>  ${esc(line)}`).join('\n') + '</pre>';
+    }
+
+    /* ---------- The algorithms, recording every step ---------- */
+
+    function linearTrace(list, target) {
+        const steps = [];
+        for (let i = 0; i < list.length; i++) {
+            const hit = list[i] === target;
+            steps.push({ i, value: list[i], hit });
+            if (hit) return { index: i, comparisons: i + 1, steps };
+        }
+        return { index: -1, comparisons: list.length, steps };
+    }
+
+    function binaryTrace(list, target) {
+        let low = 0;
+        let high = list.length - 1;
+        const steps = [];
+        while (low <= high) {
+            const mid = Math.floor((low + high) / 2);
+            const v = list[mid];
+            if (v === target) {
+                steps.push({ low, high, mid, v, action: `${target} = ${v}: found at index ${mid}` });
+                return { index: mid, steps };
+            }
+            if (target < v) {
+                steps.push({ low, high, mid, v, action: `${target} &lt; ${v}, so high = ${mid - 1}` });
+                high = mid - 1;
+            } else {
+                steps.push({ low, high, mid, v, action: `${target} &gt; ${v}, so low = ${mid + 1}` });
+                low = mid + 1;
+            }
+        }
+        return { index: -1, steps, low, high };
+    }
+
+    // Same as bubble_sort in the notes: the sorted end is skipped each pass
+    function bubbleTrace(list) {
+        const a = [...list];
+        let n = a.length;
+        let swapped = true;
+        const passes = [];
+        while (swapped) {
+            swapped = false;
+            const comps = [];
+            let swaps = 0;
+            for (let i = 0; i < n - 1; i++) {
+                const x = a[i];
+                const y = a[i + 1];
+                if (x > y) {
+                    a[i] = y;
+                    a[i + 1] = x;
+                    swapped = true;
+                    swaps++;
+                    comps.push(`${x} &gt; ${y}: swap`);
+                } else {
+                    comps.push(`${x} &lt; ${y}: no swap`);
+                }
+            }
+            passes.push({ after: [...a], swaps, comps });
+            n--;
+        }
+        return passes;
+    }
+
+    function insertionTrace(list) {
+        const a = [...list];
+        const steps = [];
+        for (let i = 1; i < a.length; i++) {
+            const before = [...a];
+            const current = a[i];
+            let j = i - 1;
+            let shifts = 0;
+            while (j >= 0 && a[j] > current) {
+                a[j + 1] = a[j];
+                j--;
+                shifts++;
+            }
+            a[j + 1] = current;
+            steps.push({ i, current, before, after: [...a], shifts, pos: j + 1 });
+        }
+        return steps;
+    }
+
+    // Split the way merge_sort does (mid = len // 2), then list the
+    // groups at each level going down (splits) and back up (merges)
+    function mergeTree(items, depth = 0) {
+        const node = { items, depth };
+        if (items.length > 1) {
+            const mid = Math.floor(items.length / 2);
+            node.left = mergeTree(items.slice(0, mid), depth + 1);
+            node.right = mergeTree(items.slice(mid), depth + 1);
+        }
+        return node;
+    }
+
+    const treeDepth = node => node.left ? Math.max(treeDepth(node.left), treeDepth(node.right)) : node.depth;
+
+    function groupsAt(node, d, sorted) {
+        if (!node.left || node.depth === d) return [sorted ? [...node.items].sort((x, y) => x - y) : node.items];
+        return groupsAt(node.left, d, sorted).concat(groupsAt(node.right, d, sorted));
+    }
+
+    function mergeStages(list) {
+        const tree = mergeTree(list);
+        const deepest = treeDepth(tree);
+        const split = [];
+        const merge = [];
+        for (let d = 1; d <= deepest; d++) split.push(groupsAt(tree, d, false));
+        for (let d = deepest - 1; d >= 0; d--) merge.push(groupsAt(tree, d, true));
+        return { split, merge };
+    }
+
+    function mergeTwo(left, right) {
+        const merged = [];
+        const steps = [];
+        let i = 0;
+        let j = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                steps.push(`${left[i]} vs ${right[j]}: take ${left[i]}`);
+                merged.push(left[i++]);
+            } else {
+                steps.push(`${left[i]} vs ${right[j]}: take ${right[j]}`);
+                merged.push(right[j++]);
+            }
+        }
+        const rest = left.slice(i).concat(right.slice(j));
+        return { merged: merged.concat(rest), comparisons: steps.length, steps, rest };
+    }
+
+    // Worst case for binary search: what's left after each miss
+    function halvings(n) {
+        const seq = [n];
+        while (n > 1) {
+            n = Math.floor(n / 2);
+            seq.push(n);
+        }
+        return seq;
+    }
+
+    /* ---------- The Python from the notes ---------- */
+
+    const CODE = {
+        linear: `def linear_search(items, target):
+    for i in range(len(items)):
+        if items[i] == target:
+            return i
+    return -1`,
+        binary: `def binary_search(items, target):
+    low = 0
+    high = len(items) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if items[mid] == target:
+            return mid
+        elif target < items[mid]:
+            high = mid - 1
+        else:
+            low = mid + 1
+    return -1`,
+        bubble: `def bubble_sort(items):
+    n = len(items)
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(n - 1):
+            if items[i] > items[i + 1]:
+                items[i], items[i + 1] = items[i + 1], items[i]
+                swapped = True
+        n = n - 1
+    return items`,
+        insertion: `def insertion_sort(items):
+    for i in range(1, len(items)):
+        current = items[i]
+        j = i - 1
+        while j >= 0 and items[j] > current:
+            items[j + 1] = items[j]
+            j = j - 1
+        items[j + 1] = current
+    return items`,
+        merge: `def merge_sort(items):
+    if len(items) <= 1:
+        return items
+    mid = len(items) // 2
+    left = merge_sort(items[:mid])
+    right = merge_sort(items[mid:])
+    merged = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i = i + 1
+        else:
+            merged.append(right[j])
+            j = j + 1
+    merged = merged + left[i:] + right[j:]
+    return merged`
+    };
+
+    const TASK = {
+        linear: 'return the index of <code>target</code> in <code>items</code>, or -1 if it isn\'t there',
+        binary: 'return the index of <code>target</code> in the sorted list <code>items</code>, or -1 if it isn\'t there',
+        bubble: 'sort <code>items</code> into ascending order',
+        insertion: 'sort <code>items</code> into ascending order',
+        merge: 'return <code>items</code> sorted into ascending order'
+    };
+
+    const CLUES = {
+        linear: 'It checks each item in turn from the start: <code>for i in range(len(items))</code>.',
+        binary: 'It uses <code>low</code>, <code>high</code> and <code>mid</code>, and halves the part of the list it looks at.',
+        bubble: 'It compares neighbours <code>items[i]</code> and <code>items[i + 1]</code>, swaps them, and repeats while swaps are made.',
+        insertion: 'It takes <code>current = items[i]</code> and moves bigger items right until it finds the gap.',
+        merge: 'It splits the list into <code>left</code> and <code>right</code> halves by calling itself, then merges them.'
+    };
+
+    // One-line mistakes for "spot the error". "from" must match a line of CODE exactly.
+    const BUGS = [
+        { algo: 'linear', from: '    for i in range(len(items)):', to: '    for i in range(len(items) - 1):', why: 'The loop stops one item early, so the last item is never checked.' },
+        { algo: 'linear', from: '    return -1', to: '        return -1', why: '<code>return -1</code> is inside the loop, so the function gives up after checking just the first item.' },
+        { algo: 'binary', from: '    while low <= high:', to: '    while low < high:', why: 'When <code>low</code> and <code>high</code> are equal there\'s still one item left to check, but the loop stops, so it can be missed.' },
+        { algo: 'binary', from: '        mid = (low + high) // 2', to: '        mid = (low + high) / 2', why: '<code>/</code> gives a float such as 4.0, which can\'t be used as a list index (TypeError). Use <code>//</code>.' },
+        { algo: 'binary', from: '            high = mid - 1', to: '            high = mid', why: '<code>items[mid]</code> has already been checked. Keeping it in the search can get stuck in an endless loop.' },
+        { algo: 'binary', from: '            low = mid + 1', to: '            low = mid - 1', why: 'The target is bigger than <code>items[mid]</code>, so the search must move up, past mid: <code>low = mid + 1</code>.' },
+        { algo: 'bubble', from: '            if items[i] > items[i + 1]:', to: '            if items[i] < items[i + 1]:', why: 'It swaps pairs that are already in order, so the list ends up in descending order.' },
+        { algo: 'bubble', from: '                swapped = True', to: '                swapped = False', why: '<code>swapped</code> never becomes True, so the while loop stops after one pass and the list may not be sorted.' },
+        { algo: 'bubble', from: '        for i in range(n - 1):', to: '        for i in range(n):', why: 'On the last time round the loop, <code>items[i + 1]</code> is past the end of the list (IndexError).' },
+        { algo: 'insertion', from: '        while j >= 0 and items[j] > current:', to: '        while j >= 0 and items[j] < current:', why: 'It moves smaller items right instead of bigger ones, so the list ends up in descending order.' },
+        { algo: 'insertion', from: '        items[j + 1] = current', to: '        items[j] = current', why: 'The loop leaves <code>j</code> one place before the gap, so <code>current</code> overwrites the wrong item.' },
+        { algo: 'insertion', from: '            j = j - 1', to: '            j = j + 1', why: '<code>j</code> must move left through the sorted part. Adding 1 moves the wrong way.' },
+        { algo: 'merge', from: '    merged = merged + left[i:] + right[j:]', to: '    merged = merged + left[i:]', why: 'Any items left over in the right list are lost.' },
+        { algo: 'merge', from: '    if len(items) <= 1:', to: '    if len(items) == 0:', why: 'A list of one item keeps being split into [] and [x] forever (RecursionError). A list of 1 is already sorted, so it must stop there.' },
+        { algo: 'merge', from: '        if left[i] <= right[j]:', to: '        if left[i] >= right[j]:', why: 'It takes the bigger front item each time, so the list ends up in descending order.' }
+    ];
+
+    const SCENARIOS = [
+        () => [`A phone stores ${rand(200, 900)} contacts in alphabetical order and searches them many times a day.`,
+            'Binary search', 'The list is already sorted and large, and it is searched often, so halving the list each time is much faster than checking every contact.'],
+        () => [`A list of ${rand(6, 15)} raffle ticket numbers, in no particular order, is searched once to see if a number won.`,
+            'Linear search', 'The list is short and unsorted. Sorting it first just to search once would take longer than a linear search.'],
+        () => [`A leaderboard of ${rand(20, 100)} scores is already in order. One new score has to be added in the right place.`,
+            'Insertion sort', 'The list is nearly sorted, so only the new score needs to move. Insertion sort is very quick on nearly sorted data.'],
+        () => [`A bank's server sorts ${pick(['500,000', '2 million', '10 million'])} transactions every night. It has plenty of memory.`,
+            'Merge sort', 'The list is very large. Merge sort is much faster than bubble or insertion sort on large lists, and there is enough memory for its sub-lists.'],
+        () => [`A smart thermostat (an embedded system with very little memory) sorts its last ${rand(8, 20)} temperature readings.`,
+            'Insertion sort (or bubble sort)', 'The list is small and memory is tight. Both sort in place, so they need no extra memory, unlike merge sort.'],
+        () => [`A teacher wants to show a class the simplest sorting algorithm, using ${rand(5, 8)} cards.`,
+            'Bubble sort', 'It is the easiest to understand and trace: compare two neighbours and swap if they are the wrong way round.'],
+        () => [`A shop's list of ${big(rand(3000, 9000))} stock items arrives unsorted. It will then be searched thousands of times a day.`,
+            'Merge sort, then binary search', 'Sort it once with merge sort (fast on a large list), then every search can use binary search. The cost of sorting is paid only once.'],
+        () => [`A sensor sends readings one at a time, and the list must stay in order as each one arrives.`,
+            'Insertion sort', 'Insertion sort can place each new item into the already sorted list as it arrives.'],
+        () => [`A list of ${big(rand(50000, 90000))} unsorted customer IDs is searched once to check whether one ID exists.`,
+            'Linear search', 'It is only searched once. Sorting the list first would take longer than one linear search through it.'],
+        () => [`A program receives a list of ${rand(10, 40)} numbers that is usually already sorted, and must sort it if it isn't.`,
+            'Bubble sort or insertion sort', 'On an already sorted list, both finish after n − 1 comparisons: bubble sort makes one pass with no swaps and stops.']
+    ];
+
+    /* ---------- Question types for each algorithm ---------- */
+
+    function linearSetup() {
+        const words = Math.random() < 0.4;
+        const list = words ? shuffle(TOWNS).slice(0, settings.size) : randomList(settings.size);
+        let target;
+        if (Math.random() < 0.8) target = pick(list);
+        else target = words ? pick(TOWNS.filter(t => !list.includes(t))) : missingFrom(list, 60);
+        return { list, target };
+    }
+
+    function binarySetup() {
+        const list = sortedList(binarySize());
+        const target = Math.random() < 0.75 ? pick(list) : missingFrom(list, list[list.length - 1] + 5);
+        return { list, target };
+    }
+
+    function binaryTable(r) {
+        const rows = r.steps.map((s, k) => [k + 1, s.low, s.high, s.mid, s.v, s.action]);
+        if (r.index === -1) rows.push([r.steps.length + 1, r.low, r.high, '', '', 'low &gt; high, so stop: return -1']);
+        return table(['Step', 'low', 'high', 'mid', 'items[mid]', 'Action'], rows);
+    }
+
+    function bubbleSetup(minPasses = 2) {
+        let list;
+        let passes;
+        do {
+            list = randomList(settings.size, 40);
+            passes = bubbleTrace(list);
+        } while (passes.length < minPasses);
+        return { list, passes };
+    }
+
+    function mergePair() {
+        const values = randomList(rand(4, 7), 40);
+        const cut = rand(2, values.length - 2);
+        return [values.slice(0, cut).sort((x, y) => x - y), values.slice(cut).sort((x, y) => x - y)];
+    }
+
+    const QUESTIONS = {
+        linear: [
+            { label: 'Count the comparisons', make() {
+                const { list, target } = linearSetup();
+                const r = linearTrace(list, target);
+                const working = r.steps.map(s => `${py(s.value)}: ${s.hit ? '<b>match</b>' : 'no'}`).join(' &rarr; ');
+                return {
+                    q: `<p>A linear search looks for <b>${py(target)}</b> in ${code(fmt(list))}. How many comparisons does it make?</p>`,
+                    a: `<p><b>${plural(r.comparisons, 'comparison')}</b></p><p>${working}</p>`
+                        + (r.index === -1 ? `<p>${py(target)} isn't in the list, so every item is checked. That's the worst case.</p>` : '')
+                };
+            } },
+            { label: 'What does it return?', make() {
+                const { list, target } = linearSetup();
+                const r = linearTrace(list, target);
+                return {
+                    q: `<p>Using <code>linear_search</code>, what does this print?</p><pre>${esc(`print(linear_search(${fmt(list)}, ${py(target)}))`)}</pre>`,
+                    a: r.index === -1
+                        ? `<p><b>-1</b></p><p>${py(target)} isn't in the list, so the loop ends without returning, and the function returns -1.</p>`
+                        : `<p><b>${r.index}</b></p><p>${py(target)} is item number ${r.index + 1}, but indexes start at 0, so its index is ${r.index}.</p>`
+                };
+            } },
+            { label: 'Trace table', make() {
+                const { list, target } = linearSetup();
+                const r = linearTrace(list, target);
+                const rows = r.steps.map(s => [s.i, py(s.value), s.hit ? 'True' : 'False']);
+                return {
+                    q: `<p>Complete a trace table for <code>linear_search(${esc(fmt(list))}, ${esc(py(target))})</code>, with columns <code>i</code>, <code>items[i]</code> and <code>items[i] == target</code>. What is returned?</p>`,
+                    a: table(['i', 'items[i]', 'items[i] == target'], rows) + `<p>Returns <b>${r.index}</b>.</p>`
+                };
+            } },
+            { label: 'Best and worst case', make() {
+                const n = pick([8, 20, 50, 100, 250, 1000, 5000, 12000]);
+                return {
+                    q: `<p>A linear search is used on an unsorted list of <b>${big(n)}</b> items. What is the best case and the worst case number of comparisons? When does each happen?</p>`,
+                    a: `<p><b>Best case: 1</b> comparison, when the target is the first item.</p><p><b>Worst case: ${big(n)}</b> comparisons, when the target is the last item or isn't in the list.</p><p>On average it checks about half the list: around ${big(Math.ceil(n / 2))}.</p>`
+                };
+            } }
+        ],
+
+        binary: [
+            { label: 'Trace low, high and mid', make() {
+                const { list, target } = binarySetup();
+                const r = binaryTrace(list, target);
+                return {
+                    q: `<p>Show the values of <code>low</code>, <code>high</code> and <code>mid</code> at each step of a binary search for <b>${target}</b> in:</p><pre>${esc(fmt(list))}</pre>`,
+                    a: binaryTable(r) + `<p>Returns <b>${r.index}</b>.</p>`
+                };
+            } },
+            { label: 'Binary vs linear comparisons', make() {
+                const { list, target } = binarySetup();
+                const r = binaryTrace(list, target);
+                const lin = linearTrace(list, target);
+                return {
+                    q: `<p>How many comparisons does a binary search need to look for <b>${target}</b> in the list below? How many would a linear search need?</p><pre>${esc(fmt(list))}</pre>`,
+                    a: `<p>Binary search: <b>${plural(r.steps.length, 'comparison')}</b> (items checked: ${r.steps.map(s => s.v).join(', ')}).</p><p>Linear search: <b>${plural(lin.comparisons, 'comparison')}</b>.</p>`
+                };
+            } },
+            { label: 'First item checked', make() {
+                const list = sortedList(binarySize() + pick([-1, 0, 1]));
+                const mid = Math.floor((list.length - 1) / 2);
+                return {
+                    q: `<p>A binary search is carried out on this list. Which index and value does it check first?</p><pre>${esc(fmt(list))}</pre>`,
+                    a: `<p>low = 0 and high = ${list.length - 1}, so mid = (0 + ${list.length - 1}) // 2 = <b>${mid}</b>.</p><p>It checks <b>items[${mid}] = ${list[mid]}</b> first.</p>`
+                };
+            } },
+            { label: 'What does it return?', make() {
+                const { list, target } = binarySetup();
+                const r = binaryTrace(list, target);
+                return {
+                    q: `<p>Using <code>binary_search</code>, what does this print?</p><pre>${esc(`print(binary_search(${fmt(list)}, ${target}))`)}</pre>`,
+                    a: `<p><b>${r.index}</b></p>` + binaryTable(r)
+                };
+            } },
+            { label: 'Most comparisons for n items', make() {
+                const n = pick([7, 15, 16, 31, 50, 100, 128, 500, 1000, 1024, 4000, 10000, 1000000]);
+                const seq = halvings(n);
+                return {
+                    q: `<p>What is the largest number of comparisons a binary search could need to search a sorted list of <b>${big(n)}</b> items? How does this compare with a linear search?</p>`,
+                    a: `<p><b>${seq.length}</b> comparisons.</p><p>Each comparison that misses roughly halves what's left: ${seq.map(big).join(' &rarr; ')}. That's ${seq.length} items checked at most.</p><p>A linear search could need all <b>${big(n)}</b>.</p>`
+                };
+            } },
+            { label: 'Can it be used here?', make() {
+                const sorted = Math.random() < 0.5;
+                const list = sorted ? sortedList(settings.size + 2) : shuffle(sortedList(settings.size + 2));
+                const reallySorted = list.every((v, i) => i === 0 || list[i - 1] <= v);
+                return {
+                    q: `<p>Can a binary search be used on this list straight away? Explain your answer.</p><pre>${esc(fmt(list))}</pre>`,
+                    a: reallySorted
+                        ? '<p><b>Yes.</b> The list is in ascending order, which binary search needs.</p>'
+                        : '<p><b>No.</b> The list isn\'t sorted. Binary search discards half the list depending on whether the target is bigger or smaller than the middle item, which only works on sorted data. Sort it first, or use a linear search.</p>'
+                };
+            } }
+        ],
+
+        bubble: [
+            { label: 'List after the first pass', make() {
+                const { list, passes } = bubbleSetup();
+                return {
+                    q: `<p>Show the list after the <b>first pass</b> of a bubble sort on:</p><pre>${esc(fmt(list))}</pre>`,
+                    a: `<p><b>${spaced(passes[0].after)}</b></p><p>${passes[0].comps.join(' &middot; ')}</p>`
+                };
+            } },
+            { label: 'Swaps in the first pass', make() {
+                const { list, passes } = bubbleSetup();
+                return {
+                    q: `<p>How many swaps are made in the <b>first pass</b> of a bubble sort on ${code(fmt(list))}?</p>`,
+                    a: `<p><b>${plural(passes[0].swaps, 'swap')}</b></p><p>${passes[0].comps.join(' &middot; ')}</p><p>List after pass 1: ${spaced(passes[0].after)}</p>`
+                };
+            } },
+            { label: 'List after pass k', make() {
+                const { list, passes } = bubbleSetup(3);
+                const k = rand(2, passes.length - 1);
+                return {
+                    q: `<p>Show the list after <b>pass ${k}</b> of a bubble sort on:</p><pre>${esc(fmt(list))}</pre>`,
+                    a: `<p><b>${spaced(passes[k - 1].after)}</b></p>` + table(['After pass', 'List'], passes.slice(0, k).map((p, i) => [i + 1, spaced(p.after)]))
+                };
+            } },
+            { label: 'Every pass', make() {
+                const { list, passes } = bubbleSetup();
+                const rows = [['Start', spaced(list), '']].concat(passes.map((p, i) => [i + 1, spaced(p.after), p.swaps === 0 ? '0, so stop' : p.swaps]));
+                return {
+                    q: `<p>Show the list after each pass of a bubble sort on ${code(fmt(list))}. How many passes are needed?</p>`,
+                    a: table(['After pass', 'List', 'Swaps'], rows) + `<p><b>${passes.length} passes</b>. The last pass makes no swaps, which is how the algorithm knows the list is sorted.</p>`
+                };
+            } },
+            { label: 'Total comparisons', make() {
+                const { list, passes } = bubbleSetup();
+                const counts = passes.map(p => p.comps.length);
+                const total = counts.reduce((x, y) => x + y, 0);
+                return {
+                    q: `<p>Using the <code>bubble_sort</code> function in the notes above (each pass stops before the sorted end of the list), how many comparisons are made in total when sorting ${code(fmt(list))}?</p>`,
+                    a: `<p><b>${total}</b></p>` + table(['Pass', 'Comparisons', 'List after'], passes.map((p, i) => [i + 1, counts[i], spaced(p.after)]))
+                };
+            } }
+        ],
+
+        insertion: [
+            { label: 'Every insertion', make() {
+                const list = randomList(settings.size, 40);
+                const steps = insertionTrace(list);
+                const rows = [['Start', boldPart(list, 1)]].concat(steps.map(s => [s.current, boldPart(s.after, s.i + 1)]));
+                return {
+                    q: `<p>Show the list after each item is inserted in an insertion sort on:</p><pre>${esc(fmt(list))}</pre>`,
+                    a: table(['Insert', 'List afterwards (sorted part in bold)'], rows)
+                };
+            } },
+            { label: 'List after k insertions', make() {
+                const list = randomList(settings.size, 40);
+                const steps = insertionTrace(list);
+                const k = rand(2, steps.length - 1);
+                return {
+                    q: `<p>An insertion sort is used on ${code(fmt(list))}. Show the list after the first <b>${k}</b> items have been inserted (the first item doesn't count: it starts as the sorted part).</p>`,
+                    a: `<p><b>${spaced(steps[k - 1].after)}</b></p>` + table(['Insert', 'List afterwards'], steps.slice(0, k).map(s => [s.current, boldPart(s.after, s.i + 1)]))
+                };
+            } },
+            { label: 'Insert the next item', make() {
+                const list = randomList(settings.size, 40);
+                const steps = insertionTrace(list);
+                const s = pick(steps.slice(1));
+                return {
+                    q: `<p>Part way through an insertion sort, the list is <b>${spaced(s.before.slice(0, s.i))}</b> | ${spaced(s.before.slice(s.i))}</p><p>The part before the | line is sorted. Insert the next item, <b>${s.current}</b>. How many items move one place right, and what is the list afterwards?</p>`,
+                    a: `<p><b>${plural(s.shifts, 'item')}</b> move${s.shifts === 1 ? 's' : ''} right${s.shifts ? ': ' + s.before.slice(s.pos, s.i).join(', ') : ''}.</p><p>${s.current} goes in at index ${s.pos}: <b>${spaced(s.after)}</b></p>`
+                };
+            } },
+            { label: 'Total moves', make() {
+                const list = randomList(settings.size, 40);
+                const steps = insertionTrace(list);
+                const total = steps.reduce((t, s) => t + s.shifts, 0);
+                return {
+                    q: `<p>In an insertion sort of ${code(fmt(list))}, how many times does an item move one place to the right in total?</p>`,
+                    a: `<p><b>${total}</b></p>` + table(['Insert', 'Moves right', 'List afterwards'], steps.map(s => [s.current, s.shifts, spaced(s.after)]))
+                };
+            } }
+        ],
+
+        merge: [
+            { label: 'Split into single items', make() {
+                const list = randomList(settings.size, 90);
+                const { split } = mergeStages(list);
+                return {
+                    q: `<p>Show how a merge sort splits this list until every list has one item:</p><pre>${esc(fmt(list))}</pre>`,
+                    a: table(['Stage', 'Lists'], split.map(g => ['Split', groupText(g)])) + `<p>${plural(split.length, 'split stage')}.</p>`
+                };
+            } },
+            { label: 'Merge back together', make() {
+                const list = randomList(settings.size, 90);
+                const { split, merge } = mergeStages(list);
+                return {
+                    q: `<p>A merge sort has split ${code(fmt(list))} into single items:</p><pre>${groupText(split[split.length - 1])}</pre><p>Show each merge stage until the list is sorted.</p>`,
+                    a: table(['Stage', 'Lists'], merge.map(g => ['Merge', groupText(g)]))
+                };
+            } },
+            { label: 'Merge two sorted lists', make() {
+                const [left, right] = mergePair();
+                const r = mergeTwo(left, right);
+                return {
+                    q: `<p>Merge these two sorted lists into one sorted list. How many comparisons are needed?</p><pre>left  = ${esc(fmt(left))}\nright = ${esc(fmt(right))}</pre>`,
+                    a: `<p><b>${spaced(r.merged)}</b> with <b>${plural(r.comparisons, 'comparison')}</b>.</p><p>${r.steps.join(' &middot; ')}</p><p>Then one list is empty, so the rest (${r.rest.join(', ')}) is added without comparing.</p>`
+                };
+            } },
+            { label: 'Full merge sort', make() {
+                const list = randomList(Math.max(5, settings.size - 1), 90);
+                const { split, merge } = mergeStages(list);
+                const rows = [['Start', groupText([list])]].concat(split.map(g => ['Split', groupText(g)]), merge.map(g => ['Merge', groupText(g)]));
+                return {
+                    q: `<p>Show every stage of a merge sort on:</p><pre>${esc(fmt(list))}</pre>`,
+                    a: table(['Stage', 'Lists'], rows)
+                };
+            } }
+        ],
+
+        mixed: [
+            { label: 'Which algorithm suits?', make() {
+                const [scenario, best, why] = pick(SCENARIOS)();
+                return {
+                    q: `<p>${scenario}</p><p>Which algorithm is most suitable? Justify your choice.</p>`,
+                    a: `<p><b>${best}</b></p><p>${why}</p>`
+                };
+            } },
+            { label: 'Name the algorithm', make() {
+                const algo = pick(Object.keys(CODE));
+                const src = CODE[algo].replace(/^def \w+\(/, 'def mystery(').replace(/merge_sort\(/g, 'mystery(');
+                return {
+                    q: `<p>Which algorithm does this function carry out? Give a reason.</p>${numbered(src)}`,
+                    a: `<p><b>${NAMES[algo]}</b></p><p>${CLUES[algo]}</p>`
+                };
+            } },
+            { label: 'Spot the error', make() {
+                const bug = pick(BUGS);
+                const lines = CODE[bug.algo].split('\n');
+                const at = lines.indexOf(bug.from);
+                lines[at] = bug.to;
+                return {
+                    q: `<p>This function should ${TASK[bug.algo]}. It contains <b>one</b> error. Give the line number and write the corrected line.</p>${numbered(lines.join('\n'))}`,
+                    a: `<p><b>Line ${at + 1}</b> should be ${code(bug.from.trim())}</p><p>${bug.why}</p>`
+                };
+            } },
+            { label: 'Linear vs binary: worst case', make() {
+                const n = pick([10, 25, 64, 100, 300, 1000, 2000, 50000, 100000, 1000000]);
+                const seq = halvings(n);
+                return {
+                    q: `<p>A sorted list has <b>${big(n)}</b> items. What is the worst case number of comparisons for a linear search, and for a binary search?</p>`,
+                    a: `<p>Linear search: <b>${big(n)}</b>. Binary search: <b>${seq.length}</b>.</p><p>Binary search halves what's left each time: ${seq.map(big).join(' &rarr; ')}.</p>`
+                };
+            } }
+        ]
+    };
+
+    const GROUP_NAMES = Object.assign({ mixed: 'Choosing and code questions' }, NAMES);
+
+    /* ==========================================================
+       1. Stepper: steps for each algorithm, shown as cells
+       ========================================================== */
+
+    const STEPS = {
+        linear(list, target) {
+            const out = [{ a: list, hi: [], note: `Look for ${target}, starting at the first item.` }];
+            for (let i = 0; i < list.length; i++) {
+                if (list[i] === target) {
+                    out.push({ a: list, hi: [], found: i, out: i, note: `Comparison ${i + 1}: ${list[i]} = ${target}. Found at index ${i}.` });
+                    return out;
+                }
+                out.push({ a: list, hi: [i], out: i, note: `Comparison ${i + 1}: ${list[i]} isn't ${target}, so move on.` });
+            }
+            out.push({ a: list, hi: [], out: list.length, note: `Reached the end after ${list.length} comparisons: ${target} isn't there, so return -1.` });
+            return out;
+        },
+        binary(list, target) {
+            const a = [...list].sort((x, y) => x - y);
+            const sortedNote = a.join() === list.join() ? '' : ' (The list was sorted first: binary search needs sorted data.)';
+            const out = [{ a, hi: [], low: 0, high: a.length - 1, note: `Look for ${target}. low = 0, high = ${a.length - 1}.${sortedNote}` }];
+            let low = 0;
+            let high = a.length - 1;
+            let count = 0;
+            while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                count++;
+                if (a[mid] === target) {
+                    out.push({ a, hi: [], found: mid, low, high, note: `Comparison ${count}: mid = (${low} + ${high}) // 2 = ${mid}. items[${mid}] = ${a[mid]}: found!` });
+                    return out;
+                }
+                const smaller = target < a[mid];
+                out.push({ a, hi: [mid], low, high, note: `Comparison ${count}: mid = (${low} + ${high}) // 2 = ${mid}, items[${mid}] = ${a[mid]}. ${target} is ${smaller ? `smaller, so high = ${mid - 1}` : `bigger, so low = ${mid + 1}`}.` });
+                if (smaller) high = mid - 1;
+                else low = mid + 1;
+            }
+            out.push({ a, hi: [], low, high, note: `low (${low}) is now bigger than high (${high}): nothing left to check, so return -1.` });
+            return out;
+        },
+        bubble(list) {
+            const a = [...list];
+            const out = [{ a: [...a], hi: [], fixed: a.length, note: 'Start. Press Step to compare the first pair.' }];
+            let n = a.length;
+            let swapped = true;
+            let pass = 0;
+            while (swapped) {
+                swapped = false;
+                pass++;
+                for (let i = 0; i < n - 1; i++) {
+                    const x = a[i];
+                    const y = a[i + 1];
+                    const swap = x > y;
+                    if (swap) {
+                        [a[i], a[i + 1]] = [a[i + 1], a[i]];
+                        swapped = true;
+                    }
+                    out.push({ a: [...a], hi: [i, i + 1], fixed: n, note: `Pass ${pass}: compare ${x} and ${y}: ${swap ? 'wrong order, swap' : 'right order, no swap'}.` });
+                }
+                n--;
+                out.push({ a: [...a], hi: [], fixed: swapped ? n : 0, note: `End of pass ${pass}: ${swapped ? 'swaps were made, so do another pass.' : 'no swaps, so the list is sorted.'}` });
+            }
+            return out;
+        },
+        insertion(list) {
+            const a = [...list];
+            const out = [{ a: [...a], hi: [], sorted: 1, note: 'Start. The first item is a sorted list of one.' }];
+            for (let i = 1; i < a.length; i++) {
+                const current = a[i];
+                let j = i - 1;
+                out.push({ a: [...a], hi: [i], sorted: i, note: `Take ${current} and find where it belongs in the sorted part.` });
+                while (j >= 0 && a[j] > current) {
+                    a[j + 1] = a[j];
+                    out.push({ a: [...a], hi: [j, j + 1], sorted: i, note: `${a[j]} is bigger than ${current}, so move ${a[j]} one place right.` });
+                    j--;
+                }
+                a[j + 1] = current;
+                out.push({ a: [...a], hi: [j + 1], sorted: i + 1, note: `Insert ${current} at index ${j + 1}.` });
+            }
+            out.push({ a: [...a], hi: [], sorted: a.length, fixed: 0, note: 'Every item has been inserted: sorted.' });
+            return out;
+        },
+        merge(list) {
+            const { split, merge } = mergeStages(list);
+            const out = [{ groups: [list], note: 'Start with the whole list.' }];
+            split.forEach((g, k) => out.push({ groups: g, note: k === split.length - 1 ? 'Every list now has one item. A list of one is already sorted.' : 'Split each list in half (mid = len(items) // 2, so the right half gets any extra item).' }));
+            merge.forEach((g, k) => out.push({ groups: g, merging: true, note: k === merge.length - 1 ? 'One list left: sorted.' : 'Merge pairs of lists: compare the front items and take the smaller each time.' }));
+            return out;
+        }
+    };
+
+    // The worked examples from the notes, so the stepper matches what's written above it
+    const EXAMPLE_LISTS = {
+        linear: ['5, 1, 4, 2, 8', '4'],
+        binary: ['3, 8, 12, 19, 25, 31, 40, 47, 52', '40'],
+        bubble: ['5, 1, 4, 2, 8', ''],
+        insertion: ['7, 3, 9, 1, 5', ''],
+        merge: ['38, 27, 43, 3, 9, 82, 10', '']
+    };
+
+    function make(tag, className, text) {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (text !== undefined) el.textContent = text;
+        return el;
+    }
+
+    function buildStepper() {
+        const algoSelect = document.getElementById('viz-algo');
+        if (!algoSelect) return;
+        const listIn = document.getElementById('viz-list');
+        const targetIn = document.getElementById('viz-target');
+        const targetLabel = document.getElementById('viz-target-label');
+        const row = document.getElementById('viz-row');
+        const note = document.getElementById('viz-note');
+        const count = document.getElementById('viz-count');
+        let steps = [];
+        let pos = 0;
+
+        function reset() {
+            const algo = algoSelect.value;
+            targetLabel.hidden = !(algo === 'linear' || algo === 'binary');
+            const list = listIn.value.split(',').map(s => s.trim()).filter(Boolean).map(Number).filter(n => !Number.isNaN(n)).slice(0, 14);
+            steps = list.length
+                ? STEPS[algo](list, Number(targetIn.value))
+                : [{ a: [], hi: [], note: 'Type some numbers separated by commas.' }];
+            pos = 0;
+            draw();
+        }
+
+        function cell(value) {
+            return make('span', 'viz-cell', String(value));
+        }
+
+        function draw() {
+            const s = steps[pos];
+            row.replaceChildren();
+            if (s.groups) {
+                s.groups.forEach(g => {
+                    const box = make('span', 'viz-group' + (s.merging && g.length > 1 ? ' merged' : ''));
+                    g.forEach(v => box.appendChild(cell(v)));
+                    row.appendChild(box);
+                });
+            } else {
+                s.a.forEach((v, i) => {
+                    const c = cell(v);
+                    if (s.hi.includes(i)) c.classList.add('hi');
+                    if (s.fixed !== undefined && i >= s.fixed) c.classList.add('fixed');
+                    if (s.sorted !== undefined && i < s.sorted) c.classList.add('part');
+                    if (s.found === i) c.classList.add('fixed');
+                    if (s.out !== undefined && i < s.out && !s.hi.includes(i) && s.found !== i) c.classList.add('out');
+                    if (s.low !== undefined && (i < s.low || i > s.high) && s.found !== i) c.classList.add('out');
+                    row.appendChild(c);
+                });
+            }
+            note.textContent = s.note;
+            count.textContent = `Step ${pos + 1} / ${steps.length}`;
+        }
+
+        function randomise() {
+            const algo = algoSelect.value;
+            const list = algo === 'binary' ? sortedList(9) : randomList(algo === 'merge' ? 7 : 6, algo === 'merge' ? 90 : 40);
+            listIn.value = list.join(', ');
+            targetIn.value = Math.random() < 0.8 ? pick(list) : missingFrom(list, 60);
+            reset();
+        }
+
+        // Switching algorithm swaps in its worked example, unless you've typed your own list
+        algoSelect.addEventListener('change', () => {
+            const isExample = Object.values(EXAMPLE_LISTS).some(([list]) => list === listIn.value);
+            if (isExample) {
+                const [list, target] = EXAMPLE_LISTS[algoSelect.value];
+                listIn.value = list;
+                if (target) targetIn.value = target;
+            }
+            reset();
+        });
+        document.getElementById('viz-step').addEventListener('click', () => { if (pos < steps.length - 1) pos++; draw(); });
+        document.getElementById('viz-back').addEventListener('click', () => { if (pos > 0) pos--; draw(); });
+        document.getElementById('viz-reset').addEventListener('click', reset);
+        document.getElementById('viz-random').addEventListener('click', randomise);
+        listIn.addEventListener('change', reset);
+        targetIn.addEventListener('change', reset);
+        reset();
+    }
+
+    /* ==========================================================
+       2. Practice questions
+       ========================================================== */
+
+    function buildPractice() {
+        const box = document.getElementById('algo-practice-box');
+        if (!box) return;
+
+        box.innerHTML = `
+            <div class="button-row">
+                <label>Algorithm
+                    <select class="quiz-select" id="ap-algo">
+                        <option value="">Any</option>
+                        ${Object.keys(QUESTIONS).map(k => `<option value="${k}">${GROUP_NAMES[k]}</option>`).join('')}
+                    </select>
+                </label>
+                <label>Question type <select class="quiz-select" id="ap-type"></select></label>
+                <label>List length
+                    <select class="quiz-select" id="ap-size">
+                        <option value="5">Short (5 items)</option>
+                        <option value="7" selected>Medium (7 items)</option>
+                        <option value="9">Long (9 items)</option>
+                    </select>
+                </label>
+            </div>
+            <p class="ap-from" id="ap-from"></p>
+            <div class="ap-question" id="ap-question"></div>
+            <div class="button-row">
+                <button type="button" class="button" id="ap-show">Show answer</button>
+                <button type="button" class="button" id="ap-new">New question ▶</button>
+                <span class="flashcard-count" id="ap-count"></span>
+            </div>
+            <div class="box worked ap-answer" id="ap-answer" hidden></div>
+            <div class="button-row ap-print">
+                <button type="button" class="button" id="ap-print">Print a worksheet</button>
+                <span>12 random questions, with the answers on a separate page.</span>
+            </div>`;
+
+        const algoSelect = box.querySelector('#ap-algo');
+        const typeSelect = box.querySelector('#ap-type');
+        const from = box.querySelector('#ap-from');
+        const question = box.querySelector('#ap-question');
+        const answer = box.querySelector('#ap-answer');
+        const showButton = box.querySelector('#ap-show');
+        const counter = box.querySelector('#ap-count');
+        let asked = 0;
+
+        function fillTypes() {
+            const types = QUESTIONS[algoSelect.value];
+            typeSelect.innerHTML = '<option value="">Any type</option>'
+                + (types ? types.map((t, i) => `<option value="${i}">${t.label}</option>`).join('') : '');
+            typeSelect.disabled = !types;
+        }
+
+        function next() {
+            const group = algoSelect.value || pick(Object.keys(QUESTIONS));
+            const types = QUESTIONS[group];
+            const type = typeSelect.value === '' ? pick(types) : types[Number(typeSelect.value)];
+            const { q, a } = type.make();
+            asked++;
+            from.textContent = `${GROUP_NAMES[group]} · ${type.label}`;
+            question.innerHTML = q;
+            answer.innerHTML = a;
+            answer.hidden = true;
+            showButton.textContent = 'Show answer';
+            counter.textContent = `Question ${asked}`;
+        }
+
+        showButton.addEventListener('click', () => {
+            answer.hidden = !answer.hidden;
+            showButton.textContent = answer.hidden ? 'Show answer' : 'Hide answer';
+        });
+        box.querySelector('#ap-new').addEventListener('click', next);
+        algoSelect.addEventListener('change', () => { fillTypes(); next(); });
+        typeSelect.addEventListener('change', next);
+        box.querySelector('#ap-size').addEventListener('change', event => {
+            settings.size = Number(event.target.value);
+            next();
+        });
+        box.querySelector('#ap-print').addEventListener('click', printWorksheet);
+
+        fillTypes();
+        next();
+    }
+
+    /* ==========================================================
+       3. Worksheet: two questions per algorithm and two mixed,
+          with the answers on a separate page
+       ========================================================== */
+
+    function printWorksheet() {
+        const items = [];
+        Object.keys(NAMES).forEach(algo => {
+            shuffle(QUESTIONS[algo]).slice(0, 2).forEach(t => items.push({ group: algo, ...t.make() }));
+        });
+        shuffle(QUESTIONS.mixed).slice(0, 2).forEach(t => items.push({ group: 'mixed', ...t.make() }));
+
+        let sheet = document.getElementById('worksheet');
+        if (!sheet) {
+            sheet = make('div');
+            sheet.id = 'worksheet';
+            document.body.appendChild(sheet);
+        }
+        sheet.innerHTML = `
+            <h1>2.11 Common algorithms: practice questions</h1>
+            <p>Name: ______________________________ &nbsp; Date: ______________</p>
+            <ol>${items.map(it => `<li class="ws-q"><p class="ap-from">${GROUP_NAMES[it.group]}</p>${it.q}<div class="ws-space"></div></li>`).join('')}</ol>
+            <h2 class="ws-answers">Answers</h2>
+            <ol>${items.map(it => `<li class="ws-a">${it.a}</li>`).join('')}</ol>`;
+        document.body.classList.add('printing-ws');
+        window.print();
+    }
+
+    window.addEventListener('afterprint', () => document.body.classList.remove('printing-ws'));
+
+    buildStepper();
+    buildPractice();
+})();
