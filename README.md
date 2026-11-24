@@ -45,6 +45,7 @@ revision/             Core Revision Guide pages, plus the shared guide engine:
   revision.js         Checklists, flashcards, mark schemes, mocks, search...
   debug-challenges.js The debugging tasks, including the practice ESP code tasks
   practice.js         Question generators for the endless practice page
+  arithmetic.js       Arithmetic operator questions and step-by-step working (arithmetic.html)
 gcse/                 GCSE Computer Science Revision Guide
   guide.js            Settings for the engine: pages, timers, summary form (load first)
   gcse.css            Topic colours, on top of ../revision/revision.css

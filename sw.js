@@ -3,7 +3,7 @@
 // It saves pages and files, not anyone's progress (that stays in localStorage).
 //
 // Change the version when you change the list below.
-const cacheName = 'site-v7';
+const cacheName = 'site-v8';
 
 // The pages come from sitemap.xml, so new pages are included automatically.
 // These are the files those pages need.
@@ -11,7 +11,7 @@ const files = [
     'index.html', 'css/style.css', 'favicon.svg', 'manifest.webmanifest',
     'js/analytics.js', 'js/site-info.js', 'js/season.js', 'js/countdown.js', 'js/dates.js', 'js/demos.js',
     'js/question-bank.js', 'js/questions.js', 'js/windows.js',
-    'revision/revision.css', 'revision/revision.js', 'revision/debug-challenges.js', 'revision/practice.js', 'revision/algorithms.js',
+    'revision/revision.css', 'revision/revision.js', 'revision/debug-challenges.js', 'revision/practice.js', 'revision/arithmetic.js', 'revision/algorithms.js',
     'gcse/gcse.css', 'gcse/guide.js', 'gcse/questions.js',
     'pages/report.html', 'pages/search.html'
 ];
